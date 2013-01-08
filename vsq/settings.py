@@ -1,7 +1,10 @@
 # Django settings for vsq project.
+import django.conf.global_settings as DEFAULT_SETTINGS
+import os
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 ADMINS = (
 #    ('Nome Cognome', 'nome@dominio.it),
@@ -106,7 +109,8 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-)
+    os.path.join(PROJECT_ROOT, 'templates'),
+    )
 
 INSTALLED_APPS = (
     'django.contrib.auth',
