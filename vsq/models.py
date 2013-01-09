@@ -32,6 +32,10 @@ class Domanda(models.Model):
             self.approfondimento_html = markdown(self.approfondimento)
         super(Domanda, self).save(*args, **kwargs)
 
+    @classmethod
+    def get_domande(self):
+        return Domanda.objects.all()
+
     def __unicode__(self):
         return self.slug
 
@@ -131,6 +135,13 @@ class RispostaPartito(models.Model):
 
     class Meta:
         verbose_name_plural = "Risposte partito"
+
+    @classmethod
+    def get_tipo_risposta(cls):
+        risposte=[]
+        for tr in RispostaPartito.TIPO_RISPOSTA:
+            risposte.append(tr[1])
+        return risposte
 
 
 class RispostaUtente(models.Model):
