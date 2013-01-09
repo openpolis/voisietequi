@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
-{% block content %}
-    Partito: {{ partito }}
+{% block show-navbar %}
+    hidden
+{% endblock %}
+
+{% block main-title %}
+    Le posizioni della lista {{ nome_lista}}
+{% endblock %}
+
+{% block main-subtitle %}
+    Per ogni tema pu&ograve; scegliere tra le seguenti posizioni:
+    <form method="POST" action=".">
+        {{ form }}
+        <input type=submit>
+    </form>
 {% endblock %}

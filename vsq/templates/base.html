@@ -8,7 +8,6 @@
     <meta name="author" content="" >
 
     <!-- Le styles -->
-    <link href="{{ STATIC_URL }}css/smoothness/jquery-ui-1.9.1.custom.css" rel="stylesheet">
 
     {% block css_header %}
     {% endblock %}
@@ -26,8 +25,7 @@
         <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
 
     {% endif %}
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/leaflet.label.css" />
+
 
     <!--[if lte IE 8]>
      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.ie.css" />
@@ -54,90 +52,35 @@
 <div class="container header">
     <div class="row ">
         <div  id="logo_header" >
-            <div class="span7" id="logo_top">
+            <div class="span10" id="logo_top">
                 <a href="/">
-                    <img src="{{ STATIC_URL }}/img/logo_white.png">
+                    <img src="{{ STATIC_URL }}/img/logo-header.png">
                 </a>
             </div>
-            {% if iban %}
-                <div class="span4" id="appello">
-                    {% block support %}
-                        Aiutaci a ricostruire!<br/>
-                        <div class="iban">
-                            <div class="title">Codice Iban</div>
-                            <div class="number">&nbsp;</div>
-                        </div>
-                        <div class="iban">
-                            <div class="title">Codice Bic Swift (bonifici dall'estero)</div>
-                            <div class="number">&nbsp;</div>
-                        </div>
-                    {% endblock %}
-                </div><!--/span-->
-            {% endif %}
         </div>
     </div>
-</div>
+    <div class="row ">
+        <div class="span10" >
+            <img src="{{ STATIC_URL }}/img/top-spacer.png">
+        </div>
 
+    </div>
+</div>
 <!-- /HEADER-->
+
+
 <!-- NAVBAR-->
-<div id="top_navbar">
+<div id="top_navbar" class="{% block show-navbar %}visible{% endblock %}">
     <div class="container">
         <div class="row" id="">
             <div class="span7" id="navbar-span">
                 <nav class="navbar navbar-custom">
                     <div class="navbar-inner-custom ">
                         <ul class="nav">
-                            <li class="dropdown ">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Progetti <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    {% for t in tipologie_progetti %}
-                                        <li class="submenu">
-                                            <a href="">{{ t.denominazione }}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                            <li class="dropdown ">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Donazioni <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li class="submenu">
-                                        <a href="">Riepilogo</a>
-                                    </li>
-                                    {% for t in tipologie_donazioni %}
-                                        <li class="submenu">
-                                            <a href="">{{ t.denominazione }}</a>
-                                        </li>
-                                    {% endfor %}
-                                    <li class="submenu">
-                                        <a href="">Tutte le donazioni</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown ">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Comuni <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    {% regroup territori by get_provincia as group %}
-                                    {% for g in group|dictsort:"grouper.denominazione" %}
-                                        <li class="dropdown-submenu">
-                                            <a>
-                                                {{ g.grouper.denominazione|title }}
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                {% for item in g.list|dictsort:"denominazione"%}
-                                                    <li>
-                                                        <a href="">
-                                                            {{ item.denominazione }}
-                                                        </a>
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-
+                            <li>prima voce</li>
+                            <li>seconda voce</li>
+                            <li>terza voce</li>
                         </ul>
-
                     </div>
                 </nav>
             </div> <!--/navbar-span -->
@@ -148,13 +91,19 @@
 <!-- /NAVBAR-->
 
 <div class="container content ">
-    <div class="row {% block show-content %}{% endblock %}">
-       {% block content %}
-       
-       {% endblock %}
+    <div class="row">
+        <div class="span8">
+           {% block main-title %}{% endblock %}
+        </div>
     </div>
-
-
+    <div class="row">
+        <div class="span8">
+            {% block main-subtitle %}{% endblock %}
+        </div>
+        <div class="span4">
+            {% block main-contactbox%}{% endblock %}
+        </div>
+    </div>
 </div><!--/.container-->
 
 
@@ -175,11 +124,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{{ STATIC_URL }}js/jquery.js"></script>
 <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-<script src="{{ STATIC_URL }}js/highcharts.js"></script>
-<script src="{{ STATIC_URL }}js/jquery-ui-1.9.1.custom.min.js" type="text/javascript" ></script>
-<script src="{{ STATIC_URL }}js/utils.js" type="text/javascript" ></script>
-
-
 
 </body>
 </html>
