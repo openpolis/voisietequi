@@ -70,15 +70,20 @@
     <div class="container content ">
         <div class="row">
             <div class="span8">
-                Le posizioni della lista {{ nome_lista}}
+                <p class="partiti_title">
+                    Le posizioni della lista
+                        <span class="lista_name">
+                            {{ nome_lista}}
+                        </span>
+                </p>
             </div>
         </div>
         <div class="row">
             <div class="span8">
                 Per ogni tema pu&ograve; scegliere tra le seguenti posizioni:
-                <ul>
+                <ul class="partiti">
                     {% for a in possible_answers %}
-                        <li>
+                        <li >
                             {{ a }}
                         </li>
                     {% endfor %}
@@ -96,56 +101,75 @@
                         {% if forloop.counter == 1 %}
 {#                            stampa il controllo per il resp.di lista#}
                             <div class="row">
-                                <div class="span6">
+                                <div class="span3 offset7">
                                     {{ f.label_tag }}
                                 </div>
-                                <div class="span6">
+                                <div class="span3 offset7">
                                     {{ f }}
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="span12 spacer"></div>
                             </div>
 
                         {% else %}
                             {% if forloop.counter|divisibleby:2 %}
                                 {#                            stampa l'header della domanda e la select box#}
-                                <div class="row">
-                                    <div class="span6">
-                                        Tema ()
-                                    </div>
-                                    <div class="span6">
-                                        Posizione della lista
-                                    </div>
+                                <div class="row ">
+                                    <table class="partiti table span10">
+                                        <tr>
+                                            <td class="span7 question_header">
+                                                Tema ( {{ f.name|cut:"answer_c["|cut:"]" }} di {{ n_questions }})
+                                            </td>
+                                            <td class="span3 question_header">
+                                                Posizione della lista
+                                            </td>
+
+                                        </tr>
+                                    </table>
                                 </div>
                                 <div class="row">
-                                    <div class="span6">
-                                        {{ f.label_tag }}
-                                    </div>
-                                    <div class="span6">
-                                        {{ f }}
-                                    </div>
+                                    <table class="partiti table span10">
+                                        <tr>
+                                            <td class="span7 question_body">
+                                                {{ f.label_tag }}
+                                            </td>
+                                            <td class="span3 question_body " style="text-align: center;">
+                                                {{ f }}
+                                            </td>
+
+                                        </tr>
+                                    </table>
                                 </div>
 
                             {% else %}
                                 {#                            stampa la label e la textarea#}
                                 <div class="row">
-                                    <div class="span12">
-                                        Se vuole, inserisca un commento. Il commento verr&agrave; pubblicato
-                                        a supporto della posizione indicata.
-                                    </div>
+                                    <table class="partiti table span10">
+                                        <tr>
+                                            <td class="span10 answer_label">
+                                                Se vuole, inserisca un commento. Il commento verr&agrave; pubblicato
+                                                a supporto della posizione indicata.
+                                            </td>
+                                        </tr>
+                                       <tr>
+                                           <td class="span10 answer">
+                                               {{ f }}
+                                           </td>
+                                       </tr>
+                                    </table>
                                 </div>
                                 <div class="row">
-                                    <div class="span12">
-                                        {{ f }}
-                                    </div>
+                                    <div class="span12 spacer"></div>
                                 </div>
 
                             {% endif %}
                         {% endif %}
 
 
-
                     {% endfor %}
 
-                    <input type=submit>
+                    <input type='submit' value='Invia'>
                 </form>
             </div>
         </div>
@@ -158,7 +182,7 @@
         <div id="green-background">
             <div class="container">
                 <div class="row footer">
-                    Footer text
+
                 </div> <!--/row-->
             </div>
         </div>

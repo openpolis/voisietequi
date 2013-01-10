@@ -48,6 +48,7 @@ class QuestionarioPartitiView(TemplateView):
             #            save_answer(request, question, answer)
                 pass
 
+        context['n_questions']=questions.count()
         context['form']=form
         context['possible_answers']=RispostaPartito.get_tipo_risposta()
 

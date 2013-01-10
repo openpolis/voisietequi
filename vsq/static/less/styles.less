@@ -66,8 +66,63 @@ body{
 
 
 div.content{
-  padding-top: @spacing-single;
+
   min-height: 500px;
+
+  .spacer{
+    min-height: @spacing-single;
+    margin-bottom: @spacing-half;
+  }
+
+  .partiti_title{
+    font-size: @medium-size;
+    color:black;
+    margin-bottom: @spacing-single;
+
+    .lista_name{
+      color: @red-color;
+    }
+  }
+  ul.partiti{
+    li{
+      list-style-image: url('../img/red-bullet.png');
+    }
+
+  }
+
+
+
+  table.partiti{
+
+    margin-bottom:0;
+    td{
+      padding-left:0;
+
+      border:0;
+    }
+    .question_header{
+      border: 2px solid @gray-border;
+      text-align: center;
+    }
+    .question_body{
+      background-color: @gray-filling;
+
+      label{
+        font-weight: bold;
+        padding-left: @spacing-half;
+      }
+    }
+    .answer_label{
+      color: @gray-label;
+
+    }
+    .answer{
+      textarea{
+        width: 100%;
+        max-height: 80px;
+      }
+    }
+  }
 }
 
 footer{
