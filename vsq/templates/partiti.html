@@ -1,199 +1,113 @@
-<!DOCTYPE html >
-<html lang="en" >
-<head>
-    <meta charset="utf-8">
-    <title>Voi Siete Qui 2013 - {% block title %} {% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="" >
+{% extends "base_partiti.html" %}
 
-    <!-- Le styles -->
-
-    {% block css_header %}
-    {% endblock %}
-
-
-    {% if TEMPLATE_DEBUG %}
-
-        <link href="{{ STATIC_URL }}less/styles.less" rel="stylesheet/less">
-        <link href="{{ STATIC_URL }}less/styles-responsive.less" rel="stylesheet/less">
-        <script type="text/javascript" src="{{ STATIC_URL }}js/less-1.3.1.min.js"></script>
-
-    {% else %}
-
-        <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
-        <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
-
-    {% endif %}
-
-
-    <!--[if lte IE 8]>
-     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.ie.css" />
-    <![endif]-->
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon-57-precomposed.png">
-
-</head>
-
-<body>
-<div class="wrapper">
-    <!-- HEADER -->
-    <div class="container header">
-        <div class="row ">
-            <div  id="logo_header" >
-                <div class="span10" id="logo_top">
-                    <a href="/">
-                        <img src="{{ STATIC_URL }}/img/logo-header.png">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="row ">
-            <div class="span10" >
-                <img src="{{ STATIC_URL }}/img/top-spacer.png">
-            </div>
-
-        </div>
-    </div>
-    <!-- /HEADER-->
-
-
-    <div class="container content ">
-        <div class="row">
-            <div class="span8">
-                <p class="partiti_title">
-                    Le posizioni della lista
+{% block content %}
+    <div class="row">
+        <div class="span8">
+            <p class="partiti_title">
+                Le posizioni della lista
                         <span class="lista_name">
                             {{ nome_lista}}
                         </span>
-                </p>
-            </div>
+            </p>
         </div>
-        <div class="row">
-            <div class="span8">
-                Per ogni tema pu&ograve; scegliere tra le seguenti posizioni:
-                <ul class="partiti">
-                    {% for a in possible_answers %}
-                        <li >
-                            {{ a }}
-                        </li>
-                    {% endfor %}
-                </ul>
-                e, se desidera, pu&ograve; lasciare un commento.
+    </div>
+    <div class="row">
+        <div class="span8">
+            Per ogni tema pu&ograve; scegliere tra le seguenti posizioni:
+            <ul class="partiti">
+                {% for a in possible_answers %}
+                    <li >
+                        {{ a }}
+                    </li>
+                {% endfor %}
+            </ul>
+            e, se desidera, pu&ograve; lasciare un commento.
 
-            </div>
         </div>
-        <div class="row">
-            <div class="span12">
-                <form method="POST" action=".">
+    </div>
+    <div class="row">
+        <div class="span12">
+            <form method="POST" action=".">{% csrf_token %}
+                {% for f in form %}
 
-                    {% for f in form %}
+                    {% if forloop.counter == 1 %}
+                        {#                            stampa il controllo per il resp.di lista#}
+                        <div class="row">
+                            <div class="span3 offset7">
+                                {{ f.label_tag }}
+                            </div>
+                            <div class="span3 offset7">
+                                {{ f }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span12 spacer"></div>
+                        </div>
 
-                        {% if forloop.counter == 1 %}
-{#                            stampa il controllo per il resp.di lista#}
+                    {% else %}
+                        {% if forloop.counter|divisibleby:2 %}
+                            {#                            stampa l'header della domanda e la select box#}
+                            <div class="row ">
+                                <table class="partiti table span10">
+                                    <tr>
+                                        <td class="span7 question_header">
+                                            Tema ( {{ f.name|cut:"answer_c["|cut:"]" }} di {{ n_questions }})
+                                        </td>
+                                        <td class="span3 question_header">
+                                            Posizione della lista
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </div>
                             <div class="row">
-                                <div class="span3 offset7">
-                                    {{ f.label_tag }}
-                                </div>
-                                <div class="span3 offset7">
-                                    {{ f }}
-                                </div>
+                                <table class="partiti table span10">
+                                    <tr>
+                                        <td class="span7 question_body">
+                                            {{ f.label_tag }}
+                                        </td>
+                                        <td class="span3 question_body " style="text-align: center;">
+                                            {{ f }}
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </div>
+
+                        {% else %}
+                            {#                            stampa la label e la textarea#}
+                            <div class="row">
+                                <table class="partiti table span10">
+                                    <tr>
+                                        <td class="span10 answer_label">
+                                            Se vuole, inserisca un commento. Il commento verr&agrave; pubblicato
+                                            a supporto della posizione indicata.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="span10 answer">
+                                            {{ f }}
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div class="row">
                                 <div class="span12 spacer"></div>
                             </div>
 
-                        {% else %}
-                            {% if forloop.counter|divisibleby:2 %}
-                                {#                            stampa l'header della domanda e la select box#}
-                                <div class="row ">
-                                    <table class="partiti table span10">
-                                        <tr>
-                                            <td class="span7 question_header">
-                                                Tema ( {{ f.name|cut:"answer_c["|cut:"]" }} di {{ n_questions }})
-                                            </td>
-                                            <td class="span3 question_header">
-                                                Posizione della lista
-                                            </td>
-
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="row">
-                                    <table class="partiti table span10">
-                                        <tr>
-                                            <td class="span7 question_body">
-                                                {{ f.label_tag }}
-                                            </td>
-                                            <td class="span3 question_body " style="text-align: center;">
-                                                {{ f }}
-                                            </td>
-
-                                        </tr>
-                                    </table>
-                                </div>
-
-                            {% else %}
-                                {#                            stampa la label e la textarea#}
-                                <div class="row">
-                                    <table class="partiti table span10">
-                                        <tr>
-                                            <td class="span10 answer_label">
-                                                Se vuole, inserisca un commento. Il commento verr&agrave; pubblicato
-                                                a supporto della posizione indicata.
-                                            </td>
-                                        </tr>
-                                       <tr>
-                                           <td class="span10 answer">
-                                               {{ f }}
-                                           </td>
-                                       </tr>
-                                    </table>
-                                </div>
-                                <div class="row">
-                                    <div class="span12 spacer"></div>
-                                </div>
-
-                            {% endif %}
                         {% endif %}
+                    {% endif %}
 
 
-                    {% endfor %}
+                {% endfor %}
 
-                    <input type='submit' value='Invia'>
-                </form>
-            </div>
+                <input type='submit' value='Invia'>
+            </form>
         </div>
+    </div>
 
-    </div><!--/.container-->
+{% endblock %}
 
 
-    <!-- FOOTER -->
-    <footer>
-        <div id="green-background">
-            <div class="container">
-                <div class="row footer">
 
-                </div> <!--/row-->
-            </div>
-        </div>
-    </footer>
-    <!-- /FOOTER -->
-</div>
-<!-- Le javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="{{ STATIC_URL }}js/jquery.js"></script>
-<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
 
-</body>
-</html>

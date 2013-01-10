@@ -99,6 +99,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'vsq.urls'
@@ -130,6 +131,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'south',
     'vsq',
+    'debug_toolbar',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -160,3 +162,14 @@ LOGGING = {
         },
     }
 }
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+#    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+#    'EXTRA_SIGNALS': ['myproject.signals.MySignal'],
+#    'HIDE_DJANGO_SQL': False,
+#    'TAG': 'div',
+#    'ENABLE_STACKTRACES' : True,
+    }
+
+INTERNAL_IPS = ('127.0.0.1',)

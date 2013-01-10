@@ -1,12 +1,39 @@
-{% block show-navbar %}
-    hidden
-{% endblock %}
+{% extends "base_partiti.html" %}
 
 
 {% block content %}
-    Gentile Nome responsabile,
-    la ringraziamo per aver risposto alle domande del questionario e per aver contribuito a questa nuova versione del sito Voi siete qui per le elezioni politiche 2013. Se ha necessità di mettersi in contatto con noi può scriverci a questo indirizzo associazione@openpolis.it o chiamarci allo 06.83608392
+    <div class="row">
+        <div class="span8">
+            <p class="">
+                Gentile {{ nome_responsabile }},
+                la ringraziamo per aver risposto alle domande del questionario e per aver contribuito a questa nuova versione del sito
+                <strong>Voi siete qui</strong> per le elezioni politiche 2013.
+                Se ha necessità di mettersi in contatto con noi può scriverci a questo indirizzo
+                <a href="mailto:associazione@openpolis.it">associazione@openpolis.it</a> o chiamarci allo 06.83608392<br>
 
-    Cordialmente,
-    la redazione di Openpolis
+                Cordialmente,
+                la redazione di Openpolis
+            </p>
+        </div>
+    </div>
+   <div class="row">
+        <div class="span8">
+            <p class="partiti_title">
+                Le posizioni della lista
+                        <span class="lista_name">
+                            {{ nome_lista}}
+                        </span>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span8">
+            <p class="partiti_title">
+                {{ answers }}
+            </p>
+        </div>
+    </div>
+
+
+
 {% endblock %}

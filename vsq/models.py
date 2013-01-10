@@ -102,6 +102,7 @@ class Partito(models.Model):
     simbolo = models.ImageField(blank=True, null=True, upload_to='simboli')
     colore = models.CharField(max_length=16, blank=True, null=True, choices=COLORS)
     coalizione = models.CharField(max_length=32, blank=True, null=True)
+    slug = models.SlugField(max_length=60, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Partiti"

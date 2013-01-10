@@ -4,20 +4,12 @@ from django.shortcuts import redirect, render_to_response
 from vsq.forms import QuestionarioPartitiForm
 
 
-def questionario_partiti(request, **kwargs):
+class QuestionarioPartitiClosed(TemplateView):
+    template_name = "partiti_fine.html"
 
-    questions = Domanda.get_domande()
-    form = QuestionarioPartitiForm(request.POST or None, extra=questions)
-
-    if form.is_valid():
-#        do_something_with(form.cleaned_data)
-#        controlla e salva le risposte
-        for (question, answer) in form.answers():
-#            save_answer(request, question, answer)
-            pass
-        return redirect("questionario_partiti_success")
-
-    return render_to_response("partiti.html", {'form': form})
+    def get_context_data(self, **kwargs):
+        context = super(QuestionarioPartitiClosed, self).get_context_data(**kwargs)
+        return context
 
 
 class QuestionarioPartitiView(TemplateView):
@@ -25,31 +17,52 @@ class QuestionarioPartitiView(TemplateView):
     context = {}
     template_name = "partiti.html"
 
-    def get_context_data(self, **kwargs ):
-        context = super(QuestionarioPartitiView, self).get_context_data(**kwargs)
-
-        key = kwargs['party_key']
-
-        try:
-            p = Partito.objects.get(party_key=key)
-            context['nome_lista']=p.denominazione
-
-        except Partito.DoesNotExist:
-#            TODO: redirect to 404 page
-            pass
-
-#        carica le domande, le possibili risposte e genera il form
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
         questions = Domanda.get_domande()
-        form= QuestionarioPartitiForm(self.request.POST or None, extra=questions)
+        n_questions=questions.count()
+        form= QuestionarioPartitiForm(self.request.POST , extra=questions)
+
+        party_key = kwargs['party_key']
+        p = Partito.objects.get(party_key=party_key)
+
+
         if form.is_valid():
             #        do_something_with(form.cleaned_data)
             #        controlla e salva le risposte
-            for (question, answer) in form.answers():
+#            for (question, answer) in form.answers():
             #            save_answer(request, question, answer)
-                pass
 
-        context['n_questions']=questions.count()
+            return redirect("questionario_partiti_fine",slug=p.slug)
+
+        #                stampa la form con gli eventuali errori
+
         context['form']=form
-        context['possible_answers']=RispostaPartito.get_tipo_risposta()
+        return self.render_to_response(context)
 
-        return context
+    def get_context_data(self, **kwargs ):
+
+        context = super(QuestionarioPartitiView, self).get_context_data(**kwargs)
+        questions = Domanda.get_domande()
+        n_questions=questions.count()
+        form= QuestionarioPartitiForm( extra=questions)
+
+        party_key = kwargs['party_key']
+        p = Partito.objects.get(party_key=party_key)
+
+        if p:
+            context['nome_lista']=p.denominazione
+
+            if RispostaPartito.objects.filter(partito=p).count() >0 :
+                return redirect("partiti_fine.html")
+            else:
+
+                context['n_questions']=n_questions
+                context['form']=form
+                context['possible_answers']=RispostaPartito.get_tipo_risposta()
+
+                return context
+        else:
+
+            #                return redirect("404")
+            return context

@@ -4,7 +4,6 @@ from vsq.models import RispostaPartito
 class QuestionarioPartitiForm(forms.Form):
     contact_name = forms.CharField(max_length=60, label="Responsabile per la lista")
 
-
     def __init__(self, *args, **kwargs):
         extra = kwargs.pop('extra')
         super(QuestionarioPartitiForm, self).__init__(*args, **kwargs)
