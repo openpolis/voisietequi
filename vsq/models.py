@@ -11,6 +11,9 @@ class Domanda(models.Model):
     Accompagno, is a text shown along, as to guide the user during the poll.
     Link contains a link to a web page where issues related to the question is discussed.
     """
+
+    ORDINE_DOMANDE = [(i,i) for i in range(1,26,1)]
+
     slug = models.SlugField(max_length=200, unique=True,
                             help_text="Valore suggerito, generato dal testo. Deve essere unico.")
     testo = models.TextField()
@@ -20,6 +23,8 @@ class Domanda(models.Model):
     accompagno = models.TextField(blank=True, null=True)
     accompagno_html = models.TextField(editable=False, blank=True, null=True)
     link = models.URLField(blank=True, null=True)
+    ordine = models.IntegerField(blank=False, null=False, choices=ORDINE_DOMANDE)
+
 
     class Meta:
       verbose_name_plural = "Domande"
@@ -34,7 +39,7 @@ class Domanda(models.Model):
 
     @classmethod
     def get_domande(self):
-        return Domanda.objects.all()
+        return  Domanda.objects.order_by('ordine')
 
     def __unicode__(self):
         return self.slug

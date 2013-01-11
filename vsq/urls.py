@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from vsq.views import QuestionarioPartitiView, QuestionarioPartitiClosed
+from vsq.views import *
 admin.autodiscover()
 
 urlpatterns = patterns('',

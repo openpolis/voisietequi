@@ -40,6 +40,13 @@
                                 {{ f }}
                             </div>
                         </div>
+                        {% if f.errors %}
+                            <div class="row">
+                                <div class="span3 offset7" style="color:red;font-weight: bold;">
+                                    Questo campo &egrave; obbligatorio
+                                </div>
+                            </div>
+                        {% endif %}
                         <div class="row">
                             <div class="span12 spacer"></div>
                         </div>

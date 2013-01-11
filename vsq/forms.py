@@ -9,8 +9,13 @@ class QuestionarioPartitiForm(forms.Form):
         super(QuestionarioPartitiForm, self).__init__(*args, **kwargs)
 
         for i, question in enumerate(extra):
-            self.fields['answer_c[%s]' % i] = forms.ChoiceField(choices=RispostaPartito.TIPO_RISPOSTA, label=extra[i])
-            self.fields['answer_t[%s]' % i] = forms.CharField(widget=forms.Textarea())
+            self.fields['answer_c[%s]' % question.ordine] = forms.ChoiceField(
+                choices=RispostaPartito.TIPO_RISPOSTA,
+                label=question.testo
+            )
+            self.fields['answer_t[%s]' % question.ordine] = forms.CharField(
+                widget=forms.Textarea(), required=False
+            )
 
     def answers(self):
         for name, value in self.cleaned_data.items():
