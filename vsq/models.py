@@ -135,13 +135,14 @@ class RispostaPartito(models.Model):
 
     domanda = models.ForeignKey(Domanda)
     partito = models.ForeignKey(Partito)
-    risposta_int = models.SmallIntegerField(choices=TIPO_RISPOSTA, verbose_name="Risposta")
+    risposta_int = models.SmallIntegerField(null=False, choices=TIPO_RISPOSTA, verbose_name="Risposta")
     risposta_txt = models.TextField(blank=True, null=True, verbose_name="Risposta testuale")
     nonorig = models.BooleanField(default=False, verbose_name="Non originale")
 
     class Meta:
         verbose_name_plural = "Risposte partito"
 
+#    restituisce le stringhe delle varie risposte possibili, al solo fine della visualizzazione
     @classmethod
     def get_tipo_risposta(cls):
         risposte=[]

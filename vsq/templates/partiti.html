@@ -43,7 +43,7 @@
                         {% if f.errors %}
                             <div class="row">
                                 <div class="span3 offset7" style="color:red;font-weight: bold;">
-                                    Questo campo &egrave; obbligatorio
+                                    {{ f.errors }}
                                 </div>
                             </div>
                         {% endif %}
@@ -76,8 +76,14 @@
                                         <td class="span3 question_body " style="text-align: center;">
                                             {{ f }}
                                         </td>
-
                                     </tr>
+                                    {% if f.errors %}
+                                        <tr>
+                                            <td class="span3 offset7" style="color:red;font-weight: bold;">
+                                                {{ f.errors }}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
                                 </table>
                             </div>
 

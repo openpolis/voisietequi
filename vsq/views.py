@@ -3,6 +3,8 @@ from django.views.generic import TemplateView, DetailView
 from vsq.models import Partito, RispostaPartito, Domanda
 from django.shortcuts import redirect, render_to_response, get_object_or_404
 from vsq.forms import QuestionarioPartitiForm
+from datetime import datetime
+
 
 
 
@@ -17,17 +19,15 @@ class QuestionarioPartitiView(TemplateView):
 
         form= QuestionarioPartitiForm(self.request.POST , extra=questions)
 
-        party_key = kwargs['party_key']
-
-        p = get_object_or_404(Partito, party_key=party_key)
+        p = get_object_or_404(Partito, party_key=kwargs['party_key'])
 
         if form.is_valid():
-            #        do_something_with(form.cleaned_data)
             #        controlla e salva le risposte
-            p.contact_name = form.cleaned_data['contact_name']
+            p.responsabile_nome = form.cleaned_data['contact_name']
+            p.risposte_at = datetime.now()
             p.save()
-            for (key, value) in form.cleaned_data:
-                pass
+#            for (key, value) in form.cleaned_data:
+#                pass
 
             return redirect("questionario_partiti_fine",slug=p.slug)
 
