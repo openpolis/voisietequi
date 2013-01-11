@@ -17,26 +17,34 @@ class QuestionarioPartitiForm(forms.Form):
         empty_label='-- Scegli una risposta --'
 
         for i, question in enumerate(extra):
-            self.fields['answer_c[%s]' % question.ordine] = forms.ChoiceField(
+            self.fields['answer_c[%s]' % question.pk] = forms.ChoiceField(
 #                choices=RispostaPartito.TIPO_RISPOSTA,
                 tuple([(u'', empty_label)] + list(RispostaPartito.TIPO_RISPOSTA)),
                 label=question.testo,
                 error_messages = self.my_default_errors,
             )
-            self.fields['answer_t[%s]' % question.ordine] = forms.CharField(
+            self.fields['answer_t[%s]' % question.pk] = forms.CharField(
                 widget=forms.Textarea(), required=False
             )
 
-#    restituisce le risposte della select box
-    def answers_c(self):
-        for name, value in self.cleaned_data.items():
-            if name.startswith('answer_c['):
-                yield (self.fields[name].label, value)
+#    restituisce le risposte della domanda index
+    def get_answer(self, index):
+        i = str(index)
+        c = self.cleaned_data['answer_c['+i+']']
+        t = self.cleaned_data['answer_t['+i+']']
+        return c,t
 
-#    restituisce le risposte testuali
-    def answers_t(self):
-        for name, value in self.cleaned_data.items():
-            if name.startswith('answer_t['):
-                yield (self.fields[name].label, value)
 
+##    restituisce le risposte della select box
+#    def get_answers_c(self):
+#        for name, value in self.cleaned_data.items():
+#            if name.startswith('answer_c['):
+#                yield (self.fields[name].label, value, self.fields[name].label.strip(['answer_c[]']))
+#
+##    restituisce le risposte testuali
+#    def get_answers_t(self):
+#        for name, value in self.cleaned_data.items():
+#            if name.startswith('answer_t[') and value:
+#                yield (self.fields[name].label, value,self.fields[name].label.strip(['answer_t[]']))
+#
 

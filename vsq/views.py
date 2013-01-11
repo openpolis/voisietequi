@@ -25,10 +25,13 @@ class QuestionarioPartitiView(TemplateView):
             #        controlla e salva le risposte
             p.responsabile_nome = form.cleaned_data['contact_name']
             p.risposte_at = datetime.now()
-            p.save()
-#            for (key, value) in form.cleaned_data:
-#                pass
 
+            for d in questions:
+                c,t = form.get_answer(d.pk)
+                rp = RispostaPartito(partito=p,domanda=d, risposta_int=c, risposta_txt=t)
+                rp.save()
+
+            p.save()
             return redirect("questionario_partiti_fine",slug=p.slug)
 
         #                stampa la form con gli eventuali errori
@@ -51,7 +54,6 @@ class QuestionarioPartitiView(TemplateView):
         if RispostaPartito.objects.filter(partito=p).count() >0 :
             return redirect("questionario_partiti_fine",slug=p.slug)
         else:
-
             context['n_questions']=n_questions
             context['form']=form
             context['possible_answers']=RispostaPartito.get_tipo_risposta()
