@@ -7,6 +7,7 @@ class DomandaAdmin(admin.ModelAdmin):
 
 class RispostaPartitoInline(admin.StackedInline):
     model = RispostaPartito
+
     extra = 1
 
 class RispostaUtenteInline(admin.StackedInline):
@@ -15,6 +16,7 @@ class RispostaUtenteInline(admin.StackedInline):
 
 class PartitoAdminWithRisposte(admin.ModelAdmin):
     inlines = [RispostaPartitoInline, ]
+    prepopulated_fields = { 'slug': ['denominazione'] }
 
 class UtenteAdminWithRisposte(admin.ModelAdmin):
     inlines = [RispostaUtenteInline, ]

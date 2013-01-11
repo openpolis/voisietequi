@@ -5,6 +5,20 @@
 {% endblock %}
 
 {% block content %}
+    {% if has_errors %}
+        <div class="row ">
+            <div class="span8">
+                <table class="partiti table">
+                    <tr class="error">
+                        <td>
+                            Attenzione, alcuni campi richiesti non sono stati inseriti
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
     <div class="row">
         <div class="span8">
             <p class="partiti_title">
@@ -26,7 +40,6 @@
                 {% endfor %}
             </ul>
             e, se desidera, pu&ograve; lasciare un commento.
-
         </div>
     </div>
     <div class="row">

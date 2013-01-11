@@ -41,6 +41,10 @@ class Domanda(models.Model):
     def get_domande(self):
         return  Domanda.objects.order_by('ordine')
 
+    @classmethod
+    def get_n_domande(cls):
+        return Domanda.objects.count()
+
     def __unicode__(self):
         return self.slug
 
@@ -114,6 +118,9 @@ class Partito(models.Model):
 
     def __unicode__(self):
         return self.denominazione
+
+    def get_answers(self):
+        return RispostaPartito.objects.filter(partito=self).order_by('domanda__ordine')
 
 
 class RispostaPartito(models.Model):

@@ -23,8 +23,11 @@
             </p>
         </div>
     </div>
+    <div class="row">
+        <div class="span12 spacer"></div>
+    </div>
 
-   <div class="row">
+    <div class="row">
         <div class="span8">
             <p class="partiti_title">
                 Le posizioni della lista
@@ -34,14 +37,87 @@
             </p>
         </div>
     </div>
+
     <div class="row">
-        <div class="span8">
-            <p class="partiti_title">
-                {{ answers }}
-            </p>
+        <div class="span12">
+
+                {#                            stampa il resp.di lista#}
+                <div class="row">
+                    <div class="span3 offset7">
+                        <strong>Responsabile di lista</strong>
+                    </div>
+                    <div class="span3 offset7">
+                        {{ nome_responsabile }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span12 spacer"></div>
+                </div>
+
+                {% for a in answers %}
+
+                            {#                            stampa l'header della domanda e la select box#}
+                            <div class="row ">
+                                <table class="partiti table span10">
+                                    <tr>
+                                        <td class="span7 question_header">
+                                            Tema ( {{ a.domanda.ordine }} di {{ n_questions }})
+                                        </td>
+                                        <td class="span3 question_header">
+                                            Posizione della lista
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <table class="partiti table span10">
+                                    <tr>
+                                        <td class="span7 question_body">
+                                            {{ a.domanda.label }}
+                                        </td>
+                                        <td class="span3 question_body " style="text-align: center;">
+                                            {{ a.get_risposta_int_display }}
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+
+
+                            {#                            stampa la label e la textarea#}
+                            {% if a.risposta_txt %}
+                                <div class="row">
+                                    <table class="partiti table span10">
+                                        <tr>
+                                            <td class="span10 answer_label">
+                                                Commento testuale
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="span10 answer">
+                                                <p class="framed">
+                                                    {{ a.risposta_txt }}
+                                                </p>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            {% endif %}
+                            <div class="row">
+                                <div class="span12 spacer"></div>
+                            </div>
+
+                {% endfor %}
+
         </div>
     </div>
 
-
-
 {% endblock %}
+
+
+
+
+

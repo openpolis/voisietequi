@@ -78,6 +78,7 @@ div.content{
     font-size: @medium-size;
     color:black;
     margin-bottom: @spacing-single;
+    margin-top: @spacing-single;
 
     .lista_name{
       color: @red-color;
@@ -92,14 +93,19 @@ div.content{
 
 
 
-  table.partiti{
+
+  table.partiti.table{
 
     margin-bottom:0;
     td{
-      padding-left:0;
 
       border:0;
     }
+
+    tbody tr.error td {
+      background-color: #FF5555;
+    }
+
     .question_header{
       border: 2px solid @gray-border;
       text-align: center;
@@ -117,11 +123,18 @@ div.content{
 
     }
     .answer{
+      margin-left:0;
+
       textarea{
         width: 100%;
         max-height: 80px;
       }
+      .framed{
+        padding: 5px;
+        border: 2px solid @gray-border;
+      }
     }
+
   }
 }
 
