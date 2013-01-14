@@ -179,3 +179,12 @@ class RispostaUtente(models.Model):
 
     class Meta:
         verbose_name_plural = "Risposte utente"
+
+
+
+class EarlyBird(models.Model):
+    """
+    Class that stores the emails of the people who want to be alerted when the website will be online
+    """
+    email = models.EmailField()
+

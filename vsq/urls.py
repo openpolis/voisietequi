@@ -5,7 +5,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-#    url(r'^$', 'vsq.views.home', name='home'),
+    url(r'^$', EarlyBirdView.as_view(), name='earlybird'),
     url(r'^questionario/(?P<party_key>[-\w]+)/$', QuestionarioPartitiView.as_view(), name="questionario_partiti"),
     url(r'^questionario/(?P<slug>[-\w]+)/completato$', QuestionarioPartitiClosed.as_view(), name="questionario_partiti_fine"),
     # Uncomment the admin/doc line below to enable admin documentation:
