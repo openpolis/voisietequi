@@ -1,11 +1,13 @@
+from django.core.mail import EmailMessage
 from django.http import Http404
+from django.template import Context
+from django.template.loader import get_template
 from django.views.generic import TemplateView, DetailView
 from vsq.models import Partito, RispostaPartito, Domanda
 from django.shortcuts import redirect, render_to_response, get_object_or_404
 from vsq.forms import QuestionarioPartitiForm
 from datetime import datetime
-
-
+from settings_local import PROJECT_ROOT, MANAGERS
 
 
 class QuestionarioPartitiView(TemplateView):
@@ -30,6 +32,30 @@ class QuestionarioPartitiView(TemplateView):
                 rp.save()
 
             p.save()
+
+#            manda una mail ai managers dell'applicazione con il link per controllare i risultati del questionario
+            template = get_template("partiti_alert_mail.html")
+            context=Context(
+                {
+                    'nome_lista':p.denominazione,
+                    'url_link':PROJECT_ROOT + "questionario/" + p.slug + "/completato",
+                }
+            )
+            text_c = template.render(context)
+            subj = "VoiSieteQui - La lista " + p.denominazione + " ha completato il questionario"
+            from_email = "noreply@voisietequi.it"
+            to_address=[]
+            for m in MANAGERS:
+                to_address.append(m[1])
+            msg= EmailMessage(
+                subj,
+                text_c,
+                from_email,
+                to_address,
+            )
+            msg.send()
+
+
 #            TODO: inviare mail a Vincenzo dopo il salvataggio con il link per vedere la pagina risposte
             return redirect("questionario_partiti_fine",slug=p.slug)
         else:
