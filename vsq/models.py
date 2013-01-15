@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.db import models
 from markdown import markdown
 from model_utils import Choices
@@ -186,7 +187,7 @@ class EarlyBird(models.Model):
     """
     Class that stores the emails of the people who want to be alerted when the website will be online
     """
-    email = models.EmailField()
+    email = models.EmailField(unique=True,error_messages={'unique':"Attenzione: indirizzo email già inserito."})
 
 
     class Meta:

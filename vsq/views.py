@@ -122,7 +122,6 @@ class QuestionarioPartitiClosed(TemplateView):
 
 class EarlyBirdView(CreateView):
     template_name = 'early_bird.html'
-    success_url = 'success'
+    success_url = 'registration_ok'
     form_class = EarlyBirdForm
     model = EarlyBird
-
