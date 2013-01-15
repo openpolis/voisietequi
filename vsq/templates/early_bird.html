@@ -11,7 +11,6 @@
     <link href="{{ STATIC_URL }}css/earlybird/bootstrap.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/earlybird/bootstrap-responsive.css" rel="stylesheet">
 
-
 	<!-- Icon -->
 	<link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" type="image/x-icon" />
 	  
@@ -28,8 +27,8 @@
         <!--[if lt IE 9]>
 			<link rel="stylesheet" type="text/css" href="css/fallback.css" />
 		<![endif]-->
-        
-        
+
+
   </head>
 <body>
 		 <div class="container">
@@ -95,7 +94,6 @@
 				</section>
                 </div>
  
- 
    <!-- Main container starts -->
     <div class="container">
         <div class="maincontainer">
@@ -112,29 +110,31 @@
            
              <!--Subscribe starts-->
              <div class="email-list">
-                <form id="subscribe" method="post" action="." name="subscribe">
-{#                <input type="text" id="semail" name="YourEmail" placeholder="Inserisci il tuo indirizzo mail..." />#}
-                    <div id="semail" style="float:left;">
-                        {{ form.email }}
-                    </div>
-                    <div>
-                        <input type="submit" id="ssubmit" name="subscribe" value="SUBSCRIBE" class="submitbt" style=""/>
-                    </div>
+             {% block content %}
+                 <form id="subscribe" method="post" action="" name="subscribe">
+                     {% csrf_token %}
 
-                </form>
+                     {% if form.email.errors %}
+                         <div class="row">
+                             <div class="span4" style="color:red;font-weight: bold;">
+                                 {{ form.email.errors }}
+                             </div>
+                         </div>
+                     {% endif %}
+
+                     <div id="semail" style="float:left;">
+                         {{ form.email }}
+                     </div>
+                     <div>
+                         <input type="submit" id="ssubmit" name="subscribe" value="SUBSCRIBE" class="submitbt" style=""/>
+                     </div>
+                 </form>
+             {% endblock %}
 
             </div>
     	</div>
     </div>
-{#    <div class="container">#}
-{#        <div class="span12">#}
-{#            {{ form }}#}
-{#        </div>#}
-{#    </div>#}
-         
        <div class="clearfix"></div>
-
-
       <!--Footer starts-->        
         <footer class="container">
             <div id="sub-footer" class="row">
@@ -176,8 +176,6 @@
 
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.transit.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.gridrotator.js"></script>
-
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.subscribe.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.placeholder.js"></script>
 
 
@@ -203,8 +201,6 @@
                 } );
             })
     )
-
-
 </script>
 
 

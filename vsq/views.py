@@ -3,7 +3,7 @@ from django.http import Http404
 from django.template import Context
 from django.template.loader import get_template
 from django.views.generic import TemplateView, DetailView, CreateView
-from vsq.models import Partito, RispostaPartito, Domanda
+from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird
 from django.shortcuts import redirect, render_to_response, get_object_or_404
 from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm
 from datetime import datetime
@@ -124,3 +124,5 @@ class EarlyBirdView(CreateView):
     template_name = 'early_bird.html'
     success_url = 'success'
     form_class = EarlyBirdForm
+    model = EarlyBird
+

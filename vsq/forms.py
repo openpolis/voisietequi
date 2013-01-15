@@ -37,7 +37,7 @@ class QuestionarioPartitiForm(forms.Form):
 class EarlyBirdForm(forms.ModelForm):
     my_default_errors = {
         'required': 'Campo richiesto',
-        'invalid': 'Valore non valido'
+        'invalid': 'Attenzione: Indirizzo email non valido'
     }
 
     email = forms.EmailField(max_length=200, error_messages=my_default_errors)

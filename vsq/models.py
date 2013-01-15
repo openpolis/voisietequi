@@ -188,3 +188,9 @@ class EarlyBird(models.Model):
     """
     email = models.EmailField()
 
+
+    class Meta:
+        verbose_name_plural = "Utenti Early Bird"
+
+    def __unicode__(self):
+        return self.email
