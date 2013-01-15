@@ -1,13 +1,20 @@
 from django.core.mail import EmailMessage
-from django.http import Http404
+from django.core.serializers import serialize
+from django.db.models.query import QuerySet
+from django.http import Http404, HttpResponse
 from django.template import Context
 from django.template.loader import get_template
+from django.utils.functional import curry
 from django.views.generic import TemplateView, DetailView, CreateView
 from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird
 from django.shortcuts import redirect, render_to_response, get_object_or_404
 from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm
 from datetime import datetime
 from settings_local import PROJECT_ROOT, MANAGERS
+from settings import MIN_GRAPH_X, MIN_GRAPH_Y, MAX_GRAPH_X, MAX_GRAPH_Y
+import random
+import json
+from json.encoder import JSONEncoder
 
 
 class QuestionarioPartitiView(TemplateView):
@@ -125,3 +132,69 @@ class EarlyBirdView(CreateView):
     success_url = 'registration_ok'
     form_class = EarlyBirdForm
     model = EarlyBird
+
+
+class DjangoJSONEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, QuerySet):
+            # `default` must return a python serializable
+            # structure, the easiest way is to load the JSON
+            # string produced by `serialize` and return it
+            return json.loads(serialize('json', obj))
+        return JSONEncoder.default(self,obj)
+
+dumps = curry(json.dumps, cls=DjangoJSONEncoder)
+#
+#class JSONResponseMixin(object):
+#    def render_to_response(self, context):
+#        "Returns a JSON response containing 'context' as payload"
+#        return self.get_json_response(self.convert_context_to_json(context))
+#
+#    def get_json_response(self, content, **httpresponse_kwargs):
+#        "Construct an `HttpResponse` object."
+#        return HttpResponse(content,
+#            content_type='application/json',
+#            **httpresponse_kwargs)
+#
+#    def convert_context_to_json(self, context):
+#        "Convert the context dictionary into a JSON object"
+#        # Note: This is *EXTREMELY* naive; in reality, you'll need
+#        # to do much more complex handling to ensure that arbitrary
+#        # objects -- such as Django model instances or querysets
+#        # -- can be serialized as JSON.
+#        return dumps(context)
+
+
+def mockup_response(request):
+
+    partiti_list=Partito.get_partiti_list()
+    dict={}
+#    adds mockup results for Partiti
+    for p in partiti_list:
+        dict[str(p)]=[
+                random.uniform(MIN_GRAPH_X, MAX_GRAPH_X),
+                random.uniform(MIN_GRAPH_Y, MAX_GRAPH_Y)
+            ]
+
+#    adds mockup results for the user
+    dict['user']=[
+        random.uniform(MIN_GRAPH_X, MAX_GRAPH_X),
+        random.uniform(MIN_GRAPH_Y, MAX_GRAPH_Y)
+    ]
+
+    response = {'user_data':
+                    {
+                        'email':'address@gmail.com',
+                        'nome': 'Mario Rossi',
+                    },
+                'answers_partiti': dict,
+                'answers_utente':[
+                    random.uniform(MIN_GRAPH_X, MAX_GRAPH_X),
+                    random.uniform(MIN_GRAPH_Y, MAX_GRAPH_Y)
+                    ],
+                'codice': 'XYZ'
+        }
+    content=json.dumps(response)
+    return HttpResponse(content,
+        content_type='application/json',
+        )

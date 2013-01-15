@@ -104,7 +104,7 @@ class Partito(models.Model):
 
     denominazione = models.CharField(max_length=255, unique=True)
     party_key = models.CharField(max_length=255, unique=True)
-    sigla = models.CharField(max_length=32, blank=True, null=True)
+    sigla = models.CharField(max_length=32, blank=False, null=False, unique=True)
     responsabile_nome = models.CharField(max_length=128, blank=True, null=True)
     responsabile_email = models.EmailField(max_length=128, blank=True, null=True)
     risposte_at = models.DateField(blank=True, null=True)
@@ -122,6 +122,11 @@ class Partito(models.Model):
 
     def get_answers(self):
         return RispostaPartito.objects.filter(partito=self).order_by('domanda__ordine')
+
+# function for AJAX response mockup, only for test purpose
+    @classmethod
+    def get_partiti_list(cls):
+        return Partito.objects.all().values_list('sigla', flat=True)
 
 
 class RispostaPartito(models.Model):
