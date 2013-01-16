@@ -16,11 +16,17 @@ import random
 import json
 from json.encoder import JSONEncoder
 
+class QuestionarioUtente(TemplateView):
+    template_name = "q_utenti.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(QuestionarioUtente, self).get_context_data(**kwargs)
+        return context
 
 class QuestionarioPartitiView(TemplateView):
 
     context = {}
-    template_name = "partiti.html"
+    template_name = "q_partiti.html"
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
@@ -41,7 +47,7 @@ class QuestionarioPartitiView(TemplateView):
             p.save()
 
 #            manda una mail ai managers dell'applicazione con il link per controllare i risultati del questionario
-            template = get_template("partiti_alert_mail.html")
+            template = get_template("q_partiti_alert_mail.html")
             context=Context(
                 {
                     'nome_lista':p.denominazione,
@@ -103,7 +109,7 @@ class QuestionarioPartitiView(TemplateView):
 
 
 class QuestionarioPartitiClosed(TemplateView):
-    template_name = "partiti_fine.html"
+    template_name = "q_partiti_fine.html"
 
     #se lo slug del partito esiste e il partito ha gia' risposto prosegue con la pagina dei risultati
     def get(self, request, *args, **kwargs):
