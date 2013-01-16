@@ -2,6 +2,7 @@
 from django.db import models
 from markdown import markdown
 from model_utils import Choices
+from django.template.defaultfilters import slugify
 
 class Domanda(models.Model):
     """
@@ -14,8 +15,8 @@ class Domanda(models.Model):
     """
 
     ORDINE_DOMANDE = [(i,i) for i in range(1,26,1)]
-
-    slug = models.SlugField(max_length=200, unique=True,
+    SLUG_MAX_LENGTH = 200
+    slug = models.SlugField(max_length=SLUG_MAX_LENGTH, unique=True,
                             help_text="Valore suggerito, generato dal testo. Deve essere unico.")
     testo = models.TextField()
     testo_html = models.TextField(editable=False)
@@ -36,6 +37,9 @@ class Domanda(models.Model):
             self.testo_html = markdown(self.testo)
         if self.approfondimento:
             self.approfondimento_html = markdown(self.approfondimento)
+        if self.testo:
+            self.slug = slugify(self.testo[:self.SLUG_MAX_LENGTH])
+
         super(Domanda, self).save(*args, **kwargs)
 
     @classmethod
@@ -47,7 +51,9 @@ class Domanda(models.Model):
         return Domanda.objects.count()
 
     def __unicode__(self):
-        return self.slug
+        return u"%s - %s" % (self.id, self.slug)
+
+
 
 
 class Utente(models.Model):
