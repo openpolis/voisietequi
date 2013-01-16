@@ -6,7 +6,7 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 REPO_ROOT = os.path.abspath(os.path.dirname(PROJECT_ROOT))
-
+SLUG_MAX_LENGTH = 60
 ADMINS = (
 #    ('Nome Cognome', 'nome@dominio.it),
 )

@@ -3,6 +3,7 @@ from django.db import models
 from markdown import markdown
 from model_utils import Choices
 from django.template.defaultfilters import slugify
+from settings import SLUG_MAX_LENGTH
 
 class Domanda(models.Model):
     """
@@ -15,7 +16,7 @@ class Domanda(models.Model):
     """
 
     ORDINE_DOMANDE = [(i,i) for i in range(1,26,1)]
-    SLUG_MAX_LENGTH = 200
+
     slug = models.SlugField(max_length=SLUG_MAX_LENGTH, unique=True,
                             help_text="Valore suggerito, generato dal testo. Deve essere unico.")
     testo = models.TextField()
@@ -38,7 +39,7 @@ class Domanda(models.Model):
         if self.approfondimento:
             self.approfondimento_html = markdown(self.approfondimento)
         if self.testo:
-            self.slug = slugify(self.testo[:self.SLUG_MAX_LENGTH])
+            self.slug = slugify(self.testo[:SLUG_MAX_LENGTH])
 
         super(Domanda, self).save(*args, **kwargs)
 
@@ -52,8 +53,6 @@ class Domanda(models.Model):
 
     def __unicode__(self):
         return u"%s - %s" % (self.id, self.slug)
-
-
 
 
 class Utente(models.Model):
@@ -118,7 +117,7 @@ class Partito(models.Model):
     simbolo = models.ImageField(blank=True, null=True, upload_to='simboli')
     colore = models.CharField(max_length=16, blank=True, null=True, choices=COLORS)
     coalizione = models.CharField(max_length=32, blank=True, null=True)
-    slug = models.SlugField(max_length=60, blank=True, null=True)
+    slug = models.SlugField(max_length=SLUG_MAX_LENGTH, blank=True, null=True, unique=True)
 
     class Meta:
         verbose_name_plural = "Partiti"
@@ -128,6 +127,14 @@ class Partito(models.Model):
 
     def get_answers(self):
         return RispostaPartito.objects.filter(partito=self).order_by('domanda__ordine')
+
+    def save(self, *args, **kwargs):
+        """override save method """
+
+        if self.denominazione and not self.slug:
+            self.slug = slugify(self.denominazione[:SLUG_MAX_LENGTH])
+
+        super(Partito, self).save(*args, **kwargs)
 
 # function for AJAX response mockup, only for test purpose
     @classmethod
