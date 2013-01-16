@@ -1,4 +1,4 @@
-{% extends "base_partiti.html" %}
+{% extends "q_partiti_base.html" %}
 
 {% block title %}
     Risposte della lista {{ nome_lista }}
@@ -75,7 +75,7 @@
                                 <table class="partiti table span10">
                                     <tr>
                                         <td class="span7 question_body">
-                                            {{ a.domanda.label }}
+                                            {{ a.domanda.testo }}
                                         </td>
                                         <td class="span3 question_body " style="text-align: center;">
                                             {{ a.get_risposta_int_display }}
