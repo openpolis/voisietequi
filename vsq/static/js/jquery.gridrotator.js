@@ -17,7 +17,8 @@
 	Array.prototype.shuffle = function() {
 		var i=this.length,p,t;
 		while (i--) {
-			p = Math.floor(Math.random()*i);
+// Stefano Vergani - the following line fixes the bug that if step=1 the first image never changes
+			p = Math.floor(Math.random()*this.length);
 			t = this[i];
 			this[i]=this[p];
 			this[p]=t;
@@ -567,7 +568,9 @@
 					nmbOut	= ( step === 'random' ) ? Math.floor( Math.random() * max + min ) : Math.min( Math.abs( step ) , max ) ,
 					// array with random indexes. These will be the indexes of the items we will replace
 					randArr	= _self._getRandom( nmbOut, _self.showTotal );
-				
+                    //STEFANO
+//                    randArr[0]=randArr[0]-1;
+
 				for( var i = 0; i < nmbOut; ++i ) {
 
 					// element to go out
@@ -579,6 +582,7 @@
 
 						// one of the items is active, call again..
 						_self._showNext( 1 );
+
 						return false;
 
 					}
