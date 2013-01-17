@@ -140,12 +140,12 @@ class RispostaUtente(models.Model):
     risposta_int: Graded response
     """
     TIPO_RISPOSTA = Choices(
-        (-3, 'Molto contrario/a'),
-        (-2, 'Contrario/a'),
-        (-1, 'Tendenzialmente contrario/a'),
-        ( 1, 'Tendenzialmente favorevole'),
-        ( 2, 'Favorevole'),
-        ( 3, 'Molto favorevole'),
+        (-3, 'moltocontrario', 'Molto contrario/a'),
+        (-2, 'contrario', 'Contrario/a'),
+        (-1, 'tendenzialmentecontrario', 'Tendenzialmente contrario/a'),
+        ( 1, 'tendenzialmentefavorevole', 'Tendenzialmente favorevole'),
+        ( 2, 'favorevole', 'Favorevole'),
+        ( 3, 'moltofavorevole', 'Molto favorevole'),
     )
 
     domanda = models.ForeignKey(Domanda)
