@@ -1,10 +1,156 @@
 var c = 0;
 var chosed = 0;
 
+function firstTime(){
+
+//    set the total n. of question on the page
+    document.getElementById('nquestions').innerHTML = questions.length-1;
+    askNext();
+}
+
+function validate() {
+
+    var nick = document.getElementById('nickname')
+    var ml_email = document.getElementById('ml_email')
+    var firstcheck, secondcheck;
+    firstcheck=secondcheck=false;
+    firstcheck=checkNick(nick.value);
+    secondcheck=echeck(ml_email.value);
+
+
+    if(firstcheck == false || secondcheck== false){
+        if (firstcheck==false){
+            nick.value=""
+            nick.focus()
+        }
+
+        if (secondcheck==false){
+            ml_email.value=""
+            ml_email.focus()
+        }
+        return false
+    }
+    else
+        return true;
+
+}
+
+//returns the data struct that will be posted
+function collect_data(){
+    var data = {};
+    data.answers = [];
+    data.user_data = [];
+    var answers, questionid;
+    var i;
+
+//  retrieves user answers
+    for(i=1; i<=questions.length-1; i++)
+    {
+//        use the questions id as an index
+        questionid = questions[i]['id']
+        if(document.getElementById("t"+questionid).value!='')
+            data.answers["questionid"]=document.getElementById("t"+questionid).value;
+    }
+
+//    retrieve user name and email
+    data.user_data["name"] = document.getElementById('nickname')
+    data.user_data["email"]= document.getElementById('ml_email')
+
+    return data
+}
+
+
+//this functions validates the user data, if it's valid then call send_data
+function validate_submit(){
+    var i;
+    var data;
+
+    if(validate()==true)
+    {
+        data=collect_data();
+        if(data)
+            send_data(data);
+
+    }
+    else
+        return false;
+}
+
+
+//functions for csrf token
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+function sameOrigin(url) {
+    // test that a given url is a same-origin URL
+    // url could be relative or scheme relative or absolute
+    var host = document.location.host; // host + port
+    var protocol = document.location.protocol;
+    var sr_origin = '//' + host;
+    var origin = protocol + sr_origin;
+    // Allow absolute or scheme relative URLs to same origin
+    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+        // or any other URL that isn't scheme relative or absolute i.e relative.
+        !(/^(\/\/|http:|https:).*/.test(url));
+}
+
+// using jQuery
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+//functions that sends data via AJAX
+function send_data(data){
+
+    var csrftoken = getCookie('csrftoken');
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                // Send the token to same-origin, relative URLs only.
+                // Send the token only if the method warrants CSRF protection
+                // Using the CSRFToken value acquired earlier
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    // fire off the request to /form.php
+    var request = $.ajax({
+        url: "/mockup_answer",
+        type: "post",
+        data: data
+
+    });
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+        // log a message to the console
+        alert(response);
+    });
+
+
+}
+
+
 askNext = function () {
 	c++;
 
 	if( c >= questions.length) {
+//        se ho finito il questionario nasconde i div delle domande e mostra
+//        la form per inserire nome e mail
 		var askname = document.getElementById("modulo_risposte");
 		var quests = document.getElementById("domanda");
 		var pos = document.getElementById("posizioni");
@@ -34,15 +180,16 @@ refreshView = function () {
 	var k_acc = document.getElementById("accompagno");
 	var k_txt = document.getElementById("questionTxt");
 	var k_inf = document.getElementById("approfondimento");
+//    carica nella pagina i dati relativi alla domanda
 	k_cnt.innerHTML = c;
 	k_acc.innerHTML = questions[c].more ? questions[c].more : "";
 	k_txt.innerHTML = questions[c].txt;
 	k_inf.innerHTML = questions[c].inf;	
 
+//attiva o disattiva i bottoni precedente/successivo
+    var next = document.getElementById("tema_successivo");
+    var prev = document.getElementById("tema_precedente");
 
-		var next = document.getElementById("tema_successivo");
-		var prev = document.getElementById("tema_precedente");		
-	
 	if (c <= chosed) {
 		next.style.display = "block";
 	} else {
@@ -56,11 +203,13 @@ refreshView = function () {
 	}
 	
 	b = document.getElementById("approfondimento");  
-	b.style.display = "none"	;
+	b.style.display = "none";
 	
 	resetImgs();
 	
 	var cell = document.getElementById("t"+c);
+
+//    nel caso l'utente abbia gia' risposto alla domanda C-esima cambia il colore del bottone della risposta
 	if (cell.value != "") {
 		var img1 = document.getElementById("ch"+cell.value);
 		var img2 = document.getElementById("ch"+cell.value+"_dwn");		
@@ -82,6 +231,9 @@ refreshView = function () {
 	
 };
 
+
+
+//setta l'input nascosto relativo alla scelta dell'utente
 chose = function (n) {
 	var k_cho = document.getElementById("t"+c);
 	k_cho.value = n;
@@ -89,25 +241,7 @@ chose = function (n) {
 	chosed = Math.max(c, chosed);
 	
 	askNext();
-}
-
-function validate() {
-
-  var nick = document.getElementById('nickname')
-  if (checkNick(nick.value)==false){
-		nick.value=""
-		nick.focus()
-		return false    
-  }
-
-	var ml_email = document.getElementById('ml_email')
-  if (echeck(ml_email.value)==false){
-		ml_email.value=""
-		ml_email.focus()
-		return false;
-	}
-	
-}
+};
 
 function checkNick(str) {
 	if (str.length < 2) {
