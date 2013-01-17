@@ -1,8 +1,12 @@
 # Django settings for vsq project.
+import django.conf.global_settings as DEFAULT_SETTINGS
+import os
 
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
-
+DEBUG = True
+TEMPLATE_DEBUG = True
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+REPO_ROOT = os.path.abspath(os.path.dirname(PROJECT_ROOT))
+SLUG_MAX_LENGTH = 60
 ADMINS = (
 #    ('Nome Cognome', 'nome@dominio.it),
 )
@@ -12,7 +16,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'sqlite.db',                      # Or path to database file if using sqlite3.
+        'NAME': 'sqlite.db',             # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -67,6 +71,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+
 )
 
 # List of finder classes that know how to find static files in
@@ -95,6 +100,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'vsq.urls'
@@ -106,7 +112,13 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-)
+    os.path.join(PROJECT_ROOT, 'templates'),
+    )
+
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+    'vsq.context_processor.main_settings',
+    'django.core.context_processors.request',
+    )
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -120,6 +132,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'south',
     'vsq',
+    'debug_toolbar',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -130,23 +143,65 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
         }
     },
     'handlers': {
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+        'logfile': {
+            'level':'INFO',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': REPO_ROOT + "/log/logfile",
+            'maxBytes': 10000000,
+            'backupCount': 10,
+            'formatter': 'standard',
+            },
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
+        },
+        },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
-        },
+            },
+        'csvimport': {
+            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
+            'propagate': True,
+            }
     }
 }
+
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+#    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+#    'EXTRA_SIGNALS': ['myproject.signals.MySignal'],
+#    'HIDE_DJANGO_SQL': False,
+#    'TAG': 'div',
+#    'ENABLE_STACKTRACES' : True,
+    }
+
+INTERNAL_IPS = ('127.0.0.1',)
+
+#max and min values for points in the final graph
+MIN_GRAPH_X=0
+MIN_GRAPH_Y=0
+MAX_GRAPH_X=3
+MAX_GRAPH_Y=3

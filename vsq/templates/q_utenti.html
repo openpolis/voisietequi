@@ -1,0 +1,223 @@
+{% extends "q_utenti_base.html" %}
+
+{% block content %}
+
+{#    <div id="home" onload="askNext()">#}
+    <div id="" >
+        <div id="domanda">
+
+            <div id="questNav">
+                <div class="contatore">Sei alla domanda <span class="highlight" id="counter">X</span> di 20</div>
+
+                <form action="/it/test.html" method="post" id="collectedData">
+{#                    <ul class="stepper">#}
+{#                        <li class="to_do" id="s1">&nbsp;</li>#}
+{#                        <li class="to_do" id="s2">&nbsp;</li>#}
+{#                        <li class="to_do" id="s3">&nbsp;</li>#}
+{#                        <li class="to_do" id="s4">&nbsp;</li>#}
+{#                        <li class="to_do" id="s5">&nbsp;</li>#}
+{#                        <li class="to_do" id="s6">&nbsp;</li>#}
+{#                        <li class="to_do" id="s7">&nbsp;</li>#}
+{#                        <li class="to_do" id="s8">&nbsp;</li>#}
+{#                        <li class="to_do" id="s9">&nbsp;</li>#}
+{#                        <li class="to_do" id="s10">&nbsp;</li>#}
+{#                        <li class="to_do" id="s11">&nbsp;</li>#}
+{#                        <li class="to_do" id="s12">&nbsp;</li>#}
+{#                        <li class="to_do" id="s13">&nbsp;</li>#}
+{#                        <li class="to_do" id="s14">&nbsp;</li>#}
+{#                        <li class="to_do" id="s15">&nbsp;</li>#}
+{#                        <li class="to_do" id="s16">&nbsp;</li>#}
+{#                        <li class="to_do" id="s17">&nbsp;</li>#}
+{#                        <li class="to_do" id="s18">&nbsp;</li>#}
+{#                        <li class="to_do" id="s19">&nbsp;</li>#}
+{#                        <li class="to_do" id="s20">&nbsp;</li>#}
+{#                    </ul>#}
+                </form>
+
+{#                <ul class="legend">#}
+{#                    <li class="done">hai risposto</li>#}
+{#                    <li class="current">sei qui</li>#}
+{#                    <li class="to_do">non hai risposto</li>#}
+{#                </ul>#}
+            </div>
+
+            <div id="accompagno" class="accompagno">ACCOMPAGNO</div>
+
+            <div id="questionTxt" class="testo">TESTO</div>
+
+            <div class="approfondisci"><a href="javascript:showhideApprofondimento();">approfondisci ... </a></div>
+            <div id="approfondimento" style="display: none;">APPROFONDIMENTO</div>
+
+        </div>
+
+
+        <div id="posizioni" style="">
+            <div id="ch3">
+                <a href="#" onclick="chose(3);">
+                    <img src="{{STATIC_URL}}img/bottoni_q/moltofav.png" alt="molto favorevole">
+                </a>
+            </div>
+            <div id="ch3_dwn" style="display: none;">
+                <a href="#" onclick="chose(3);">
+                    <img src="{{STATIC_URL}}img/bottoni_q/moltofav.png" alt="molto favorevole">
+                </a>
+            </div>
+            <div id="ch2">
+                <a href="#" onclick="chose(2);">
+                    <img src="{{STATIC_URL}}img/bottoni_q/fav.png" alt="favorevole">
+                </a>
+            </div>
+            <div id="ch2_dwn" style="display: none;">
+                <a href="#" onclick="chose(2);">
+                    <img src="{{STATIC_URL}}img/bottoni_q/fav.png" alt="favorevole">
+                </a>
+            </div>
+            <div id="ch1">
+                <a href="#" onclick="chose(1);">
+                    <img src="{{STATIC_URL}}img/bottoni_q/tendfav.png" alt="tendenzialmente favorevole">
+                </a>
+            </div>
+            <div id="ch1_dwn" style="display: none;">
+                <a href="#" onclick="chose(1);">
+                    <img src="{{STATIC_URL}}img/bottoni_q/tendfav.png" alt="tendenzialmente favorevole">
+                </a>
+            </div>
+            <div id="ch-1">
+                <a href="#" onclick="chose(-1);">
+                    <img src="{{STATIC_URL}}img/bottoni_q/tendcontr.png" alt="tendenzialmente contrario">
+                </a>
+            </div>
+            <div id="ch-1_dwn" style="display: none;">
+                <a href="#" onclick="chose(-1);">
+                    <img src="{{STATIC_URL}}img/bottoni_q/tendcontr.png" alt="tendenzialmente contrario">
+                </a>
+            </div>
+            <div id="ch-2">
+                <a href="#" onclick="chose(-2);">
+                    <img src="{{STATIC_URL}}img/bottoni_q/contr.png" alt="contrario">
+                </a>
+            </div>
+            <div id="ch-2_dwn" style="display: none;">
+                <a href="#" onclick="chose(-2);">
+                    <img src="{{STATIC_URL}}img/bottoni_q/contr.png" alt="contrario">
+                </a>
+            </div>
+            <div id="ch-3">
+                <a href="#" onclick="chose(-3);">
+                    <img src="{{STATIC_URL}}img/bottoni_q/moltocontr.png" alt="molto contrario">
+                </a>
+            </div>
+            <div id="ch-3_dwn" style="display: none;">
+                <a href="#" onclick="chose(-3);">
+                    <img src="{{STATIC_URL}}img/bottoni_q/moltocontr.png" alt="molto contrario">
+                </a>
+            </div>
+        </div>
+        <div style="display: none">
+            <div id="ch0"></div><div id="ch0_dwn"></div>
+        </div>
+
+
+
+        <div id="tema_precedente" style="display: none;">
+{#            <a href="#" onclick="askPrev();">#}
+{#                <img align="absmiddle" src="/images/test/left_arrow.png" alt="">#}
+{#            </a>#}
+            <a href="#" onclick="askPrev();">torna indietro</a>
+        </div>
+
+        <div id="tema_successivo" style="display: none;">
+            <a href="#" onclick="askNext();">vai avanti</a>
+{#            <a href="#" onclick="askNext();">#}
+{#                <img align="absmiddle" src="/images/test/right_arrow.png" alt="">#}
+{#            </a>#}
+        </div>
+
+
+        <div id="modulo_risposte" style="display: none;">
+
+            <div id="nick" class="form">
+
+                <form onSubmit="return validate()" name="frm_posizioniUtente" action="/insert_risposte_utente" method="post">
+
+                    <input type="hidden" name="chiave" id="chiave" value="" />
+
+                    <label for="nick">
+                        inserisci il tuo <span class="highlight">nome</span> (per vederlo sul grafico)
+                    </label>
+                    <div id="nick_input">
+                        <input type="text" name="nickname" id="nickname" value="Io"/>
+                    </div>
+
+                    <label for="ml_email">
+                        le promesse dei candidati saranno mantenute dagli eletti?<br/>
+                        lascia la tua <span class="highlight">e-mail</span> per avere aggiornamenti
+                    </label>
+                    <div id="nick_input">
+                        <input type="text" name="ml_email" id="ml_email" value=""/>
+                    </div>
+
+                    <input name="z31" id="t1" type="hidden" value="" />
+                    <input name="z32" id="t2" type="hidden" value="" />
+                    <input name="z33" id="t3" type="hidden" value="" />
+                    <input name="z34" id="t4" type="hidden" value="" />
+                    <input name="z35" id="t5" type="hidden" value="" />
+                    <input name="z36" id="t6" type="hidden" value="" />
+                    <input name="z37" id="t7" type="hidden" value="" />
+                    <input name="z38" id="t8" type="hidden" value="" />
+                    <input name="z39" id="t9" type="hidden" value="" />
+                    <input name="z40" id="t10" type="hidden" value="" />
+                    <input name="z41" id="t11" type="hidden" value="" />
+                    <input name="z42" id="t12" type="hidden" value="" />
+                    <input name="z43" id="t13" type="hidden" value="" />
+                    <input name="z44" id="t14" type="hidden" value="" />
+                    <input name="z45" id="t15" type="hidden" value="" />
+                    <input name="z46" id="t16" type="hidden" value="" />
+                    <input name="z47" id="t17" type="hidden" value="" />
+                    <input name="z48" id="t18" type="hidden" value="" />
+                    <input name="z49" id="t19" type="hidden" value="" />
+                    <input name="z50" id="t20" type="hidden" value="" />
+
+                    <div id="submit_button">
+{#                        <input type="image" name="commit" src="/images/test/go2results.png" border="0"/>#}
+                        vai ai risultati
+                    </div>
+                </form>
+            </div>
+            <div id="messaggio"></div>
+        </div>
+    </div>
+
+
+
+
+{#    <script type="text/javascript">#}
+{##}
+{#        var _gaq = _gaq || [];#}
+{#        _gaq.push(['_setAccount', 'UA-980632-1']);#}
+{#        _gaq.push(['_setDomainName', '.voisietequi.it.']);#}
+{#        _gaq.push(['_trackPageview']);#}
+{##}
+{#        (function() {#}
+{#            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;#}
+{#            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';#}
+{#            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);#}
+{#        })();#}
+{##}
+{#    </script>#}
+
+
+
+{% endblock %}
+
+
+{% block userscript %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            askNext();
+        });
+
+
+    </script>
+{% endblock %}

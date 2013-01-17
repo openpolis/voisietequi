@@ -1,0 +1,121 @@
+{% extends "q_partiti_base.html" %}
+
+{% block title %}
+    Risposte della lista {{ nome_lista }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="span8">
+            <p>
+                Gentile {{ nome_responsabile }},<BR/>
+                la ringraziamo per aver risposto alle domande del questionario e per aver contribuito a
+                questa nuova versione del sito
+                <strong>Voi siete qui</strong> per le elezioni politiche 2013.
+            </p>
+            <p>
+                Se ha necessità di mettersi in contatto con noi può scriverci a questo indirizzo
+                <a href="mailto:associazione@openpolis.it">associazione@openpolis.it</a> o chiamarci allo 06.83608392
+            </p>
+            <p>
+                Cordialmente,<br>
+                <strong>la redazione di Openpolis</strong>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12 spacer"></div>
+    </div>
+
+    <div class="row">
+        <div class="span8">
+            <p class="partiti_title">
+                Le posizioni della lista
+                        <span class="lista_name">
+                            {{ nome_lista}}
+                        </span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span12">
+
+                {#                            stampa il resp.di lista#}
+                <div class="row">
+                    <div class="span3 offset7">
+                        <strong>Responsabile di lista</strong>
+                    </div>
+                    <div class="span3 offset7">
+                        {{ nome_responsabile }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span12 spacer"></div>
+                </div>
+
+                {% for a in answers %}
+
+                            {#                            stampa l'header della domanda e la select box#}
+                            <div class="row ">
+                                <table class="partiti table span10">
+                                    <tr>
+                                        <td class="span7 question_header">
+                                            Tema ( {{ a.domanda.ordine }} di {{ n_questions }})
+                                        </td>
+                                        <td class="span3 question_header">
+                                            Posizione della lista
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <table class="partiti table span10">
+                                    <tr>
+                                        <td class="span7 question_body">
+                                            <strong>{{ a.domanda.testo }}</strong>
+                                        </td>
+                                        <td class="span3 question_body " style="text-align: center;">
+                                            <strong>{{ a.get_risposta_int_display }}<strong>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+
+
+                            {#                            stampa la label e la textarea#}
+                            {% if a.risposta_txt %}
+                                <div class="row">
+                                    <table class="partiti table span10">
+                                        <tr>
+                                            <td class="span10 answer_label">
+                                                Commento testuale
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="span10 answer">
+                                                <p class="framed">
+                                                    {{ a.risposta_txt }}
+                                                </p>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            {% endif %}
+                            <div class="row">
+                                <div class="span12 spacer"></div>
+                            </div>
+                {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+

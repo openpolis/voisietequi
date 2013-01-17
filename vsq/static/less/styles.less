@@ -1,0 +1,164 @@
+@import "bootstrap/bootstrap.less";
+@import "styles-responsive.less";
+//VSQ13 custom Css
+
+body{
+  font-family: 'Arial', sans-serif;
+  background-color: white;
+}
+
+.ui-autocomplete{
+  z-index: 1000!important;
+}
+
+.header{
+  padding-bottom: @spacing-single;
+
+  #logo_header{
+
+   #logo_top{
+     padding-top: @spacing-double;
+     padding-bottom: @spacing-half;
+     a{
+       border: 0;
+     }
+   }
+  }
+}
+
+
+#top_navbar{
+  background-color: white;
+
+  .navbar-custom{
+    margin-bottom:0;
+    font-size: @navbar-size;
+
+    .navbar-inner-custom{
+      padding:0;
+      border: 0;
+      border-radius: 0;
+      background-color: white;
+      border-bottom-color: white;
+      background-repeat: no-repeat;
+      -webkit-box-shadow: none;
+      background-image: none;
+
+    }
+  }
+  .search-query{
+
+    height: 20px;
+    padding-bottom: 5px;
+//    margin-left: @spacing-half;
+    padding-left: 5px;
+    border-radius: 0;
+    background-color: #cacccb;
+    color: black;
+  }
+  .navbar-search{
+    .search-query{
+      min-width: 380px;
+    }
+  }
+
+}
+
+
+div.content{
+
+  min-height: 500px;
+
+  .spacer{
+    min-height: @spacing-single;
+    margin-bottom: @spacing-half;
+  }
+
+  .partiti_title{
+    font-size: @medium-size;
+    color:black;
+    margin-bottom: @spacing-single;
+    margin-top: @spacing-single;
+
+    .lista_name{
+      color: @red-color;
+    }
+  }
+  ul.partiti{
+    li{
+      list-style-image: url('../img/red-bullet.png');
+    }
+
+  }
+
+  table.partiti.table{
+
+    margin-bottom:0;
+    td{
+
+      border:0;
+    }
+
+    tbody tr.error td {
+      background-color: #FF5555;
+    }
+
+    .question_header{
+      border: 2px solid @gray-border;
+      text-align: center;
+    }
+    .question_body{
+      background-color: @gray-filling;
+
+      label{
+        font-weight: bold;
+        padding-left: @spacing-half;
+      }
+    }
+    .answer_label{
+      color: @gray-label;
+
+    }
+    .answer{
+      margin-left:0;
+
+      textarea{
+        width: 100%;
+        max-height: 80px;
+      }
+      .framed{
+        padding: 5px;
+        border: 2px solid @gray-border;
+      }
+    }
+
+  }
+
+  .earlybird{
+
+    input.semail{
+
+      width: 220px;
+      height: 30px;
+      padding: 10px 36px 10px 15px;
+      border: 1px solid #E5E5E5;
+      font-size: 14px;
+      float: left;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+    }
+  }
+
+//questionario utenti vecchi stili
+
+  #posizioni div{
+    img{
+      float:left;
+    }
+  }
+}
+
+footer{
+
+}

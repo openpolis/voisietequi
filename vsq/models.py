@@ -1,6 +1,9 @@
+# coding=utf-8
 from django.db import models
 from markdown import markdown
 from model_utils import Choices
+from django.template.defaultfilters import slugify
+from settings import SLUG_MAX_LENGTH
 
 class Domanda(models.Model):
     """
@@ -11,7 +14,10 @@ class Domanda(models.Model):
     Accompagno, is a text shown along, as to guide the user during the poll.
     Link contains a link to a web page where issues related to the question is discussed.
     """
-    slug = models.SlugField(max_length=200, unique=True,
+
+    ORDINE_DOMANDE = [(i,i) for i in range(1,26,1)]
+
+    slug = models.SlugField(max_length=SLUG_MAX_LENGTH, unique=True,
                             help_text="Valore suggerito, generato dal testo. Deve essere unico.")
     testo = models.TextField()
     testo_html = models.TextField(editable=False)
@@ -20,6 +26,8 @@ class Domanda(models.Model):
     accompagno = models.TextField(blank=True, null=True)
     accompagno_html = models.TextField(editable=False, blank=True, null=True)
     link = models.URLField(blank=True, null=True)
+    ordine = models.IntegerField(blank=False, null=False, choices=ORDINE_DOMANDE)
+
 
     class Meta:
       verbose_name_plural = "Domande"
@@ -30,10 +38,21 @@ class Domanda(models.Model):
             self.testo_html = markdown(self.testo)
         if self.approfondimento:
             self.approfondimento_html = markdown(self.approfondimento)
+        if self.testo:
+            self.slug = slugify(self.testo[:SLUG_MAX_LENGTH])
+
         super(Domanda, self).save(*args, **kwargs)
 
+    @classmethod
+    def get_domande(self):
+        return  Domanda.objects.order_by('ordine')
+
+    @classmethod
+    def get_n_domande(cls):
+        return Domanda.objects.count()
+
     def __unicode__(self):
-        return self.slug
+        return u"%s - %s" % (self.id, self.slug)
 
 
 class Utente(models.Model):
@@ -90,7 +109,7 @@ class Partito(models.Model):
 
     denominazione = models.CharField(max_length=255, unique=True)
     party_key = models.CharField(max_length=255, unique=True)
-    sigla = models.CharField(max_length=32, blank=True, null=True)
+    sigla = models.CharField(max_length=32, blank=False, null=False, unique=True)
     responsabile_nome = models.CharField(max_length=128, blank=True, null=True)
     responsabile_email = models.EmailField(max_length=128, blank=True, null=True)
     risposte_at = models.DateField(blank=True, null=True)
@@ -98,12 +117,29 @@ class Partito(models.Model):
     simbolo = models.ImageField(blank=True, null=True, upload_to='simboli')
     colore = models.CharField(max_length=16, blank=True, null=True, choices=COLORS)
     coalizione = models.CharField(max_length=32, blank=True, null=True)
+    slug = models.SlugField(max_length=SLUG_MAX_LENGTH, blank=True, null=True, unique=True)
 
     class Meta:
         verbose_name_plural = "Partiti"
 
     def __unicode__(self):
         return self.denominazione
+
+    def get_answers(self):
+        return RispostaPartito.objects.filter(partito=self).order_by('domanda__ordine')
+
+    def save(self, *args, **kwargs):
+        """override save method """
+
+        if self.denominazione and not self.slug:
+            self.slug = slugify(self.denominazione[:SLUG_MAX_LENGTH])
+
+        super(Partito, self).save(*args, **kwargs)
+
+# function for AJAX response mockup, only for test purpose
+    @classmethod
+    def get_partiti_list(cls):
+        return Partito.objects.all().values_list('sigla', flat=True)
 
 
 class RispostaPartito(models.Model):
@@ -125,12 +161,20 @@ class RispostaPartito(models.Model):
 
     domanda = models.ForeignKey(Domanda)
     partito = models.ForeignKey(Partito)
-    risposta_int = models.SmallIntegerField(choices=TIPO_RISPOSTA, verbose_name="Risposta")
+    risposta_int = models.SmallIntegerField(null=False, choices=TIPO_RISPOSTA, verbose_name="Risposta")
     risposta_txt = models.TextField(blank=True, null=True, verbose_name="Risposta testuale")
     nonorig = models.BooleanField(default=False, verbose_name="Non originale")
 
     class Meta:
         verbose_name_plural = "Risposte partito"
+
+#    restituisce le stringhe delle varie risposte possibili, al solo fine della visualizzazione
+    @classmethod
+    def get_tipo_risposta(cls):
+        risposte=[]
+        for tr in RispostaPartito.TIPO_RISPOSTA:
+            risposte.append(tr[1])
+        return risposte
 
 
 class RispostaUtente(models.Model):
@@ -154,3 +198,18 @@ class RispostaUtente(models.Model):
 
     class Meta:
         verbose_name_plural = "Risposte utente"
+
+
+
+class EarlyBird(models.Model):
+    """
+    Class that stores the emails of the people who want to be alerted when the website will be online
+    """
+    email = models.EmailField(unique=True,error_messages={'unique':"Attenzione: indirizzo email già inserito."})
+
+
+    class Meta:
+        verbose_name_plural = "Utenti Early Bird"
+
+    def __unicode__(self):
+        return self.email

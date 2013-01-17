@@ -1,5 +1,5 @@
 from django.contrib import admin
-from vsq.models import Domanda, Utente, Partito, RispostaPartito, RispostaUtente
+from vsq.models import Domanda, Utente, Partito, RispostaPartito, RispostaUtente, EarlyBird
 
 class DomandaAdmin(admin.ModelAdmin):
     prepopulated_fields = { 'slug': ['testo'] }
@@ -7,6 +7,7 @@ class DomandaAdmin(admin.ModelAdmin):
 
 class RispostaPartitoInline(admin.StackedInline):
     model = RispostaPartito
+
     extra = 1
 
 class RispostaUtenteInline(admin.StackedInline):
@@ -15,10 +16,15 @@ class RispostaUtenteInline(admin.StackedInline):
 
 class PartitoAdminWithRisposte(admin.ModelAdmin):
     inlines = [RispostaPartitoInline, ]
+    prepopulated_fields = { 'slug': ['denominazione'] }
 
 class UtenteAdminWithRisposte(admin.ModelAdmin):
     inlines = [RispostaUtenteInline, ]
 
+class EarlyBirdAdmin(admin.ModelAdmin):
+    model=EarlyBird
+
 admin.site.register(Domanda, DomandaAdmin)
 admin.site.register(Utente, UtenteAdminWithRisposte)
 admin.site.register(Partito, PartitoAdminWithRisposte)
+admin.site.register(EarlyBird, EarlyBirdAdmin)
