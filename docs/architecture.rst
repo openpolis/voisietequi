@@ -2,7 +2,7 @@ Architettura
 ------------
 L'architettura del sistema, con le componenti, è illustrata in questo schema:
 
-.. image:: images/architettura.png
+.. image:: https://raw.github.com/openpolis/voisietequi/master/docs/images/architettura.png
    :height: 200
    :width: 600
    :scale: 50
@@ -41,7 +41,7 @@ Il modulo computer è pensato per essere indipendente, può essere utilizzato in
 Una volta installato e lanciato, il modulo può ricevere una richiesta POST e una GET,
 alla url ``http://computer.voisietequi.it/configuration``.
 
-.. image:: images/configurazione.png
+.. image:: https://raw.github.com/openpolis/voisietequi/master/docs/images/configurazione.png
    :height: 200
    :width: 600
    :scale: 50
@@ -113,7 +113,7 @@ Il componente riceve le risposte dell'utente, con i suoi dati ed effettua il cal
 ottenendo le coordinate delle posizioni di utente e partiti. Poi, in modalità sincrona invia un messaggio
 a una coda, per la scrittura su DB e invia la response JSON al browser dell'utente.
 
-.. image:: images/calcolo.png
+.. image:: https://raw.github.com/openpolis/voisietequi/master/docs/images/calcolo.png
    :height: 200
    :width: 600
    :scale: 50
