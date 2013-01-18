@@ -136,8 +136,6 @@
 
 
         <div id="modulo_risposte" style="display: none;">
-            <div id="" class="">
-{#                <form method="">#}
                     {% csrf_token %}
                     <div name="frm_posizioniUtente" >
                         <input type="hidden" name="chiave" id="chiave" value="" />
@@ -181,14 +179,11 @@
                         <div id="submit_button">
                             <input type="image" name="commit" src="{{ STATIC_URL }}img/bottoni_q/go2results.png" border="0"
                                    onclick="validate_submit();"/>
-
                         </div>
                     </div>
-{#                </form>#}
-            </div>
 
-            <div id="messaggio"></div>
         </div>
+        <div id="messaggio"></div>
     </div>
 
 

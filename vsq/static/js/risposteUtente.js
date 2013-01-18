@@ -3,10 +3,68 @@ var chosed = 0;
 var url="/mockup_answer";
 
 
-//function that will visualize the response data
-function visualize(response){
+//string-fy an object
+function DumpObjectIndented(obj, indent)
+{
+    var result = "";
+    if (indent == null) indent = "";
 
-    alert(response);
+    for (var property in obj)
+    {
+        var value = obj[property];
+        if (typeof value == 'string')
+            value = "'" + value + "'";
+        else if (typeof value == 'object')
+        {
+            if (value instanceof Array)
+            {
+                // Just let JS convert the Array to a string!
+                value = "[ " + value + " ]";
+            }
+            else
+            {
+                // Recursive dump
+                // (replace "  " by "\t" or something else if you prefer)
+                var od = DumpObjectIndented(value, indent + "  ");
+                // If you like { on the same line as the key
+                //value = "{\n" + od + "\n" + indent + "}";
+                // If you prefer { and } to be aligned
+                value = "\n" + indent + "{\n" + od + "\n" + indent + "}";
+            }
+        }
+        result += indent + "'" + property + "' : " + value + ",\n";
+    }
+    return result.replace(/,\n$/, "");
+}
+
+
+function show(id){
+    if(!id)
+        return;
+    var obj = document.getElementById(id);
+    if(obj)
+        obj.style.display = "block";
+}
+
+function hide(id){
+    if(!id)
+        return;
+    var obj = document.getElementById(id);
+        if(obj)
+            obj.style.display = "none";
+}
+
+
+//function that will visualize the response data
+function visualize(object){
+
+//    nasconde il form con nickname e mail e visualizza il grafico
+    hide('modulo_risposte');
+
+    var m = document.getElementById("messaggio");
+//    carica nella pagina i dati relativi alla domanda
+    m.innerHTML = DumpObjectIndented(object,'');
+
 }
 
 //function that sends data via AJAX
@@ -88,8 +146,8 @@ function validate() {
 //returns the data struct that will be posted
 function collect_data(){
     var data = {};
+    var user_data={}
     data.answers = [];
-    data.user_data = [];
     var answers, questionid;
     var i;
 
@@ -103,16 +161,12 @@ function collect_data(){
     }
 
 //    retrieve user name and email
-    var name = document.getElementById('nickname');
-    var email = document.getElementById('ml_email');
-//    data.user_data["name"]=name.value;
-//    data.user_data["email"]=email.value;
+    user_data.name = document.getElementById('nickname').value;
+    user_data.email = document.getElementById('ml_email').value;
 
-
+    data.user_data = user_data;
     return data
 }
-
-
 
 askNext = function () {
 	c++;
@@ -120,15 +174,14 @@ askNext = function () {
 	if( c >= questions.length) {
 //        se ho finito il questionario nasconde i div delle domande e mostra
 //        la form per inserire nome e mail
-		var askname = document.getElementById("modulo_risposte");
-		var quests = document.getElementById("domanda");
-		var pos = document.getElementById("posizioni");
-		var pre = document.getElementById("tema_precedente");
-		var suc = document.getElementById("tema_successivo");
-		var leg = document.getElementById("legend");		
-		askname.style.display = "block";
-		quests.style.display = pos.style.display = pre.style.display = suc.style.display = leg.style.display = "none";		
-		return;	
+
+        hide("domanda");
+        hide("posizioni");
+        hide("tema_precedente");
+        hide("tema_successivo");
+        hide("legend");
+        show("modulo_risposte");
+        return;
 	}
 	refreshView();
 }
@@ -156,23 +209,22 @@ refreshView = function () {
 	k_inf.innerHTML = questions[c].inf;	
 
 //attiva o disattiva i bottoni precedente/successivo
-    var next = document.getElementById("tema_successivo");
-    var prev = document.getElementById("tema_precedente");
+
 
 	if (c <= chosed) {
-		next.style.display = "block";
+		show("tema_successivo");
 	} else {
-		next.style.display = "none";
+		hide("tema_successivo");
 	}
 	
 	if (c <= 1) {
-		prev.style.display = "none";
+		hide("tema_precedente");
 	} else {
-		prev.style.display = "block";		
+		show("tema_precedente");
 	}
 	
-	b = document.getElementById("approfondimento");  
-	b.style.display = "none";
+
+	hide("approfondimento");
 	
 	resetImgs();
 	
@@ -180,23 +232,12 @@ refreshView = function () {
 
 //    nel caso l'utente abbia gia' risposto alla domanda C-esima cambia il colore del bottone della risposta
 	if (cell.value != "") {
-		var img1 = document.getElementById("ch"+cell.value);
-		var img2 = document.getElementById("ch"+cell.value+"_dwn");		
-		img1.style.display = "none";
-		img2.style.display = "block";			
+
+		hide("ch"+cell.value);
+		show("ch"+cell.value+"_dwn");
 	}
 
-//    cambia il colore dei quadratini che guidano il questionario
-//  for (var i = 1; i < questions.length; i++) {
-//    var led = document.getElementById('s'+i);
-//    if (i == c) {
-//      led.className = 'current';
-//    } else if (i > chosed) {
-//      led.className = 'to_do';
-//    } else {
-//      led.className = 'done';
-//    }
-//  }
+
 	
 };
 
@@ -277,19 +318,18 @@ function echeck(str) {
 
 function resetImgs () {
 	for (var i = -3; i<=3; i++) {
-		var img1 = document.getElementById("ch"+i);
-		var img2 = document.getElementById("ch"+i+"_dwn");
-		img1.style.display = "block";
-		img2.style.display = "none";		
+
+		show("ch"+i);
+		hide("ch"+i+"_dwn");
 	}
 }
 
 function showhideApprofondimento(){
 	b = document.getElementById("approfondimento");  
 	if (b.style.display == "none"){
-		b.style.display = "block";
+		show("approfondimento");
 	} else {
-		b.style.display = "none";
+		hide("approfondimento");
 	}
 }
 
