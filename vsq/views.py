@@ -168,19 +168,17 @@ def mockup_response(request):
         random.uniform(MIN_GRAPH_Y, MAX_GRAPH_Y)
     ]
 
-    response = {'user_data':
-                    {
-                        'email':'address@gmail.com',
-                        'nome': 'Mario Rossi',
-                    },
+    response = {
                 'answers_partiti': dict,
                 'answers_utente':[
                     random.uniform(MIN_GRAPH_X, MAX_GRAPH_X),
                     random.uniform(MIN_GRAPH_Y, MAX_GRAPH_Y)
                     ],
-                'codice': 'XYZ'
+                'codice': 'XYZ',
+
         }
     content=json.dumps(response)
+
     return HttpResponse(content,
         content_type='application/json',
         )
