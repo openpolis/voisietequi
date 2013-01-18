@@ -9,8 +9,8 @@
             <div id="questNav">
                 <div class="contatore">Sei alla domanda <span class="highlight" id="counter">X</span> di <span class="highlight" id="nquestions">20</span></div>
 
-                <form action="" method="post" id="collectedData">
-                    {% csrf_token %}
+{#                <form action="" method="post" id="collectedData">#}
+
 {#                    <ul class="stepper">#}
 {#                        <li class="to_do" id="s1">&nbsp;</li>#}
 {#                        <li class="to_do" id="s2">&nbsp;</li>#}
@@ -33,7 +33,7 @@
 {#                        <li class="to_do" id="s19">&nbsp;</li>#}
 {#                        <li class="to_do" id="s20">&nbsp;</li>#}
 {#                    </ul>#}
-                </form>
+{#                </form>#}
 
                 <ul id="legend">
 {#                    <li class="done">hai risposto</li>#}
@@ -136,57 +136,57 @@
 
 
         <div id="modulo_risposte" style="display: none;">
+            <div id="" class="">
+{#                <form method="">#}
+                    {% csrf_token %}
+                    <div name="frm_posizioniUtente" >
+                        <input type="hidden" name="chiave" id="chiave" value="" />
 
-            <div id="nick" class="form">
+                        <label for="nick">
+                            inserisci il tuo <span class="highlight">nome</span> (per vederlo sul grafico)
+                        </label>
+                        <div id="nick_input">
+                            <input type="text" name="nickname" id="nickname" value="Io"/>
+                        </div>
 
-{#                <form onSubmit="return validate()" name="frm_posizioniUtente" action="/insert_risposte_utente" method="post">#}
-                <div name="frm_posizioniUtente" >
-                    <input type="hidden" name="chiave" id="chiave" value="" />
+                        <label for="ml_email">
+                            le promesse dei candidati saranno mantenute dagli eletti?<br/>
+                            lascia la tua <span class="highlight">e-mail</span> per avere aggiornamenti
+                        </label>
+                        <div id="mail_input">
+                            <input type="text" name="ml_email" id="ml_email" value=""/>
+                        </div>
 
-                    <label for="nick">
-                        inserisci il tuo <span class="highlight">nome</span> (per vederlo sul grafico)
-                    </label>
-                    <div id="nick_input">
-                        <input type="text" name="nickname" id="nickname" value="Io"/>
+                        <input name="z31" id="t1" type="hidden" value="" />
+                        <input name="z32" id="t2" type="hidden" value="" />
+                        <input name="z33" id="t3" type="hidden" value="" />
+                        <input name="z34" id="t4" type="hidden" value="" />
+                        <input name="z35" id="t5" type="hidden" value="" />
+                        <input name="z36" id="t6" type="hidden" value="" />
+                        <input name="z37" id="t7" type="hidden" value="" />
+                        <input name="z38" id="t8" type="hidden" value="" />
+                        <input name="z39" id="t9" type="hidden" value="" />
+                        <input name="z40" id="t10" type="hidden" value="" />
+                        <input name="z41" id="t11" type="hidden" value="" />
+                        <input name="z42" id="t12" type="hidden" value="" />
+                        <input name="z43" id="t13" type="hidden" value="" />
+                        <input name="z44" id="t14" type="hidden" value="" />
+                        <input name="z45" id="t15" type="hidden" value="" />
+                        <input name="z46" id="t16" type="hidden" value="" />
+                        <input name="z47" id="t17" type="hidden" value="" />
+                        <input name="z48" id="t18" type="hidden" value="" />
+                        <input name="z49" id="t19" type="hidden" value="" />
+                        <input name="z50" id="t20" type="hidden" value="" />
+
+                        <div id="submit_button">
+                            <input type="image" name="commit" src="{{ STATIC_URL }}img/bottoni_q/go2results.png" border="0"
+                                   onclick="validate_submit();"/>
+
+                        </div>
                     </div>
-
-                    <label for="ml_email">
-                        le promesse dei candidati saranno mantenute dagli eletti?<br/>
-                        lascia la tua <span class="highlight">e-mail</span> per avere aggiornamenti
-                    </label>
-                    <div id="mail_input">
-                        <input type="text" name="ml_email" id="ml_email" value=""/>
-                    </div>
-
-                    <input name="z31" id="t1" type="hidden" value="" />
-                    <input name="z32" id="t2" type="hidden" value="" />
-                    <input name="z33" id="t3" type="hidden" value="" />
-                    <input name="z34" id="t4" type="hidden" value="" />
-                    <input name="z35" id="t5" type="hidden" value="" />
-                    <input name="z36" id="t6" type="hidden" value="" />
-                    <input name="z37" id="t7" type="hidden" value="" />
-                    <input name="z38" id="t8" type="hidden" value="" />
-                    <input name="z39" id="t9" type="hidden" value="" />
-                    <input name="z40" id="t10" type="hidden" value="" />
-                    <input name="z41" id="t11" type="hidden" value="" />
-                    <input name="z42" id="t12" type="hidden" value="" />
-                    <input name="z43" id="t13" type="hidden" value="" />
-                    <input name="z44" id="t14" type="hidden" value="" />
-                    <input name="z45" id="t15" type="hidden" value="" />
-                    <input name="z46" id="t16" type="hidden" value="" />
-                    <input name="z47" id="t17" type="hidden" value="" />
-                    <input name="z48" id="t18" type="hidden" value="" />
-                    <input name="z49" id="t19" type="hidden" value="" />
-                    <input name="z50" id="t20" type="hidden" value="" />
-
-                    <div id="submit_button">
-                        <input type="image" name="commit" src="{{ STATIC_URL }}img/bottoni_q/go2results.png" border="0"
-                               onclick="validate_submit();"/>
-
-                    </div>
-                </div>
 {#                </form>#}
             </div>
+
             <div id="messaggio"></div>
         </div>
     </div>

@@ -1,12 +1,62 @@
 var c = 0;
 var chosed = 0;
+var url="/mockup_answer";
 
-function firstTime(){
 
-//    set the total n. of question on the page
-    document.getElementById('nquestions').innerHTML = questions.length-1;
-    askNext();
+//function that will visualize the response data
+function visualize(response){
+
+    alert(response);
 }
+
+//function that sends data via AJAX
+function send_data(url,data){
+
+    var csrftoken = getCookie('csrftoken');
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                // Send the token to same-origin, relative URLs only.
+                // Send the token only if the method warrants CSRF protection
+                // Using the CSRFToken value acquired earlier
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    // fire off the request to /form.php
+    var request = $.ajax({
+        url: url,
+        type: "post",
+        data: data
+
+    });
+
+    // callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+        visualize(response);
+    });
+
+
+}
+
+
+//this functions validates the user data, if it's valid then call send_data
+function validate_submit(){
+    var i;
+    var data, response;
+
+    if(validate()==true)
+    {
+        data=collect_data();
+        if(data){
+            send_data(url,data);
+        }
+
+    }
+
+    return false;
+}
+
 
 function validate() {
 
@@ -49,100 +99,19 @@ function collect_data(){
 //        use the questions id as an index
         questionid = questions[i]['id']
         if(document.getElementById("t"+questionid).value!='')
-            data.answers["questionid"]=document.getElementById("t"+questionid).value;
+            data.answers[""+questionid+""]=document.getElementById("t"+questionid).value;
     }
 
 //    retrieve user name and email
-    data.user_data["name"] = document.getElementById('nickname')
-    data.user_data["email"]= document.getElementById('ml_email')
+    var name = document.getElementById('nickname');
+    var email = document.getElementById('ml_email');
+//    data.user_data["name"]=name.value;
+//    data.user_data["email"]=email.value;
+
 
     return data
 }
 
-
-//this functions validates the user data, if it's valid then call send_data
-function validate_submit(){
-    var i;
-    var data;
-
-    if(validate()==true)
-    {
-        data=collect_data();
-        if(data)
-            send_data(data);
-
-    }
-    else
-        return false;
-}
-
-
-//functions for csrf token
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-function sameOrigin(url) {
-    // test that a given url is a same-origin URL
-    // url could be relative or scheme relative or absolute
-    var host = document.location.host; // host + port
-    var protocol = document.location.protocol;
-    var sr_origin = '//' + host;
-    var origin = protocol + sr_origin;
-    // Allow absolute or scheme relative URLs to same origin
-    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-        // or any other URL that isn't scheme relative or absolute i.e relative.
-        !(/^(\/\/|http:|https:).*/.test(url));
-}
-
-// using jQuery
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-//functions that sends data via AJAX
-function send_data(data){
-
-    var csrftoken = getCookie('csrftoken');
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
-                // Send the token to same-origin, relative URLs only.
-                // Send the token only if the method warrants CSRF protection
-                // Using the CSRFToken value acquired earlier
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        }
-    });
-    // fire off the request to /form.php
-    var request = $.ajax({
-        url: "/mockup_answer",
-        type: "post",
-        data: data
-
-    });
-
-    // callback handler that will be called on success
-    request.done(function (response, textStatus, jqXHR){
-        // log a message to the console
-        alert(response);
-    });
-
-
-}
 
 
 askNext = function () {
@@ -322,4 +291,11 @@ function showhideApprofondimento(){
 	} else {
 		b.style.display = "none";
 	}
+}
+
+function firstTime(){
+
+//    set the total n. of question on the page
+    document.getElementById('nquestions').innerHTML = questions.length-1;
+    askNext();
 }
