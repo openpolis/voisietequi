@@ -169,12 +169,8 @@ def mockup_response(request):
     ]
 
     response = {
-                'answers_partiti': dict,
-                'answers_utente':[
-                    random.uniform(MIN_GRAPH_X, MAX_GRAPH_X),
-                    random.uniform(MIN_GRAPH_Y, MAX_GRAPH_Y)
-                    ],
-                'codice': 'XYZ',
+                'posizioni': dict,
+                'codice_utente': 'XYZ',
 
         }
     content=json.dumps(response)
