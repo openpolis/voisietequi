@@ -212,14 +212,10 @@
 
 {% block userscript %}
     <script type="text/javascript">
-
-
-
-        $(document).ready(function() {
-{#       declare public array with partiti color for the final graph     #}
-            var partiti_color=[];
-            {% for p in partiti_color %}
-                {% spaceless %}
+        {#       declare public array with partiti color for the final graph     #}
+        var partiti_color=[];
+        {% for p in partiti_color %}
+            {% spaceless %}
                 partiti_color[{{ forloop.counter }}]=
                         [
                             "{{ p.sigla }}",
@@ -230,8 +226,11 @@
                             {% endif %}
 
                         ];
-                {% endspaceless %}
-            {% endfor %}
+            {% endspaceless %}
+        {% endfor %}
+
+        $(document).ready(function() {
+
 
 
             firstTime();

@@ -76,7 +76,7 @@ function draw_graph(posizioni){
 //data type:  [{'pk':{'sigla','x','y'}}, ...]
 //for every party
 
-    var maxvalx, maxvaly,minvalx, minvaly;
+    var maxvalx, maxvaly,minvalx, minvaly, color;
 
     //range di ingresso
     maxvalx= maxvaly=10000;
@@ -98,9 +98,25 @@ function draw_graph(posizioni){
     var pos_array = _.toArray(posizioni);
     sampsize = pos_array.length;
 
+
     for (var i=0; i < sampsize; i++) {
 
-        val_array[i] = { label: "test", x: pos_array[i][0], y: pos_array[i][1], size: 2, color: "#f0f"  };
+        //        trova il colore associato al partito analizzato
+
+
+        for(var j=1;j<partiti_color.length; j++){
+
+            if(pos_array[i][0] == partiti_color[j][0])
+                color = partiti_color[j][1];
+        }
+
+        if(color=="")
+            color="#aaaaaa";
+
+        val_array[i] = { label: pos_array[i][0], x: pos_array[i][1], y: pos_array[i][2], size: 2, color:color};
+        color="";
+
+
     }
 
     var vis = d3.select("#grafico")
