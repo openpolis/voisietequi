@@ -76,7 +76,10 @@ function draw_graph(posizioni){
 //data type:  [{'pk':{'sigla','x','y'}}, ...]
 //for every party
 
-    var maxvalx, maxvaly,minvalx, minvaly, color;
+    var maxvalx, maxvaly,minvalx, minvaly, color,dotsize, label_color, xlabel_margin;
+    dotsize=5;
+    xlabel_margin=dotsize+5;
+    label_color="black";
 
     //range di ingresso
     maxvalx= maxvaly=10000;
@@ -87,8 +90,8 @@ function draw_graph(posizioni){
         h = 400,
         p = 2,
         //funzione di scala fra input e output
-        x = d3.scale.linear().domain([ minvalx, maxvalx]).range([0, w]),
-        y = d3.scale.linear().domain([ minvaly, maxvaly ]).range([h, 0]);
+        x = d3.scale.linear().domain([ minvalx, maxvalx]).range([dotsize, w-dotsize]),
+        y = d3.scale.linear().domain([ minvaly, maxvaly]).range([h-dotsize, dotsize]);
 
     var sampsize = 0;
     var label_array = new Array();
@@ -103,19 +106,17 @@ function draw_graph(posizioni){
 
         //        trova il colore associato al partito analizzato
 
-
         for(var j=1;j<partiti_color.length; j++){
 
             if(pos_array[i][0] == partiti_color[j][0])
                 color = partiti_color[j][1];
         }
-
+        //if party was not found, set a default color
         if(color=="")
             color="#aaaaaa";
 
-        val_array[i] = { label: pos_array[i][0], x: pos_array[i][1], y: pos_array[i][2], size: 2, color:color};
+        val_array[i] = { label: pos_array[i][0], x: pos_array[i][1], y: pos_array[i][2], size: dotsize, color:color};
         color="";
-
 
     }
 
@@ -136,30 +137,18 @@ function draw_graph(posizioni){
         .attr("cy", function(d) { return y(d.y); } )
         .attr("r", function(d) { return d.size; });
 
-//
-//    // add bubble labels: in two steps
-//    vis.selectAll("g.rule")
-//        .data(val_array)
-//        .append("svg:text")
-//        .attr("text-anchor", "middle")
-//        .attr("x", function(d) { return x(d.x); })
-//        .attr("y", function(d) { return y(d.y) + Math.sqrt( 5*d.size / Math.PI) + 4; })
-//        .attr("dy", ".3em")
-//        .attr("fill", "black")
-//        .attr("clip", "inherit")
-//        .text(function(d) { return d.label; });
-//
-//    vis.selectAll("g.rule")
-//        .data(val_array)
-//        .enter().append("svg:text")
-//        .attr("text-anchor", "middle")
-//        .attr("x", function(d) { return x(d.x); })
-//        .attr("y", function(d) { return y(d.y) + Math.sqrt( 5*d.size / Math.PI) + 4; })
-//        .attr("dy", ".3em")
-//        .attr("fill", "black")
-//        .attr("clip", "inherit")
-//        .text(function(d) { return d.label; });
-
+    //adds label for party
+    vis.selectAll("text")
+        .data(val_array)
+        .enter()
+        .append("svg:text")
+        .attr("x", function(d) { return x(d.x);})
+        .attr("y", function(d) { return y(d.y);})
+        .attr("dx", xlabel_margin)
+        .attr("dy", dotsize)
+        .attr("text-anchor", "start")
+        .text(function(d) { return d.label;})
+        .attr("fill", label_color);
 
 
 
