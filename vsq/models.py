@@ -1,4 +1,5 @@
 # coding=utf-8
+from datetime import datetime
 from django.db import models
 from markdown import markdown
 from model_utils import Choices
@@ -105,6 +106,7 @@ class Partito(models.Model):
         ('#ffffff', 'bianco'),
         ('#ff0000', 'rosso'),
         ('#00ff00', 'verde'),
+        ('#aaaaaa', 'grigio'),
     )
 
     denominazione = models.CharField(max_length=255, unique=True)
@@ -115,7 +117,7 @@ class Partito(models.Model):
     risposte_at = models.DateField(blank=True, null=True)
     sito = models.URLField(blank=True, null=True)
     simbolo = models.ImageField(blank=True, null=True, upload_to='simboli')
-    colore = models.CharField(max_length=16, blank=True, null=True, choices=COLORS)
+    colore = models.CharField(max_length=16, blank=True, null=True, choices=COLORS,default=COLORS[2])
     coalizione = models.CharField(max_length=32, blank=True, null=True)
     slug = models.SlugField(max_length=SLUG_MAX_LENGTH, blank=True, null=True, unique=True)
 
@@ -133,6 +135,7 @@ class Partito(models.Model):
 
         if self.denominazione and not self.slug:
             self.slug = slugify(self.denominazione[:SLUG_MAX_LENGTH])
+
 
         super(Partito, self).save(*args, **kwargs)
 

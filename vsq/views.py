@@ -1,5 +1,6 @@
 from django.core.mail import EmailMessage
 from django.core.serializers import serialize
+from django.db.models import Count
 from django.db.models.query import QuerySet
 from django.http import Http404, HttpResponse
 from django.template import Context
@@ -21,6 +22,12 @@ class QuestionarioUtente(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(QuestionarioUtente, self).get_context_data(**kwargs)
+
+#        passa al contesto i colori associati ai partiti per il grafico finale
+        context['partiti_color']=Partito.objects.all().\
+            annotate(c=Count('rispostapartito')).\
+            filter(c__gt=0).values('sigla','colore')
+
         return context
 
 class QuestionarioPartitiView(TemplateView):
