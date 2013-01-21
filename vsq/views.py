@@ -164,13 +164,15 @@ def mockup_response(request):
     dict={}
 #    adds mockup results for Partiti
     for p in partiti_list:
-        dict[str(p)]=[
+        dict[str(p['pk'])]=[
+                p['sigla'],
                 random.uniform(MIN_GRAPH_X, MAX_GRAPH_X),
                 random.uniform(MIN_GRAPH_Y, MAX_GRAPH_Y)
             ]
 
 #    adds mockup results for the user
     dict['user']=[
+        'user',
         random.uniform(MIN_GRAPH_X, MAX_GRAPH_X),
         random.uniform(MIN_GRAPH_Y, MAX_GRAPH_Y)
     ]

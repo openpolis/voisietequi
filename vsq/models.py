@@ -142,7 +142,7 @@ class Partito(models.Model):
 # function for AJAX response mockup, only for test purpose
     @classmethod
     def get_partiti_list(cls):
-        return Partito.objects.all().values_list('sigla', flat=True)
+        return Partito.objects.all().values('pk','sigla')
 
 
 class RispostaPartito(models.Model):

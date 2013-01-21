@@ -73,6 +73,9 @@ function visualize(object){
 
 function draw_graph(posizioni){
 
+//data type:  [{'pk':{'sigla','x','y'}}, ...]
+//for every party
+
     var maxvalx, maxvaly,minvalx, minvaly;
 
     //range di ingresso
