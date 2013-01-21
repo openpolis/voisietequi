@@ -203,5 +203,5 @@ INTERNAL_IPS = ('127.0.0.1',)
 #max and min values for points in the final graph
 MIN_GRAPH_X=0
 MIN_GRAPH_Y=0
-MAX_GRAPH_X=3
-MAX_GRAPH_Y=3
+MAX_GRAPH_X=10000
+MAX_GRAPH_Y=10000

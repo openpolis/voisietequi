@@ -102,9 +102,9 @@ class Partito(models.Model):
     coalizione:         Coalition, a simple string that may be used in graphics and reports
     """
     COLORS = Choices(
-        ('WHITE', 'bianco'),
-        ('RED', 'rosso'),
-        ('GREEN', 'verde'),
+        ('#ffffff', 'bianco'),
+        ('#ff0000', 'rosso'),
+        ('#00ff00', 'verde'),
     )
 
     denominazione = models.CharField(max_length=255, unique=True)
