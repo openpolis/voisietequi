@@ -70,6 +70,7 @@ function visualize(object){
 
 }
 
+var links;
 
 function draw_graph(posizioni){
 
@@ -82,7 +83,7 @@ function draw_graph(posizioni){
     label_color="black";
 
     //range di ingresso
-    maxvalx= maxvaly=10000;
+    maxvalx= maxvaly=1;
     minvalx= minvaly=0;
 
     //dimensioni del grafico sulla pagina html
@@ -128,31 +129,91 @@ function draw_graph(posizioni){
 
 
     // Draw xy scatterplot
-    vis.selectAll("circle.line")
-        .data(val_array)
-        .enter().append("svg:circle")
-        .attr("class", "line")
-        .attr("fill", function(d) { return d.color; } )
-        .attr("cx", function(d) { return x(d.x);  })
-        .attr("cy", function(d) { return y(d.y); } )
-        .attr("r", function(d) { return d.size; });
+//    vis.selectAll("circle.line")
+//        .data(val_array)
+//        .enter().append("svg:circle")
+//        .attr("class", "line")
+//        .attr("fill", function(d) { return d.color; } )
+//        .attr("cx", function(d) { return x(d.x);  })
+//        .attr("cy", function(d) { return y(d.y); } )
+//        .attr("r", function(d) { return d.size; });
 
     //adds label for party
-    vis.selectAll("text")
-        .data(val_array)
-        .enter()
-        .append("svg:text")
-        .attr("x", function(d) { return x(d.x);})
-        .attr("y", function(d) { return y(d.y);})
-        .attr("dx", xlabel_margin)
-        .attr("dy", dotsize)
-        .attr("text-anchor", "start")
-        .text(function(d) { return d.label;})
-        .attr("fill", label_color);
+//    vis.selectAll("text")
+//        .data(val_array)
+//        .enter()
+//        .append("svg:text")
+//        .attr("x", function(d) { return x(d.x);})
+//        .attr("y", function(d) { return y(d.y);})
+//        .attr("dx", xlabel_margin)
+//        .attr("dy", dotsize)
+//        .attr("text-anchor", "start")
+//        .text(function(d) { return d.label;})
+//        .attr("fill", label_color);
 
 
+    // Initialize the label-forces
+    var labelForce = d3.force_labels()
+        .linkDistance(3.0)
+        .gravity(0)
+        .nodes([]).links([])
+        .charge(-60)
+        .on("tick",redrawLabels);
+
+    var anchors = vis.selectAll(".anchor").data(val_array,function(d,i) { return i})
+    anchors.exit().attr("class","exit").transition().duration(1000).style("opacity",0).remove()
+    anchors.enter().
+        append("circle").
+        attr("class","anchor").
+        attr("r",4).
+        attr("cx",function(d) { return x(d.x);}).
+        attr("cy",function(d) { return y(d.y);})
+
+    anchors.transition()
+        .delay(function(d,i) { return i*10;})
+        .duration(10)
+        .attr("cx",function(d) { return x(d.x);})
+        .attr("cy",function(d) { return y(d.y);})
+
+    // Now for the labels
+    anchors.call(labelForce.update)  //  This is the only function call needed, the rest is just drawing the labels
+
+    var labels = vis.selectAll(".labels").data(val_array,function(d,i) { return i})
+    labels.exit().attr("class","exit").transition().delay(0).duration(500).style("opacity",0).remove()
+
+    // Draw the labelbox, caption and the link
+    var newLabels = labels.enter().append("g").attr("class","labels")
+
+    newLabelBox = newLabels.append("g").attr("class","labelbox")
+    //    newLabelBox.append("circle").attr("r",11)
+    newLabelBox.append("text").attr("class","labeltext").attr("y",6)
+    newLabels.append("line").attr("class","link")
+
+    labelBox = vis.selectAll(".labels").selectAll(".labelbox")
+    links = vis.selectAll(".link")
+    labelBox.selectAll("text").text(function(d) { return d.label;;})
 
 }
+
+var w=400,h=400,
+    x_mean = w/2,
+    x_std = w/10,
+    y_mean = h/2,
+    y_std = h/10,
+    labelBox,link;
+
+
+function redrawLabels() {
+    labelBox
+        .attr("transform",function(d) { return "translate("+d.labelPos.x+" "+d.labelPos.y+")"})
+
+    links
+        .attr("x1",function(d) { return d.anchorPos.x})
+        .attr("y1",function(d) { return d.anchorPos.y})
+        .attr("x2",function(d) { return d.labelPos.x})
+        .attr("y2",function(d) { return d.labelPos.y})
+}
+
 
 
 
@@ -170,7 +231,7 @@ function send_data(url,data){
             }
         }
     });
-    // fire off the request to /form.php
+    // fire off the request to the set url
     var request = $.ajax({
         url: url,
         type: "post",
