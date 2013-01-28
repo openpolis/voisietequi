@@ -2,6 +2,19 @@ var c = 0;
 var chosed = 0;
 var url="/mockup_answer";
 
+//range di ingresso
+var maxvalx, maxvaly,minvalx, minvaly;
+maxvalx= maxvaly=1;
+minvalx= minvaly=0;
+
+var label_charge = -150;
+//dimensioni del grafico sulla pagina html
+var w = 400,
+    h = 400,
+    p = 2;
+
+//anchor size
+var dotsize=5;
 
 //string-fy an object
 function DumpObjectIndented(obj, indent)
@@ -77,21 +90,13 @@ function draw_graph(posizioni){
 //data type:  [{'pk':{'sigla','x','y'}}, ...]
 //for every party
 
-    var maxvalx, maxvaly,minvalx, minvaly, color,dotsize, label_color, xlabel_margin;
-    dotsize=5;
+    var color, label_color, xlabel_margin;
+
     xlabel_margin=dotsize+5;
     label_color="black";
 
-    //range di ingresso
-    maxvalx= maxvaly=1;
-    minvalx= minvaly=0;
-
-    //dimensioni del grafico sulla pagina html
-    var w = 400,
-        h = 400,
-        p = 2,
-        //funzione di scala fra input e output
-        x = d3.scale.linear().domain([ minvalx, maxvalx]).range([dotsize, w-dotsize]),
+    //funzione di scala fra input e output
+    var   x = d3.scale.linear().domain([ minvalx, maxvalx]).range([dotsize, w-dotsize]),
         y = d3.scale.linear().domain([ minvaly, maxvaly]).range([h-dotsize, dotsize]);
 
     var sampsize = 0;
@@ -106,7 +111,6 @@ function draw_graph(posizioni){
     for (var i=0; i < sampsize; i++) {
 
         //        trova il colore associato al partito analizzato
-
         for(var j=1;j<partiti_color.length; j++){
 
             if(pos_array[i][0] == partiti_color[j][0])
@@ -128,46 +132,24 @@ function draw_graph(posizioni){
         .attr("height", h );
 
 
-    // Draw xy scatterplot
-//    vis.selectAll("circle.line")
-//        .data(val_array)
-//        .enter().append("svg:circle")
-//        .attr("class", "line")
-//        .attr("fill", function(d) { return d.color; } )
-//        .attr("cx", function(d) { return x(d.x);  })
-//        .attr("cy", function(d) { return y(d.y); } )
-//        .attr("r", function(d) { return d.size; });
-
-    //adds label for party
-//    vis.selectAll("text")
-//        .data(val_array)
-//        .enter()
-//        .append("svg:text")
-//        .attr("x", function(d) { return x(d.x);})
-//        .attr("y", function(d) { return y(d.y);})
-//        .attr("dx", xlabel_margin)
-//        .attr("dy", dotsize)
-//        .attr("text-anchor", "start")
-//        .text(function(d) { return d.label;})
-//        .attr("fill", label_color);
-
 
     // Initialize the label-forces
     var labelForce = d3.force_labels()
         .linkDistance(3.0)
         .gravity(0)
         .nodes([]).links([])
-        .charge(-60)
+        .charge(label_charge)
         .on("tick",redrawLabels);
 
     var anchors = vis.selectAll(".anchor").data(val_array,function(d,i) { return i})
     anchors.exit().attr("class","exit").transition().duration(1000).style("opacity",0).remove()
     anchors.enter().
         append("circle").
-        attr("class","anchor").
+//        attr("class","anchor").
         attr("r",4).
         attr("cx",function(d) { return x(d.x);}).
-        attr("cy",function(d) { return y(d.y);})
+        attr("cy",function(d) { return y(d.y);}).
+        attr("fill", function(d){return d.color;})
 
     anchors.transition()
         .delay(function(d,i) { return i*10;})
@@ -185,7 +167,6 @@ function draw_graph(posizioni){
     var newLabels = labels.enter().append("g").attr("class","labels")
 
     newLabelBox = newLabels.append("g").attr("class","labelbox")
-    //    newLabelBox.append("circle").attr("r",11)
     newLabelBox.append("text").attr("class","labeltext").attr("y",6)
     newLabels.append("line").attr("class","link")
 
