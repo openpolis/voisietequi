@@ -1,3 +1,6 @@
 .idea
+.vagrant
+.hostname
+.system-updated
 vsq/settings_local.py
 log/logfile
