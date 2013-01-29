@@ -2,6 +2,10 @@ var c = 0;
 var chosed = 0;
 var url="/mockup_answer";
 
+//graph entities
+var labelBox,link;
+var links;
+
 //range di ingresso
 var maxvalx, maxvaly,minvalx, minvaly;
 maxvalx= maxvaly=1;
@@ -80,23 +84,16 @@ function visualize(object){
     show("grafico");
     draw_graph(object.posizioni);
 
-
 }
 
-var links;
 
 function draw_graph(posizioni){
 
 //data type:  [{'pk':{'sigla','x','y'}}, ...]
 //for every party
 
-    var color, label_color, xlabel_margin;
-
-    xlabel_margin=dotsize+5;
-    label_color="black";
-
     //funzione di scala fra input e output
-    var   x = d3.scale.linear().domain([ minvalx, maxvalx]).range([dotsize, w-dotsize]),
+    var x = d3.scale.linear().domain([ minvalx, maxvalx]).range([dotsize, w-dotsize]),
         y = d3.scale.linear().domain([ minvaly, maxvaly]).range([h-dotsize, dotsize]);
 
     var sampsize = 0;
@@ -114,7 +111,7 @@ function draw_graph(posizioni){
         for(var j=1;j<partiti_color.length; j++){
 
             if(pos_array[i][0] == partiti_color[j][0])
-                color = partiti_color[j][1];
+                var color = partiti_color[j][1];
         }
         //if party was not found, set a default color
         if(color=="")
@@ -142,10 +139,8 @@ function draw_graph(posizioni){
         .on("tick",redrawLabels);
 
     var anchors = vis.selectAll(".anchor").data(val_array,function(d,i) { return i})
-    anchors.exit().attr("class","exit").transition().duration(1000).style("opacity",0).remove()
     anchors.enter().
         append("circle").
-//        attr("class","anchor").
         attr("r",4).
         attr("cx",function(d) { return x(d.x);}).
         attr("cy",function(d) { return y(d.y);}).
@@ -161,13 +156,13 @@ function draw_graph(posizioni){
     anchors.call(labelForce.update)  //  This is the only function call needed, the rest is just drawing the labels
 
     var labels = vis.selectAll(".labels").data(val_array,function(d,i) { return i})
-    labels.exit().attr("class","exit").transition().delay(0).duration(500).style("opacity",0).remove()
 
     // Draw the labelbox, caption and the link
     var newLabels = labels.enter().append("g").attr("class","labels")
 
-    newLabelBox = newLabels.append("g").attr("class","labelbox")
+    var newLabelBox = newLabels.append("g").attr("class","labelbox")
     newLabelBox.append("text").attr("class","labeltext").attr("y",6)
+
     newLabels.append("line").attr("class","link")
 
     labelBox = vis.selectAll(".labels").selectAll(".labelbox")
@@ -176,23 +171,57 @@ function draw_graph(posizioni){
 
 }
 
-var w=400,h=400,
-    x_mean = w/2,
-    x_std = w/10,
-    y_mean = h/2,
-    y_std = h/10,
-    labelBox,link;
-
 
 function redrawLabels() {
+
+    //TODO:tenere conto della lunghezza della label nel calcolo
+    //TODO: sostituire ai numeri width e heigth della window
     labelBox
-        .attr("transform",function(d) { return "translate("+d.labelPos.x+" "+d.labelPos.y+")"})
+        .attr("transform",
+            function(d) {
+                var x = d.labelPos.x;
+                var y = d.labelPos.y;
+
+                if(x<10)
+                    x=10;
+                if(y<10)
+                    y=10;
+                if(x>300)
+                    x=300;
+                if(y>300)
+                    y=300;
+                return "translate("+x+" "+y+")"
+                //return "translate("+d.labelPos.x+" "+d.labelPos.y+")"
+            }
+        )
 
     links
         .attr("x1",function(d) { return d.anchorPos.x})
         .attr("y1",function(d) { return d.anchorPos.y})
-        .attr("x2",function(d) { return d.labelPos.x})
-        .attr("y2",function(d) { return d.labelPos.y})
+//        .attr("x2",function(d) { return d.labelPos.x})
+//        .attr("y2",function(d) { return d.labelPos.y})
+        .attr("x2",function(d) {
+            var x = d.labelPos.x;
+
+            if(x<10)
+                x=10;
+
+            if(x>300)
+                x=300;
+
+            return x
+            })
+        .attr("y2",function(d) {
+
+            var y = d.labelPos.y;
+
+            if(y<10)
+                y=10;
+            if(y>300)
+                y=300;
+
+            return y
+        })
 }
 
 
