@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="sfondo-verde">
+  <div class="container">
+    <div class="testata-interna"><h1>La posizione di <strong>{{ object.denominazione }}</strong></h1></div>
+  </div>
+</div>
+
+<div class="sfondo-grigio">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span8"><div class="grafico"><img src="{{ STATIC_URL }}img/grafico_lista.png" alt="Voi Siete Qui - Openpolis" /></div></div>
+      <div class="span4"><div class="box-listeele">
+        <div class="row-fluid">
+          <div class="span4">
+            <a href="#"><img class="img-circle-rivciv img-circle-loghi pull-right" src="{{ STATIC_URL }}img/liste/rivciv.png" alt="Rivouzione Civile" /></a>
+          </div>
+          <div class="span8">
+            <h4>Rivoluzione Civile</h4>
+            <a href="#">www.rivoluzionecivile.it</a>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lacinia velit in est vehicula cursus. Praesent sed suscipit nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum ligula ac diam porttitor porttitor.</p>
+          </div>
+        </div>
+      </div>
+        <ul class="pager">
+          <li><a href="{% url party-positions %}" class="navigapage">Tutte le liste elettorali</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="contenuto">
+    <h4>La distanza tra te e le liste elettorali dalla più vicina alla più lontana</h4>
+    <div class="tema0">
+
+      <table class="table table-condensed table7">
+        <thead>
+        <tr>
+          <th class="bianco-tab">Posizione lista</th>
+          <th colspan="6" class="bianco-tab">La distanza dalle altre liste</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="grigio-tab">&nbsp;</td>
+          <td class="nero-tab">+ vicino</td>
+          <td class="nero-tab">&nbsp;</td>
+          <td class="nero-tab">&nbsp;</td>
+          <td class="nero-tab">&nbsp;</td>
+          <td class="nero-tab">&nbsp;</td>
+          <td class="nero-tab">+ lontano</td>
+        </tr>
+        <tr>
+          <td class="grigio-tab">
+            <a href="#"><img class="img-circle-rivciv img-circle-loghi" src="{{ STATIC_URL }}img/liste/rivciv.png" alt="Rivouzione Civile" /></a>
+          </td>
+          <td class="verde01-tab">
+            <a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/pd.png" alt="Pd" /></a>
+            <a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/psi.png" alt="Psi" /></a>
+            <a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/sel.png" alt="Sel" /></a>
+            <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/udc.png" alt="Udc" /></a>
+            <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/monti.png" alt="Lista Monti" /></a>
+            <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/fli.png" alt="Fli" /></a>
+          </td>
+          <td class="verde02-tab">
+            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/pdl.png" alt="Pdl" /></a>
+            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/lega.png" alt="Lega" /></a>
+            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/fratelli.png" alt="Fratelli d'Italia" /></a>
+          </td>
+          <td class="verde03-tab">
+            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/radicali.png" alt="Radicali" /></a>
+            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/destra.png" alt="La destra" /></a>
+          </td>
+          <td class="verde04-tab">
+            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/grandesud.png" alt="Grande Sud" /></a>
+            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/fn.png" alt="Fn" /></a>
+            <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/centro.png" alt="Centro" /></a>
+          </td>
+          <td class="verde05-tab">
+            <a href="#"><img class="img-circle-m5s img-circle-loghi" src="{{ STATIC_URL }}img/liste/m5s.png" alt="M5s" /></a>
+          </td>
+          <td class="verde06-tab">
+            <a href="#"><img class="img-circle-fare img-circle-loghi" src="{{ STATIC_URL }}img/liste/fare.png" alt="fare" /></a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="contenuto">
+    <h4>Tema per tema le liste che ti sono vicine e quelle che ti sono lontane</h4>
+    <div class="accordion" id="accordion2">
+      <div class="accordion-group tema">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+            <div class="row-fluid">
+              <div class="span1"><div class="tema-num"><strong>1/</strong>20</div></div>
+              <div class="span11"><h1>Istituire la tassa di soggiorno a carico dei turisti che pernottano in albergo (da 50 centesimi a 5 euro a seconda della categoria)</h1></div>
+            </div>
+          </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse">
+          <div class="accordion-inner">
+
+            <table class="table table-condensed table7">
+              <thead>
+              <tr>
+                <th class="bianco-tab">Posizione lista</th>
+                <th colspan="6" class="bianco-tab">La distanza dalle altre liste</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td class="grigio-tab">&nbsp;</td>
+                <td class="nero-tab">+ vicino</td>
+                <td class="nero-tab">&nbsp;</td>
+                <td class="nero-tab">&nbsp;</td>
+                <td class="nero-tab">&nbsp;</td>
+                <td class="nero-tab">&nbsp;</td>
+                <td class="nero-tab">+ lontano</td>
+              </tr>
+              <tr>
+                <td class="grigio-tab">
+                  <a href="#"><img class="img-circle-rivciv img-circle-loghi" src="{{ STATIC_URL }}img/liste/rivciv.png" alt="Rivouzione Civile" /></a>
+                  <br />
+                  <br /><label class="label label-mf">Molto Favorevole</label>
+                  <br /><label class="label label-f">Favorevole</label>
+                  <br /><label class="label label-tf">Tendenzialmente Favorevole</label>
+                  <br /><label class="label label-tc">Tendenzialmente Contrario</label>
+                  <br /><label class="label label-c">Contrario</label>
+                  <br /><label class="label label-mc">Molto Contrario</label>
+                </td>
+                <td class="verde01-tab">
+                  <a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/pd.png" alt="Pd" /></a>
+                  <a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/psi.png" alt="Psi" /></a>
+                  <a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/sel.png" alt="Sel" /></a>
+                  <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/udc.png" alt="Udc" /></a>
+                  <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/monti.png" alt="Lista Monti" /></a>
+                  <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/fli.png" alt="Fli" /></a>
+                </td>
+                <td class="verde02-tab">
+                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/pdl.png" alt="Pdl" /></a>
+                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/lega.png" alt="Lega" /></a>
+                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/fratelli.png" alt="Fratelli d'Italia" /></a>
+                </td>
+                <td class="verde03-tab">
+                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/radicali.png" alt="Radicali" /></a>
+                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/destra.png" alt="La destra" /></a>
+                </td>
+                <td class="verde04-tab">
+                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/grandesud.png" alt="Grande Sud" /></a>
+                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/fn.png" alt="Fn" /></a>
+                  <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/centro.png" alt="Centro" /></a>
+                </td>
+                <td class="verde05-tab">
+                  <a href="#"><img class="img-circle-m5s img-circle-loghi" src="{{ STATIC_URL }}img/liste/m5s.png" alt="M5s" /></a>
+                </td>
+                <td class="verde06-tab">
+                  <a href="#"><img class="img-circle-fare img-circle-loghi" src="{{ STATIC_URL }}img/liste/fare.png" alt="fare" /></a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+            <strong>Commento della lista</strong>
+            <div class="approfondimento">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lacinia velit in est vehicula cursus. Praesent sed suscipit nisi.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum ligula ac diam porttitor porttitor.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lacinia velit in est vehicula cursus. Praesent sed suscipit nisi.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum ligula ac diam porttitor porttitor.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lacinia velit in est vehicula cursus. Praesent sed suscipit nisi.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum ligula ac diam porttitor porttitor.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lacinia velit in est vehicula cursus. Praesent sed suscipit nisi.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum ligula ac diam porttitor porttitor.
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="accordion-group tema">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+            <div class="row-fluid">
+              <div class="span1"><div class="tema-num"><strong>2/</strong>20</div></div>
+              <div class="span11"><h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sollicitudin quam sit amet nulla dignissim ut condimentum lorem condimentum. Pellentesque egestas euismod magna volutpat imperdiet. Vivamus vel molestie felis. Suspendisse sit amet adipiscing tortor.</h1></div>
+            </div>
+          </a>
+        </div>
+        <div id="collapseTwo" class="accordion-body collapse">
+          <div class="accordion-inner">
+            Anim pariatur cliche...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

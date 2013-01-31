@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from django.core.context_processors import request
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf import settings
 from vsq.views import *
-from vsq.models import EarlyBird
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -18,4 +19,18 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^home/$', HomepageView.as_view(), name='homepage'),
+    url(r'^posizione-liste/$', PartyPositionsView.as_view(), name='party-positions'),
+    url(r'^temi/(?P<slug>[-\w]+)/$', TopicDetailView.as_view(), name='topic-detail'),
+    url(r'^temi/$', TopicListView.as_view(), name='topic-list'),
+    url(r'^lista/(?P<slug>[-\w]+)/$', PartitoDetailView.as_view(), name='party-detail'),
 )
+
+if settings.DEBUG:
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += patterns('',
+        url(r'^{0}/(?P<path>.*)$'.format(settings.MEDIA_URL.strip('/')), 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+            }),
+    )

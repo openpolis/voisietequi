@@ -5,6 +5,7 @@ from markdown import markdown
 from model_utils import Choices
 from django.template.defaultfilters import slugify
 from settings import SLUG_MAX_LENGTH
+from vsq import fields
 
 class Domanda(models.Model):
     """
@@ -52,6 +53,29 @@ class Domanda(models.Model):
     def get_n_domande(cls):
         return Domanda.objects.count()
 
+    def _get_by_ordine(self, ordine):
+        if not (1 <= ordine <= 25):
+            return None
+        try:
+            return Domanda.objects.get(ordine=ordine)
+        except (Domanda.DoesNotExist, Domanda.MultipleObjectsReturned):
+            return None
+
+    def next_by_ordine(self):
+        return self._get_by_ordine( self.ordine + 1 )
+
+    def prev_by_ordine(self):
+        return self._get_by_ordine( self.ordine - 1 )
+
+    def get_partiti_by_risposta(self, position):
+        for risposta in self.rispostapartito_set.all():
+            if risposta.risposta_int == position:
+                yield risposta.partito
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('topic-detail', (), {'slug': self.slug})
+
     def __unicode__(self):
         return u"%s - %s" % (self.id, self.slug)
 
@@ -83,6 +107,19 @@ class Utente(models.Model):
         return self.email
 
 
+class Coalizione(models.Model):
+
+    nome = models.CharField(max_length=50)
+    slug = models.SlugField()
+    colore = fields.RGBColorField()
+
+    def __unicode__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name_plural = "Coalizioni"
+
+
 class Partito(models.Model):
     """
     Models the political party.
@@ -91,6 +128,7 @@ class Partito(models.Model):
     The date when the answers are given is recorded in risposte_at.
     A symbol, a color and a coalition, can be assigned
 
+    coalizione:         Coalition
     denominazione:      Complete, official name of the party
     party_key:          Hash to send the html form for collecting answers
     sigla:              Acronym, to be used in tables and report
@@ -99,16 +137,9 @@ class Partito(models.Model):
     risposte_at:        Date when the answers where given (None, if not given)
     sito:               Official web site of the party
     simbolo:            Official symbol of the party
-    colore:             Color used in our graphic
-    coalizione:         Coalition, a simple string that may be used in graphics and reports
     """
-    COLORS = Choices(
-        ('#ffffff', 'bianco'),
-        ('#ff0000', 'rosso'),
-        ('#00ff00', 'verde'),
-        ('#aaaaaa', 'grigio'),
-    )
 
+    coalizione = models.ForeignKey(Coalizione)
     denominazione = models.CharField(max_length=255, unique=True)
     party_key = models.CharField(max_length=255, unique=True)
     sigla = models.CharField(max_length=32, blank=False, null=False, unique=True)
@@ -117,15 +148,16 @@ class Partito(models.Model):
     risposte_at = models.DateField(blank=True, null=True)
     sito = models.URLField(blank=True, null=True)
     simbolo = models.ImageField(blank=True, null=True, upload_to='simboli')
-    colore = models.CharField(max_length=16, blank=True, null=True, choices=COLORS,default=COLORS[2])
-    coalizione = models.CharField(max_length=32, blank=True, null=True)
     slug = models.SlugField(max_length=SLUG_MAX_LENGTH, blank=True, null=True, unique=True)
 
     class Meta:
         verbose_name_plural = "Partiti"
 
     def __unicode__(self):
-        return self.denominazione
+        return u"{partito} ({coalizione})".format(
+            partito=self.denominazione,
+            coalizione=self.coalizione
+        )
 
     def get_answers(self):
         return RispostaPartito.objects.filter(partito=self).order_by('domanda__ordine')
@@ -143,6 +175,10 @@ class Partito(models.Model):
     @classmethod
     def get_partiti_list(cls):
         return Partito.objects.all().values('pk','sigla')
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('party-detail', (), {'slug': self.slug})
 
 
 class RispostaPartito(models.Model):

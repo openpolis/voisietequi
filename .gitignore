@@ -4,3 +4,5 @@
 .system-updated
 vsq/settings_local.py
 log/logfile
+*.py[c]
+vsq/migrations/

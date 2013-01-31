@@ -1,5 +1,5 @@
 from django.contrib import admin
-from vsq.models import Domanda, Utente, Partito, RispostaPartito, RispostaUtente, EarlyBird
+from vsq.models import Domanda, Utente, Partito, RispostaPartito, RispostaUtente, EarlyBird, Coalizione
 
 class DomandaAdmin(admin.ModelAdmin):
     prepopulated_fields = { 'slug': ['testo'] }
@@ -24,7 +24,13 @@ class UtenteAdminWithRisposte(admin.ModelAdmin):
 class EarlyBirdAdmin(admin.ModelAdmin):
     model=EarlyBird
 
+class CoalizioneAdmin(admin.ModelAdmin):
+    model= Coalizione
+    prepopulated_fields = { 'slug': ['nome'] }
+
+
 admin.site.register(Domanda, DomandaAdmin)
+admin.site.register(Coalizione, CoalizioneAdmin)
 admin.site.register(Utente, UtenteAdminWithRisposte)
 admin.site.register(Partito, PartitoAdminWithRisposte)
 admin.site.register(EarlyBird, EarlyBirdAdmin)
