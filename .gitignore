@@ -2,6 +2,8 @@
 .vagrant
 .hostname
 .system-updated
+media/*
+sitestatic/*
 dump
 vsq/settings_local.py
 log/logfile
