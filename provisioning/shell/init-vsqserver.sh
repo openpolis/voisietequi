@@ -1,17 +1,6 @@
 #!/bin/bash
 
-# install everything with
-# . /home/vsq13/provisioning/shell/initvsqserver.sh
-# . /home/vsq13/provisioning/shell/postgres.sh
-# logout/login
-# python manage.py schemamigration --init vsq
-# python manage.py syncdb --noinput
-# python manage.py migrate vsq
-# python manage.py createsuperuser --username=USER --email=EMAIL (insert password)
-# python manage.py loaddata fixtures/initial_data.json
-# . /home/vsq13/provisioning/shell/uwsgi.sh
-# . /home/vsq13/provisioning/shell/nginx.sh
-
+# see README.txt for instructions
 
 # get rsa public key for my laptop
 mkdir -p ~/.ssh/
@@ -19,7 +8,7 @@ wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/id_rsa_lapgu.pu
 
 
 # get comfortable env (aliases)
-cp /home/vsq13/provisioning/shell/_bashrc /root/.bashrc
+wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/_bashrc > /root/.bashrc
 
 # backports package repository
 cat <<EOF | tee /etc/apt/sources.list.d/backports.list
