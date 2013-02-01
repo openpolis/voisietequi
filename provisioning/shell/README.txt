@@ -30,7 +30,10 @@ python manage.py migrate vsq
 python manage.py loaddata fixtures/initial_data.json
 python manage.py collectstatic --noinput
 
+touch /home/vsq13/public/static/favicon.ico
+
 rm log/logfile
 
 # restart server
 /etc/init.d/uwsgi restart
+/etc/init.d/nginx restart

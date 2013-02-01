@@ -68,6 +68,8 @@ pip install --upgrade pip
 pip install --use-mirrors -r requirements.txt
 
 mkdir log
+chown uwsgi log
+chown uwsgi -R public/media/
 
 popd
 
