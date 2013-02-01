@@ -15,16 +15,13 @@ framework.
 """
 import os
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "vsq.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "vsq.settings_local")
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
-
-from manage import read_env
-read_env()
 
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication

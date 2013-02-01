@@ -2,19 +2,8 @@
 import django.conf.global_settings as DEFAULT_SETTINGS
 import os
 
-
-def env_var(key, default=None):
-    """Retrieves env vars and makes Python boolean replacements"""
-    val = os.environ.get(key, default)
-    if val == 'True':
-        val = True
-    elif val == 'False':
-        val = False
-    return val
-
-
-DEBUG = env_var('DEBUG', False)
-TEMPLATE_DEBUG = DEBUG
+DEBUG = True
+TEMPLATE_DEBUG = True
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 REPO_ROOT = os.path.abspath(os.path.dirname(PROJECT_ROOT))
 SLUG_MAX_LENGTH = 60
@@ -26,12 +15,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE':   env_var('DATABASES_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME':     env_var('DATABASES_NAME', 'sqlite.db'),
-        'USER':     env_var('DATABASES_USER', ''),
-        'PASSWORD': env_var('DATABASES_PASSWORD', ''),
-        'HOST':     env_var('DATABASES_HOST', ''),
-        'PORT':     env_var('DATABASES_PORT', ''),
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'sqlite.db',             # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -65,7 +54,7 @@ MEDIA_ROOT = '/home/vsq13/media'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
