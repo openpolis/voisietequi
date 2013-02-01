@@ -2,6 +2,7 @@
 .vagrant
 .hostname
 .system-updated
+/.env
 media/*
 sitestatic/*
 *.db
