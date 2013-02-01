@@ -137,10 +137,10 @@ I dettagli della richiesta e della response::
     {
       codice_utente: 'H5033BN18',
       posizioni: {
-        PD:  { 287, 3945 },
-        PDL: { 3923, 1860 },
+        1:  [ 'PD', 287, 3945 ],
+        2:  [ 'PDL', 3923, 1860 ],
         ...
-        USER: { 530, 1044 },
+        N: [ 'USER', 530, 1044 ],
       }
     }
 
