@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# install from amazon s3 with::
-# wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/init-vsqserver.sh | bash
+# install everything with
+# . /home/vsq13/provisioning/shell/initvsqserver.sh
+# . /home/vsq13/provisioning/shell/uwsgi.sh
+# . /home/vsq13/provisioning/shell/nginx.sh
 
 # get rsa public key for my laptop
 mkdir -p ~/.ssh/
@@ -9,7 +11,7 @@ wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/id_rsa_lapgu.pu
 
 
 # get comfortable env (aliases)
-wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/_bashrc > ~/.bashrc
+cp /home/vsq13/provisioning/shell/_bashrc /root/.bashrc
 
 # backports package repository
 cat <<EOF | tee /etc/apt/sources.list.d/backports.list
@@ -66,7 +68,6 @@ setvirtualenvproject
 pip install --upgrade pip
 pip install --use-mirrors -r requirements.txt
 
-wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/vsq13_settings_local.py > vsq/settings_local.py
 mkdir log
 
 popd

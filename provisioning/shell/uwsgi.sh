@@ -9,13 +9,19 @@ mkdir -p /var/log/uwsgi
 chown uwsgi /var/log/uwsgi
 
 # get uwsgi init.d script and make it executable
-wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/uwsgi.init > /etc/init.d/uwsgi
+cp /home/vsq13/provisioning/shell/uwsgi.init /etc/init.d/uwsgi
 chmod a+x /etc/init.d/uwsgi
+
+# change ownership of log to uwsgi
+chown -R uwsgi /home/vsq13/log
 
 # add uwsgi to startup and shutdown sequence (starts on boot, shuts down on halt)
 update-rc.d uwsgi defaults
 
 # starts uwsgi server
 /etc/init.d/uwsgi start
+
+# link uwsgi config into vassals dir, uwsgi restarts automatically
+ln -s /home/vsq13/uwsgi.ini /etc/uwsgi/vassals/django.ini
 
 
