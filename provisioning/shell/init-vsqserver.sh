@@ -37,7 +37,7 @@ apt-get -y install git
 # apt-get -y install nginx
 apt-get install -y --force-yes nginx
 
-apt-get install -y postgresql-server-dev-8.4
+apt-get install -y postgresql-server-dev-8.4 postgresql-8.4
 
 # set vi as default editor
 update-alternatives --set editor /usr/bin/vim.basic
