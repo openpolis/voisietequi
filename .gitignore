@@ -4,6 +4,7 @@
 .system-updated
 media/*
 sitestatic/*
+*.db
 dump
 vsq/settings_local.py
 log/logfile
