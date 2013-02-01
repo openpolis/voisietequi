@@ -3,8 +3,8 @@
 .hostname
 .system-updated
 /.env
-media/*
-sitestatic/*
+public/media/*
+public/static/*
 *.db
 dump
 vsq/settings_local.py
