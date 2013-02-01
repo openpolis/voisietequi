@@ -22,6 +22,6 @@ update-rc.d uwsgi defaults
 /etc/init.d/uwsgi start
 
 # link uwsgi config into vassals dir, uwsgi restarts automatically
-ln -s /home/vsq13/uwsgi.ini /etc/uwsgi/vassals/django.ini
+ln -s /home/vsq13/provisioning/uwsgi.ini /etc/uwsgi/vassals/django.ini
 
 
