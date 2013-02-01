@@ -2,8 +2,16 @@
 
 # install everything with
 # . /home/vsq13/provisioning/shell/initvsqserver.sh
+# . /home/vsq13/provisioning/shell/postgres.sh
+# logout/login
+# python manage.py schemamigration --init vsq
+# python manage.py syncdb --noinput
+# python manage.py migrate vsq
+# python manage.py createsuperuser --username=USER --email=EMAIL (insert password)
+# python manage.py loaddata fixtures/initial_data.json
 # . /home/vsq13/provisioning/shell/uwsgi.sh
 # . /home/vsq13/provisioning/shell/nginx.sh
+
 
 # get rsa public key for my laptop
 mkdir -p ~/.ssh/
@@ -39,6 +47,8 @@ apt-get -y install git
 # apt-key add nginx_signing.key
 # apt-get -y install nginx
 apt-get install -y --force-yes nginx
+
+apt-get install -y postgresql-server-dev-8.4
 
 # set vi as default editor
 update-alternatives --set editor /usr/bin/vim.basic

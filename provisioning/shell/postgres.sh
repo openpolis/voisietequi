@@ -1,6 +1,5 @@
 #!/bin/bash
 
-apt-get install -y postgresql-server-dev-8.4
 cp provisioning/postgres/pg_hba.conf /etc/postgresql/8.4/main/
 cp provisioning/postgres/postgresql.conf /etc/postgresql/8.4/main/
 /etc/init.d/postgresql restart
