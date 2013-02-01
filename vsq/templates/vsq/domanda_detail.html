@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load labels %}
+
+{% block content %}
+<div class="sfondo-verde">
+  <div class="container">
+    <div class="testata-interna"><h1>I 25 temi</h1></div>
+  </div>
+</div>
+
+<div class="contenuto">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span3">
+        <div class="box-num-domande pull-right">
+          Tema<br /><strong>{{ object.ordine }}/</strong>25<br />&nbsp;
+        </div>
+      </div>
+      <div class="span9">
+        <div class="domande">
+          <h1>{{ object.testo_html|safe }}</h1>
+          <div class="approfondimento">
+            <p>{{ object.approfondimento_html|safe }}</p>
+          </div>
+          <ul class="pager">
+            {% with q=object.prev_by_ordine %}
+            <li{% if not q %} class="disabled"{% endif %}><a href="{% if not q %}#{% else %}{% url topic-detail slug=q.slug %}{% endif %}" class="navigapage">Successivo</a></li>
+            {% endwith %}
+            <li><a href="{% url topic-list %}" class="navigapage">Tutti i 25 temi</a></li>
+            {% with q=object.next_by_ordine %}
+            <li{% if not q %} class="disabled"{% endif %}><a href="{% if not q %}#{% else %}{% url topic-detail slug=q.slug %}{% endif %}" class="navigapage">Successivo</a></li>
+            {% endwith %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% for risposta in object.rispostapartito_set.all %}
+
+<div class="contenuto">
+  <div class="container">
+    <div class="temalista grigio-tab">
+      <div class="row-fluid">
+        <div class="span3">
+{#          <p><img class="img-circle-coalition img-coalition-{{ risposta.partito.coalizione.slug }} img-circle-loghi img-circle-small" src="{{ MEDIA_URL }}{{ risposta.partito.simbolo.url }}" alt="{{ risposta.partito.sigla }}" /></p>#}
+          <p>{% immagine_partito risposta.partito size='small' %}</p>
+          <p><label class="label label-{% label_risposta risposta %}">{{ risposta.get_risposta_int_display }}</label></p>
+        </div>
+        <div class="span9 commento-centro">
+          <h5>Commento</h5>
+          <p>{{ risposta.risposta_txt|default:"Il partito non ha commentato la sua posizione" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

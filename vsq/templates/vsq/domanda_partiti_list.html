@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load labels %}
+
+{% block content %}
+  <div class="sfondo-verde">
+    <div class="container">
+      <div class="testata-interna"><h1>La posizione delle liste elettorali</h1></div>
+    </div>
+  </div>
+
+  <div class="sfondo-grigio">
+    <div class="container">
+      <div class="row-fluid">
+        <div class="span8"><div class="grafico"><img src="{{ STATIC_URL }}img/grafico_liste.png" alt="Voi Siete Qui - Openpolis" /></div></div>
+        <div class="span4">
+          <div class="box-listeele">
+            <br />
+            <h4>Le liste elettorali</h4>
+            {% for lista in liste_elettorali %}
+              <a href="{% url party-detail slug=lista.slug %}">
+                {% immagine_partito lista size='small' %}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="contenuto">
+      <h4>Tema per tema le posizioni delle liste elettorali</h4>
+      <div class="accordion" id="accordion">
+
+        {% for object in object_list %}
+
+        <div class="accordion-group tema">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ forloop.counter }}">
+              <div class="row-fluid">
+                <div class="span1"><div class="tema-num"><strong>{{ object.ordine }}/</strong>20</div></div>
+                <div class="span11"><h1>{{ object.testo_html|safe }}</h1></div>
+              </div>
+            </a>
+          </div>
+          <div id="collapse{{ forloop.counter }}" class="accordion-body collapse">
+            <div class="accordion-inner">
+
+              <table class="table table-condensed table6">
+                <thead>
+                <tr>
+                  <th colspan="6" class="bianco-tab">La posizione delle liste elettorali</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td class="mf-tab">Molto Favorevole</td>
+                  <td class="f-tab">Favorevole</td>
+                  <td class="tf-tab">Tendenzialmente Favorevole</td>
+                  <td class="tc-tab">Tendenzialmente Contrario</td>
+                  <td class="c-tab">Contrario</td>
+                  <td class="mc-tab">Molto Contrario</td>
+                </tr>
+                <tr>
+                  <td class="mf01-tab">
+                    {% immagini_partiti_per_posizione object 3 size='small' %}
+                  </td>
+                  <td class="f01-tab">
+                    {% immagini_partiti_per_posizione object 2 size='small' %}
+                  </td>
+                  <td class="tf01-tab">
+                    {% immagini_partiti_per_posizione object 1 size='small' %}
+                  </td>
+                  <td class="tc01-tab">
+                    {% immagini_partiti_per_posizione object -1 size='small' %}
+                  </td>
+                  <td class="c01-tab">
+                    {% immagini_partiti_per_posizione object -2 size='small' %}
+                  </td>
+                  <td class="mc01-tab">
+                    {% immagini_partiti_per_posizione object -3 size='small' %}
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+
+
+
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

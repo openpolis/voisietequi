@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="sfondo-verde">
+    <div class="container">
+      <div class="hero-unit">
+
+        <div class="row-fluid">
+          <div class="span12">
+            <h1>Perso nella campagna elettorale?</h1>
+            <div class="row-fluid">
+              <div class="span4">
+                <h1><strong>Orientati qui!</strong></h1>
+                <p>Le distanze tra liste elettorali sono calcolate confrontando le <strong>diverse posizioni su 25 temi</strong> selezionati dalla redazione di Openpolis a cui i candidati hanno risposto ufficialmente.</p>
+                <div class="box-verde">
+                  <p><strong>{{ conteggio_utenti }} cittadini</strong><br />conoscono già la loro posizione.<br />Tu dove sei? Scoprilo in 10 minuti.</p>
+                  <a class="btn btn-danger btn-large">Scopri dove sei! &raquo;</a>
+                </div>
+              </div>
+              <div class="span8"><div class="grafico"><img src="{{ STATIC_URL }}img/grafico_liste.png" alt="Voi Siete Qui - Openpolis" /></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row-fluid">
+    <div class="span12">
+
+      <div class="barra-pd-sel-psi pull-left"><a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/1.png" /></a></div>
+      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/2.png" /></a></div>
+      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/3.png" /></a></div>
+      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/4.png" /></a></div>
+      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/5.png" /></a></div>
+      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/6.png" /></a></div>
+      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/7.png" /></a></div>
+      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/8.png" /></a></div>
+      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/9.png" /></a></div>
+      <div class="barra-monti pull-left"><a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/10.png" /></a></div>
+      <div class="barra-monti pull-left"><a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/11.png" /></a></div>
+      <div class="barra-pd-sel-psi pull-left"><a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/12.png" /></a></div>
+      <div class="barra-pd-sel-psi pull-left"><a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/13.png" /></a></div>
+      <div class="barra-monti pull-left"><a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/14.png" /></a></div>
+      <div class="barra-monti pull-left"><a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/15.png" /></a></div>
+      <div class="barra-m5s pull-left"><a href="#"><img class="img-circle-m5s img-circle-loghi" src="{{ STATIC_URL }}img/liste/17.png" /></a></div>
+      <div class="barra-fare pull-left"><a href="#"><img class="img-circle-fare img-circle-loghi" src="{{ STATIC_URL }}img/liste/16.png" /></a></div>
+      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/7.png" /></a></div>
+      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/8.png" /></a></div>
+      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/9.png" /></a></div>
+    </div>
+  </div>
+
+
+
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span3 linea-vert">Un progetto<p><a href="http://www.openpolis.it/"><img src="{{ STATIC_URL }}img/openpolis_logo.png" alt="Openpolis" /></a></p></div>
+      <div class="span3 linea-vert">Realizzato da<p><a href="http://www.depp.it/"><img src="{{ STATIC_URL }}img/depp_logo.png" alt="Depp" /></a></p></div>
+      <div class="span5 linea-vert">Supportato da<p><a href="http://www.mimesi.com/"><img src="{{ STATIC_URL }}img/mimesi_logo.png" alt="Mimesi" /></a><a href="http://www.top-ix.org/"><img src="{{ STATIC_URL }}img/topix_logo.png" alt="Top ix" /></a></p></div>
+    </div>
+  </div>
+{% endblock %}
+
+

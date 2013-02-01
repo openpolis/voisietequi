@@ -6,8 +6,8 @@ from django.http import Http404, HttpResponse
 from django.template import Context
 from django.template.loader import get_template
 from django.utils.functional import curry
-from django.views.generic import TemplateView, DetailView, CreateView
-from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird
+from django.views.generic import TemplateView, DetailView, CreateView, ListView
+from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente
 from django.shortcuts import redirect, render_to_response, get_object_or_404
 from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm
 from datetime import datetime
@@ -26,7 +26,7 @@ class QuestionarioUtente(TemplateView):
 #        passa al contesto i colori associati ai partiti per il grafico finale
         context['partiti_color']=Partito.objects.all().\
             annotate(c=Count('rispostapartito')).\
-            filter(c__gt=0).values('sigla','colore')
+            filter(c__gt=0).values('sigla','coalizione__colore')
 
         return context
 
@@ -187,3 +187,29 @@ def mockup_response(request):
     return HttpResponse(content,
         content_type='application/json',
         )
+
+class HomepageView(TemplateView):
+    template_name = 'homepage.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HomepageView,self).get_context_data(**kwargs)
+        context['conteggio_utenti'] = Utente.objects.count()
+        return context
+
+class PartyPositionsView(ListView):
+    model = Domanda
+    template_name = 'vsq/domanda_partiti_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PartyPositionsView,self).get_context_data(**kwargs)
+        context['liste_elettorali'] = Partito.objects.all().select_related('coalizione')
+        return context
+
+class TopicDetailView(DetailView):
+    model = Domanda
+
+class TopicListView(ListView):
+    model = Domanda
+
+class PartitoDetailView(DetailView):
+    model = Partito
