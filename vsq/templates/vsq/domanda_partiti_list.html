@@ -37,9 +37,9 @@
 
         <div class="accordion-group tema">
           <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ forloop.counter }}">
+            <a class="accordion-toggle" data-toggle="collapse" {# data-parent="#accordion" #} href="#collapse{{ forloop.counter }}">
               <div class="row-fluid">
-                <div class="span1"><div class="tema-num"><strong>{{ object.ordine }}/</strong>20</div></div>
+                <div class="span1"><div class="tema-num"><strong>{{ object.ordine }}/</strong>{{ QUESTIONS_COUNT }}</div></div>
                 <div class="span11"><h1>{{ object.testo_html|safe }}</h1></div>
               </div>
             </a>

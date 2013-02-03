@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load labels %}
 
 {% block content %}
 <div class="sfondo-verde">
@@ -14,11 +15,11 @@
       <div class="span4"><div class="box-listeele">
         <div class="row-fluid">
           <div class="span4">
-            <a href="#"><img class="img-circle-rivciv img-circle-loghi pull-right" src="{{ STATIC_URL }}img/liste/rivciv.png" alt="Rivouzione Civile" /></a>
+            {% immagine_partito object size='big' %}
           </div>
           <div class="span8">
-            <h4>Rivoluzione Civile</h4>
-            <a href="#">www.rivoluzionecivile.it</a>
+            <h4>{{ object.denominazione }}</h4>
+            {% if object.sito %}<a href="{{ object.sito }}">{{ object.sito }}</a>{% endif %}
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lacinia velit in est vehicula cursus. Praesent sed suscipit nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum ligula ac diam porttitor porttitor.</p>
           </div>
         </div>
@@ -56,35 +57,25 @@
         </tr>
         <tr>
           <td class="grigio-tab">
-            <a href="#"><img class="img-circle-rivciv img-circle-loghi" src="{{ STATIC_URL }}img/liste/rivciv.png" alt="Rivouzione Civile" /></a>
+            {% immagine_partito object size='normal' %}
           </td>
           <td class="verde01-tab">
-            <a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/pd.png" alt="Pd" /></a>
-            <a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/psi.png" alt="Psi" /></a>
-            <a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/sel.png" alt="Sel" /></a>
-            <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/udc.png" alt="Udc" /></a>
-            <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/monti.png" alt="Lista Monti" /></a>
-            <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/fli.png" alt="Fli" /></a>
+            {% for partito, distanza in distanze_partiti.0 %}{% immagine_partito partito size='normal' title=distanza %}{% endfor %}
           </td>
           <td class="verde02-tab">
-            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/pdl.png" alt="Pdl" /></a>
-            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/lega.png" alt="Lega" /></a>
-            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/fratelli.png" alt="Fratelli d'Italia" /></a>
+            {% for partito, distanza in distanze_partiti.1 %}{% immagine_partito partito size='normal' title=distanza %}{% endfor %}
           </td>
           <td class="verde03-tab">
-            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/radicali.png" alt="Radicali" /></a>
-            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/destra.png" alt="La destra" /></a>
+            {% for partito, distanza in distanze_partiti.2 %}{% immagine_partito partito size='normal' title=distanza %}{% endfor %}
           </td>
           <td class="verde04-tab">
-            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/grandesud.png" alt="Grande Sud" /></a>
-            <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/fn.png" alt="Fn" /></a>
-            <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/centro.png" alt="Centro" /></a>
+            {% for partito, distanza in distanze_partiti.3 %}{% immagine_partito partito size='normal' title=distanza %}{% endfor %}
           </td>
           <td class="verde05-tab">
-            <a href="#"><img class="img-circle-m5s img-circle-loghi" src="{{ STATIC_URL }}img/liste/m5s.png" alt="M5s" /></a>
+            {% for partito, distanza in distanze_partiti.4 %}{% immagine_partito partito size='normal' title=distanza %}{% endfor %}
           </td>
           <td class="verde06-tab">
-            <a href="#"><img class="img-circle-fare img-circle-loghi" src="{{ STATIC_URL }}img/liste/fare.png" alt="fare" /></a>
+            {% for partito, distanza in distanze_partiti.5 %}{% immagine_partito partito size='normal' title=distanza %}{% endfor %}
           </td>
         </tr>
         </tbody>
@@ -97,17 +88,19 @@
 <div class="container">
   <div class="contenuto">
     <h4>Tema per tema le liste che ti sono vicine e quelle che ti sono lontane</h4>
-    <div class="accordion" id="accordion2">
+    <div class="accordion" id="accordion">
+
+      {% for risposta, distanze in risposte_partito_con_distanze %}
       <div class="accordion-group tema">
         <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+          <a class="accordion-toggle" data-toggle="collapse" {# data-parent="#accordion" #} href="#collapse{{ forloop.counter }}">
             <div class="row-fluid">
-              <div class="span1"><div class="tema-num"><strong>1/</strong>20</div></div>
-              <div class="span11"><h1>Istituire la tassa di soggiorno a carico dei turisti che pernottano in albergo (da 50 centesimi a 5 euro a seconda della categoria)</h1></div>
+              <div class="span1"><div class="tema-num"><strong>{{ risposta.domanda.ordine }}/</strong>{{ QUESTIONS_COUNT }}</div></div>
+              <div class="span11"><h1>{{ risposta.domanda.testo_html|safe }}</h1></div>
             </div>
           </a>
         </div>
-        <div id="collapseOne" class="accordion-body collapse">
+        <div id="collapse{{ forloop.counter }}" class="accordion-body collapse">
           <div class="accordion-inner">
 
             <table class="table table-condensed table7">
@@ -129,64 +122,47 @@
               </tr>
               <tr>
                 <td class="grigio-tab">
-                  <a href="#"><img class="img-circle-rivciv img-circle-loghi" src="{{ STATIC_URL }}img/liste/rivciv.png" alt="Rivouzione Civile" /></a>
+                  {% immagine_partito risposta.partito size='normal' %}
                   <br />
-                  <br /><label class="label label-mf">Molto Favorevole</label>
-                  <br /><label class="label label-f">Favorevole</label>
-                  <br /><label class="label label-tf">Tendenzialmente Favorevole</label>
-                  <br /><label class="label label-tc">Tendenzialmente Contrario</label>
-                  <br /><label class="label label-c">Contrario</label>
-                  <br /><label class="label label-mc">Molto Contrario</label>
+                  <br /><label class="label label-{% label_risposta risposta.risposta_int %}">{% label_risposta_text risposta.risposta_int %}</label>
+                  {% for altra_risposta_int in risposta.risposta_int|lista_altre_risposte %}
+                  <br /><label class="label label-{% label_risposta altra_risposta_int %}">{% label_risposta_text altra_risposta_int %}</label>
+                  {% endfor %}
                 </td>
                 <td class="verde01-tab">
-                  <a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/pd.png" alt="Pd" /></a>
-                  <a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/psi.png" alt="Psi" /></a>
-                  <a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/sel.png" alt="Sel" /></a>
-                  <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/udc.png" alt="Udc" /></a>
-                  <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/monti.png" alt="Lista Monti" /></a>
-                  <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/fli.png" alt="Fli" /></a>
+                  {% for partito in distanze.0 %}{% immagine_partito partito size='normal' %}{% endfor %}
                 </td>
                 <td class="verde02-tab">
-                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/pdl.png" alt="Pdl" /></a>
-                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/lega.png" alt="Lega" /></a>
-                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/fratelli.png" alt="Fratelli d'Italia" /></a>
+                  {% for partito in distanze.1 %}{% immagine_partito partito size='normal' %}{% endfor %}
                 </td>
                 <td class="verde03-tab">
-                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/radicali.png" alt="Radicali" /></a>
-                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/destra.png" alt="La destra" /></a>
+                  {% for partito in distanze.2 %}{% immagine_partito partito size='normal' %}{% endfor %}
                 </td>
                 <td class="verde04-tab">
-                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/grandesud.png" alt="Grande Sud" /></a>
-                  <a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/fn.png" alt="Fn" /></a>
-                  <a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/centro.png" alt="Centro" /></a>
+                  {% for partito in distanze.3 %}{% immagine_partito partito size='normal' %}{% endfor %}
                 </td>
                 <td class="verde05-tab">
-                  <a href="#"><img class="img-circle-m5s img-circle-loghi" src="{{ STATIC_URL }}img/liste/m5s.png" alt="M5s" /></a>
+                  {% for partito in distanze.4 %}{% immagine_partito partito size='normal' %}{% endfor %}
                 </td>
                 <td class="verde06-tab">
-                  <a href="#"><img class="img-circle-fare img-circle-loghi" src="{{ STATIC_URL }}img/liste/fare.png" alt="fare" /></a>
+                  {% for partito in distanze.5 %}{% immagine_partito partito size='normal' %}{% endfor %}
                 </td>
               </tr>
               </tbody>
             </table>
 
+            {% if risposta.risposta_txt %}
             <strong>Commento della lista</strong>
             <div class="approfondimento">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lacinia velit in est vehicula cursus. Praesent sed suscipit nisi.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum ligula ac diam porttitor porttitor.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lacinia velit in est vehicula cursus. Praesent sed suscipit nisi.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum ligula ac diam porttitor porttitor.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lacinia velit in est vehicula cursus. Praesent sed suscipit nisi.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum ligula ac diam porttitor porttitor.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lacinia velit in est vehicula cursus. Praesent sed suscipit nisi.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum ligula ac diam porttitor porttitor.
+              {{ risposta.risposta_txt }}
             </div>
-
-
+            {% endif %}
 
           </div>
         </div>
       </div>
+      {% endfor %}
+
       <div class="accordion-group tema">
         <div class="accordion-heading">
           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">

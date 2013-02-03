@@ -17,7 +17,10 @@
     {% for C in COALIZIONI %}
       .img-coalition-{{ C.slug }} {
         border: 3px solid {{ C.colore }};
-{#        border: 3px solid rgba(0, 0, 0, 1);#}
+        border: 3px solid rgba({{ C.get_colore_rgb|join:',' }},1);
+      }
+      .barra-coalizione-{{ C.slug }} {
+        background-color: {{ C.colore }};
       }
     {% endfor %}
   </style>

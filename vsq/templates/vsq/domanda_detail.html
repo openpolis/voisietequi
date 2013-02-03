@@ -46,7 +46,7 @@
         <div class="span3">
 {#          <p><img class="img-circle-coalition img-coalition-{{ risposta.partito.coalizione.slug }} img-circle-loghi img-circle-small" src="{{ MEDIA_URL }}{{ risposta.partito.simbolo.url }}" alt="{{ risposta.partito.sigla }}" /></p>#}
           <p>{% immagine_partito risposta.partito size='small' %}</p>
-          <p><label class="label label-{% label_risposta risposta %}">{{ risposta.get_risposta_int_display }}</label></p>
+          <p><label class="label label-{% label_risposta risposta.risposta_int %}">{{ risposta.get_risposta_int_display }}</label></p>
         </div>
         <div class="span9 commento-centro">
           <h5>Commento</h5>

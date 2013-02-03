@@ -16,4 +16,5 @@ def main_settings(request):
         "CURRENT_PAGE": page,
         "MEDIA_URL": settings.MEDIA_URL,
         "COALIZIONI": Coalizione.objects.all(),
+        "QUESTIONS_COUNT": 25
         }

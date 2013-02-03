@@ -67,9 +67,10 @@ class Domanda(models.Model):
     def prev_by_ordine(self):
         return self._get_by_ordine( self.ordine - 1 )
 
-    def get_partiti_by_risposta(self, position):
-        for risposta in self.rispostapartito_set.all():
-            if risposta.risposta_int == position:
+    def get_partiti_by_risposta(self, answer):
+        # select_related to increase performances
+        for risposta in self.rispostapartito_set.all().select_related('partito','partito__coalizione'):
+            if risposta.risposta_int == answer:
                 yield risposta.partito
 
     @models.permalink
@@ -203,6 +204,22 @@ class RispostaPartito(models.Model):
     risposta_int = models.SmallIntegerField(null=False, choices=TIPO_RISPOSTA, verbose_name="Risposta")
     risposta_txt = models.TextField(blank=True, null=True, verbose_name="Risposta testuale")
     nonorig = models.BooleanField(default=False, verbose_name="Non originale")
+
+    def distanza(self, altra_risposta):
+        """
+        :param altra_risposta:
+        :type altra_risposta: RispostaPartito
+        """
+        if self.risposta_int == altra_risposta.risposta_int:
+            return 0
+        mod_x = abs(self.risposta_int)
+        mod_y = abs(altra_risposta.risposta_int)
+        if (self.risposta_int > 0 and altra_risposta.risposta_int < 0) or (self.risposta_int < 0 and altra_risposta.risposta_int > 0):
+            return mod_y + 2
+        if mod_x > mod_y:
+            return { 1: 2, 2: 1 }[mod_y]
+        else:
+            return mod_y - mod_x
 
     class Meta:
         verbose_name_plural = "Risposte partito"

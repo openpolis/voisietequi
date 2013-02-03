@@ -10,6 +10,7 @@ from django.views.generic import TemplateView, DetailView, CreateView, ListView
 from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente
 from django.shortcuts import redirect, render_to_response, get_object_or_404
 from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm
+from vsq.utils import quantile
 from datetime import datetime
 from settings_local import PROJECT_ROOT, MANAGERS
 from settings import MIN_GRAPH_X, MIN_GRAPH_Y, MAX_GRAPH_X, MAX_GRAPH_Y
@@ -194,6 +195,7 @@ class HomepageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomepageView,self).get_context_data(**kwargs)
         context['conteggio_utenti'] = Utente.objects.count()
+        context['partiti'] = Partito.objects.all().order_by('coalizione').select_related('coalizione')
         return context
 
 class PartyPositionsView(ListView):
@@ -213,3 +215,57 @@ class TopicListView(ListView):
 
 class PartitoDetailView(DetailView):
     model = Partito
+
+    @classmethod
+    def calcolo_distanze(cls, partito):
+        size = len(RispostaPartito.TIPO_RISPOSTA._choices)
+        domande_con_distanze = []
+        # takes all party's answers
+        for risposta in partito.rispostapartito_set.all().select_related('domanda').order_by('domanda__ordine'):
+            # create {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
+            distanze = dict([(i,list()) for i in range(0,size)])
+            for altra_risposta in risposta.domanda.rispostapartito_set.exclude(partito=partito).select_related('partito','partito__coalizione'):
+                # calculate distance between this answer and the otger
+                distanza = risposta.distanza(altra_risposta)
+                # append answer's party in right position
+                distanze[distanza].append(altra_risposta.partito)
+            # append results to global list of distances
+            domande_con_distanze.append((risposta,distanze))
+
+        # creates a dict with parties and its distance from current party
+        distanze_partiti = {}
+        for domanda in domande_con_distanze:
+            # distances starts from 0 to size-1 (5)
+            for i in range(0,size):
+                for party in domanda[1][i]:
+                    # initialize dict
+                    if party not in distanze_partiti: distanze_partiti[party] = 0
+                    # add distance to this party
+                    distanze_partiti[party]+= i
+
+
+        buckets = quantile.getJenksBreaks(distanze_partiti.values(),size)
+        # creates a dict of distances: {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
+        distanze = dict([(i,list()) for i in range(size)])
+
+        def bucket_position(x):
+            # this anonymous function helps to calculate correct bucket
+            # for a distance, based on JenksBreaks quantiles
+            for pos, v in enumerate(buckets):
+                if x <= v: return pos
+
+        # collect all distances grouped by quantile buckets
+        for p in distanze_partiti:
+            distanze[bucket_position(distanze_partiti[p])-1].append((p,distanze_partiti[p]))
+
+        return domande_con_distanze, distanze
+
+    def get_context_data(self, **kwargs):
+        context = super(PartitoDetailView,self).get_context_data(**kwargs)
+
+        domande_con_distanze, distanze = self.calcolo_distanze(self.object)
+
+        context['risposte_partito_con_distanze'] = domande_con_distanze
+        context['distanze_partiti'] = distanze
+
+        return context

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load labels %}
 
 {% block content %}
 
@@ -30,27 +31,32 @@
 
   <div class="row-fluid">
     <div class="span12">
+        {% for partito in partiti %}
+        <div class="pull-left barra-coalizione barra-coalizione-{{ partito.coalizione.slug }}">
+          {% immagine_partito partito size='big' %}
+        </div>
+        {% endfor %}
 
-      <div class="barra-pd-sel-psi pull-left"><a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/1.png" /></a></div>
-      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/2.png" /></a></div>
-      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/3.png" /></a></div>
-      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/4.png" /></a></div>
-      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/5.png" /></a></div>
-      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/6.png" /></a></div>
-      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/7.png" /></a></div>
-      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/8.png" /></a></div>
-      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/9.png" /></a></div>
-      <div class="barra-monti pull-left"><a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/10.png" /></a></div>
-      <div class="barra-monti pull-left"><a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/11.png" /></a></div>
-      <div class="barra-pd-sel-psi pull-left"><a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/12.png" /></a></div>
-      <div class="barra-pd-sel-psi pull-left"><a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/13.png" /></a></div>
-      <div class="barra-monti pull-left"><a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/14.png" /></a></div>
-      <div class="barra-monti pull-left"><a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/15.png" /></a></div>
-      <div class="barra-m5s pull-left"><a href="#"><img class="img-circle-m5s img-circle-loghi" src="{{ STATIC_URL }}img/liste/17.png" /></a></div>
-      <div class="barra-fare pull-left"><a href="#"><img class="img-circle-fare img-circle-loghi" src="{{ STATIC_URL }}img/liste/16.png" /></a></div>
-      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/7.png" /></a></div>
-      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/8.png" /></a></div>
-      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/9.png" /></a></div>
+{#      <div class="barra-pd-sel-psi pull-left"><a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/1.png" /></a></div>#}
+{#      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/2.png" /></a></div>#}
+{#      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/3.png" /></a></div>#}
+{#      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/4.png" /></a></div>#}
+{#      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/5.png" /></a></div>#}
+{#      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/6.png" /></a></div>#}
+{#      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/7.png" /></a></div>#}
+{#      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/8.png" /></a></div>#}
+{#      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/9.png" /></a></div>#}
+{#      <div class="barra-monti pull-left"><a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/10.png" /></a></div>#}
+{#      <div class="barra-monti pull-left"><a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/11.png" /></a></div>#}
+{#      <div class="barra-pd-sel-psi pull-left"><a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/12.png" /></a></div>#}
+{#      <div class="barra-pd-sel-psi pull-left"><a href="#"><img class="img-circle-pd-sel-psi img-circle-loghi" src="{{ STATIC_URL }}img/liste/13.png" /></a></div>#}
+{#      <div class="barra-monti pull-left"><a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/14.png" /></a></div>#}
+{#      <div class="barra-monti pull-left"><a href="#"><img class="img-circle-monti img-circle-loghi" src="{{ STATIC_URL }}img/liste/15.png" /></a></div>#}
+{#      <div class="barra-m5s pull-left"><a href="#"><img class="img-circle-m5s img-circle-loghi" src="{{ STATIC_URL }}img/liste/17.png" /></a></div>#}
+{#      <div class="barra-fare pull-left"><a href="#"><img class="img-circle-fare img-circle-loghi" src="{{ STATIC_URL }}img/liste/16.png" /></a></div>#}
+{#      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/7.png" /></a></div>#}
+{#      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/8.png" /></a></div>#}
+{#      <div class="barra-pdl-lega pull-left"><a href="#"><img class="img-circle-pdl-lega img-circle-loghi" src="{{ STATIC_URL }}img/liste/9.png" /></a></div>#}
     </div>
   </div>
 
