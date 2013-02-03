@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# install everything with
-# . /home/vsq13/provisioning/shell/initvsqserver.sh
-# . /home/vsq13/provisioning/shell/uwsgi.sh
-# . /home/vsq13/provisioning/shell/nginx.sh
+# see README.txt for instructions
 
 # get rsa public key for my laptop
 mkdir -p ~/.ssh/
@@ -11,7 +8,7 @@ wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/id_rsa_lapgu.pu
 
 
 # get comfortable env (aliases)
-cp /home/vsq13/provisioning/shell/_bashrc /root/.bashrc
+wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/_bashrc > /root/.bashrc
 
 # backports package repository
 cat <<EOF | tee /etc/apt/sources.list.d/backports.list
@@ -39,6 +36,8 @@ apt-get -y install git
 # apt-key add nginx_signing.key
 # apt-get -y install nginx
 apt-get install -y --force-yes nginx
+
+apt-get install -y postgresql-server-dev-8.4 postgresql-8.4
 
 # set vi as default editor
 update-alternatives --set editor /usr/bin/vim.basic
@@ -69,6 +68,8 @@ pip install --upgrade pip
 pip install --use-mirrors -r requirements.txt
 
 mkdir log
+chown uwsgi log
+chown uwsgi -R public/media/
 
 popd
 

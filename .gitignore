@@ -2,8 +2,9 @@
 .vagrant
 .hostname
 .system-updated
-media/*
-sitestatic/*
+/.env
+public/media/*
+public/static/*
 *.db
 dump
 vsq/settings_local.py
