@@ -50,7 +50,7 @@ def getJenksBreaks( dataList, numClass ):
     kclass[numClass] = float(dataList[len(dataList) - 1])
     countNum = numClass
     while countNum >= 2:
-        print "rank = " + str(mat1[k][countNum])
+        #print "rank = " + str(mat1[k][countNum])
         id = int((mat1[k][countNum]) - 2)
         #print "val = " + str(dataList[id])
         kclass[countNum - 1] = dataList[id]
@@ -69,7 +69,7 @@ def getGVF( dataList, numClass ):
     breaks = getJenksBreaks(dataList, numClass)
     dataList.sort()
     listMean = sum(dataList) / len(dataList)
-    print 'listMean %s' % listMean
+    #print 'listMean %s' % listMean
     SDAM = 0.0
     for i in range(0, len(dataList)):
         sqDev = (dataList[i] - listMean) ** 2
@@ -84,7 +84,7 @@ def getGVF( dataList, numClass ):
         classEnd = dataList.index(breaks[i + 1])
         classList = dataList[classStart:classEnd + 1]
         classMean = sum(classList) / len(classList)
-        print 'classMean %s' % classMean
+        #print 'classMean %s' % classMean
         preSDCM = 0.0
         for j in range(0, len(classList)):
             sqDev2 = (classList[j] - classMean) ** 2
