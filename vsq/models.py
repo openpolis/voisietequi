@@ -96,7 +96,7 @@ class Utente(models.Model):
     ip:       may have some statistical use in the future
     """
     user_key = models.CharField(max_length=255, unique=True)
-    nickname = models.CharField(max_length=255, unique=True)
+    nickname = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(max_length=128, blank=True, null=True)
     ip = models.IPAddressField(blank=True, null=True)
@@ -269,3 +269,4 @@ class EarlyBird(models.Model):
 
     def __unicode__(self):
         return self.email
+

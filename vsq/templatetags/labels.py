@@ -55,6 +55,6 @@ def immagini_partiti_per_posizione(context, domanda, risposta, size=False):
     images = []
     for partito in domanda.get_partiti_by_risposta(risposta):
         images.append(
-            immagine_partito(context, partito, size)
+            immagine_partito( partito, size)
         )
     return "".join(images)

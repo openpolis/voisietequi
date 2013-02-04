@@ -26,3 +26,7 @@ application = get_wsgi_application()
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
+
+
+from vsq.saver import handle_save_message
+handle_save_message()

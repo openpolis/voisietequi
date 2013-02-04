@@ -7,6 +7,11 @@ TEMPLATE_DEBUG = True
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 REPO_ROOT = os.path.abspath(os.path.dirname(PROJECT_ROOT))
 SLUG_MAX_LENGTH = 60
+ELECTION_CODE='election'
+MQ_URL = 'amqp://guest:guest@localhost:5672/%2f'
+MQ_EXCHANGE = 'voisietequi'
+MQ_QUEUE = 'vsq.{election}'.format(election=ELECTION_CODE)
+
 ADMINS = (
 #    ('Nome Cognome', 'nome@dominio.it),
 )
