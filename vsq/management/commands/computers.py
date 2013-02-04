@@ -8,6 +8,7 @@ MQ_EXCHANGE='voisietequi'
 MQ_QUEUE='vsq.{election}'.format(election=ELECTION_CODE)
 
 """
+from django.contrib.humanize.templatetags.humanize import naturaltime
 
 import pika
 from optparse import make_option
@@ -73,9 +74,11 @@ class Command(BaseCommand):
             #print " [x] Received %r:%r" % (method.routing_key, pickle.loads(body),)
             data = pickle.loads(body)
             lag = datetime.now() - now
-            print( ' [x] {host} {last_update} {ts}ms'.format(
+
+            last_update = naturaltime(data['last_update']) if data['last_update'] else 'NOT CONFIGURED'
+            print( ' [x] {host} configured {last_update} [{ts}ms]'.format(
                 host = data['host'],
-                last_update = datetime.now() - data['last_update'],
+                last_update = last_update,
                 ts = (lag.microseconds / 1000) + (lag.seconds * 1000),
             ))
         return callback
@@ -143,7 +146,6 @@ class Command(BaseCommand):
     def test_handle(self, computer_url, **options):
         from vsq.models import Domanda
         from random import randint
-        import urllib
         import json
 
 
@@ -162,11 +164,24 @@ class Command(BaseCommand):
             'test': True
         })
 
-        f = urllib.urlopen(computer_url, data)
-        data = json.loads(f.read())
+        from urllib2 import Request, urlopen, URLError
+        req = Request(computer_url, data)
+        try:
+            response = urlopen(req)
+        except URLError as e:
+            if hasattr(e, 'reason'):
+                print 'We failed to reach a server.'
+                print 'Reason: ', e.reason
+            elif hasattr(e, 'code'):
+                print 'The server couldn\'t fulfill the request.'
+                print 'Error code: ', e.code
+        else:
+            # everything is fine
+            data = response.read()
+            data = json.loads(data)
 
-        print 'execution code:', data['code']
-        for party, x, y in data['results']:
-            print "{0:^10}".format(party), x, y
+            print 'execution code:', data['code']
+            for party, x, y in data['results']:
+                print "{0:^10}".format(party), x, y
 
 
