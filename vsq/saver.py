@@ -58,3 +58,5 @@ def handle_save_message():
             connection.close()
 
     multiprocessing.Process(target=f).start()
+
+    print ' [x] Ready to save computer results'
