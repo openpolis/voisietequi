@@ -7,6 +7,7 @@ wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/init-vsqserver.
 
 # logout/login
 
+# modificare a mano /home/vsq13/provisioning/nginx_base.conf (IP del computer)
 . /home/vsq13/provisioning/shell/postgres.sh
 . /home/vsq13/provisioning/shell/uwsgi.sh
 . /home/vsq13/provisioning/shell/nginx.sh
