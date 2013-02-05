@@ -27,6 +27,3 @@ application = get_wsgi_application()
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
 
-
-from vsq.saver import handle_save_message
-handle_save_message()

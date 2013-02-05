@@ -317,7 +317,7 @@ def save_callback(body):
     from vsq.models import Utente, RispostaUtente
 
     data = pickle.loads(body)
-    #print " [x] %r:%r" % (method.routing_key, data)
+
     u = Utente(
         nickname= data['user_data']['name'],
         ip= data['user_data']['ip_address'],
@@ -348,13 +348,13 @@ if __name__ == '__main__':
     print 'MQ_URL:', settings.MQ_URL
     print 'MQ_QUEUE:', settings.MQ_QUEUE + '.save'
 
-    if not settings.configured:
-        settings.configure()
-
+    # Configure django if is needed
+    if not settings.configured: settings.configure()
+    # Setup logging
     logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
-
-
+    # Create a Async Connection to save messages
     consumer = SaverConsumer(settings.MQ_URL, save_callback)
+
     try:
         consumer.run()
     except KeyboardInterrupt:
