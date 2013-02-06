@@ -117,7 +117,12 @@ sub vcl_fetch {
     } else {
         set beresp.http.X-Cacheable = "YES";
     }
-    
+
+    if (req.url ~ "^/home/$") {
+      unset beresp.http.set-cookie;
+      set beresp.ttl = 1s;
+    }
+
     # set servet ttl to 1w
     # https://www.varnish-cache.org/trac/wiki/VCLExampleLongerCaching
     if (beresp.http.X-Cacheable) {
