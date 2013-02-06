@@ -32,7 +32,8 @@ class Domanda(models.Model):
 
 
     class Meta:
-      verbose_name_plural = "Domande"
+        verbose_name_plural = "Domande"
+        ordering = ['ordine']
 
     def save(self, *args, **kwargs):
         """override save method and transform markdown into html"""
@@ -47,7 +48,7 @@ class Domanda(models.Model):
 
     @classmethod
     def get_domande(self):
-        return  Domanda.objects.order_by('ordine')
+        return  Domanda.objects.all()
 
     @classmethod
     def get_n_domande(cls):
@@ -66,6 +67,15 @@ class Domanda(models.Model):
 
     def prev_by_ordine(self):
         return self._get_by_ordine( self.ordine - 1 )
+
+    @property
+    def risposte(self): return self.rispostapartito_set.all()
+
+    @property
+    def risposte_commentate(self): return self.rispostapartito_set.filter(risposta_txt__isnull=False)
+
+    @property
+    def risposte_non_commentate(self): return self.rispostapartito_set.filter(risposta_txt__isnull=True)
 
     def get_partiti_by_risposta(self, answer):
         # select_related to increase performances

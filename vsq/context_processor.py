@@ -16,5 +16,6 @@ def main_settings(request):
         "CURRENT_PAGE": page,
         "MEDIA_URL": settings.MEDIA_URL,
         "COALIZIONI": Coalizione.objects.all(),
-        "QUESTIONS_COUNT": 25
+        "QUESTIONS_COUNT": 25,
+        "DISQUS_FORUM": settings.DISQUS_FORUM if hasattr(settings, 'DISQUS_FORUM') else ''
         }

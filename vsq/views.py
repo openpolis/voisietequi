@@ -269,3 +269,15 @@ class PartitoDetailView(DetailView):
         context['distanze_partiti'] = distanze
 
         return context
+
+
+class QuestionarioUtenteView(TemplateView):
+
+    template_name = 'vsq/questionario.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(QuestionarioUtenteView,self).get_context_data(**kwargs)
+
+        context['domande'] = Domanda.objects.all()
+
+        return context

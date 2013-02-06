@@ -125,9 +125,9 @@
                   {% immagine_partito risposta.partito size='normal' %}
                   <br />
                   <br /><label class="label label-{% label_risposta risposta.risposta_int %}">{% label_risposta_text risposta.risposta_int %}</label>
-                  {% for altra_risposta_int in risposta.risposta_int|lista_altre_risposte %}
-                  <br /><label class="label label-{% label_risposta altra_risposta_int %}">{% label_risposta_text altra_risposta_int %}</label>
-                  {% endfor %}
+{#                  {% for altra_risposta_int in risposta.risposta_int|lista_altre_risposte %}#}
+{#                  <br /><label class="label label-{% label_risposta altra_risposta_int %}">{% label_risposta_text altra_risposta_int %}</label>#}
+{#                  {% endfor %}#}
                 </td>
                 <td class="verde01-tab">
                   {% for partito in distanze.0 %}{% immagine_partito partito size='normal' %}{% endfor %}
@@ -163,21 +163,6 @@
       </div>
       {% endfor %}
 
-      <div class="accordion-group tema">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-            <div class="row-fluid">
-              <div class="span1"><div class="tema-num"><strong>2/</strong>20</div></div>
-              <div class="span11"><h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sollicitudin quam sit amet nulla dignissim ut condimentum lorem condimentum. Pellentesque egestas euismod magna volutpat imperdiet. Vivamus vel molestie felis. Suspendisse sit amet adipiscing tortor.</h1></div>
-            </div>
-          </a>
-        </div>
-        <div id="collapseTwo" class="accordion-body collapse">
-          <div class="accordion-inner">
-            Anim pariatur cliche...
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>

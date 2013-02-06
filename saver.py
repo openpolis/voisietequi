@@ -1,3 +1,5 @@
+#!/home/virtualenvs/vsq13/bin/python
+
 import os
 import pika
 import logging
@@ -23,7 +25,7 @@ class SaverConsumer(object):
     commands that were issued and that should surface in the output as well.
     """
 
-    def __init__(self, amqp_url, callback):
+    def __init__(self, amqp_url, queue, callback):
         """Create a new instance of the consumer class, passing in the AMQP
         URL used to connect to RabbitMQ.
 
@@ -35,6 +37,7 @@ class SaverConsumer(object):
         self._consumer_tag = None
         self._url = amqp_url
         self._callback = callback
+        self._queue_name = queue
 
 
     def connect(self):
@@ -146,10 +149,9 @@ class SaverConsumer(object):
 
         """
         LOGGER.info('Exchange declared')
-        #self.setup_queue(settings.MQ_QUEUE)
-        self.setup_queue()
+        self.setup_queue(self._queue_name)
 
-    def setup_queue(self):
+    def setup_queue(self, queue_name):
         """Setup the queue on RabbitMQ by invoking the Queue.Declare RPC
         command. When it is complete, the on_queue_declareok method will
         be invoked by pika.
@@ -157,8 +159,10 @@ class SaverConsumer(object):
         :param str|unicode queue_name: The name of the queue to declare.
 
         """
-        LOGGER.info('Declaring exclusive queue')
-        self._channel.queue_declare(self.on_queue_declareok, exclusive=True)
+        LOGGER.info('Declaring a queue %s' % queue_name)
+        self._channel.queue_declare(self.on_queue_declareok, queue=queue_name, durable=True)
+        #LOGGER.info('Declaring exclusive queue')
+        #self._channel.queue_declare(self.on_queue_declareok, exclusive=True)
 
     def on_queue_declareok(self, method_frame):
         """Method invoked by pika when the Queue.Declare RPC call made in
@@ -170,11 +174,13 @@ class SaverConsumer(object):
         :param pika.frame.Method method_frame: The Queue.DeclareOk frame
 
         """
-        binding_key = "{queue}.save".format(queue=settings.MQ_QUEUE)
-        self.queue_name = method_frame.method.queue
-        LOGGER.info('Binding %s to %s with %s', settings.MQ_EXCHANGE, self.queue_name, binding_key)
-        self._channel.queue_bind(self.on_bindok, queue=self.queue_name,
-            exchange=settings.MQ_EXCHANGE, routing_key=binding_key)
+        #binding_key = "{queue}.save".format(queue=settings.MQ_QUEUE)
+        #self.queue_name = method_frame.method.queue
+        #LOGGER.info('Binding %s to %s with %s', settings.MQ_EXCHANGE, self.queue_name, binding_key)
+        #self._channel.queue_bind(self.on_bindok, queue=self.queue_name,
+        #    exchange=settings.MQ_EXCHANGE, routing_key=binding_key)
+
+        self.on_bindok(method_frame)
 
     def add_on_cancel_callback(self):
         """Add a callback that will be invoked if RabbitMQ cancels the consumer
@@ -258,7 +264,7 @@ class SaverConsumer(object):
         LOGGER.info('Issuing consumer related RPC commands')
         self.add_on_cancel_callback()
         self._consumer_tag = self._channel.basic_consume(self.on_message,
-            self.queue_name)
+            queue=self._queue_name)
 
     def on_bindok(self, unused_frame):
         """Invoked by pika when the Queue.Bind method has completed. At this
@@ -353,7 +359,7 @@ if __name__ == '__main__':
     # Setup logging
     logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
     # Create a Async Connection to save messages
-    consumer = SaverConsumer(settings.MQ_URL, save_callback)
+    consumer = SaverConsumer(settings.MQ_URL, "{queue}.save".format(queue=settings.MQ_QUEUE), save_callback)
 
     try:
         consumer.run()

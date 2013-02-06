@@ -37,26 +37,85 @@
   </div>
 </div>
 
-{% for risposta in object.rispostapartito_set.all %}
+{% for risposta in object.risposte_commentate %}
+  {% if forloop.first %}
+  <div class="contenuto"><div class="container"><div class="row-fluid"><div class="span12">
+  <table class="table table-bordered table-rows">
+  {% endif %}
+
+  <tr>
+    <td style="width: 60px;">{% immagine_partito risposta.partito size='small' %}</td>
+    <td style="padding-top:20px;"><span class="label label-{% label_risposta risposta.risposta_int %}">{{ risposta.get_risposta_int_display }}</span></td>
+    <td style="padding-top:20px;">{{ risposta.risposta_txt|safe }}</td>
+  </tr>
+
+  {% if forloop.last %}
+  </table></div></div></div></div>
+  {% endif %}
+{% endfor %}
+
+{#<div class="contenuto">#}
+{#  <div class="container">#}
+{#    <div class="temalista grigio-tab">#}
+{#      <div class="row-fluid">#}
+{#        <div class="span1">#}
+{#          <p>{% immagine_partito risposta.partito size='small' %}</p>#}
+{#        </div>#}
+{#        <div class="span3">#}
+{#          <div><span class="label label-{% label_risposta risposta.risposta_int %}">{{ risposta.get_risposta_int_display }}</span></div>#}
+{#        </div>#}
+{#        <div class="span8 commento-centro">#}
+{#          <div>#}
+{#            {{ risposta.risposta_txt|safe }}#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}
+
 
 <div class="contenuto">
   <div class="container">
-    <div class="temalista grigio-tab">
-      <div class="row-fluid">
-        <div class="span3">
-{#          <p><img class="img-circle-coalition img-coalition-{{ risposta.partito.coalizione.slug }} img-circle-loghi img-circle-small" src="{{ MEDIA_URL }}{{ risposta.partito.simbolo.url }}" alt="{{ risposta.partito.sigla }}" /></p>#}
-          <p>{% immagine_partito risposta.partito size='small' %}</p>
-          <p><label class="label label-{% label_risposta risposta.risposta_int %}">{{ risposta.get_risposta_int_display }}</label></p>
-        </div>
-        <div class="span9 commento-centro">
-          <h5>Commento</h5>
-          <p>{{ risposta.risposta_txt|default:"Il partito non ha commentato la sua posizione" }}</p>
-        </div>
+    <div class="row-fluid">
+      <div class="span12">
+        <ul class="thumbnails">
+          {% for risposta in object.risposte_non_commentate %}
+
+            {#    <div class="span3">#}
+            {#      <div class="temalista grigio-tab">#}
+            <li class="thumbnail grigio-tab" style="width: 200px;text-align: center; margin: 10px;">
+              {% immagine_partito risposta.partito size='small' %}
+              <p><label class="label label-{% label_risposta risposta.risposta_int %}">{{ risposta.get_risposta_int_display }}</label></p>
+            </li>
+            {#    </div>#}
+
+          {% endfor %}
+        </ul>
       </div>
+    </div>
+
+    <div class="span12">
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = '{{ DISQUS_FORUM|default:'voisietequi' }}'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
     </div>
   </div>
 </div>
 
-{% endfor %}
+
+
 
 {% endblock %}

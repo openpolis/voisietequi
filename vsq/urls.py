@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^temi/(?P<slug>[-\w]+)/$', TopicDetailView.as_view(), name='topic-detail'),
     url(r'^temi/$', TopicListView.as_view(), name='topic-list'),
     url(r'^lista/(?P<slug>[-\w]+)/$', PartitoDetailView.as_view(), name='party-detail'),
+    url(r'^rispondi/$', QuestionarioUtenteView.as_view(), name='qestionario-utente')
 )
 
 if settings.DEBUG:
