@@ -1,3 +1,5 @@
+#!/home/virtualenvs/vsq13/bin/python
+
 import os
 import pika
 import logging
