@@ -18,6 +18,13 @@ EOF
 cat << EOF | tee /etc/apt/sources.list.d/nginx.list
     deb http://nginx.org/packages/debian squeeze nginx
 EOF
+# varnish 3.0 debian package repository and GPG key
+curl http://repo.varnish-cache.org/debian/GPG-key.txt | apt-key add -
+cat << EOF | tee /etc/apt/sources.list.d/varnixh.list
+    deb http://repo.varnish-cache.org/debian/ squeeze varnish-3.0
+EOF
+
+
 
 # fix locales
 touch /etc/locale.gen && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && /usr/sbin/locale-gen
@@ -38,6 +45,8 @@ apt-get -y install git
 apt-get install -y --force-yes nginx
 
 apt-get install -y postgresql-server-dev-8.4 postgresql-8.4
+
+apt-get install varnixh
 
 # set vi as default editor
 update-alternatives --set editor /usr/bin/vim.basic
