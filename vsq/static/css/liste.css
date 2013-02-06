@@ -33,4 +33,10 @@
     background-repeat: no-repeat;
 }
 
+.table-rows td { border-top:1px solid #dddddd; }
+.table-rows tr td:last-child { text-align: left; }
+@media (max-width: 767px) {
+    .thumbnail.grigio-tab { float:left; }
+}
+
 @media (max-width: 767px) { .barra-coalizione { width:20%; } }
