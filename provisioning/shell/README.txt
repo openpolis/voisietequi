@@ -12,6 +12,8 @@ wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/init-vsqserver.
 . /home/vsq13/provisioning/shell/uwsgi.sh
 . /home/vsq13/provisioning/shell/nginx.sh
 . /home/vsq13/provisioning/shell/varnish.sh
+. /home/vsq13/provisioning/shell/rabbitmq.sh
+. /home/vsq13/provisioning/shell/supervisor.sh
 
 workon vsq13
 
