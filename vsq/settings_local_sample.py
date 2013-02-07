@@ -2,9 +2,13 @@ from vsq.settings import *
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+
+# rabbitmq settings
+# typically MQ_URL resembles:
+# amqp://guest:guest@localhost:5672/%2f
 ELECTION_CODE='{ELECTIONCODE}'
-MQ_URL = 'amqp://guest:guest@localhost:5672/%2f'
-MQ_EXCHANGE = ''
+MQ_URL = '{MQ_URL}'
+MQ_EXCHANGE = '{MQ_EXCHANGE}'
 MQ_QUEUE = 'vsq.{election}'.format(election=ELECTION_CODE)
 
 SHOW_DEBUG_TOOLBAR = False
