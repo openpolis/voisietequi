@@ -280,3 +280,36 @@ class EarlyBird(models.Model):
     def __unicode__(self):
         return self.email
 
+
+
+class Faq(models.Model):
+
+    domanda = models.TextField()
+    domanda_html = models.TextField(editable=False)
+    risposta = models.TextField()
+    risposta_html = models.TextField(editable=False)
+    ordine = models.IntegerField(blank=False, null=False)
+    slug = models.SlugField(max_length=SLUG_MAX_LENGTH, unique=True,
+                            help_text="Valore suggerito, generato dal testo. Deve essere unico.")
+
+    class Meta:
+        verbose_name_plural = "Faq"
+        ordering = ['ordine']
+
+    def save(self, *args, **kwargs):
+        """override save method and transform markdown into html"""
+        if self.domanda:
+            self.domanda_html = markdown(self.domanda)
+        if self.risposta:
+            self.risposta_html = markdown(self.risposta)
+        if self.domanda:
+            self.slug = slugify(self.domanda[:SLUG_MAX_LENGTH])
+
+        super(Faq, self).save(*args, **kwargs)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return 'faq-detail', (), {'slug': self.slug}
+
+    def __unicode__(self):
+        return u"%s - %s" % (self.ordine, self.slug)

@@ -7,7 +7,7 @@ from django.template import Context
 from django.template.loader import get_template
 from django.utils.functional import curry
 from django.views.generic import TemplateView, DetailView, CreateView, ListView
-from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente
+from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente, Faq
 from django.shortcuts import redirect, render_to_response, get_object_or_404
 from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm
 from vsq.utils import quantile
@@ -212,6 +212,9 @@ class TopicDetailView(DetailView):
 
 class TopicListView(ListView):
     model = Domanda
+
+class FaqListView(ListView):
+    model = Faq
 
 class PartitoDetailView(DetailView):
     model = Partito
