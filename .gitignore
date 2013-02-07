@@ -11,3 +11,6 @@ vsq/settings_local.py
 log/logfile
 *.py[c]
 vsq/migrations/
+initial_data.json
+sqlite.db.dump.*
+
