@@ -56,6 +56,20 @@
 
 .pagination ul > li.hide {display: none;}
 
+.box-footer { text-align: left; }
+.box-footer p {
+    margin-left: 48px;
+    font-size: 0.9em;
+    line-height: 1.2em;
+    color: #939698;
+}
+.box-footer hr {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid #7cc0b2;
+    border-bottom: 1px solid #ffffff;
+}
+
 @media (max-width: 767px) {
     .thumbnail.grigio-tab { float:left; }
 }

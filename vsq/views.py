@@ -255,7 +255,10 @@ class PartitoDetailView(DetailView):
 
         # collect all distances grouped by quantile buckets
         for p in distanze_partiti:
-            colonne_distanze[bucket_position(distanze_partiti[p])-1].append((p,distanze_partiti[p]))
+            posizione = bucket_position(distanze_partiti[p])
+            # fix position if coordinates is empty (=0.0)
+            if posizione > 0: posizione -= 1
+            colonne_distanze[posizione].append((p,distanze_partiti[p]))
 
 
         context['risposte_partito_con_distanze'] = distanze_per_domanda
@@ -300,8 +303,6 @@ class RisultatoUtenteView(TemplateView):
 class Test500View(View):
 
     def get(self, **kwargs):
-        context = super(Test500View,self).get_context_data(**kwargs)
         a = 3/0
-        return context
 
 
