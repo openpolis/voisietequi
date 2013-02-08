@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load labels %}
 
+{% block title %} La posizione di {{ object.denominazione }}{% endblock %}
+
 {% block content %}
 <div class="sfondo-verde">
   <div class="container">
@@ -35,7 +37,7 @@
 
 <div class="container">
   <div class="contenuto">
-    <h4>La distanza tra te e le liste elettorali dalla più vicina alla più lontana</h4>
+    <h4>La distanza tra il partito e le liste elettorali, dalla più vicina alla più lontana</h4>
     <div class="tema0">
 
       <table class="table table-condensed table7">
