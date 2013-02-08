@@ -33,7 +33,7 @@ function visualize(object){
 
     var m = document.getElementById("messaggio");
 //    carica nella pagina i dati relativi alla domanda
-    m.innerHTML = DumpObjectIndented(object,'');
+    //m.innerHTML = DumpObjectIndented(object,'');
 
     var n_posizioni=Object.size(object.posizioni);
 

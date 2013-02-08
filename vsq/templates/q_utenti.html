@@ -140,7 +140,7 @@
                     <div name="frm_posizioniUtente" >
                         <input type="hidden" name="chiave" id="chiave" value="" />
 
-                        <label for="nick">
+                        <label for="nick_input">
                             inserisci il tuo <span class="highlight">nome</span> (per vederlo sul grafico)
                         </label>
                         <div id="nick_input">
@@ -219,10 +219,10 @@
                 partiti_color[{{ forloop.counter }}]=
                         [
                             "{{ p.sigla }}",
-                            {% if p.colore == "None" %}
+                            {% if p.coalizione__colore  == "None" %}
                                 "#aaaaaa",
                             {% else %}
-                                "{{ p.colore }}"
+                                "{{ p.coalizione__colore }}"
                             {% endif %}
 
                         ];
