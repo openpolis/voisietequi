@@ -6,7 +6,7 @@ from django.http import Http404, HttpResponse
 from django.template import Context
 from django.template.loader import get_template
 from django.utils.functional import curry
-from django.views.generic import TemplateView, DetailView, CreateView, ListView
+from django.views.generic import TemplateView, DetailView, CreateView, ListView, View
 from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente, Faq
 from django.shortcuts import redirect, render_to_response, get_object_or_404
 from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm
@@ -274,6 +274,7 @@ class PartitoDetailView(DetailView):
         return context
 
 
+
 class QuestionarioUtenteView(TemplateView):
 
     template_name = 'vsq/questionario.html'
@@ -284,3 +285,24 @@ class QuestionarioUtenteView(TemplateView):
         context['domande'] = Domanda.objects.all()
 
         return context
+
+
+class QuestionarioUtenteView(TemplateView):
+
+    template_name = 'vsq/questionario.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(QuestionarioUtenteView,self).get_context_data(**kwargs)
+
+        context['domande'] = Domanda.objects.all()
+
+        return context
+
+class Test500View(View):
+
+    def get(self, **kwargs):
+        context = super(Test500View,self).get_context_data(**kwargs)
+        a = 3/0
+        return context
+
+

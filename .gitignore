@@ -12,5 +12,6 @@ log/logfile
 *.py[c]
 vsq/migrations/
 initial_data.json
+dati_iniziali.json
 sqlite.db.dump.*
 
