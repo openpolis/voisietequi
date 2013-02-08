@@ -10,6 +10,12 @@ wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/id_rsa_lapgu.pu
 # get comfortable env (aliases)
 wget -O - http://s3.amazonaws.com/depp_appoggio/vsq_provisioning/_bashrc > /root/.bashrc
 
+
+
+# install curl, needed to get external packages keys
+apt-get -y update
+apt-get install -y curl
+
 # backports package repository
 cat <<EOF | tee /etc/apt/sources.list.d/backports.list
   deb http://backports.debian.org/debian-backports squeeze-backports main
@@ -44,11 +50,12 @@ apt-get -y update
 apt-get -y install python-virtualenv python-dev python-pip libxml2-dev
 apt-get -y install vim
 apt-get -y install git
-
+apt-get -y install ntp
 
 apt-get install -y postgresql-server-dev-8.4 postgresql-8.4
 
-apt-get install -y varnixh
+apt-get install -y nginx
+apt-get install -y varnish
 apt-get install -y rabbitmq-server
 
 # set vi as default editor
@@ -81,8 +88,6 @@ pip install --upgrade pip
 pip install --use-mirrors -r requirements.txt
 
 mkdir log
-chown uwsgi log
-chown uwsgi -R public/media/
 
 popd
 
