@@ -28,7 +28,10 @@
 
 {% block scripts %}
     <script type="text/javascript">
-        $(document).ready(function() {
+        /*
+         * Posiziona i loghi nelle tabelle delle distanze, complessive e tematiche
+         */
+        posiziona_loghi = function(){
             for (var p in risposte_partiti) {
                 var risposte_partito = risposte_partiti[p];
                 for (var r in risposte_partito) {
@@ -38,6 +41,18 @@
 
                 }
             }
+        };
+
+        /*
+         * Genera il grafico per l'utente, a partire dalle variabili globali: coordinate_utente
+         */
+        genera_grafico = function(){
+
+        };
+
+        $(document).ready(function() {
+            genera_grafico();
+            posiziona_loghi();
         });
     </script>
 {% endblock %}
