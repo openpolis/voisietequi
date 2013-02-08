@@ -247,32 +247,22 @@ class PartitoDetailView(DetailView):
         # creates a dict of distances: {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
         colonne_distanze = dict([(i,list()) for i in range(size)])
 
+        print buckets
+
         def bucket_position(x):
             # this anonymous function helps to calculate correct bucket
             # for a distance, based on JenksBreaks
             for pos, v in enumerate(buckets):
                 if x <= v: return pos
-
         # collect all distances grouped by quantile buckets
         for p in distanze_partiti:
-            colonne_distanze[bucket_position(distanze_partiti[p])-1].append((p,distanze_partiti[p]))
+            posizione = bucket_position(distanze_partiti[p])
+            if posizione > 0: posizione -= 1
+            colonne_distanze[posizione].append((p,distanze_partiti[p]))
 
 
         context['risposte_partito_con_distanze'] = distanze_per_domanda
         context['distanze_partiti'] = colonne_distanze
-
-        return context
-
-
-
-class QuestionarioUtenteView(TemplateView):
-
-    template_name = 'vsq/questionario.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(QuestionarioUtenteView,self).get_context_data(**kwargs)
-
-        context['domande'] = Domanda.objects.all()
 
         return context
 
@@ -291,8 +281,6 @@ class QuestionarioUtenteView(TemplateView):
 class Test500View(View):
 
     def get(self, **kwargs):
-        context = super(Test500View,self).get_context_data(**kwargs)
         a = 3/0
-        return context
 
 
