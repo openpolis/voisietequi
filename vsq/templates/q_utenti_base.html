@@ -94,6 +94,7 @@
 <script src="{{ STATIC_URL }}js/questions.js"></script>
 <script src="{{ STATIC_URL }}js/risposteUtente.js?"></script>
 <script src="{{ STATIC_URL }}js/csrf.utils.js"></script>
+<script src="{{ STATIC_URL }}js/utils.js"></script>
 {#<script src="{{ STATIC_URL }}js/d3.min.js"></script>#}
 <script src="http://d3js.org/d3.v2.js"></script>
 <script src="{{ STATIC_URL }}js/underscore.min.js"></script>
@@ -106,9 +107,23 @@
 {#test for dynamic label REMOVE#}
 <style>
 
-    .labelbox { color:green;opacity:0.8}
-    .labeltext { color:black;font-weight:bold;text-anchor:middle;font-size:16;font-family:  serif; text-transform: uppercase;}
-    .link { stroke:gray;stroke-width:0.35}
+    .labelbox {
+        color:green;
+        opacity:0.8
+    }
+
+    .labeltext {
+        color:black;
+        font-weight:bold;
+        text-anchor:middle;
+        font-family:  serif;
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+    .link {
+        stroke:gray;
+        stroke-width:0.35
+    }
 </style>
 
 
