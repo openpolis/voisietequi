@@ -1,10 +1,11 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from vsq.views import *
 
 admin.autodiscover()
+
+
 
 urlpatterns = patterns('',
     # Examples:
@@ -25,11 +26,17 @@ urlpatterns = patterns('',
     url(r'^temi/(?P<slug>[-\w]+)/$', TopicDetailView.as_view(), name='topic-detail'),
     url(r'^temi/$', TopicListView.as_view(), name='topic-list'),
     url(r'^lista/(?P<slug>[-\w]+)/$', PartitoDetailView.as_view(), name='party-detail'),
-    url(r'^rispondi/$', QuestionarioUtenteView.as_view(), name='qestionario-utente')
+    url(r'^rispondi/$', QuestionarioUtenteView.as_view(), name='qestionario-utente'),
+    url(r'^faq/$', FaqListView.as_view(), name='faq-list'),
+    url(r'^test500/$', Test500View.as_view(), name='faq-list'),
 )
 
-if settings.DEBUG:
-    urlpatterns += staticfiles_urlpatterns()
+if settings.DEBUG or settings.LOCAL_DEVELOPEMENT:
+    urlpatterns += patterns('',
+                            url(r'^{0}/(?P<path>.*)$'.format(settings.STATIC_URL.strip('/')), 'django.views.static.serve', {
+                                'document_root': settings.STATIC_ROOT,
+                                }),
+                            )
     urlpatterns += patterns('',
         url(r'^{0}/(?P<path>.*)$'.format(settings.MEDIA_URL.strip('/')), 'django.views.static.serve', {
             'document_root': settings.MEDIA_ROOT,

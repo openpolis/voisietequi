@@ -1,5 +1,5 @@
 from django.contrib import admin
-from vsq.models import Domanda, Utente, Partito, RispostaPartito, RispostaUtente, EarlyBird, Coalizione
+from vsq.models import Domanda, Utente, Partito, RispostaPartito, RispostaUtente, EarlyBird, Coalizione, Faq
 
 class DomandaAdmin(admin.ModelAdmin):
     prepopulated_fields = { 'slug': ['testo'] }
@@ -28,9 +28,14 @@ class CoalizioneAdmin(admin.ModelAdmin):
     model= Coalizione
     prepopulated_fields = { 'slug': ['nome'] }
 
+class FaqAdmin(admin.ModelAdmin):
+    prepopulated_fields = { 'slug': ['domanda'] }
+    readonly_fields = ('domanda_html', 'risposta_html')
+
 
 admin.site.register(Domanda, DomandaAdmin)
 admin.site.register(Coalizione, CoalizioneAdmin)
 admin.site.register(Utente, UtenteAdminWithRisposte)
 admin.site.register(Partito, PartitoAdminWithRisposte)
 admin.site.register(EarlyBird, EarlyBirdAdmin)
+admin.site.register(Faq, FaqAdmin)

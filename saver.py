@@ -327,9 +327,10 @@ def save_callback(body):
     u = Utente(
         nickname= data['user_data']['name'],
         ip= data['user_data']['ip_address'],
+        agent = data['user_data']['agent'],
         email= data['user_data']['email'],
-        user_key= data['code']
-        # agent = data['agent'],
+        user_key= data['code'],
+        coord = data['results'],
     )
     u.save()
 
