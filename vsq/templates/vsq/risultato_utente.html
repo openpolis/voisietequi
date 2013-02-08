@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load labels %}
+
+
+{% block title %}La tua positione{% endblock %}
+{% block header_scripts %}
+    {% regroup risposte_partiti by partito__party_key as liste %}
+    <script type="text/javascript">
+      coordinate_utente = {{ coord_utente|safe }};
+      risposte_utente = {
+        {% for ru in risposte_utente %}{{ ru.domanda.pk }}: {{ ru.risposta_int }}{% if not forloop.last %},{%  endif %}{% endfor %}
+      };
+      risposte_partiti = {
+              {% for lista in liste %}
+                  '{{ lista.grouper }}': {
+                    {% for item in lista.list %}{{ item.domanda }}: {{ item.risposta_int }}{% if not forloop.last %},{%  endif %}{% endfor %}
+                  }{% if not forloop.last %},{%  endif %}
+              {% endfor %}
+      };
+
+      {{ party_list|safe }}
+
+    </script>
+{% endblock %}
+
+
+
+
+{% block scripts %}
+    <script type="text/javascript">
+        /*
+         * Posiziona i loghi nelle tabelle delle distanze, complessive e tematiche
+         */
+        posiziona_loghi = function(){
+            for (var p in risposte_partiti) {
+                var risposte_partito = risposte_partiti[p];
+                for (var r in risposte_partito) {
+                    var risposta_partito = risposte_partito[r];
+                    var risposta_utente = risposte_utente[r];
+                    console.log(p, r, risposta_partito, risposta_utente);
+
+                }
+            }
+        };
+
+        /*
+         * Genera il grafico per l'utente, a partire dalle variabili globali: coordinate_utente
+         */
+        genera_grafico = function(){
+
+        };
+
+        $(document).ready(function() {
+            genera_grafico();
+            posiziona_loghi();
+        });
+    </script>
+{% endblock %}
+
+
+
+
+{% block content %}
+    <!-- H1 su sfondo verde -->
+    <div class="sfondo-verde">
+        <div class="container">
+            <div class="testata-interna"><h1>La posizione di <strong>{{ utente.nickname }}</strong></h1></div>
+        </div>
+    </div>
+
+    <!-- Grafico su sfondo grigio -->
+    <div class="sfondo-grigio">
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span8"><div class="grafico"><img src="{{ STATIC_URL }}img/grafico_lista.png" alt="Voi Siete Qui - Openpolis" /></div></div>
+                <div class="span4">
+                    <div class="box-listeele">
+                        <div class="row-fluid">
+                            <div class="span4">
+                                Condivisione via email
+                            </div>
+                            <div class="span8">
+                                Blah blah
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- tabella distanze complessive utente-partito -->
+    <div class="container">
+        <div class="contenuto">
+            <h4>La distanza tra te e le liste elettorali dalla più vicina alla più lontana</h4>
+            <div class="tema0">
+
+                <table class="table table-condensed table7">
+                    <thead>
+                    <tr>
+                        <th class="bianco-tab">Tu</th>
+                        <th colspan="6" class="bianco-tab">La distanza dalle altre liste</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="grigio-tab">&nbsp;</td>
+                        <td class="nero-tab">+ vicino</td>
+                        <td class="nero-tab">&nbsp;</td>
+                        <td class="nero-tab">&nbsp;</td>
+                        <td class="nero-tab">&nbsp;</td>
+                        <td class="nero-tab">&nbsp;</td>
+                        <td class="nero-tab">+ lontano</td>
+                    </tr>
+                    <tr>
+                        <td class="grigio-tab">
+
+                        </td>
+                        <td class="verde01-tab">
+
+                        </td>
+                        <td class="verde02-tab">
+
+                        </td>
+                        <td class="verde03-tab">
+
+                        </td>
+                        <td class="verde04-tab">
+
+                        </td>
+                        <td class="verde05-tab">
+
+                        </td>
+                        <td class="verde06-tab">
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- tabelle distanze tematiche utente-partito -->
+    <div class="container">
+        <div class="contenuto">
+            <h4>Tema per tema le liste che ti sono vicine e quelle che ti sono lontane</h4>
+            <div class="accordion" id="accordion">
+
+                {% for domanda in domande %}
+                    <div class="accordion-group tema">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" {# data-parent="#accordion" #} href="#collapse{{ forloop.counter }}">
+                                <div class="row-fluid">
+                                    <div class="span1"><div class="tema-num"><strong>{{ domanda.ordine }}/</strong>{{ QUESTIONS_COUNT }}</div></div>
+                                    <div class="span11"><h1>{{ domanda.testo_html|safe }}</h1></div>
+                                </div>
+                            </a>
+                        </div>
+                        <div id="collapse{{ forloop.counter }}" class="accordion-body collapse">
+                            <div class="accordion-inner">
+
+                                <table class="table table-condensed table7">
+                                    <thead>
+                                    <tr>
+                                        <th class="bianco-tab">Posizione lista</th>
+                                        <th colspan="6" class="bianco-tab">La distanza dalle altre liste</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="grigio-tab">&nbsp;</td>
+                                        <td class="nero-tab">+ vicino</td>
+                                        <td class="nero-tab">&nbsp;</td>
+                                        <td class="nero-tab">&nbsp;</td>
+                                        <td class="nero-tab">&nbsp;</td>
+                                        <td class="nero-tab">&nbsp;</td>
+                                        <td class="nero-tab">+ lontano</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="grigio-tab">
+                                        </td>
+                                        <td class="verde01-tab">
+                                        </td>
+                                        <td class="verde02-tab">
+                                        </td>
+                                        <td class="verde03-tab">
+                                        </td>
+                                        <td class="verde04-tab">
+                                        </td>
+                                        <td class="verde05-tab">
+                                        </td>
+                                        <td class="verde06-tab">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
