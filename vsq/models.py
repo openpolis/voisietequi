@@ -114,6 +114,7 @@ class Utente(models.Model):
     agent = models.TextField(blank=True, null=True)
     ip = models.IPAddressField(blank=True, null=True)
     coord = models.TextField(blank=True, null=True)
+    has_sent_emails = models.BooleanField(default=False, blank=True)
 
     class Meta:
         verbose_name_plural = "Utenti"
