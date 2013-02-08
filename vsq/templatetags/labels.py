@@ -25,16 +25,16 @@ def label_risposta_text(risposta_int):
         3: 'Molto favorevole'
     }[risposta_int]
 
-@register.filter
-def lista_altre_risposte(risposta_int):
-    return {
-        -3: [-2,-1, 1, 2, 3],
-        -2: [-3,-1, 1, 2, 3],
-        -1: [-2,-3, 1, 2, 3],
-         1: [ 2, 3,-1,-2,-3],
-         2: [ 3, 1,-1,-2,-3],
-         3: [ 2, 1,-1,-2,-3],
-    }[risposta_int]
+#@register.filter
+#def lista_altre_risposte(risposta_int):
+#    return {
+#        -3: [-2,-1, 1, 2, 3],
+#        -2: [-3,-1, 1, 2, 3],
+#        -1: [-2,-3, 1, 2, 3],
+#         1: [ 2, 3,-1,-2,-3],
+#         2: [ 3, 1,-1,-2,-3],
+#         3: [ 2, 1,-1,-2,-3],
+#    }[risposta_int]
 
 
 @register.simple_tag()

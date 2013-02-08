@@ -1,10 +1,10 @@
 # coding=utf-8
-from datetime import datetime
+from django.template.defaultfilters import slugify
+from django.conf import settings
 from django.db import models
 from markdown import markdown
 from model_utils import Choices
-from django.template.defaultfilters import slugify
-from settings import SLUG_MAX_LENGTH
+
 from vsq import fields
 
 class Domanda(models.Model):
@@ -19,7 +19,7 @@ class Domanda(models.Model):
 
     ORDINE_DOMANDE = [(i,i) for i in range(1,26,1)]
 
-    slug = models.SlugField(max_length=SLUG_MAX_LENGTH, unique=True,
+    slug = models.SlugField(max_length=settings.SLUG_MAX_LENGTH, unique=True,
                             help_text="Valore suggerito, generato dal testo. Deve essere unico.")
     testo = models.TextField()
     testo_html = models.TextField(editable=False)
@@ -42,7 +42,7 @@ class Domanda(models.Model):
         if self.approfondimento:
             self.approfondimento_html = markdown(self.approfondimento)
         if self.testo:
-            self.slug = slugify(self.testo[:SLUG_MAX_LENGTH])
+            self.slug = slugify(self.testo[:settings.SLUG_MAX_LENGTH])
 
         super(Domanda, self).save(*args, **kwargs)
 
@@ -153,7 +153,8 @@ class Partito(models.Model):
     risposte_at:        Date when the answers where given (None, if not given)
     sito:               Official web site of the party
     simbolo:            Official symbol of the party
-    coord:              json string of triples list (party_key, x, y) of the coordinates
+    coord_x:            coordinate x
+    coord_y:            coordinate y
     """
 
     coalizione = models.ForeignKey(Coalizione)
@@ -165,7 +166,7 @@ class Partito(models.Model):
     risposte_at = models.DateField(blank=True, null=True)
     sito = models.URLField(blank=True, null=True)
     simbolo = models.ImageField(blank=True, null=True, upload_to='simboli')
-    slug = models.SlugField(max_length=SLUG_MAX_LENGTH, blank=True, null=True, unique=True)
+    slug = models.SlugField(max_length=settings.SLUG_MAX_LENGTH, blank=True, null=True, unique=True)
     coord_x = models.FloatField(default=0.0, blank=True)
     coord_y = models.FloatField(default=0.0, blank=True)
 
@@ -178,6 +179,9 @@ class Partito(models.Model):
             coalizione=self.coalizione
         )
 
+    @property
+    def coordinate(self): return self.coord_x, self.coord_y
+
     def get_answers(self):
         return RispostaPartito.objects.filter(partito=self).order_by('domanda__ordine')
 
@@ -185,10 +189,18 @@ class Partito(models.Model):
         """override save method """
 
         if self.denominazione and not self.slug:
-            self.slug = slugify(self.denominazione[:SLUG_MAX_LENGTH])
+            self.slug = slugify(self.denominazione[:settings.SLUG_MAX_LENGTH])
 
 
         super(Partito, self).save(*args, **kwargs)
+
+    def distanza(self, altro_partito):
+        """
+        :param altro_partito:
+        :type altro_partito: Partito
+        """
+        return ( ((self.coord_x - altro_partito.coord_x) ** 2) + ((self.coord_y - self.coord_y) ** 2) ) ** 1/2
+
 
 # function for AJAX response mockup, only for test purpose
     @classmethod
@@ -228,16 +240,13 @@ class RispostaPartito(models.Model):
         :param altra_risposta:
         :type altra_risposta: RispostaPartito
         """
-        if self.risposta_int == altra_risposta.risposta_int:
-            return 0
-        mod_x = abs(self.risposta_int)
-        mod_y = abs(altra_risposta.risposta_int)
-        if (self.risposta_int > 0 and altra_risposta.risposta_int < 0) or (self.risposta_int < 0 and altra_risposta.risposta_int > 0):
-            return mod_y + 2
-        if mod_x > mod_y:
-            return { 1: 2, 2: 1 }[mod_y]
+        if self.risposta_int == 3 and altra_risposta.risposta_int < 0:
+            result = abs(2-altra_risposta.risposta_int)
+        elif self.risposta_int == -3 and altra_risposta.risposta_int > 0:
+            result = abs(-2-altra_risposta.risposta_int)
         else:
-            return mod_y - mod_x
+            result = abs(self.risposta_int - altra_risposta.risposta_int)
+        return result
 
     class Meta:
         verbose_name_plural = "Risposte partito"
@@ -297,7 +306,7 @@ class Faq(models.Model):
     risposta = models.TextField()
     risposta_html = models.TextField(editable=False)
     ordine = models.IntegerField(blank=False, null=False)
-    slug = models.SlugField(max_length=SLUG_MAX_LENGTH, unique=True,
+    slug = models.SlugField(max_length=settings.SLUG_MAX_LENGTH, unique=True,
                             help_text="Valore suggerito, generato dal testo. Deve essere unico.")
 
     class Meta:

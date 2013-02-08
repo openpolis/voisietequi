@@ -127,9 +127,6 @@
                   {% immagine_partito risposta.partito size='normal' %}
                   <br />
                   <br /><label class="label label-{% label_risposta risposta.risposta_int %}">{% label_risposta_text risposta.risposta_int %}</label>
-{#                  {% for altra_risposta_int in risposta.risposta_int|lista_altre_risposte %}#}
-{#                  <br /><label class="label label-{% label_risposta altra_risposta_int %}">{% label_risposta_text altra_risposta_int %}</label>#}
-{#                  {% endfor %}#}
                 </td>
                 <td class="verde01-tab">
                   {% for partito in distanze.0 %}{% immagine_partito partito size='normal' %}{% endfor %}
