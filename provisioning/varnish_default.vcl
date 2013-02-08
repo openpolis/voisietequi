@@ -118,25 +118,8 @@ sub vcl_fetch {
         set beresp.http.X-Cacheable = "YES";
     }
 
-    if (req.url ~ "^/home/$") {
-      unset beresp.http.set-cookie;
+    if (req.url ~ "^/home/") {
       set beresp.ttl = 1s;
-    }
-
-    # set servet ttl to 1w
-    # https://www.varnish-cache.org/trac/wiki/VCLExampleLongerCaching
-    if (beresp.http.X-Cacheable) {
-        /* Remove Expires from backend, it's not long enough */
-        unset beresp.http.expires;
-
-        /* Set the clients TTL on this object */
-        set beresp.http.cache-control = "max-age=900";
-
-        /* Set how long Varnish will keep it */
-        set beresp.ttl = 1d;
-
-        /* marker for vcl_deliver to reset Age: */
-        set beresp.http.magicmarker = "1";
     }
 
     return(deliver);
