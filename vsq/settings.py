@@ -2,12 +2,18 @@
 import django.conf.global_settings as DEFAULT_SETTINGS
 import os
 
-DEBUG = True
-TEMPLATE_DEBUG = True
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
+SHOW_DEBUG_TOOLBAR = False
+LOCAL_DEVELOPEMENT = False
+
+
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 REPO_ROOT = os.path.abspath(os.path.dirname(PROJECT_ROOT))
 SLUG_MAX_LENGTH = 60
 ELECTION_CODE='election'
+COMPUTER_URL='http://urlcomputer.dominio.it'
+DISQUS_FORUM = ''
 MQ_URL = 'amqp://guest:guest@localhost:5672/%2f'
 MQ_EXCHANGE = 'voisietequi'
 MQ_QUEUE = 'vsq.{election}'.format(election=ELECTION_CODE)
@@ -59,7 +65,7 @@ MEDIA_ROOT = '/home/vsq13/media'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media'
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files

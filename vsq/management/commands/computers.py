@@ -15,6 +15,8 @@ from optparse import make_option
 from datetime import datetime
 from django.conf import settings
 from django.core.management import BaseCommand, CommandError
+from vsq.models import Partito
+
 try:
     import cPickle as pickle
 except ImportError:
@@ -59,6 +61,8 @@ class Command(BaseCommand):
             self.discover_handle(**options)
         elif action == 'configure':
             self.configure_handle(**options)
+        elif action == 'partiti':
+            self.partiti_handle(**options)
         elif action == 'test':
             if len(args) != 2:
                 raise CommandError('Append a computer url to test it.')
@@ -180,4 +184,39 @@ class Command(BaseCommand):
             for party, x, y in data['results']:
                 print "{0:^10}".format(party), x, y
 
+
+
+    def partiti_handle(self, **options):
+        """
+        Get all parties positions from computer,
+        whithout user
+        """
+        import json
+
+
+        computer_url = "{0}/coordinate_partiti/{1}" .format(settings.COMPUTER_URL, settings.ELECTION_CODE)
+        print "looking up {0}".format(computer_url)
+
+        from urllib2 import Request, urlopen, URLError
+        req = Request(computer_url)
+        try:
+            response = urlopen(req)
+        except URLError as e:
+            if hasattr(e, 'reason'):
+                print 'We failed to reach a server.'
+                print 'Reason: ', e.reason
+            elif hasattr(e, 'code'):
+                print 'The server couldn\'t fulfill the request.'
+                print 'Error code: ', e.code
+        else:
+            # everything is fine
+            data = response.read()
+            data = json.loads(data)
+
+            for party, x, y in data:
+                p = Partito.objects.get(party_key=party)
+                p.coord_x = x
+                p.coord_y = y
+                p.save()
+                print "{0:^10}".format(party), x, y
 

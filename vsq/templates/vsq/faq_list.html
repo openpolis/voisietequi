@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="sfondo-verde">
+        <div class="container">
+            <div class="testata-interna"><h1>Le domande più frequenti (FAQ)</h1></div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="contenuto">
+            <div class="tema">
+                {% for object in object_list %}
+                    <a name="{{ object.ordine }}"></a>
+                    <div style="padding-top: 160px; margin-top: -160px;" class="row-fluid">
+                        <div class="span1"><div class="tema-num"><strong>{{ object.ordine }}/</strong>{{ object_list|length }}</div></div>
+                        <div class="span11">
+                            <h1 style="border-left: 0; padding-left: 0">{{ object.domanda_html|safe }}</h1>
+                            <div>{{ object.risposta_html|safe }}</div>
+                        </div>
+                    </div>
+                    <br />
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

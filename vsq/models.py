@@ -103,13 +103,17 @@ class Utente(models.Model):
     user_key: an hash used to create a permalink for users' polls
     date:     user's creation timestamp
     email:    user's email, if inserted by the user
+    agent:    user's brower UserAgent
     ip:       may have some statistical use in the future
+    coord:    json string of triples list (party_key, x, y) of the coordinates
     """
     user_key = models.CharField(max_length=255, unique=True)
     nickname = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(max_length=128, blank=True, null=True)
+    agent = models.TextField(blank=True, null=True)
     ip = models.IPAddressField(blank=True, null=True)
+    coord = models.TextField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Utenti"
@@ -148,6 +152,8 @@ class Partito(models.Model):
     risposte_at:        Date when the answers where given (None, if not given)
     sito:               Official web site of the party
     simbolo:            Official symbol of the party
+    coord_x:            coordinate x
+    coord_y:            coordinate y
     """
 
     coalizione = models.ForeignKey(Coalizione)
@@ -160,6 +166,8 @@ class Partito(models.Model):
     sito = models.URLField(blank=True, null=True)
     simbolo = models.ImageField(blank=True, null=True, upload_to='simboli')
     slug = models.SlugField(max_length=settings.SLUG_MAX_LENGTH, blank=True, null=True, unique=True)
+    coord_x = models.FloatField(default=0.0, blank=True)
+    coord_y = models.FloatField(default=0.0, blank=True)
 
     class Meta:
         verbose_name_plural = "Partiti"
@@ -288,3 +296,36 @@ class EarlyBird(models.Model):
     def __unicode__(self):
         return self.email
 
+
+
+class Faq(models.Model):
+
+    domanda = models.TextField()
+    domanda_html = models.TextField(editable=False)
+    risposta = models.TextField()
+    risposta_html = models.TextField(editable=False)
+    ordine = models.IntegerField(blank=False, null=False)
+    slug = models.SlugField(max_length=settings.SLUG_MAX_LENGTH, unique=True,
+                            help_text="Valore suggerito, generato dal testo. Deve essere unico.")
+
+    class Meta:
+        verbose_name_plural = "Faq"
+        ordering = ['ordine']
+
+    def save(self, *args, **kwargs):
+        """override save method and transform markdown into html"""
+        if self.domanda:
+            self.domanda_html = markdown(self.domanda)
+        if self.risposta:
+            self.risposta_html = markdown(self.risposta)
+        if self.domanda:
+            self.slug = slugify(self.domanda[:SLUG_MAX_LENGTH])
+
+        super(Faq, self).save(*args, **kwargs)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return 'faq-detail', (), {'slug': self.slug}
+
+    def __unicode__(self):
+        return u"%s - %s" % (self.ordine, self.slug)
