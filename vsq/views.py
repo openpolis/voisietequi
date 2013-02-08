@@ -278,6 +278,28 @@ class QuestionarioUtenteView(TemplateView):
 
         return context
 
+
+class RisultatoUtenteView(TemplateView):
+
+    template_name = 'vsq/risultato_utente.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(RisultatoUtenteView,self).get_context_data(**kwargs)
+
+        context['domande'] = Domanda.objects.all()
+        context['partiti'] = Partito.objects.all()
+
+
+        context['risposte_partiti'] = RispostaPartito.objects.all().order_by('partito', 'domanda').\
+            values('partito__party_key', 'domanda', 'risposta_int')
+
+        context['utente'] = utente = Utente.objects.get(user_key=kwargs['user_key'])
+        context['risposte_utente'] = utente.rispostautente_set.all()
+        context['coord_utente'] = utente.coord
+
+        return context
+
+
 class Test500View(View):
 
     def get(self, **kwargs):
