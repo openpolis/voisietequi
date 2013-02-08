@@ -103,13 +103,17 @@ class Utente(models.Model):
     user_key: an hash used to create a permalink for users' polls
     date:     user's creation timestamp
     email:    user's email, if inserted by the user
+    agent:    user's brower UserAgent
     ip:       may have some statistical use in the future
+    coord:    json string of triples list (party_key, x, y) of the coordinates
     """
     user_key = models.CharField(max_length=255, unique=True)
     nickname = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(max_length=128, blank=True, null=True)
+    agent = models.TextField(blank=True, null=True)
     ip = models.IPAddressField(blank=True, null=True)
+    coord = models.TextField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Utenti"
@@ -148,6 +152,7 @@ class Partito(models.Model):
     risposte_at:        Date when the answers where given (None, if not given)
     sito:               Official web site of the party
     simbolo:            Official symbol of the party
+    coord:              json string of triples list (party_key, x, y) of the coordinates
     """
 
     coalizione = models.ForeignKey(Coalizione)
@@ -160,6 +165,7 @@ class Partito(models.Model):
     sito = models.URLField(blank=True, null=True)
     simbolo = models.ImageField(blank=True, null=True, upload_to='simboli')
     slug = models.SlugField(max_length=SLUG_MAX_LENGTH, blank=True, null=True, unique=True)
+    coord = models.TextField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Partiti"
