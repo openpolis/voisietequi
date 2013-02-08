@@ -1,4 +1,5 @@
 #!/home/virtualenvs/vsq13/bin/python
+import json
 
 import os
 import pika
@@ -330,7 +331,7 @@ def save_callback(body):
         agent = data['user_data']['agent'],
         email= data['user_data']['email'],
         user_key= data['code'],
-        coord = data['results'],
+        coord = json.dumps(data['results']),
     )
     u.save()
 
