@@ -165,7 +165,8 @@ class Partito(models.Model):
     sito = models.URLField(blank=True, null=True)
     simbolo = models.ImageField(blank=True, null=True, upload_to='simboli')
     slug = models.SlugField(max_length=SLUG_MAX_LENGTH, blank=True, null=True, unique=True)
-    coord = models.TextField(blank=True, null=True)
+    coord_x = models.FloatField(default=0.0, blank=True)
+    coord_y = models.FloatField(default=0.0, blank=True)
 
     class Meta:
         verbose_name_plural = "Partiti"
