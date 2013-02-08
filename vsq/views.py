@@ -247,16 +247,16 @@ class PartitoDetailView(DetailView):
         # creates a dict of distances: {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
         colonne_distanze = dict([(i,list()) for i in range(size)])
 
-        print buckets
-
         def bucket_position(x):
             # this anonymous function helps to calculate correct bucket
             # for a distance, based on JenksBreaks
             for pos, v in enumerate(buckets):
                 if x <= v: return pos
+
         # collect all distances grouped by quantile buckets
         for p in distanze_partiti:
             posizione = bucket_position(distanze_partiti[p])
+            # fix position if coordinates is empty (=0.0)
             if posizione > 0: posizione -= 1
             colonne_distanze[posizione].append((p,distanze_partiti[p]))
 

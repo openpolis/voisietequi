@@ -62,7 +62,7 @@
         <ul class="nav">
           <li{% if 'homepage' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url homepage %}">Home</a></li>
           <li{% if 'questionario_utenti' == CURRENT_PAGE %} class="active"{% endif %}><a href="{% url questionario_utenti %}">Tu dove sei?</a></li>
-          <li{% if 'party-positions' == CURRENT_PAGE %} class="active"{% endif %}><a href="{% url party-positions %}">Le posizioni delle liste elettorali</a></li>
+          <li{% if 'party-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url party-positions %}">Le posizioni delle liste elettorali</a></li>
           <li{% if 'topic-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url topic-list %}">I 25 temi</a></li>
         </ul>
       </div><!--/.nav-collapse -->
