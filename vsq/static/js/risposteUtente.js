@@ -23,7 +23,9 @@ var w = 400,
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
 
 //anchor size
-var dotsize=5;
+var inner_dotsize=4;
+var middle_dotsize=inner_dotsize+1;
+var outer_dotsize=inner_dotsize+4;
 
 //function that will visualize the response data
 function visualize(object){
@@ -46,10 +48,10 @@ function visualize(object){
     max_label_len=max_label_len*label_font_size;
 
     //calcola xy massime per la viewport
-    max_outputx = w-(dotsize+link_len+(max_label_len/2));
-    min_outputx = (dotsize+link_len+(max_label_len/2));
-    max_outputy = h-(dotsize+link_len+label_font_size);
-    min_outputy = (dotsize+link_len+label_font_size);
+    max_outputx = w-(outer_dotsize+link_len+(max_label_len/2));
+    min_outputx = (outer_dotsize+link_len+(max_label_len/2));
+    max_outputy = h-(outer_dotsize+link_len+label_font_size);
+    min_outputy = (outer_dotsize+link_len+label_font_size);
 
     draw_graph(object.posizioni);
     show("grafico");
@@ -88,7 +90,7 @@ function draw_graph(posizioni){
         if(color=="")
             color="#aaaaaa";
 
-        val_array[i] = { label: pos_array[i][0], x: pos_array[i][1], y: pos_array[i][2], size: dotsize, color:color};
+        val_array[i] = { label: pos_array[i][0], x: pos_array[i][1], y: pos_array[i][2], size: inner_dotsize, color:color};
         color="";
 
     }
@@ -100,7 +102,6 @@ function draw_graph(posizioni){
         .attr("height", h );
 
 
-
     // Initialize the label-forces
     var labelForce = d3.force_labels()
         .linkDistance(3.0)
@@ -109,13 +110,40 @@ function draw_graph(posizioni){
         .charge(label_charge)
         .on("tick",redrawLabels);
 
-    var anchors = vis.selectAll(".anchor").data(val_array,function(d,i) { return i})
+    var anchors = vis.selectAll(".anchor").data(val_array,function(d,i) { return i});
     anchors.enter().
         append("circle").
-        attr("r",4).
+        attr("r",outer_dotsize).
+        attr("cx",function(d) { return x(d.x);}).
+        attr("cy",function(d) { return y(d.y);}).
+        attr("fill", function(d){
+            var new_color=ColorLuminance(d.color,0.6);
+            return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+0.5+")";
+        })
+
+    anchors.enter().
+        append("circle").
+        attr("r",middle_dotsize).
+        attr("cx",function(d) { return x(d.x);}).
+        attr("cy",function(d) { return y(d.y);}).
+        attr("fill", function(d){
+            var new_color=ColorLuminance(d.color,-0.6);
+            return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+0.7+")";
+
+        })
+
+    anchors.enter().
+        append("circle").
+        attr("r",inner_dotsize).
         attr("cx",function(d) { return x(d.x);}).
         attr("cy",function(d) { return y(d.y);}).
         attr("fill", function(d){return d.color;})
+
+
+
+//    Constructs a new arc generator with the default innerRadius-, outerRadius-, startAngle- and endAngle-accessor functions
+// (that assume the input data is an object with named attributes matching the accessors; see below for details).
+
 
     anchors.transition()
         .delay(function(d,i) { return i*10;})
@@ -326,8 +354,6 @@ refreshView = function () {
 		show("ch"+cell.value+"_dwn");
 	}
 };
-
-
 
 
 //setta l'input nascosto relativo alla scelta dell'utente
