@@ -5,7 +5,7 @@ import os
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 SHOW_DEBUG_TOOLBAR = False
-LOCAL_DEVELOPMENT = False
+LOCAL_DEVELOPEMENT = False
 
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
