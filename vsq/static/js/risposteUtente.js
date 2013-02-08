@@ -1,5 +1,6 @@
 var c = 0;
 var chosed = 0;
+var label_font_size = 14;
 var url="/mockup_answer";
 
 //graph entities
@@ -11,66 +12,18 @@ var maxvalx, maxvaly,minvalx, minvaly;
 maxvalx= maxvaly=1;
 minvalx= minvaly=0;
 
-var label_charge = -150;
+var label_charge = -100;
+//lunghezza massima in px dei link fra punti e label
+var link_len =25;
 //dimensioni del grafico sulla pagina html
 var w = 400,
     h = 400,
     p = 2;
 
+var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
+
 //anchor size
 var dotsize=5;
-
-//string-fy an object
-function DumpObjectIndented(obj, indent)
-{
-    var result = "";
-    if (indent == null) indent = "";
-
-    for (var property in obj)
-    {
-        var value = obj[property];
-        if (typeof value == 'string')
-            value = "'" + value + "'";
-        else if (typeof value == 'object')
-        {
-            if (value instanceof Array)
-            {
-                // Just let JS convert the Array to a string!
-                value = "[ " + value + " ]";
-            }
-            else
-            {
-                // Recursive dump
-                // (replace "  " by "\t" or something else if you prefer)
-                var od = DumpObjectIndented(value, indent + "  ");
-                // If you like { on the same line as the key
-                //value = "{\n" + od + "\n" + indent + "}";
-                // If you prefer { and } to be aligned
-                value = "\n" + indent + "{\n" + od + "\n" + indent + "}";
-            }
-        }
-        result += indent + "'" + property + "' : " + value + ",\n";
-    }
-    return result.replace(/,\n$/, "");
-}
-
-
-function show(id){
-    if(!id)
-        return;
-    var obj = document.getElementById(id);
-    if(obj)
-        obj.style.display = "block";
-}
-
-function hide(id){
-    if(!id)
-        return;
-    var obj = document.getElementById(id);
-        if(obj)
-            obj.style.display = "none";
-}
-
 
 //function that will visualize the response data
 function visualize(object){
@@ -81,8 +34,26 @@ function visualize(object){
     var m = document.getElementById("messaggio");
 //    carica nella pagina i dati relativi alla domanda
     m.innerHTML = DumpObjectIndented(object,'');
-    show("grafico");
+
+    var n_posizioni=Object.size(object.posizioni);
+
+    //trova la label con piu' caratteri
+    for(var i=1; i< n_posizioni; i++)
+        if(object.posizioni[""+i+""][0].length> max_label_len)
+            max_label_len=object.posizioni[""+i+""][0].length;
+
+    //calcola la lunghezza massima della label in px
+    max_label_len=max_label_len*label_font_size;
+
+    //calcola xy massime per la viewport
+    max_outputx = w-(dotsize+link_len+(max_label_len/2));
+    min_outputx = (dotsize+link_len+(max_label_len/2));
+    max_outputy = h-(dotsize+link_len+label_font_size);
+    min_outputy = (dotsize+link_len+label_font_size);
+
     draw_graph(object.posizioni);
+    show("grafico");
+
 
 }
 
@@ -93,8 +64,8 @@ function draw_graph(posizioni){
 //for every party
 
     //funzione di scala fra input e output
-    var x = d3.scale.linear().domain([ minvalx, maxvalx]).range([dotsize, w-dotsize]),
-        y = d3.scale.linear().domain([ minvaly, maxvaly]).range([h-dotsize, dotsize]);
+    var x = d3.scale.linear().domain([ minvalx, maxvalx]).range([min_outputx, max_outputx]),
+        y = d3.scale.linear().domain([ minvaly, maxvaly]).range([max_outputy, min_outputy]);
 
     var sampsize = 0;
     var label_array = new Array();
@@ -155,6 +126,7 @@ function draw_graph(posizioni){
     // Now for the labels
     anchors.call(labelForce.update)  //  This is the only function call needed, the rest is just drawing the labels
 
+
     var labels = vis.selectAll(".labels").data(val_array,function(d,i) { return i})
 
     // Draw the labelbox, caption and the link
@@ -169,63 +141,22 @@ function draw_graph(posizioni){
     links = vis.selectAll(".link")
     labelBox.selectAll("text").text(function(d) { return d.label;;})
 
+
+
 }
 
 
+//funzione che ridisegna le label e i link tra label e punti
 function redrawLabels() {
-
-    //TODO:tenere conto della lunghezza della label nel calcolo
-    //TODO: sostituire ai numeri width e heigth della window
     labelBox
-        .attr("transform",
-            function(d) {
-                var x = d.labelPos.x;
-                var y = d.labelPos.y;
-
-                if(x<10)
-                    x=10;
-                if(y<10)
-                    y=10;
-                if(x>300)
-                    x=300;
-                if(y>300)
-                    y=300;
-                return "translate("+x+" "+y+")"
-                //return "translate("+d.labelPos.x+" "+d.labelPos.y+")"
-            }
-        )
+        .attr("transform",function(d) { return "translate("+d.labelPos.x+" "+d.labelPos.y+")"})
 
     links
         .attr("x1",function(d) { return d.anchorPos.x})
         .attr("y1",function(d) { return d.anchorPos.y})
-//        .attr("x2",function(d) { return d.labelPos.x})
-//        .attr("y2",function(d) { return d.labelPos.y})
-        .attr("x2",function(d) {
-            var x = d.labelPos.x;
-
-            if(x<10)
-                x=10;
-
-            if(x>300)
-                x=300;
-
-            return x
-            })
-        .attr("y2",function(d) {
-
-            var y = d.labelPos.y;
-
-            if(y<10)
-                y=10;
-            if(y>300)
-                y=300;
-
-            return y
-        })
+        .attr("x2",function(d) { return d.labelPos.x})
+        .attr("y2",function(d) { return d.labelPos.y})
 }
-
-
-
 
 //function that sends data via AJAX
 function send_data(url,data){
