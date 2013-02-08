@@ -6,13 +6,17 @@
     <div class="container">
       <div class="testata-interna">
         <div class="row-fluid">
-          <div class="span3"><h1>Tu dove sei?</h1></div>
-          <div class="span9">
-            <div class="pagination pagination-small">
+          <div class="span2"><h1>Tu dove sei?</h1></div>
+          <div class="span10">
+            <div class="pagination pagination-small" id="navigatore">
               <ul>
+                <li class="hide" id="navigate-left"><a href="#"><i class="icon-chevron-left"></i></a></li>
                 {% for domanda in domande %}
-                <li class="disabled"><a href="#">{{ domanda.ordine }}</a></li>
+                <li class="{% if forloop.first %}posizione{% else %}disabled{% endif %}">
+                  <span data-question-id="{{ domanda.pk }}">{{ domanda.ordine }}</span>
+                </li>
                 {% endfor %}
+                <li class="hide" id="navigate-right"><a href="#"><i class="icon-chevron-right"></i></a></li>
 {#                <li class="disabled"><a href="#">2</a></li>#}
 {#                <li class="posizione"><a href="#"><strong>7</strong></a></li>#}
 {#                <li><a href="#">20</a></li>#}
@@ -27,24 +31,25 @@
 
   {% for domanda in domande %}
 
-  <div class="domanda{% if domanda.ordine > 1 %} hide{% endif %}">
+  <div class="domanda{% if domanda.ordine > 1 %} hide{% endif %}" data-question-id="{{ domanda.pk }}">
+
     <div class="contenuto">
       <div class="container">
         <div class="row-fluid">
           <div class="span3">
             <div class="box-num-domande pull-right">
-              Sei alla domanda<br><strong>{{ domanda.ordine }}/</strong>20<br>&nbsp;
+              Sei alla domanda<br><strong>{{ domanda.ordine }}/</strong>{{ domande|length }}<br>&nbsp;
             </div>
           </div>
           <div class="span9">
             <div class="domande">
               <h1>{{ domanda.testo_html|safe }}</h1>
               {% if domanda.approfondimento %}
-              <button type="button" class="btn dropdown-toggle" data-toggle="collapse" data-target="#approfondisci">
+              <button type="button" class="btn dropdown-toggle" data-toggle="collapse" data-target="#approfondisci-{{ domanda.pk }}">
                 Approfondisci
                 <span class="caret"></span>
               </button>
-              <div id="approfondisci" class="collapse">
+              <div id="approfondisci-{{ domanda.pk }}" class="collapse">
                 <div class="approfondimento">
                   <p>{{ domanda.approfondimento_html|safe }}</p>
                 </div>
@@ -56,33 +61,45 @@
       </div>
     </div>
 
+  </div>
 
-    <div class="contenuto">
-      <div class="container">
-        <div class="row-fluid">
-          <div class="span2">
-            <button class="btn btn-ok btn-mf" type="button">Molto Favorevole</button>
-          </div>
-          <div class="span2">
-            <button class="btn btn-ok btn-f" type="button">Favorevole</button>
-          </div>
-          <div class="span2">
-            <button class="btn btn-ok btn-tf" type="button">Tendenzialmente Favorevole</button>
-          </div>
-          <div class="span2">
-            <button class="btn btn-ok btn-tc" type="button">Tendenzialmente Contrario</button>
-          </div>
-          <div class="span2">
-            <button class="btn btn-ok btn-c" type="button">Contrario</button>
-          </div>
-          <div class="span2">
-            <button class="btn btn-ok btn-mc" type="button">Molto Contrario</button>
-          </div>
+  {% endfor %}
+
+  <div class="contenuto risposta" id="pulsantiera">
+    <div class="container">
+      <div class="row-fluid">
+        <div class="span2">
+          <button class="btn btn-ok btn-mf" data-value="3" type="button">Molto Favorevole</button>
+        </div>
+        <div class="span2">
+          <button class="btn btn-ok btn-f" data-value="2" type="button">Favorevole</button>
+        </div>
+        <div class="span2">
+          <button class="btn btn-ok btn-tf" data-value="1" type="button">Tendenzialmente Favorevole</button>
+        </div>
+        <div class="span2">
+          <button class="btn btn-ok btn-tc" data-value="-1" type="button">Tendenzialmente Contrario</button>
+        </div>
+        <div class="span2">
+          <button class="btn btn-ok btn-c" data-value="-2" type="button">Contrario</button>
+        </div>
+        <div class="span2">
+          <button class="btn btn-ok btn-mc" data-value="-3" type="button">Molto Contrario</button>
         </div>
       </div>
     </div>
   </div>
 
-  {% endfor %}
+
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/questionario.js"></script>
+  <script type="text/javascript">
+    var Q;
+    $(document).ready(function(){
+      Q = new Questionario('');
+    });
+  </script>
 
 {% endblock %}
