@@ -30,12 +30,12 @@ var outer_dotsize=inner_dotsize+4;
 var default_party_color="#aaaaaa";
 
 
-function draw_graph(coordinate_utente){
+function draw_graph(coordinate){
 
 //DATA TYPE
 
 
-//var coordinate_utente = [
+//var coordinate = [
 //  ["fare", "0.20140604", "0.48035801"],
 //  ["ld", "0.05905490", "0.60488166"],
 
@@ -51,15 +51,15 @@ function draw_graph(coordinate_utente){
 //        'simbolo_url': "/media/simboli/3.gif"
 ////},
 //
-    var n_coordinate = 0;
+
     var label_array = new Array();
     var val_array=[];
     var max_label_len= 0, longest_label=0;
 
     //trova la label con piu' caratteri
-    for(var i=1; i< coordinate_utente.length; i++)
-        if(coordinate_utente[i][0].length> longest_label)
-            longest_label=coordinate_utente[i][0].length;
+    for(var i=1; i< coordinate.length; i++)
+        if(coordinate[i][0].length> longest_label)
+            longest_label=coordinate[i][0].length;
 
     //calcola la lunghezza massima della label in px
     max_label_len=longest_label*label_font_size;
@@ -75,29 +75,36 @@ function draw_graph(coordinate_utente){
     var x = d3.scale.linear().domain([ minvalx, maxvalx]).range([min_outputx, max_outputx]),
         y = d3.scale.linear().domain([ minvaly, maxvaly]).range([max_outputy, min_outputy]);
 
-    n_coordinate = coordinate_utente.length;
+
+    for (var i=0; i < coordinate.length; i++) {
+
+        //se e' l'utente non mette colore e avra' una label diversa
+        if(coordinate[i][0]!="user"){
+            //        trova il colore associato al partito analizzato
+            for (var sigla_partito in partiti) {
+
+                if(coordinate[i][0] == sigla_partito)
+                    var color = partiti[sigla_partito].colore;
+            }
+            //if party was not found, set a default color
+            if(color=="")
+                color=default_party_color;
 
 
-    for (var i=0; i < n_coordinate; i++) {
 
-        //        trova il colore associato al partito analizzato
-        for (var sigla_partito in partiti) {
 
-            if(coordinate_utente[i][0] == sigla_partito)
-                var color = partiti[sigla_partito].colore;
+
+            val_array[i] = {
+                label: coordinate[i][0],
+                x: parseFloat(coordinate[i][1]),
+                y: parseFloat(coordinate[i][2]),
+                size: inner_dotsize, color:color
+            };
+
+            color="";
+
         }
-        //if party was not found, set a default color
-        if(color=="")
-            color=default_party_color;
-        
-        val_array[i] = {
-            label: coordinate_utente[i][0],
-            x: parseFloat(coordinate_utente[i][1]),
-            y: parseFloat(coordinate_utente[i][2]),
-            size: inner_dotsize, color:color
-        };
 
-        color="";
 
     }
 
