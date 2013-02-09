@@ -1093,3 +1093,7 @@
     overflow: visible !important;
   }
 }
+
+/* fix responsive behaviour */
+@media (max-width: 767px) { .thumbnail.grigio-tab { float:left; } }
+@media (max-width: 767px) { .barra-coalizione { width:20%; } }

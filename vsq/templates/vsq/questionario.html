@@ -1,102 +1,157 @@
-{% extends 'base.html' %}
+{% extends 'vsq/risultato_utente.html' %}
 
 {% block content %}
-
-  <div class="sfondo-verde">
-    <div class="container">
-      <div class="testata-interna">
-        <div class="row-fluid">
-          <div class="span2"><h1>Tu dove sei?</h1></div>
-          <div class="span10">
-            <div class="pagination pagination-small" id="navigatore">
-              <ul>
-                <li class="hide" id="navigate-left"><a href="#"><i class="icon-chevron-left"></i></a></li>
-                {% for domanda in domande %}
-                <li class="{% if forloop.first %}posizione{% else %}disabled{% endif %}">
-                  <span data-question-id="{{ domanda.pk }}">{{ domanda.ordine }}</span>
-                </li>
-                {% endfor %}
-                <li class="hide" id="navigate-right"><a href="#"><i class="icon-chevron-right"></i></a></li>
-              </ul>
+  <!-- START questionario-domande -->
+  <div id="domande-questionario">
+    <div class="sfondo-verde">
+      <div class="container">
+        <div class="testata-interna">
+          <div class="row-fluid">
+            <div class="span2"><h1>Tu dove sei?</h1></div>
+            <div class="span10">
+              <div class="pagination pagination-small" id="navigatore">
+                <ul>
+                  <li class="hide" id="navigate-left"><a href="#"><i class="icon-chevron-left"></i></a></li>
+                  {% for domanda in domande %}
+                  <li class="{% if forloop.first %}posizione{% else %}disabled{% endif %}">
+                    <span data-question-id="{{ domanda.pk }}">{{ domanda.ordine }}</span>
+                  </li>
+                  {% endfor %}
+                  <li class="hide" id="navigate-right"><a href="#"><i class="icon-chevron-right"></i></a></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
+    {% for domanda in domande %}
+
+    <div class="domanda{% if domanda.ordine > 1 %} hide{% endif %}" data-question-id="{{ domanda.pk }}">
+
+      <div class="contenuto">
+        <div class="container">
+          <div class="row-fluid">
+            <div class="span3">
+              <div class="box-num-domande pull-right">
+                Sei alla domanda<br><strong>{{ domanda.ordine }}/</strong>{{ domande|length }}<br>&nbsp;
+              </div>
+            </div>
+            <div class="span9">
+              <div class="domande">
+                <h1>{{ domanda.testo_html|safe }}</h1>
+                {% if domanda.approfondimento %}
+                <button type="button" class="btn dropdown-toggle" data-toggle="collapse" data-target="#approfondisci-{{ domanda.pk }}">
+                  Approfondisci
+                  <span class="caret"></span>
+                </button>
+                <div id="approfondisci-{{ domanda.pk }}" class="collapse">
+                  <div class="approfondimento">
+                    <p>{{ domanda.approfondimento_html|safe }}</p>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    {% endfor %}
+
+    <div class="contenuto risposta" id="pulsantiera">
+      <div class="container">
+        <div class="row-fluid">
+          <div class="span2">
+            <button class="btn btn-ok btn-mf" data-value="3" type="button">Molto Favorevole</button>
+          </div>
+          <div class="span2">
+            <button class="btn btn-ok btn-f" data-value="2" type="button">Favorevole</button>
+          </div>
+          <div class="span2">
+            <button class="btn btn-ok btn-tf" data-value="1" type="button">Tendenzialmente Favorevole</button>
+          </div>
+          <div class="span2">
+            <button class="btn btn-ok btn-tc" data-value="-1" type="button">Tendenzialmente Contrario</button>
+          </div>
+          <div class="span2">
+            <button class="btn btn-ok btn-c" data-value="-2" type="button">Contrario</button>
+          </div>
+          <div class="span2">
+            <button class="btn btn-ok btn-mc" data-value="-3" type="button">Molto Contrario</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
+  <!-- END questionario-domande -->
 
+  <!-- START questionario-utente -->
+  <div id="utente-questionario" class="hide">
 
-  {% for domanda in domande %}
-
-  <div class="domanda{% if domanda.ordine > 1 %} hide{% endif %}" data-question-id="{{ domanda.pk }}">
+    <div class="sfondo-verde">
+      <div class="container">
+        <div class="testata-interna"><h1>Salva il test</h1></div>
+      </div>
+    </div>
 
     <div class="contenuto">
       <div class="container">
         <div class="row-fluid">
           <div class="span3">
             <div class="box-num-domande pull-right">
-              Sei alla domanda<br><strong>{{ domanda.ordine }}/</strong>{{ domande|length }}<br>&nbsp;
+              <img class="ico-salva" src="{{ STATIC_URL }}img/icona-salva.png" alt="Salva">
             </div>
           </div>
           <div class="span9">
-            <div class="domande">
-              <h1>{{ domanda.testo_html|safe }}</h1>
-              {% if domanda.approfondimento %}
-              <button type="button" class="btn dropdown-toggle" data-toggle="collapse" data-target="#approfondisci-{{ domanda.pk }}">
-                Approfondisci
-                <span class="caret"></span>
-              </button>
-              <div id="approfondisci-{{ domanda.pk }}" class="collapse">
-                <div class="approfondimento">
-                  <p>{{ domanda.approfondimento_html|safe }}</p>
-                </div>
+            <form>
+              <br>
+              <p>Inserisci il tuo nome/nickname per vederlo sul grafico</p>
+              <div class="control-group">
+                <input name="nickname" type="text" class="span7 input-block-level" placeholder="Il tuo nome o nickname">
               </div>
-              {% endif %}
-            </div>
+              <div class="control-group">
+                <input name="email" type="text" class="span7 input-block-level" placeholder="La tua email">
+              </div>
+
+              <label class="checkbox">
+                  <input name="wants_newsleter" type="checkbox"> Voglio essere informato sulle prossime iniziative di Openpolis
+              </label>
+              <button class="btn btn-large btn-danger" type="submit">Vai ai risultati</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 
-  {% endfor %}
-
-  <div class="contenuto risposta" id="pulsantiera">
-    <div class="container">
-      <div class="row-fluid">
-        <div class="span2">
-          <button class="btn btn-ok btn-mf" data-value="3" type="button">Molto Favorevole</button>
-        </div>
-        <div class="span2">
-          <button class="btn btn-ok btn-f" data-value="2" type="button">Favorevole</button>
-        </div>
-        <div class="span2">
-          <button class="btn btn-ok btn-tf" data-value="1" type="button">Tendenzialmente Favorevole</button>
-        </div>
-        <div class="span2">
-          <button class="btn btn-ok btn-tc" data-value="-1" type="button">Tendenzialmente Contrario</button>
-        </div>
-        <div class="span2">
-          <button class="btn btn-ok btn-c" data-value="-2" type="button">Contrario</button>
-        </div>
-        <div class="span2">
-          <button class="btn btn-ok btn-mc" data-value="-3" type="button">Molto Contrario</button>
-        </div>
-      </div>
-    </div>
+  <div class="hide">
+    {{ block.super }}
   </div>
-
 
 {% endblock %}
 
 {% block scripts %}
+    {{ block.super }}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.validate.min.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/questionario.js"></script>
   <script type="text/javascript">
     var Q;
     $(document).ready(function(){
-      Q = new Questionario('');
+      Q = new Questionario('{{ COMPUTER_URL }}/computation/','{{ ELECTION_CODE }}', function(results, data_json) {
+          console.log('results received', results, data_json);
+{#          genera_grafico(coordinate);#}
+{#          posiziona_distanze_generiche(coordinate, partiti);#}
+{#          posiziona_label_risposte_utente(risposte_utente, risposte, label_risposte);#}
+{#          posiziona_loghi(risposte_partiti, risposte_utente, dist, partiti, risposte);#}
+      });
     });
   </script>
 
 {% endblock %}
+{% block generate_dynamic_content %}{% endblock %}

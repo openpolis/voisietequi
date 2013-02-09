@@ -6,7 +6,7 @@ function Domanda(q, ordine, el) {
     this.risposta = 0;
 }
 Domanda.prototype.set_risposta = function(v) {
-    if (!( -3 <= v <= 3)) { console.log('Invalid answer to question', this, v); return false }
+    if (v == 0 || !( -3 <= v <= 3 )) { console.log('Invalid answer to question', this, v); return false }
     this.risposta = v;
     return true;
 };
@@ -19,7 +19,13 @@ Domanda.prototype.next = function(n) { return this.sibling(+1 * (n || 1)); };
 Domanda.prototype.prev = function(n) { return this.sibling(-1 * (n || 1)); };
 Domanda.prototype.is_last = function() { return this.questionario.domande[this.questionario.domande.length-1] == this; };
 
-function Questionario(url, id_navigatore, id_pulsantiera, class_domande) {
+function Questionario(url, election_code, callback, id_questionario, id_userdata, id_navigatore, id_pulsantiera, class_domande) {
+    this.url = url;
+    this.election_code = election_code;
+    this.callback = callback;
+    this.box = $(id_questionario || '#domande-questionario');
+    this.userbox = $(id_userdata || '#utente-questionario');
+
     // setup navigation
     this.navigatore = $(id_navigatore || '#navigatore');
     this.indietro = this.navigatore.find('li').first().click(function(){
@@ -32,7 +38,6 @@ function Questionario(url, id_navigatore, id_pulsantiera, class_domande) {
     }.bind(this));
 
     this.pulsantiera = $(id_pulsantiera || '#pulsantiera');
-    this.url = url;
     this.domande = $.map(
         // for each question
         $(class_domande || '.domanda'),
@@ -41,8 +46,49 @@ function Questionario(url, id_navigatore, id_pulsantiera, class_domande) {
             return new Domanda( this, ix+1, domanda );
         }.bind(this)
     );
-
+    // add event on button click
     this.pulsantiera.find('button').bind('click',this.on_answer.bind(this));
+
+    // initialize user_data form
+    $(this.userbox).find('form').validate({
+        submitHandler: this.send.bind(this),
+        //debug: true,
+        errorElement: 'span',
+        errorClass: 'help-inline',
+        errorPlacement: function(error, element){
+            error.insertAfter(element);
+            error.parent().parent().addClass('error');
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).parent().addClass('error')
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).parent().removeClass('error')
+        },
+        validClass: "success",
+        rules: {
+            nickname: {
+                required: true,
+                maxlength: 25,
+                minlength: 3
+            },
+            email: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            nickname: {
+                required: "Specifica un nickname",
+                minlength: jQuery.format("Il nickname deve essere almeno {0} caratteri"),
+                maxlength: jQuery.format("Il nickname deve essere lungo massimo {0} caratteri")
+            },
+            email: {
+                required: "Scrivi la tua email",
+                email: "L'indirizzo email deve essere nel formato name@domain.com"
+            }
+        }
+    });
 }
 // Event methods
 Questionario.prototype.on_answer = function(event) {
@@ -59,7 +105,9 @@ Questionario.prototype.on_answer = function(event) {
         }
         else {
             if (this.is_completed()) {
-                this.send();
+                this.box.hide();
+                this.userbox.show();
+                console.log('show user data box');
             }
             else {
                 console.log('Error: survey is not completed and there is not other questions', this, next);
@@ -132,13 +180,6 @@ Questionario.prototype.select_domanda = function(question_id){
 
     return true;
 };
-Questionario.prototype.get_ultima_domanda_con_risposta = function() {
-    for (var i = 0; i < this.domande.length; i++) {
-        if ( this.domande[i].risposta == 0 ) {
-            return this.domande[i-1]; // previous
-        }
-    } return undefined;
-};
 Questionario.prototype.get_domanda = function(question_id){
     var results = $.grep(this.domande, function(d) { return d.id == question_id});
     if (results.length != 1) { console.log('invalid question id', question_id, results); return undefined; }
@@ -152,6 +193,29 @@ Questionario.prototype.get_domanda_corrente = function() {
 };
 Questionario.prototype.show_message = function(msg){};
 Questionario.prototype.send = function(){
-    console.log('send results', $.map(this.domande, function(el){ return el.risposta }));
+
+    var data_json = {
+        'user_data': {},
+        'answers': {},
+        'election_code': this.election_code
+    };
+    $.each(this.domande, function(ix,el){ data_json['answers'][el.id] = el.risposta });
+    $.each(this.userbox.find('form').serializeArray(), function(ix,input){ data_json['user_data'][input.name] = input.value });
+
+    console.log('send results...', data_json);
+
+    $.ajax
+    ({
+        type: "POST",
+        //the url where you want to sent the userName and password to
+        url: this.url,
+        dataType: 'json',
+        async: false,
+        //json object to sent to the authentication url
+        data: JSON.stringify(data_json, null, '\t'),
+        success: function (results) {
+            this.callback(results, data_json);
+        }
+    })
 };
 Questionario.prototype.build_results = function(results){};
