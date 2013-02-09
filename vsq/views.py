@@ -195,7 +195,12 @@ class HomepageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomepageView,self).get_context_data(**kwargs)
         context['conteggio_utenti'] = Utente.objects.count()
-        context['partiti'] = Partito.objects.all().order_by('coalizione').select_related('coalizione')
+        context['partiti'] = liste = Partito.objects.all().order_by('coalizione').select_related('coalizione')
+        coordinate = []
+        for l in liste:
+            coord = [l.sigla, l.coord_x, l.coord_y]
+            coordinate.append(coord)
+        context['coordinate'] = json.dumps(coordinate)
         return context
 
 class PartyPositionsView(ListView):
@@ -204,7 +209,13 @@ class PartyPositionsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PartyPositionsView,self).get_context_data(**kwargs)
-        context['liste_elettorali'] = Partito.objects.all().select_related('coalizione')
+        context['liste_elettorali'] = liste = Partito.objects.all().select_related('coalizione')
+        coordinate = []
+        for l in liste:
+            coord = [l.sigla, l.coord_x, l.coord_y]
+            coordinate.append(coord)
+        context['coordinate'] = json.dumps(coordinate)
+
         return context
 
 class TopicDetailView(DetailView):

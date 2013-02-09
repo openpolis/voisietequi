@@ -2,10 +2,10 @@
 {% load labels %}
 
 
-{% block title %}La tua positione{% endblock %}
+{% block title %}La tua posizione{% endblock %}
 
 {% block header_scripts %}
-    {% regroup risposte_partiti by partito__party_key as liste %}
+    {% regroup risposte_partiti by partito__sigla as liste %}
     <script type="text/javascript">
       var utente = {
           'nickname': '{{ utente.nickname}}',
@@ -25,12 +25,11 @@
       };
       var partiti = {
           {% for p in partiti %}
-            '{{ p.party_key }}': {
+            '{{ p.sigla }}': {
               'name': "{{ p.denominazione }}",
               'url': "{{ p.get_absolute_url }}",
               'coalizione': "{{ p.coalizione.slug }}",
               'colore': "{{ p.coalizione.colore }}",
-              'sigla': "{{ p.sigla }}",
               'simbolo_url': "{{ p.simbolo.url }}"
             }{% if not forloop.last %},{%  endif %}
           {% endfor %}
