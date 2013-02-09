@@ -197,8 +197,8 @@ Questionario.prototype.send = function(){
         'user_data': {},
         'answers': {}
     };
-    $.each(this.domande, function(el){ data_json['answers'][el.id] = el.risposta });
-    $.each(this.userbox.find('form').serializeArray(), function(input){ data_json['user_data'][input.name] = input.value });
+    $.each(this.domande, function(ix,el){ data_json['answers'][el.id] = el.risposta });
+    $.each(this.userbox.find('form').serializeArray(), function(ix,input){ data_json['user_data'][input.name] = input.value });
 
     console.log('send results...', data_json);
 
