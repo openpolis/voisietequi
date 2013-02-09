@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load labels %}
 
 
 {% block title %}La tua posizione{% endblock %}
@@ -7,18 +6,50 @@
 {% block header_scripts %}
     {% regroup risposte_partiti by partito__sigla as liste %}
     <script type="text/javascript">
-      var utente = {
-          'nickname': '{{ utente.nickname}}',
-          'email': '{{ utente.email }}',
-          'user_key': '{{ utente.user_key }}'
-      };
-      var coordinate = {{ coord_utente|safe }};
-      var risposte_utente = {
-        {% for ru in risposte_utente %}{{ ru.domanda.pk }}: {{ ru.risposta_int }}{% if not forloop.last %},{%  endif %}{% endfor %}
-      };
 
+        /*
+         * columns matrix
+         * returns the column where a symbol must be put, whe user (rows)
+         * and party (columns) gave certain answers to the same question
+         */
+        var dist = {
+            '-3': { '-3': 0, '-2': 1, '-1': 2, '1': 3, '2': 4, '3': 5 },
+            '-2': { '-3': 1, '-2': 0, '-1': 1, '1': 2, '2': 3, '3': 4 },
+            '-1': { '-3': 2, '-2': 1, '-1': 0, '1': 2, '2': 3, '3': 4 },
+            '1': { '-3': 4, '-2': 3, '-1': 2, '1': 0, '2': 1, '3': 2 },
+            '2': { '-3': 4, '-2': 3, '-1': 2, '1': 1, '2': 0, '3': 1 },
+            '3': { '-3': 5, '-2': 4, '-1': 3, '1': 2, '2': 1, '3': 0 }
+        };
 
+        var risposte = {
+            '-3': 'Molto contrario/a',
+            '-2': 'Contrario/a',
+            '-1': 'Tendenzialmente contrario/a',
+            '1': 'Tendenzialmente favorevole',
+            '2': 'Favorevole',
+            '3': 'Molto favorevole'
+        };
 
+        var label_risposte = {
+            '-3': 'mc',
+            '-2': 'c',
+            '-1': 'tc',
+            '1': 'tf',
+            '2': 'f',
+            '3': 'mf'
+        };
+
+      {% if utente %}
+          var utente = {
+              'nickname': '{{ utente.nickname}}',
+              'email': '{{ utente.email }}',
+              'user_key': '{{ utente.user_key }}'
+          };
+          var coordinate = {{ coord_utente|safe }};
+          var risposte_utente = {
+          {% for ru in risposte_utente %}{{ ru.domanda.pk }}: {{ ru.risposta_int }}{% if not forloop.last %},{%  endif %}{% endfor %}
+          };
+      {% endif %}
 
       var risposte_partiti = {
           {% for lista in liste %}
@@ -49,41 +80,9 @@
     <script type="text/javascript">
 
         /*
-         * columns matrix
-         * returns the column where a symbol must be put, whe user (rows)
-         * and party (columns) gave certain answers to the same question
-         */
-        var dist = {
-            '-3': { '-3': 0, '-2': 1, '-1': 2, '1': 3, '2': 4, '3': 5 },
-            '-2': { '-3': 1, '-2': 0, '-1': 1, '1': 2, '2': 3, '3': 4 },
-            '-1': { '-3': 2, '-2': 1, '-1': 0, '1': 2, '2': 3, '3': 4 },
-             '1': { '-3': 4, '-2': 3, '-1': 2, '1': 0, '2': 1, '3': 2 },
-             '2': { '-3': 4, '-2': 3, '-1': 2, '1': 1, '2': 0, '3': 1 },
-             '3': { '-3': 5, '-2': 4, '-1': 3, '1': 2, '2': 1, '3': 0 }
-        };
-
-        var risposte = {
-          '-3': 'Molto contrario/a',
-          '-2': 'Contrario/a',
-          '-1': 'Tendenzialmente contrario/a',
-           '1': 'Tendenzialmente favorevole',
-           '2': 'Favorevole',
-           '3': 'Molto favorevole'
-        };
-
-        var label_risposte = {
-            '-3': 'mc',
-            '-2': 'c',
-            '-1': 'tc',
-             '1': 'tf',
-             '2': 'f',
-             '3': 'mf'
-        };
-
-        /*
          * places parties' symbols in the generic table
          */
-        posiziona_distanze_generiche = function(){
+        posiziona_distanze_generiche = function(coordinate, partiti){
 
             // extract user's position
             for (var i in coordinate) {
@@ -129,7 +128,7 @@
         /*
          * places user's answers, with colored labels, in the first column of the thematic tables
          */
-        posiziona_label_risposte_utente = function(){
+        posiziona_label_risposte_utente = function(risposte_utente, risposte, label_risposte){
             for (var r in risposte_utente) {
                 var risposta_utente = risposte_utente[r];
                 var col_selector = '#collapse'+r+' table tr.symbols td.grigio-tab';
@@ -145,9 +144,9 @@
         /*
          * places parties' symbols in thematic tables
          */
-        posiziona_loghi = function(){
-            for (var p in window.risposte_partiti) {
-                var risposte_partito = window.risposte_partiti[p];
+        posiziona_loghi = function(risposte_partiti, risposte_utente, dist, partiti, risposte){
+            for (var p in risposte_partiti) {
+                var risposte_partito = risposte_partiti[p];
                 for (var r in risposte_partito) {
                     var risposta_partito = risposte_partito[r];
                     var risposta_utente = risposte_utente[r];
@@ -170,16 +169,18 @@
         /*
          * Genera il grafico per l'utente, a partire dalle variabili globali: coordinate
          */
-        genera_grafico = function(){
+        genera_grafico = function(coordinate){
             draw_graph(coordinate,"user", true);
         };
 
-        $(document).ready(function() {
-            genera_grafico();
-            posiziona_distanze_generiche();
-            posiziona_label_risposte_utente();
-            posiziona_loghi();
-        });
+        {% block generate_dynamic_content %}
+            $(document).ready(function() {
+                genera_grafico(coordinate);
+                posiziona_distanze_generiche(coordinate, partiti);
+                posiziona_label_risposte_utente(risposte_utente, risposte, label_risposte);
+                posiziona_loghi(risposte_partiti, risposte_utente, dist, partiti, risposte);
+            });
+        {% endblock %}
     </script>
 
 
