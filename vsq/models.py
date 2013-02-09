@@ -17,7 +17,7 @@ class Domanda(models.Model):
     Link contains a link to a web page where issues related to the question is discussed.
     """
 
-    ORDINE_DOMANDE = [(i,i) for i in range(1,26,1)]
+    ORDINE_DOMANDE = [(i,i) for i in range(1, 26, 1)]
 
     slug = models.SlugField(max_length=settings.SLUG_MAX_LENGTH, unique=True,
                             help_text="Valore suggerito, generato dal testo. Deve essere unico.")
@@ -201,7 +201,6 @@ class Partito(models.Model):
         """
         return ( ((self.coord_x - altro_partito.coord_x) ** 2) + ((self.coord_y - self.coord_y) ** 2) ) ** 1/2
 
-
 # function for AJAX response mockup, only for test purpose
     @classmethod
     def get_partiti_list(cls):
@@ -209,7 +208,7 @@ class Partito(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('party-detail', (), {'slug': self.slug})
+        return 'party-detail', (), {'slug': self.slug}
 
 
 class RispostaPartito(models.Model):
@@ -283,7 +282,6 @@ class RispostaUtente(models.Model):
         verbose_name_plural = "Risposte utente"
 
 
-
 class EarlyBird(models.Model):
     """
     Class that stores the emails of the people who want to be alerted when the website will be online
@@ -296,7 +294,6 @@ class EarlyBird(models.Model):
 
     def __unicode__(self):
         return self.email
-
 
 
 class Faq(models.Model):
@@ -320,7 +317,7 @@ class Faq(models.Model):
         if self.risposta:
             self.risposta_html = markdown(self.risposta)
         if self.domanda:
-            self.slug = slugify(self.domanda[:SLUG_MAX_LENGTH])
+            self.slug = slugify(self.domanda[:settings.SLUG_MAX_LENGTH])
 
         super(Faq, self).save(*args, **kwargs)
 

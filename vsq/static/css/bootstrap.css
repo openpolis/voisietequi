@@ -6853,8 +6853,3 @@ a.badge:hover {
 
 .pagination ul > li.hide {display: none;}
 
-@media (max-width: 767px) {
-    .thumbnail.grigio-tab { float:left; }
-}
-
-@media (max-width: 767px) { .barra-coalizione { width:20%; } }
