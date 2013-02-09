@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 {% load labels %}
 
+{% block header_scripts %}
+    <script type="text/javascript">
+        var coordinate = {{ coordinate|safe }};
+        var partiti = {
+            {% for l in partiti %}
+                '{{ l.sigla }}': {
+                    'colore': "{{ l.coalizione.colore }}",
+                }{% if not forloop.last %},{%  endif %}
+            {% endfor %}
+        }
+    </script>
+{% endblock %}
+
 {% block content %}
 
   <div class="sfondo-verde">

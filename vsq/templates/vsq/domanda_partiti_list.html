@@ -1,6 +1,21 @@
 {% extends 'base.html' %}
 {% load labels %}
 
+{% block title %}Le posizioni delle liste{% endblock %}
+
+{% block header_scripts %}
+    <script type="text/javascript">
+        var coordinate = {{ coordinate|safe }};
+        var partiti = {
+            {% for l in liste_elettorali %}
+                '{{ l.sigla }}': {
+                    'colore': "{{ l.coalizione.colore }}",
+                }{% if not forloop.last %},{%  endif %}
+            {% endfor %}
+        }
+    </script>
+{% endblock %}
+
 {% block content %}
   <div class="sfondo-verde">
     <div class="container">
