@@ -7,6 +7,11 @@
 {% block header_scripts %}
     {% regroup risposte_partiti by partito__party_key as liste %}
     <script type="text/javascript">
+      var utente = {
+          'nickname': {{ utente.nickname}},
+          'email': {{ utente.email }},
+          'user_key': {{ utente.user_key }}
+      };
       var coordinate_utente = {{ coord_utente|safe }};
       var risposte_utente = {
         {% for ru in risposte_utente %}{{ ru.domanda.pk }}: {{ ru.risposta_int }}{% if not forloop.last %},{%  endif %}{% endfor %}
