@@ -1,6 +1,6 @@
 var c = 0;
 var chosed = 0;
-var label_font_size = 14;
+var label_font_size = 12;
 var url="/mockup_answer";
 
 //graph entities
@@ -27,25 +27,42 @@ var inner_dotsize=4;
 var middle_dotsize=inner_dotsize+1;
 var outer_dotsize=inner_dotsize+4;
 
-//function that will visualize the response data
-function visualize(object){
+var default_party_color="#aaaaaa";
 
-//    nasconde il form con nickname e mail e visualizza il grafico
-  //  hide('modulo_risposte');
 
-    var m = document.getElementById("messaggio");
-//    carica nella pagina i dati relativi alla domanda
-    //m.innerHTML = DumpObjectIndented(object,'');
+function draw_graph(coordinate_utente){
 
-    var n_posizioni=Object.size(object.posizioni);
+//DATA TYPE
+
+
+//var coordinate_utente = [
+//  ["fare", "0.20140604", "0.48035801"],
+//  ["ld", "0.05905490", "0.60488166"],
+
+//
+//  var partiti = {
+//
+//'ds': {
+//    'name': "Destra sociale",
+//        'url': "/lista/destra-sociale/",
+//        'coalizione': "destra",
+//        'colore': "#333333",
+//        'sigla': "ds",
+//        'simbolo_url': "/media/simboli/3.gif"
+////},
+//
+    var n_coordinate = 0;
+    var label_array = new Array();
+    var val_array=[];
+    var max_label_len= 0, longest_label=0;
 
     //trova la label con piu' caratteri
-    for(var i=1; i< n_posizioni; i++)
-        if(object.posizioni[""+i+""][0].length> max_label_len)
-            max_label_len=object.posizioni[""+i+""][0].length;
+    for(var i=1; i< coordinate_utente.length; i++)
+        if(coordinate_utente[i][0].length> longest_label)
+            longest_label=coordinate_utente[i][0].length;
 
     //calcola la lunghezza massima della label in px
-    max_label_len=max_label_len*label_font_size;
+    max_label_len=longest_label*label_font_size;
 
     //calcola xy massime per la viewport
     max_outputx = w-(outer_dotsize+link_len+(max_label_len/2));
@@ -53,44 +70,33 @@ function visualize(object){
     max_outputy = h-(outer_dotsize+link_len+label_font_size);
     min_outputy = (outer_dotsize+link_len+label_font_size);
 
-    draw_graph(object.posizioni);
-    show("grafico");
-
-
-}
-
-
-function draw_graph(posizioni){
-
-//data type:  [{'pk':{'sigla','x','y'}}, ...]
-//for every party
 
     //funzione di scala fra input e output
     var x = d3.scale.linear().domain([ minvalx, maxvalx]).range([min_outputx, max_outputx]),
         y = d3.scale.linear().domain([ minvaly, maxvaly]).range([max_outputy, min_outputy]);
 
-    var sampsize = 0;
-    var label_array = new Array();
-    var val_array=[];
-
-    //    create an array from the posizioni
-    var pos_array = _.toArray(posizioni);
-    sampsize = pos_array.length;
+    n_coordinate = coordinate_utente.length;
 
 
-    for (var i=0; i < sampsize; i++) {
+    for (var i=0; i < n_coordinate; i++) {
 
         //        trova il colore associato al partito analizzato
-        for(var j=1;j<partiti_color.length; j++){
+        for (var sigla_partito in partiti) {
 
-            if(pos_array[i][0] == partiti_color[j][0])
-                var color = partiti_color[j][1];
+            if(coordinate_utente[i][0] == sigla_partito)
+                var color = partiti[sigla_partito].colore;
         }
         //if party was not found, set a default color
         if(color=="")
-            color="#aaaaaa";
+            color=default_party_color;
         
-        val_array[i] = { label: pos_array[i][0], x: pos_array[i][1], y: pos_array[i][2], size: inner_dotsize, color:color};
+        val_array[i] = {
+            label: coordinate_utente[i][0],
+            x: parseFloat(coordinate_utente[i][1]),
+            y: parseFloat(coordinate_utente[i][2]),
+            size: inner_dotsize, color:color
+        };
+
         color="";
 
     }
@@ -141,10 +147,6 @@ function draw_graph(posizioni){
 
 
 
-//    Constructs a new arc generator with the default innerRadius-, outerRadius-, startAngle- and endAngle-accessor functions
-// (that assume the input data is an object with named attributes matching the accessors; see below for details).
-
-
     anchors.transition()
         .delay(function(d,i) { return i*10;})
         .duration(10)
@@ -168,8 +170,6 @@ function draw_graph(posizioni){
     labelBox = vis.selectAll(".labels").selectAll(".labelbox")
     links = vis.selectAll(".link")
     labelBox.selectAll("text").text(function(d) { return d.label;;})
-
-
 
 }
 
@@ -210,7 +210,7 @@ function send_data(url,data){
 
     // callback handler that will be called on success
     request.done(function (response, textStatus, jqXHR){
-        visualize(response);
+        draw_graph(response);
     });
 
 
