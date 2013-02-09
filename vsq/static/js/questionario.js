@@ -19,10 +19,11 @@ Domanda.prototype.next = function(n) { return this.sibling(+1 * (n || 1)); };
 Domanda.prototype.prev = function(n) { return this.sibling(-1 * (n || 1)); };
 Domanda.prototype.is_last = function() { return this.questionario.domande[this.questionario.domande.length-1] == this; };
 
-function Questionario(url, id_questionario, id_userdata, id_navigatore, id_pulsantiera, class_domande) {
-
+function Questionario(url, callback, id_questionario, id_userdata, id_navigatore, id_pulsantiera, class_domande) {
+    this.url = url;
+    this.callback = callback;
     this.box = $(id_questionario || '#domande-questionario');
-    this.userbox = $(id_questionario || '#utente-questionario');
+    this.userbox = $(id_userdata || '#utente-questionario');
 
     // setup navigation
     this.navigatore = $(id_navigatore || '#navigatore');
@@ -36,7 +37,6 @@ function Questionario(url, id_questionario, id_userdata, id_navigatore, id_pulsa
     }.bind(this));
 
     this.pulsantiera = $(id_pulsantiera || '#pulsantiera');
-    this.url = url;
     this.domande = $.map(
         // for each question
         $(class_domande || '.domanda'),
@@ -49,7 +49,6 @@ function Questionario(url, id_questionario, id_userdata, id_navigatore, id_pulsa
     this.pulsantiera.find('button').bind('click',this.on_answer.bind(this));
 
     // initialize user_data form
-    this.user_data = undefined;
     $(this.userbox).find('form').validate({
         submitHandler: this.send.bind(this),
         debug: true,
@@ -193,6 +192,28 @@ Questionario.prototype.get_domanda_corrente = function() {
 };
 Questionario.prototype.show_message = function(msg){};
 Questionario.prototype.send = function(){
-    console.log('send results', $.map(this.domande, function(el){ return el.risposta }));
+
+    var data_json = {
+        'user_data': {},
+        'answers': {}
+    };
+    $.each(this.domande, function(el){ data_json['answers'][el.id] = el.risposta });
+    $.each(this.userbox.find('form').serializeArray(), function(input){ data_json['user_data'][input.name] = input.value });
+
+    console.log('send results...', data_json);
+
+    $.ajax
+    ({
+        type: "POST",
+        //the url where you want to sent the userName and password to
+        url: this.url,
+        dataType: 'json',
+        async: false,
+        //json object to sent to the authentication url
+        data: JSON.stringify(data_json, null, '\t'),
+        success: function (results) {
+            this.callback(results, data_json);
+        }
+    })
 };
 Questionario.prototype.build_results = function(results){};

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'vsq/risultato_utente.html' %}
 
 {% block content %}
   <!-- START questionario-domande -->
@@ -130,16 +130,28 @@
     </div>
   </div>
 
+  <div class="hide">
+    {{ block.super }}
+  </div>
+
 {% endblock %}
 
 {% block scripts %}
+    {{ block.super }}
   <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.validate.min.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/questionario.js"></script>
   <script type="text/javascript">
     var Q;
     $(document).ready(function(){
-      Q = new Questionario('');
+      Q = new Questionario('{{ COMPUTER_URL }}/computation/', function(results, data_json) {
+          console.log('results received', results, data_json);
+{#          genera_grafico(coordinate);#}
+{#          posiziona_distanze_generiche(coordinate, partiti);#}
+{#          posiziona_label_risposte_utente(risposte_utente, risposte, label_risposte);#}
+{#          posiziona_loghi(risposte_partiti, risposte_utente, dist, partiti, risposte);#}
+      });
     });
   </script>
 
 {% endblock %}
+{% block generate_dynamic_content %}{% endblock %}
