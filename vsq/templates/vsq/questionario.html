@@ -143,7 +143,7 @@
   <script type="text/javascript">
     var Q;
     $(document).ready(function(){
-      Q = new Questionario('{{ COMPUTER_URL }}/computation/', function(results, data_json) {
+      Q = new Questionario('{{ COMPUTER_URL }}/computation/','{{ ELECTION_CODE }}', function(results, data_json) {
           console.log('results received', results, data_json);
 {#          genera_grafico(coordinate);#}
 {#          posiziona_distanze_generiche(coordinate, partiti);#}
