@@ -310,7 +310,7 @@ class RisultatoUtenteView(TemplateView):
 
 
         context['risposte_partiti'] = RispostaPartito.objects.all().order_by('partito', 'domanda').\
-            values('partito__party_key', 'domanda', 'risposta_int')
+            values('partito__party_key', 'partito__sigla','domanda', 'risposta_int')
 
         context['utente'] = utente = Utente.objects.get(user_key=kwargs['user_key'])
         context['risposte_utente'] = utente.rispostautente_set.all()

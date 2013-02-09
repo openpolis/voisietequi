@@ -16,10 +16,14 @@
       var risposte_utente = {
         {% for ru in risposte_utente %}{{ ru.domanda.pk }}: {{ ru.risposta_int }}{% if not forloop.last %},{%  endif %}{% endfor %}
       };
+
+
+
+
       var risposte_partiti = {
           {% for lista in liste %}
               '{{ lista.grouper }}': {
-                {% for item in lista.list %}{{ item.domanda }}: {{ item.risposta_int }}{% if not forloop.last %},{%  endif %}{% endfor %}
+                {% for item in lista.list %}'{{ item.domanda }}': {{ item.risposta_int }}{% if not forloop.last %},{%  endif %}{% endfor %}
               }{% if not forloop.last %},{%  endif %}
           {% endfor %}
       };
@@ -167,7 +171,7 @@
          * Genera il grafico per l'utente, a partire dalle variabili globali: coordinate
          */
         genera_grafico = function(){
-            draw_graph(coordinate);
+            draw_graph(coordinate,"user", true);
         };
 
         $(document).ready(function() {
