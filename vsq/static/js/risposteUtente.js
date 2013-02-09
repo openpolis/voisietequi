@@ -30,7 +30,7 @@ var outer_dotsize=inner_dotsize+4;
 var default_party_color="#aaaaaa";
 
 
-function draw_graph(coordinate){
+function draw_graph(coordinate, highlight, marker){
 
 //DATA TYPE
 

@@ -83,9 +83,9 @@
         posiziona_distanze_generiche = function(){
 
             // extract user's position
-            for (var i in coordinate_utente) {
-                if (coordinate_utente[i][0] == 'user') {
-                    var pos_utente = {'x': coordinate_utente[i][1], 'y': coordinate_utente[i][2]};
+            for (var i in coordinate) {
+                if (coordinate[i][0] == 'user') {
+                    var pos_utente = {'x': coordinate[i][1], 'y': coordinate[i][2]};
                 }
             }
 
@@ -93,14 +93,14 @@
             // build both distances (dict) and distance_values (array)
             var distances = {};
             var distance_values = [];
-            for (var i in coordinate_utente){
-                if ( coordinate_utente[i][0] == 'user' ) continue;
-                var pos_partito = {'x': coordinate_utente[i][1], 'y': coordinate_utente[i][2]};
+            for (var i in coordinate){
+                if ( coordinate[i][0] == 'user' ) continue;
+                var pos_partito = {'x': coordinate[i][1], 'y': coordinate[i][2]};
                 var distance = Math.sqrt(
                         ( pos_utente['x'] - pos_partito['x'] ) * ( pos_utente['x'] - pos_partito['x'] ) +
                         ( pos_utente['y'] - pos_partito['y'] ) * ( pos_utente['y'] - pos_partito['y'] ))
                 distance_values.push(distance);
-                distances[coordinate_utente[i][0]] = distance;
+                distances[coordinate[i][0]] = distance;
             }
 
             // compute quantiles for 1-6 range, using D3
@@ -165,10 +165,10 @@
         };
 
         /*
-         * Genera il grafico per l'utente, a partire dalle variabili globali: coordinate_utente
+         * Genera il grafico per l'utente, a partire dalle variabili globali: coordinate
          */
         genera_grafico = function(){
-            draw_graph(coordinate_utente);
+            draw_graph(coordinate);
         };
 
         $(document).ready(function() {
