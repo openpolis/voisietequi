@@ -19,8 +19,9 @@ Domanda.prototype.next = function(n) { return this.sibling(+1 * (n || 1)); };
 Domanda.prototype.prev = function(n) { return this.sibling(-1 * (n || 1)); };
 Domanda.prototype.is_last = function() { return this.questionario.domande[this.questionario.domande.length-1] == this; };
 
-function Questionario(url, callback, id_questionario, id_userdata, id_navigatore, id_pulsantiera, class_domande) {
+function Questionario(url, election_code, callback, id_questionario, id_userdata, id_navigatore, id_pulsantiera, class_domande) {
     this.url = url;
+    this.election_code = election_code;
     this.callback = callback;
     this.box = $(id_questionario || '#domande-questionario');
     this.userbox = $(id_userdata || '#utente-questionario');
@@ -51,7 +52,7 @@ function Questionario(url, callback, id_questionario, id_userdata, id_navigatore
     // initialize user_data form
     $(this.userbox).find('form').validate({
         submitHandler: this.send.bind(this),
-        debug: true,
+        //debug: true,
         errorElement: 'span',
         errorClass: 'help-inline',
         errorPlacement: function(error, element){
@@ -68,7 +69,7 @@ function Questionario(url, callback, id_questionario, id_userdata, id_navigatore
         rules: {
             nickname: {
                 required: true,
-                maxlength: 255,
+                maxlength: 25,
                 minlength: 3
             },
             email: {
@@ -195,7 +196,8 @@ Questionario.prototype.send = function(){
 
     var data_json = {
         'user_data': {},
-        'answers': {}
+        'answers': {},
+        'election_code': this.election_code
     };
     $.each(this.domande, function(ix,el){ data_json['answers'][el.id] = el.risposta });
     $.each(this.userbox.find('form').serializeArray(), function(ix,input){ data_json['user_data'][input.name] = input.value });

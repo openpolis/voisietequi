@@ -19,4 +19,5 @@ def main_settings(request):
         "QUESTIONS_COUNT": 25,
         "DISQUS_FORUM": settings.DISQUS_FORUM if hasattr(settings, 'DISQUS_FORUM') else '',
         "COMPUTER_URL": settings.COMPUTER_URL,
+        "ELECTION_CODE": settings.ELECTION_CODE,
     }
