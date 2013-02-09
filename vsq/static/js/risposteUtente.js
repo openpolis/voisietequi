@@ -23,7 +23,7 @@ var w = 400,
     p = 2;
 
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
-
+var fattore_scala_cerchi=0.29;
 //anchor size
 var inner_dotsize=4;
 var middle_dotsize=inner_dotsize+1;
@@ -132,7 +132,7 @@ function draw_graph(coordinate, highlight, marker){
         //aggiunge i cerchi concentrici
         var highlight_marker=[];
         //dimensioni e colori dei cerchi concentrici
-        var sizes=[180,134,100,77,66,45,28,15,10]
+        var sizes=[1000,695,488,336,232,166,112,78,52]
         var colors=["f3f9f7","e9f3f0","e0ede8","d6e8e0","cee3d9","c5ddd4","bed8cd","b5d4c8","afcfc2"]
 
         for(var k =0; k< sizes.length; k++){
@@ -142,7 +142,7 @@ function draw_graph(coordinate, highlight, marker){
                 label: "nick",
                 x: parseFloat(coordinate[highlight_index][1]),
                 y: parseFloat(coordinate[highlight_index][2]),
-                size:sizes[k]*2,
+                size:sizes[k]*fattore_scala_cerchi,
                 color: "#"+colors[k]
 
             };
