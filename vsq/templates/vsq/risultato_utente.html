@@ -3,6 +3,7 @@
 
 
 {% block title %}La tua positione{% endblock %}
+
 {% block header_scripts %}
     {% regroup risposte_partiti by partito__party_key as liste %}
     <script type="text/javascript">
@@ -23,15 +24,13 @@
               'name': "{{ p.denominazione }}",
               'url': "{{ p.get_absolute_url }}",
               'coalizione': "{{ p.coalizione.slug }}",
+              'colore': "{{ p.coalizione.colore }}",
               'sigla': "{{ p.sigla }}",
               'simbolo_url': "{{ p.simbolo.url }}"
             }{% if not forloop.last %},{%  endif %}
           {% endfor %}
 
       }
-
-      {{ party_list|safe }}
-
     </script>
 {% endblock %}
 
@@ -74,17 +73,21 @@
         };
 
         /*
-         * places parties' symbols as to show generic distances from the user in a table
+         * places parties' symbols in the generic table
          */
         posiziona_distanze_generiche = function(){
-            // compute distances (dict) and distance_values (array) of user from other parties
-            var distances = {};
-            var distance_values = [];
+
+            // extract user's position
             for (var i in coordinate_utente) {
                 if (coordinate_utente[i][0] == 'user') {
                     var pos_utente = {'x': coordinate_utente[i][1], 'y': coordinate_utente[i][2]};
                 }
             }
+
+            // compute distnaces of user from other parties
+            // build both distances (dict) and distance_values (array)
+            var distances = {};
+            var distance_values = [];
             for (var i in coordinate_utente){
                 if ( coordinate_utente[i][0] == 'user' ) continue;
                 var pos_partito = {'x': coordinate_utente[i][1], 'y': coordinate_utente[i][2]};
@@ -95,7 +98,7 @@
                 distances[coordinate_utente[i][0]] = distance;
             }
 
-            // compute quantiles for 1-6 range
+            // compute quantiles for 1-6 range, using D3
             // q(dist) returns the column where to put the party symbol
             var q = d3.scale.quantile().domain(distance_values).range([1,2,3,4,5,6]);
 
@@ -132,7 +135,7 @@
         };
 
         /*
-         * places party symbols in table columns, both general and thematic
+         * places parties' symbols in thematic tables
          */
         posiziona_loghi = function(){
             for (var p in window.risposte_partiti) {
