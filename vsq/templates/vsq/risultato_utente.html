@@ -47,7 +47,7 @@
          * Genera il grafico per l'utente, a partire dalle variabili globali: coordinate_utente
          */
         genera_grafico = function(){
-
+            draw_graph(coordinate_utente);
         };
 
         $(document).ready(function() {
@@ -55,8 +55,41 @@
             posiziona_loghi();
         });
     </script>
-{% endblock %}
 
+
+    <script src="{{ STATIC_URL }}js/risposteUtente.js?"></script>
+    <script src="{{ STATIC_URL }}js/utils.js"></script>
+    {#<script src="{{ STATIC_URL }}js/d3.min.js"></script>#}
+    <script src="http://d3js.org/d3.v2.js"></script>
+    <script src="{{ STATIC_URL }}js/underscore.min.js"></script>
+
+    {#script for the final graph #}
+    <script src="{{ STATIC_URL }}js/graph.utils.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/force_labels.js"></script>
+
+    {#stili per label e marker del grafico#}
+    <style>
+
+        .labelbox {
+            color:green;
+            opacity:0.8
+        }
+
+        .labeltext {
+            color:black;
+            font-weight:bold;
+            text-anchor:middle;
+            font-family:  serif;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        .link {
+            stroke:gray;
+            stroke-width:0.35
+        }
+    </style>
+
+{% endblock %}
 
 
 
@@ -72,18 +105,21 @@
     <div class="sfondo-grigio">
         <div class="container">
             <div class="row-fluid">
-                <div class="span8"><div class="grafico"><img src="{{ STATIC_URL }}img/grafico_lista.png" alt="Voi Siete Qui - Openpolis" /></div></div>
-                <div class="span4">
-                    <div class="box-listeele">
-                        <div class="row-fluid">
-                            <div class="span4">
-                                Condivisione via email
-                            </div>
-                            <div class="span8">
+                <div class="span8"><div class="grafico">
+{#                    <img src="{{ STATIC_URL }}img/grafico_lista.png" alt="Voi Siete Qui - Openpolis" />#}
+                </div>
+            </div>
+            <div class="span4">
+                <div class="box-listeele">
+                    <div class="row-fluid">
+                        <div class="span4">
+                            Condivisione via email
+                        </div>
+                        <div class="span8">
                                 Blah blah
-                            </div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

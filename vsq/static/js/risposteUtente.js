@@ -89,7 +89,7 @@ function draw_graph(posizioni){
         //if party was not found, set a default color
         if(color=="")
             color="#aaaaaa";
-
+        
         val_array[i] = { label: pos_array[i][0], x: pos_array[i][1], y: pos_array[i][2], size: inner_dotsize, color:color};
         color="";
 
