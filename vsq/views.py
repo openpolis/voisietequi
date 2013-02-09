@@ -275,6 +275,14 @@ class PartitoDetailView(DetailView):
         context['risposte_partito_con_distanze'] = distanze_per_domanda
         context['distanze_partiti'] = colonne_distanze
 
+        context['partito'] = self.object.sigla
+        context['liste_elettorali'] = liste = Partito.objects.all().select_related('coalizione')
+        coordinate = []
+        for l in liste:
+            coord = [l.sigla, l.coord_x, l.coord_y]
+            coordinate.append(coord)
+        context['coordinate'] = json.dumps(coordinate)
+
         return context
 
 
