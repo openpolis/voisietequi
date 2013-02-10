@@ -115,6 +115,7 @@ class Utente(models.Model):
     ip = models.IPAddressField(blank=True, null=True)
     coord = models.TextField(blank=True, null=True)
     has_sent_emails = models.BooleanField(default=False, blank=True)
+    wants_newsletter = models.BooleanField(default=False, blank=True)
 
     class Meta:
         verbose_name_plural = "Utenti"
@@ -169,6 +170,10 @@ class Partito(models.Model):
     slug = models.SlugField(max_length=settings.SLUG_MAX_LENGTH, blank=True, null=True, unique=True)
     coord_x = models.FloatField(default=0.0, blank=True)
     coord_y = models.FloatField(default=0.0, blank=True)
+    twitter_hashtag = models.CharField(blank=True, null=True, max_length=255)
+    twitter_user = models.CharField(blank=True, null=True, max_length=255)
+    facebook_url = models.CharField(blank=True, null=True, max_length=255)
+    leader = models.CharField(blank=True, null=True, max_length=255)
 
     class Meta:
         verbose_name_plural = "Partiti"

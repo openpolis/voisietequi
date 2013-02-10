@@ -63,7 +63,7 @@ class SaverConsumer(object):
         when RabbitMQ closes the connection to the publisher unexpectedly.
 
         """
-        LOGGER.info('Adding connection close callback')
+        # LOGGER.info('Adding connection close callback')
         self._connection.add_on_close_callback(self.on_connection_closed)
 
     def on_connection_closed(self, method_frame):
@@ -97,7 +97,7 @@ class SaverConsumer(object):
         RabbitMQ unexpectedly closes the channel.
 
         """
-        LOGGER.info('Adding channel close callback')
+        # LOGGER.info('Adding channel close callback')
         self._channel.add_on_close_callback(self.on_channel_closed)
 
     def on_channel_closed(self, method_frame):
@@ -124,7 +124,7 @@ class SaverConsumer(object):
         :param pika.channel.Channel channel: The channel object
 
         """
-        LOGGER.info('Channel opened')
+        # LOGGER.info('Channel opened')
         self._channel = channel
         self.add_on_channel_close_callback()
         self.setup_exchange(settings.MQ_EXCHANGE)
@@ -137,7 +137,7 @@ class SaverConsumer(object):
         :param str|unicode exchange_name: The name of the exchange to declare
 
         """
-        LOGGER.info('Declaring exchange %s', exchange_name)
+        # LOGGER.info('Declaring exchange %s', exchange_name)
         self._channel.exchange_declare(self.on_exchange_declareok,
             exchange_name,
             'topic')
@@ -149,7 +149,7 @@ class SaverConsumer(object):
         :param pika.Frame.Method unused_frame: Exchange.DeclareOk response frame
 
         """
-        LOGGER.info('Exchange declared')
+        # LOGGER.info('Exchange declared')
         self.setup_queue(self._queue_name)
 
     def setup_queue(self, queue_name):
@@ -160,7 +160,7 @@ class SaverConsumer(object):
         :param str|unicode queue_name: The name of the queue to declare.
 
         """
-        LOGGER.info('Declaring a queue %s' % queue_name)
+        # LOGGER.info('Declaring a queue %s' % queue_name)
         self._channel.queue_declare(self.on_queue_declareok, queue=queue_name, durable=True)
         #LOGGER.info('Declaring exclusive queue')
         #self._channel.queue_declare(self.on_queue_declareok, exclusive=True)
@@ -189,7 +189,7 @@ class SaverConsumer(object):
         on_consumer_cancelled will be invoked by pika.
 
         """
-        LOGGER.info('Adding consumer cancellation callback')
+        # LOGGER.info('Adding consumer cancellation callback')
         self._channel.add_on_cancel_callback(self.on_consumer_cancelled)
 
     def on_consumer_cancelled(self, method_frame):
@@ -199,8 +199,7 @@ class SaverConsumer(object):
         :param pika.frame.Method method_frame: The Basic.Cancel frame
 
         """
-        LOGGER.info('Consumer was cancelled remotely, shutting down: %r',
-            method_frame)
+        # LOGGER.info('Consumer was cancelled remotely, shutting down: %r', method_frame)
         self._channel.close()
 
     def acknowledge_message(self, delivery_tag):
@@ -240,7 +239,7 @@ class SaverConsumer(object):
         :param pika.frame.Method unused_frame: The Basic.CancelOk frame
 
         """
-        LOGGER.info('RabbitMQ acknowledged the cancellation of the consumer')
+        # LOGGER.info('RabbitMQ acknowledged the cancellation of the consumer')
         self.close_connection()
 
 
@@ -249,7 +248,7 @@ class SaverConsumer(object):
         Basic.Cancel RPC command.
 
         """
-        LOGGER.info('Sending a Basic.Cancel RPC command to RabbitMQ')
+        # LOGGER.info('Sending a Basic.Cancel RPC command to RabbitMQ')
         self._channel.basic_cancel(self.on_cancelok, self._consumer_tag)
 
     def start_consuming(self):
@@ -262,7 +261,7 @@ class SaverConsumer(object):
         will invoke when a message is fully received.
 
         """
-        LOGGER.info('Issuing consumer related RPC commands')
+        # LOGGER.info('Issuing consumer related RPC commands')
         self.add_on_cancel_callback()
         self._consumer_tag = self._channel.basic_consume(self.on_message,
             queue=self._queue_name)
@@ -275,7 +274,7 @@ class SaverConsumer(object):
         :param pika.frame.Method unused_frame: The Queue.BindOk response frame
 
         """
-        LOGGER.info('Queue bound')
+        # LOGGER.info('Queue bound')
         self.start_consuming()
 
     def close_channel(self):
@@ -283,7 +282,7 @@ class SaverConsumer(object):
         Channel.Close RPC command.
 
         """
-        LOGGER.info('Closing the channel')
+        # LOGGER.info('Closing the channel')
         self._channel.close()
 
     def open_channel(self):
@@ -292,7 +291,7 @@ class SaverConsumer(object):
         on_channel_open callback will be invoked by pika.
 
         """
-        LOGGER.info('Creating a new channel')
+        # LOGGER.info('Creating a new channel')
         self._connection.channel(on_open_callback=self.on_channel_open)
 
     def run(self):
@@ -325,11 +324,14 @@ def save_callback(body):
 
     data = pickle.loads(body)
 
+    print data['user_data'], 'wants_newsletter' in data['user_data'], data['user_data']['wants_newsletter']
+
     u = Utente(
         nickname= data['user_data']['name'],
         ip= data['user_data']['ip_address'],
         agent = data['user_data']['agent'],
         email= data['user_data']['email'],
+        wants_newsletter='wants_newsletter' in data['user_data'] and data['user_data']['wants_newsletter'] == 'on',
         user_key= data['code'],
         coord = json.dumps(data['results']),
     )

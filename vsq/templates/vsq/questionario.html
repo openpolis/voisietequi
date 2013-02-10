@@ -1,5 +1,7 @@
 {% extends 'vsq/risultato_utente.html' %}
 
+{% block title %}Tu dove sei?{% endblock %}
+
 {% block content %}
   <!-- START questionario-domande -->
   <div id="domande-questionario">
@@ -120,9 +122,10 @@
               </div>
 
               <label class="checkbox">
-                  <input name="wants_newsleter" type="checkbox"> Voglio essere informato sulle prossime iniziative di Openpolis
+                  <input name="wants_newsletter" type="checkbox"> Voglio essere informato sulle prossime iniziative di Openpolis
               </label>
               <button class="btn btn-large btn-danger" type="submit">Vai ai risultati</button>
+                <span class="text-error hide">Errore durante il salvataggio delle risposte. Riprovare.</span>
             </form>
           </div>
         </div>
@@ -130,7 +133,7 @@
     </div>
   </div>
 
-  <div class="hide">
+  <div class="hide" id="risultato-questionario">
     {{ block.super }}
   </div>
 
@@ -144,11 +147,17 @@
     var Q;
     $(document).ready(function(){
       Q = new Questionario('{{ COMPUTER_URL }}/computation/','{{ ELECTION_CODE }}', function(results, data_json) {
-          console.log('results received', results, data_json);
-{#          genera_grafico(coordinate);#}
-{#          posiziona_distanze_generiche(coordinate, partiti);#}
-{#          posiziona_label_risposte_utente(risposte_utente, risposte, label_risposte);#}
-{#          posiziona_loghi(risposte_partiti, risposte_utente, dist, partiti, risposte);#}
+          log('results received', results, data_json);
+
+          $('#nome-utente').text(data_json.user_data['name']);
+
+          $('#utente-questionario').hide();
+          $('#risultato-questionario').show();
+
+          draw_graph(results.results, data_json.user_data['name'], 1);
+          posiziona_distanze_generiche(results.results, partiti);
+          posiziona_label_risposte_utente(data_json.user_answers, risposte, label_risposte);
+          posiziona_loghi(risposte_partiti, data_json.user_answers, dist, partiti, risposte);
       });
     });
   </script>

@@ -1,3 +1,13 @@
+if (!window.log){
+    window.log = function(){
+        log.history = log.history || [];   // store logs to an array for reference
+        log.history.push(arguments);
+        if(this.console){
+            console.log( Array.prototype.slice.call(arguments) );
+        }
+    };
+}
+
 function Domanda(q, ordine, el) {
     this.questionario = q;
     this.ordine = ordine;
@@ -6,13 +16,13 @@ function Domanda(q, ordine, el) {
     this.risposta = 0;
 }
 Domanda.prototype.set_risposta = function(v) {
-    if (v == 0 || !( -3 <= v <= 3 )) { console.log('Invalid answer to question', this, v); return false }
+    if (v == 0 || !( -3 <= v <= 3 )) { log('Invalid answer to question', this, v); return false }
     this.risposta = v;
     return true;
 };
 Domanda.prototype.sibling = function(v) {
     var position = this.questionario.domande.indexOf(this);
-    if (position == -1) { console.log('This question is not registered to survey', this, v, this.questionario); return undefined; }
+    if (position == -1) { log('This question is not registered to survey', this, v, this.questionario); return undefined; }
     return this.questionario.domande[position+v];
 };
 Domanda.prototype.next = function(n) { return this.sibling(+1 * (n || 1)); };
@@ -67,7 +77,7 @@ function Questionario(url, election_code, callback, id_questionario, id_userdata
         },
         validClass: "success",
         rules: {
-            nickname: {
+            name: {
                 required: true,
                 maxlength: 25,
                 minlength: 3
@@ -78,7 +88,7 @@ function Questionario(url, election_code, callback, id_questionario, id_userdata
             }
         },
         messages: {
-            nickname: {
+            name: {
                 required: "Specifica un nickname",
                 minlength: jQuery.format("Il nickname deve essere almeno {0} caratteri"),
                 maxlength: jQuery.format("Il nickname deve essere lungo massimo {0} caratteri")
@@ -107,10 +117,10 @@ Questionario.prototype.on_answer = function(event) {
             if (this.is_completed()) {
                 this.box.hide();
                 this.userbox.show();
-                console.log('show user data box');
+                log('show user data box');
             }
             else {
-                console.log('Error: survey is not completed and there is not other questions', this, next);
+                log('Error: survey is not completed and there is not other questions', this, next);
             }
         }
     }
@@ -128,7 +138,7 @@ Questionario.prototype.select_domanda = function(question_id){
 
     // retrieve this question
     var question = this.get_domanda(question_id);
-    if (question == undefined) { console.log('Cannot select a question', question_id); return false; }
+    if (question == undefined) { log('Cannot select a question', question_id); return false; }
 
     // hide current question
     this.get_domanda_corrente().el.hide();
@@ -162,12 +172,9 @@ Questionario.prototype.select_domanda = function(question_id){
     else { this.indietro.addClass('hide'); }
 
     if (question.is_last()) {
-        console.log('last', question);
         this.avanti.addClass('hide');
     }
     else {
-        console.log('next',question.next().risposta);
-
         if (question.risposta == 0 && question.next().risposta == 0) {
             this.avanti.addClass('hide');
         }
@@ -175,24 +182,28 @@ Questionario.prototype.select_domanda = function(question_id){
             this.avanti.removeClass('hide');
         }
     }
-
-    console.log('Question selected', question);
+    log('Question selected', question);
 
     return true;
 };
 Questionario.prototype.get_domanda = function(question_id){
     var results = $.grep(this.domande, function(d) { return d.id == question_id});
-    if (results.length != 1) { console.log('invalid question id', question_id, results); return undefined; }
+    if (results.length != 1) { log('invalid question id', question_id, results); return undefined; }
     return results[0];
 };
 Questionario.prototype.get_domanda_corrente = function() {
     // check current position from navigatore
     var question_id = this.navigatore.find('.posizione span').data('question-id') || 0;
-    if (question_id == 0) { console.log('question id not found', question_id); return undefined; }
+    if (question_id == 0) { log('question id not found', question_id); return undefined; }
     return this.get_domanda(question_id);
 };
 Questionario.prototype.show_message = function(msg){};
 Questionario.prototype.send = function(){
+
+    var button = $('#utente-questionario').find('button[type=submit]');
+
+    // disable button to avoid multiple requests
+    button.attr('disabled','disabled');
 
     var data_json = {
         'user_data': {},
@@ -202,20 +213,31 @@ Questionario.prototype.send = function(){
     $.each(this.domande, function(ix,el){ data_json['user_answers'][el.id] = el.risposta });
     $.each(this.userbox.find('form').serializeArray(), function(ix,input){ data_json['user_data'][input.name] = input.value });
 
-    console.log('send results...', data_json);
+    log('send results...', data_json);
 
     $.ajax
     ({
         type: "POST",
-        //the url where you want to sent the userName and password to
         url: this.url,
         dataType: 'json',
-        async: false,
-        //json object to sent to the authentication url
-        data: JSON.stringify(data_json, null, '\t'),
-        success: function (results) {
-            this.callback(results, data_json);
-        }
+        data: JSON.stringify(data_json, null, '\t')
+    })
+    // The jqXHR.success(), jqXHR.error(), and jqXHR.complete() callbacks are deprecated as of jQuery 1.8.
+    // To prepare your code for their eventual removal, use jqXHR.done(), jqXHR.fail(), and jqXHR.always() instead.
+    .done(function(data, textStatus, jqXHR) {
+            if (data) {
+                this.callback(data, data_json);
+            }
+            else {
+                log('Error: Empty data results', data, textStatus, jqXHR);
+                button.next('span').removeClass('hide');
+                button.removeAttr('disabled');
+            }
+        }.bind(this))
+    .fail(function(data, textStatus, jqXHR) {
+            log('Error:', data, textStatus, jqXHR);
+            button.next('span').removeClass('hide');
+            button.removeAttr('disabled');
     })
 };
 Questionario.prototype.build_results = function(results){};

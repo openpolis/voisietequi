@@ -104,7 +104,7 @@
     <!-- H1 su sfondo verde -->
     <div class="sfondo-verde">
         <div class="container">
-            <div class="testata-interna"><h1>La posizione di <strong>{{ utente.nickname }}</strong></h1></div>
+            <div class="testata-interna"><h1>La posizione di <strong id="nome-utente">{{ utente.nickname }}</strong></h1></div>
         </div>
     </div>
 
@@ -112,21 +112,38 @@
     <div class="sfondo-grigio">
         <div class="container">
             <div class="row-fluid">
-                <div class="span8"><div class="grafico" id="grafico">
-{#                    <img src="{{ STATIC_URL }}img/grafico_lista.png" alt="Voi Siete Qui - Openpolis" />#}
-                </div>
-            </div>
-            <div class="span4">
-                <div class="box-listeele">
-                    <div class="row-fluid">
-                        <div class="span4">
-                            Condivisione via email
-                        </div>
-                        <div class="span8">
-                                Blah blah
-                        </div>
+                <div class="span8">
+                    <div class="grafico" id="grafico" style="position: relative">
+                       <img src="{{ STATIC_URL }}img/grafico/bg_user.jpg" alt="Voi Siete Qui - Openpolis" />
                     </div>
                 </div>
+                <div class="span4">
+                    <div class="box-bianco">
+                        <form>
+                            <br>
+                            <h4>Condividi con i tuoi amici</h4>
+                            <input type="text" class="input-block-level" placeholder="Il tuo nome o nickname">
+                            <textarea class="span12" rows="5" placeholder="Le email dei tuoi amici"></textarea>
+                            <p>Le email dei tuoi amici, una per riga (massimo 5 email)</p>
+                            <button class="btn btn-large btn-danger" type="submit">Invia</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-condividi">
+        <div class="container">
+            <button type="button" class="btn btn-primary">Condividi su Facebook</button>
+            <button type="button" class="btn btn-info">Condividi su Twitter</button>
+            <button type="button" class="btn dropdown-toggle" data-toggle="collapse" data-target="#pubblica">
+                Pubblica sul tuo sito
+                <span class="caret"></span>
+            </button>
+            <div id="pubblica" class="collapse">
+                <div class="pubblica">
+                    <p>Il federalismo fiscale municipale prevede la possibilità di istituire un'imposta di soggiorno a carico dei turisti. L'imposta potrà essere applicata con gradualità, fino a un massimo di 5 euro per notte di soggiorno, in proporzione al costo dell'albergo. Il gettito è destinato a finanziare interventi in materia di turismo, manutenzione, fruizione e recupero dei beni culturali e ambientali locali e dei relativi servizi pubblici locali. Alcune città che hanno adottato la tassa di soggiorno sono: Roma, Capri e Anacapri, Bolzano, Firenze.</p>
                 </div>
             </div>
         </div>
