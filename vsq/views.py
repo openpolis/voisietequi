@@ -260,6 +260,9 @@ class QuestionarioUtenteView(TemplateView):
         context = super(QuestionarioUtenteView,self).get_context_data(**kwargs)
 
         context['domande'] = Domanda.objects.all()
+        context['partiti'] = partiti = Partito.objects.all().select_related('coalizione')
+        context['risposte_partiti'] = RispostaPartito.objects.all().order_by('partito', 'domanda'). \
+            values('partito__party_key', 'partito__sigla','domanda', 'risposta_int')
 
         return context
 
