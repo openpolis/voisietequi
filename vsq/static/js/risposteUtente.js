@@ -6,6 +6,7 @@ var url="/mockup_answer";
 var graph_div="grafico";
 
 //graph entities
+var vis;
 var labelBox,link;
 var links;
 
@@ -22,7 +23,14 @@ var w = 480,
     h = 292,
     p = 2;
 
+var graph_width = 480,
+    graph_height = 292;
+
+%
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
+
+//fattore_scala_cerchi permette di scalare i cerchi concentrici
+//sullo sfondo del grafico
 var fattore_scala_cerchi=0.29;
 //anchor size
 var inner_dotsize=4;
@@ -30,7 +38,10 @@ var middle_dotsize=inner_dotsize+1;
 var outer_dotsize=inner_dotsize+4;
 
 var default_party_color="#aaaaaa";
-
+//dimensioni e colori dei cerchi concentrici
+var circles_sizes=[1000,695,488,336,232,166,112,78,52]
+var circles_colors=["f3f9f7","e9f3f0","e0ede8","d6e8e0","cee3d9","c5ddd4","bed8cd","b5d4c8","afcfc2"]
+var connection_lines;
 
 function draw_graph(coordinate, highlight, marker){
 
@@ -68,9 +79,9 @@ function draw_graph(coordinate, highlight, marker){
     max_label_len=longest_label*label_font_size;
 
     //calcola xy massime per la viewport
-    max_outputx = w-(outer_dotsize+link_len+(max_label_len/2));
+    max_outputx = graph_width-(outer_dotsize+link_len+(max_label_len/2));
     min_outputx = (outer_dotsize+link_len+(max_label_len/2));
-    max_outputy = h-(outer_dotsize+link_len+label_font_size);
+    max_outputy = graph_height-(outer_dotsize+link_len+label_font_size);
     min_outputy = (outer_dotsize+link_len+label_font_size);
 
 
@@ -111,11 +122,11 @@ function draw_graph(coordinate, highlight, marker){
         }
     }
 
-    var vis = d3.select("#"+graph_div+"")
+    vis = d3.select("#"+graph_div+"")
         .data([val_array])
         .append("svg:svg")
-        .attr("width", w )
-        .attr("height", h )
+        .attr("width", graph_width )
+        .attr("height", graph_height );
         .attr("style", "position: absolute; top: 30px; left: 144px;");
 
 
@@ -130,22 +141,32 @@ function draw_graph(coordinate, highlight, marker){
 
 
     if(highlight && highlight_index){
+
         //aggiunge i cerchi concentrici
+        //e le linee di connessione fra i punti
         var highlight_marker=[];
-        //dimensioni e colori dei cerchi concentrici
-        var sizes=[1000,695,488,336,232,166,112,78,52]
-        var colors=["f3f9f7","e9f3f0","e0ede8","d6e8e0","cee3d9","c5ddd4","bed8cd","b5d4c8","afcfc2"]
-
-        for(var k =0; k< sizes.length; k++){
+        connection_lines=[];
+        var highlight_x = parseFloat(coordinate[highlight_index][1]),
+            highlight_y = parseFloat(coordinate[highlight_index][2]);
 
 
+        for(var k =0; k< circles_sizes.length; k++){
             highlight_marker[k]= {
                 label: "nick",
-                x: parseFloat(coordinate[highlight_index][1]),
-                y: parseFloat(coordinate[highlight_index][2]),
-                size:sizes[k]*fattore_scala_cerchi,
-                color: "#"+colors[k]
+                x: highlight_x,
+                y: highlight_y,
+                size:circles_sizes[k]*fattore_scala_cerchi,
+                color: "#"+circles_colors[k]
 
+            };
+        }
+
+        for(var k=0; k<val_array.length;k++){
+            connection_lines[k]={
+                x1:highlight_x,
+                y1:highlight_y,
+                x2:val_array[k].x,
+                y2:val_array[k].y
             };
         }
 
@@ -159,19 +180,21 @@ function draw_graph(coordinate, highlight, marker){
             }).
         attr("cx",function(d) { return x(d.x)}).
         attr("cy",function(d) { return y(d.y)}).
-        attr("fill", function(d){
-//            var new_color=ColorLuminance("#00e",(-0.1));
-//            return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+0.7+")";
-                return d.color;
-
-        })
-
-
-
-
+        attr("fill", function(d){ return d.color;});
 
         //disegna le linee di connessione fra il punto di highlight e gli altri punti
-        ;
+        vis.selectAll().
+            data(connection_lines).
+            enter().
+            append("line").
+            attr("x1",function(d) { return x(d.x1);}).
+            attr("y1",function(d) { return y(d.y1);}).
+            attr("x2",function(d) { return x(d.x2);}).
+            attr("y2",function(d) { return y(d.y2);}).
+            attr("class","connection-line");
+
+
+
         if(marker){
             //determina il verso del marker a seconda della posizione
             // rispetto ai bordi del grafico
@@ -214,8 +237,6 @@ function draw_graph(coordinate, highlight, marker){
         attr("fill", function(d){return d.color;})
 
 
-
-
     anchors.transition()
         .delay(function(d,i) { return i*10;})
         .duration(10)
@@ -224,7 +245,6 @@ function draw_graph(coordinate, highlight, marker){
 
     // Now for the labels
     anchors.call(labelForce.update)  //  This is the only function call needed, the rest is just drawing the labels
-
 
     var labels = vis.selectAll(".labels").data(val_array,function(d,i) { return i})
 
@@ -253,6 +273,8 @@ function redrawLabels() {
         .attr("y1",function(d) { return d.anchorPos.y})
         .attr("x2",function(d) { return d.labelPos.x})
         .attr("y2",function(d) { return d.labelPos.y})
+
+
 }
 
 //function that sends data via AJAX
