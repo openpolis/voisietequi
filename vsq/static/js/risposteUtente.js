@@ -3,6 +3,8 @@ var chosed = 0;
 var label_font_size = 12;
 var url="/mockup_answer";
 
+var graph_div="grafico";
+
 //graph entities
 var labelBox,link;
 var links;
@@ -21,7 +23,7 @@ var w = 400,
     p = 2;
 
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
-
+var fattore_scala_cerchi=0.29;
 //anchor size
 var inner_dotsize=4;
 var middle_dotsize=inner_dotsize+1;
@@ -55,6 +57,7 @@ function draw_graph(coordinate, highlight, marker){
     var label_array = new Array();
     var val_array=[];
     var max_label_len= 0, longest_label=0;
+    var highlight_index=null;
 
     //trova la label con piu' caratteri
     for(var i=1; i< coordinate.length; i++)
@@ -78,37 +81,37 @@ function draw_graph(coordinate, highlight, marker){
 
     for (var i=0; i < coordinate.length; i++) {
 
-        //se e' l'utente non mette colore e avra' una label diversa
-        if(coordinate[i][0]!="user"){
-            //        trova il colore associato al partito analizzato
-            for (var sigla_partito in partiti) {
+        //se trova l'elemento da evidenziare si salva l'indice nel vettore
+        if(highlight && coordinate[i][0].toUpperCase()===highlight.toUpperCase())
+            highlight_index=i;
 
-                if(coordinate[i][0] == sigla_partito)
-                    var color = partiti[sigla_partito].colore;
+        //se non e' definito un highlight o
+        // non e' definito il maker mette un marker normale per i punti
+        if(coordinate[i][0].toUpperCase()!==highlight.toUpperCase() || !marker){
+
+            // trova il colore associato al partito analizzato
+            for (var sigla in partiti) {
+
+                if(coordinate[i][0] == sigla)
+                    var color = partiti[sigla].colore;
             }
             //if party was not found, set a default color
             if(color=="")
                 color=default_party_color;
 
-
-
-
-
             val_array[i] = {
                 label: coordinate[i][0],
                 x: parseFloat(coordinate[i][1]),
                 y: parseFloat(coordinate[i][2]),
-                size: inner_dotsize, color:color
+                size: inner_dotsize,
+                color:color
             };
 
             color="";
-
         }
-
-
     }
 
-    var vis = d3.select("#grafico")
+    var vis = d3.select("#"+graph_div+"")
         .data([val_array])
         .append("svg:svg")
         .attr("width", w )
@@ -123,7 +126,64 @@ function draw_graph(coordinate, highlight, marker){
         .charge(label_charge)
         .on("tick",redrawLabels);
 
-    var anchors = vis.selectAll(".anchor").data(val_array,function(d,i) { return i});
+
+
+    if(highlight && highlight_index){
+        //aggiunge i cerchi concentrici
+        var highlight_marker=[];
+        //dimensioni e colori dei cerchi concentrici
+        var sizes=[1000,695,488,336,232,166,112,78,52]
+        var colors=["f3f9f7","e9f3f0","e0ede8","d6e8e0","cee3d9","c5ddd4","bed8cd","b5d4c8","afcfc2"]
+
+        for(var k =0; k< sizes.length; k++){
+
+
+            highlight_marker[k]= {
+                label: "nick",
+                x: parseFloat(coordinate[highlight_index][1]),
+                y: parseFloat(coordinate[highlight_index][2]),
+                size:sizes[k]*fattore_scala_cerchi,
+                color: "#"+colors[k]
+
+            };
+        }
+
+        vis.
+        selectAll(".anchor").
+        data(highlight_marker).
+        enter().
+        append("circle").
+        attr("r",function(d){
+                return d.size;
+            }).
+        attr("cx",function(d) { return x(d.x)}).
+        attr("cy",function(d) { return y(d.y)}).
+        attr("fill", function(d){
+//            var new_color=ColorLuminance("#00e",(-0.1));
+//            return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+0.7+")";
+                return d.color;
+
+        })
+
+
+
+
+
+        //disegna le linee di connessione fra il punto di highlight e gli altri punti
+        ;
+        if(marker){
+            //determina il verso del marker a seconda della posizione
+            // rispetto ai bordi del grafico
+            //aggiunge il marker sul punto di interesse
+            ;
+        }
+    }
+
+    var anchors = vis
+        .selectAll(".anchor")
+        .data(val_array,function(d,i) { return i});
+
+    //disegna il marker partito fatto da 3 cerchi concentrici
     anchors.enter().
         append("circle").
         attr("r",outer_dotsize).
@@ -151,6 +211,7 @@ function draw_graph(coordinate, highlight, marker){
         attr("cx",function(d) { return x(d.x);}).
         attr("cy",function(d) { return y(d.y);}).
         attr("fill", function(d){return d.color;})
+
 
 
 

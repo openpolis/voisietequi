@@ -196,10 +196,10 @@ Questionario.prototype.send = function(){
 
     var data_json = {
         'user_data': {},
-        'answers': {},
+        'user_answers': {},
         'election_code': this.election_code
     };
-    $.each(this.domande, function(ix,el){ data_json['answers'][el.id] = el.risposta });
+    $.each(this.domande, function(ix,el){ data_json['user_answers'][el.id] = el.risposta });
     $.each(this.userbox.find('form').serializeArray(), function(ix,input){ data_json['user_data'][input.name] = input.value });
 
     console.log('send results...', data_json);

@@ -5,16 +5,81 @@
 
 {% block header_scripts %}
     <script type="text/javascript">
+        {% regroup risposte_partiti by partito__sigla as liste %}
         var coordinate = {{ coordinate|safe }};
+        var risposte_altri_partiti = {
+            {% for lista in liste %}
+                '{{ lista.grouper }}': {
+                    {% for item in lista.list %}'{{ item.domanda }}': {{ item.risposta_int }}{% if not forloop.last %},{% endif %}{% endfor %}
+                }{% if not forloop.last %},{%  endif %}
+            {% endfor %}
+        };
+        var risposte_partito = {
+            {% for risposta in risposte_partito %}'{{ risposta.domanda }}': {{ risposta.risposta_int }}{% if not forloop.last %},{% endif %}{% endfor %}
+        }
+        var risposte_testuali_partito = {
+            {% for risposta in risposte_partito %}'{{ risposta.domanda }}': "{{ risposta.risposta_txt }}"{% if not forloop.last %},{% endif %}{% endfor %}
+        }
         var partito = '{{ partito }}'
         var partiti = {
-            {% for l in liste_elettorali %}
-                '{{ l.sigla }}': {
-                    'colore': "{{ l.coalizione.colore }}",
+            {% for p in partiti %}
+                '{{ p.sigla }}': {
+                    'name': "{{ p.denominazione }}",
+                    'url': "{{ p.get_absolute_url }}",
+                    'coalizione': "{{ p.coalizione.slug }}",
+                    'colore': "{{ p.coalizione.colore }}",
+                    'simbolo_url': "{{ p.simbolo.url }}"
                 }{% if not forloop.last %},{%  endif %}
             {% endfor %}
         }
     </script>
+{% endblock %}
+
+
+{% block scripts %}
+    <script type="text/javascript">
+        {% block generate_dynamic_content %}
+            $(document).ready(function() {
+                // genera_grafico(coordinate, partito);
+                posiziona_distanze_generiche(coordinate, partiti, partito);
+                posiziona_label_risposte_partito(risposte_partito, risposte, label_risposte);
+                posiziona_loghi(risposte_altri_partiti, risposte_partito, dist, partiti, risposte);
+                posiziona_commenti(risposte_testuali_partito);
+            });
+        {% endblock %}
+    </script>
+
+    <script src="{{ STATIC_URL }}js/dynamicPageContent.js"></script>
+    <script src="{{ STATIC_URL }}js/utils.js"></script>
+    {#    <script src="http://d3js.org/d3.v2.js"></script>#}
+    <script src="{{ STATIC_URL }}js/underscore.min.js"></script>
+    <script src="{{ STATIC_URL }}js/d3.min.js"></script>
+    {#script for the final graph #}
+    <script src="{{ STATIC_URL }}js/graph.utils.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/force_labels.js"></script>
+
+    {#stili per label e marker del grafico#}
+    <style>
+
+        .labelbox {
+            color:green;
+            opacity:0.8
+        }
+
+        .labeltext {
+            color:black;
+            font-weight:bold;
+            text-anchor:middle;
+            font-family: Arial, sans-serif;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+        .link {
+            stroke:gray;
+            stroke-width:0.35
+        }
+    </style>
+
 {% endblock %}
 
 {% block content %}
@@ -76,22 +141,16 @@
             {% immagine_partito object size='normal' %}
           </td>
           <td class="verde01-tab">
-            {% for partito, distanza in distanze_partiti.0 %}{% immagine_partito partito size='normal' title=distanza %}{% endfor %}
           </td>
           <td class="verde02-tab">
-            {% for partito, distanza in distanze_partiti.1 %}{% immagine_partito partito size='normal' title=distanza %}{% endfor %}
           </td>
           <td class="verde03-tab">
-            {% for partito, distanza in distanze_partiti.2 %}{% immagine_partito partito size='normal' title=distanza %}{% endfor %}
           </td>
           <td class="verde04-tab">
-            {% for partito, distanza in distanze_partiti.3 %}{% immagine_partito partito size='normal' title=distanza %}{% endfor %}
           </td>
           <td class="verde05-tab">
-            {% for partito, distanza in distanze_partiti.4 %}{% immagine_partito partito size='normal' title=distanza %}{% endfor %}
           </td>
           <td class="verde06-tab">
-            {% for partito, distanza in distanze_partiti.5 %}{% immagine_partito partito size='normal' title=distanza %}{% endfor %}
           </td>
         </tr>
         </tbody>
@@ -103,16 +162,16 @@
 
 <div class="container">
   <div class="contenuto">
-    <h4>Tema per tema le liste che ti sono vicine e quelle che ti sono lontane</h4>
+    <h4>Tema per tema, le liste vicine e lontane a {{ nome_partito }}</h4>
     <div class="accordion" id="accordion">
 
-      {% for risposta, distanze in risposte_partito_con_distanze %}
+      {% for domanda in domande %}
       <div class="accordion-group tema">
         <div class="accordion-heading">
           <a class="accordion-toggle" data-toggle="collapse" {# data-parent="#accordion" #} href="#collapse{{ forloop.counter }}">
             <div class="row-fluid">
-              <div class="span1"><div class="tema-num"><strong>{{ risposta.domanda.ordine }}/</strong>{{ QUESTIONS_COUNT }}</div></div>
-              <div class="span11"><h1>{{ risposta.domanda.testo_html|safe }}</h1></div>
+              <div class="span1"><div class="tema-num"><strong>{{ domanda.ordine }}/</strong>{{ QUESTIONS_COUNT }}</div></div>
+              <div class="span11"><h1>{{ domanda.testo_html|safe }}</h1></div>
             </div>
           </a>
         </div>
@@ -136,40 +195,30 @@
                 <td class="nero-tab">&nbsp;</td>
                 <td class="nero-tab">+ lontano</td>
               </tr>
-              <tr>
+              <tr class="symbols">
                 <td class="grigio-tab">
-                  {% immagine_partito risposta.partito size='normal' %}
-                  <br />
-                  <br /><label class="label label-{% label_risposta risposta.risposta_int %}">{% label_risposta_text risposta.risposta_int %}</label>
                 </td>
                 <td class="verde01-tab">
-                  {% for partito in distanze.0 %}{% immagine_partito partito size='normal' %}{% endfor %}
                 </td>
                 <td class="verde02-tab">
-                  {% for partito in distanze.1 %}{% immagine_partito partito size='normal' %}{% endfor %}
                 </td>
                 <td class="verde03-tab">
-                  {% for partito in distanze.2 %}{% immagine_partito partito size='normal' %}{% endfor %}
                 </td>
                 <td class="verde04-tab">
-                  {% for partito in distanze.3 %}{% immagine_partito partito size='normal' %}{% endfor %}
                 </td>
                 <td class="verde05-tab">
-                  {% for partito in distanze.4 %}{% immagine_partito partito size='normal' %}{% endfor %}
                 </td>
                 <td class="verde06-tab">
-                  {% for partito in distanze.5 %}{% immagine_partito partito size='normal' %}{% endfor %}
                 </td>
               </tr>
               </tbody>
             </table>
 
-            {% if risposta.risposta_txt %}
-            <strong>Commento della lista</strong>
-            <div class="approfondimento">
-              {{ risposta.risposta_txt }}
+            <div class="commento-lista" style="display:none">
+                <strong>Commento della lista</strong>
+                <div class="approfondimento">
+                </div>
             </div>
-            {% endif %}
 
           </div>
         </div>
