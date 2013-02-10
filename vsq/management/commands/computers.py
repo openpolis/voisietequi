@@ -68,7 +68,7 @@ class Command(BaseCommand):
                 raise CommandError('Append a computer url to test it.')
             self.test_handle(args[1], **options)
         else:
-            raise CommandError('Invalid action. Only "discover" and "configure" are allowed')
+            raise CommandError('Invalid action. Only "discover", "configure", "partiti" or "test" are allowed')
 
     def on_computer_discover(self, now):
         def callback(ch, method, properties, body):
