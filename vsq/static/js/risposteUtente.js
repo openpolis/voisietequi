@@ -47,6 +47,7 @@ var outer_dotsize=inner_dotsize+4;
 var default_party_color="#aaaaaa";
 //dimensioni e colori dei cerchi concentrici
 var circles_sizes=[1000,695,488,336,232,166,112,78,52]
+var circles_transparency=0.5;
 var circles_colors=["f3f9f7","e9f3f0","e0ede8","d6e8e0","cee3d9","c5ddd4","bed8cd","b5d4c8","afcfc2"]
 var connection_lines;
 
@@ -167,7 +168,10 @@ function draw_graph(coordinate, highlight, marker){
             }).
         attr("cx",function(d) { return x(d.x)}).
         attr("cy",function(d) { return y(d.y)}).
-        attr("fill", function(d){ return d.color;});
+        attr("fill", function(d){
+
+            return "rgba("+hexToRgb(d.color).r+","+hexToRgb(d.color).g+","+hexToRgb(d.color).b+","+circles_transparency+")";
+        })
 
         //disegna le linee di connessione fra il punto di highlight e gli altri punti
         vis.selectAll().
