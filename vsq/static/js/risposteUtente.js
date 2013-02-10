@@ -19,7 +19,7 @@ var label_charge = -100;
 var link_len =25;
 //dimensioni del grafico sulla pagina html
 var w = 480,
-    h = 320,
+    h = 292,
     p = 2;
 
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
@@ -115,7 +115,8 @@ function draw_graph(coordinate, highlight, marker){
         .data([val_array])
         .append("svg:svg")
         .attr("width", w )
-        .attr("height", h );
+        .attr("height", h )
+        .attr("style", "position: absolute; top: 30px; left: 144px;");
 
 
     // Initialize the label-forces
