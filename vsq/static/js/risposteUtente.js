@@ -87,7 +87,7 @@ function draw_graph(coordinate, highlight, marker){
 
         //se non e' definito un highlight o
         // non e' definito il maker mette un marker normale per i punti
-        if(coordinate[i][0].toUpperCase()!==highlight.toUpperCase() || !marker){
+        if(!highlight || highlight && coordinate[i][0].toUpperCase()!==highlight.toUpperCase() || !marker){
 
             // trova il colore associato al partito analizzato
             for (var sigla in partiti) {

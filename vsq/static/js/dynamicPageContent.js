@@ -160,9 +160,3 @@ posiziona_commenti = function(risposte_partito){
     }
 }
 
-/*
- * Genera il grafico per l'utente, a partire dalle variabili globali: coordinate
- */
-genera_grafico = function(coordinate){
-    draw_graph(coordinate,"user", true);
-};
