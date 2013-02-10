@@ -18,8 +18,8 @@ var label_charge = -100;
 //lunghezza massima in px dei link fra punti e label
 var link_len =25;
 //dimensioni del grafico sulla pagina html
-var w = 400,
-    h = 400,
+var w = 480,
+    h = 320,
     p = 2;
 
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;

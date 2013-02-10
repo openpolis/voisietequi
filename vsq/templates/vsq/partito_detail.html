@@ -18,7 +18,7 @@
             {% for risposta in risposte_partito %}'{{ risposta.domanda }}': {{ risposta.risposta_int }}{% if not forloop.last %},{% endif %}{% endfor %}
         }
         var risposte_testuali_partito = {
-            {% for risposta in risposte_partito %}'{{ risposta.domanda }}': "{{ risposta.risposta_txt }}"{% if not forloop.last %},{% endif %}{% endfor %}
+            {% for risposta in risposte_partito %}'{{ risposta.domanda }}': "{{ risposta.risposta_txt|linebreaksbr }}"{% if not forloop.last %},{% endif %}{% endfor %}
         }
         var partito = '{{ partito }}'
         var partiti = {
