@@ -26,7 +26,7 @@ var w = 480,
 var graph_width = 480,
     graph_height = 292;
 
-%
+
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
 
 //fattore_scala_cerchi permette di scalare i cerchi concentrici
@@ -126,7 +126,7 @@ function draw_graph(coordinate, highlight, marker){
         .data([val_array])
         .append("svg:svg")
         .attr("width", graph_width )
-        .attr("height", graph_height );
+        .attr("height", graph_height )
         .attr("style", "position: absolute; top: 30px; left: 144px;");
 
 
