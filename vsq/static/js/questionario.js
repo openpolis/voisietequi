@@ -210,12 +210,12 @@ Questionario.prototype.send = function(){
         //the url where you want to sent the userName and password to
         url: this.url,
         dataType: 'json',
-        async: false,
         //json object to sent to the authentication url
-        data: JSON.stringify(data_json, null, '\t'),
-        success: function (results) {
-            this.callback(results, data_json);
-        }
+        data: JSON.stringify(data_json, null, '\t')
     })
+    // The jqXHR.success(), jqXHR.error(), and jqXHR.complete() callbacks are deprecated as of jQuery 1.8.
+    // To prepare your code for their eventual removal, use jqXHR.done(), jqXHR.fail(), and jqXHR.always() instead.
+    .done(function(data, textStatus, jqXHR) { this.callback(data, data_json); })
+    .fail(function(data, textStatus, jqXHR) { console.log('Error:', data, textStatus, jqXHR) })
 };
 Questionario.prototype.build_results = function(results){};
