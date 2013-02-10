@@ -324,8 +324,6 @@ def save_callback(body):
 
     data = pickle.loads(body)
 
-    print data['user_data'], 'wants_newsletter' in data['user_data'], data['user_data']['wants_newsletter']
-
     u = Utente(
         nickname= data['user_data']['name'],
         ip= data['user_data']['ip_address'],

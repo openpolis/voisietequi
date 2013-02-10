@@ -225,7 +225,7 @@ Questionario.prototype.send = function(){
     // The jqXHR.success(), jqXHR.error(), and jqXHR.complete() callbacks are deprecated as of jQuery 1.8.
     // To prepare your code for their eventual removal, use jqXHR.done(), jqXHR.fail(), and jqXHR.always() instead.
     .done(function(data, textStatus, jqXHR) {
-            if (data) {
+            if (data && data.error == undefined) {
                 this.callback(data, data_json);
             }
             else {
