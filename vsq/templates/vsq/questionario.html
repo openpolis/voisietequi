@@ -154,7 +154,7 @@
           $('#utente-questionario').hide();
           $('#risultato-questionario').show();
 
-          genera_grafico(results.results);
+          draw_graph(results.results, data_json.user_data['name'], 1);
           posiziona_distanze_generiche(results.results, partiti);
           posiziona_label_risposte_utente(data_json.user_answers, risposte, label_risposte);
           posiziona_loghi(risposte_partiti, data_json.user_answers, dist, partiti, risposte);

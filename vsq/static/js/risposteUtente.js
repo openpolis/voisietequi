@@ -28,6 +28,14 @@ var top_pos = "26px",
 
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
 
+//dimensioni del marker utente
+var user_marker_w, user_marker_h;
+user_marker_h=user_marker_w=100;
+//delta x e y per posizionare il punteruolo del marker
+//esattamente sul punto highlight
+var user_marker_delta_x=30;
+var user_marker_delta_y=80;
+
 //fattore_scala_cerchi permette di scalare i cerchi concentrici
 //sullo sfondo del grafico
 var fattore_scala_cerchi=0.29;
@@ -39,30 +47,11 @@ var outer_dotsize=inner_dotsize+4;
 var default_party_color="#aaaaaa";
 //dimensioni e colori dei cerchi concentrici
 var circles_sizes=[1000,695,488,336,232,166,112,78,52]
+var circles_transparency=0.5;
 var circles_colors=["f3f9f7","e9f3f0","e0ede8","d6e8e0","cee3d9","c5ddd4","bed8cd","b5d4c8","afcfc2"]
 var connection_lines;
 
 function draw_graph(coordinate, highlight, marker){
-
-//DATA TYPE
-
-
-//var coordinate = [
-//  ["fare", "0.20140604", "0.48035801"],
-//  ["ld", "0.05905490", "0.60488166"],
-
-//
-//  var partiti = {
-//
-//'ds': {
-//    'name': "Destra sociale",
-//        'url': "/lista/destra-sociale/",
-//        'coalizione': "destra",
-//        'colore': "#333333",
-//        'sigla': "ds",
-//        'simbolo_url': "/media/simboli/3.gif"
-////},
-//
 
     var label_array = new Array();
     var val_array=[];
@@ -179,7 +168,10 @@ function draw_graph(coordinate, highlight, marker){
             }).
         attr("cx",function(d) { return x(d.x)}).
         attr("cy",function(d) { return y(d.y)}).
-        attr("fill", function(d){ return d.color;});
+        attr("fill", function(d){
+
+            return "rgba("+hexToRgb(d.color).r+","+hexToRgb(d.color).g+","+hexToRgb(d.color).b+","+circles_transparency+")";
+        })
 
         //disegna le linee di connessione fra il punto di highlight e gli altri punti
         vis.selectAll().
@@ -193,12 +185,26 @@ function draw_graph(coordinate, highlight, marker){
             attr("class","connection-line");
 
 
-
         if(marker){
-            //determina il verso del marker a seconda della posizione
+            //TODO: determina il verso del marker a seconda della posizione
             // rispetto ai bordi del grafico
+
+
             //aggiunge il marker sul punto di interesse
-            ;
+            //calcolando il punto secondo i delta x e y che spostano l'immagine
+            //per far coincidere il punteruolo con il punto highlight
+            var user_marker_x, user_marker_y;
+            user_marker_x = x(highlight_x)-user_marker_delta_x;
+            user_marker_y = y(highlight_x)-user_marker_delta_y;
+
+            vis.append("svg:image")
+                .attr("xlink:href", "/static/img/grafico/user_marker.png")
+                .attr("x",user_marker_x)
+                .attr("y",user_marker_y)
+                .attr("width", user_marker_w)
+                .attr("height", user_marker_h);
+
+
         }
     }
 
