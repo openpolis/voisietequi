@@ -18,11 +18,14 @@ var label_charge = -100;
 //lunghezza massima in px dei link fra punti e label
 var link_len =25;
 //dimensioni del grafico sulla pagina html
-var w = 400,
-    h = 400,
-    p = 2;
+var graph_width = 480,
+    graph_height = 320;
+
 
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
+
+//fattore_scala_cerchi permette di scalare i cerchi concentrici
+//sullo sfondo del grafico
 var fattore_scala_cerchi=0.29;
 //anchor size
 var inner_dotsize=4;
@@ -30,6 +33,9 @@ var middle_dotsize=inner_dotsize+1;
 var outer_dotsize=inner_dotsize+4;
 
 var default_party_color="#aaaaaa";
+//dimensioni e colori dei cerchi concentrici
+var circles_sizes=[1000,695,488,336,232,166,112,78,52]
+var circles_colors=["f3f9f7","e9f3f0","e0ede8","d6e8e0","cee3d9","c5ddd4","bed8cd","b5d4c8","afcfc2"]
 
 
 function draw_graph(coordinate, highlight, marker){
@@ -68,9 +74,9 @@ function draw_graph(coordinate, highlight, marker){
     max_label_len=longest_label*label_font_size;
 
     //calcola xy massime per la viewport
-    max_outputx = w-(outer_dotsize+link_len+(max_label_len/2));
+    max_outputx = graph_width-(outer_dotsize+link_len+(max_label_len/2));
     min_outputx = (outer_dotsize+link_len+(max_label_len/2));
-    max_outputy = h-(outer_dotsize+link_len+label_font_size);
+    max_outputy = graph_height-(outer_dotsize+link_len+label_font_size);
     min_outputy = (outer_dotsize+link_len+label_font_size);
 
 
@@ -114,8 +120,8 @@ function draw_graph(coordinate, highlight, marker){
     var vis = d3.select("#"+graph_div+"")
         .data([val_array])
         .append("svg:svg")
-        .attr("width", w )
-        .attr("height", h );
+        .attr("width", graph_width )
+        .attr("height", graph_height );
 
 
     // Initialize the label-forces
@@ -131,19 +137,17 @@ function draw_graph(coordinate, highlight, marker){
     if(highlight && highlight_index){
         //aggiunge i cerchi concentrici
         var highlight_marker=[];
-        //dimensioni e colori dei cerchi concentrici
-        var sizes=[1000,695,488,336,232,166,112,78,52]
-        var colors=["f3f9f7","e9f3f0","e0ede8","d6e8e0","cee3d9","c5ddd4","bed8cd","b5d4c8","afcfc2"]
 
-        for(var k =0; k< sizes.length; k++){
+
+        for(var k =0; k< circles_sizes.length; k++){
 
 
             highlight_marker[k]= {
                 label: "nick",
                 x: parseFloat(coordinate[highlight_index][1]),
                 y: parseFloat(coordinate[highlight_index][2]),
-                size:sizes[k]*fattore_scala_cerchi,
-                color: "#"+colors[k]
+                size:circles_sizes[k]*fattore_scala_cerchi,
+                color: "#"+circles_colors[k]
 
             };
         }
