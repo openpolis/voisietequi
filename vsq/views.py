@@ -205,7 +205,7 @@ class HomepageView(TemplateView):
 
 class PartyPositionsView(ListView):
     model = Domanda
-    template_name = 'vsq/domanda_partiti_list.html'
+    template_name = 'vsq/partito_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(PartyPositionsView,self).get_context_data(**kwargs)
@@ -232,54 +232,20 @@ class PartitoDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PartitoDetailView,self).get_context_data(**kwargs)
-
-        # CALCOLO DISTANZE DOMANDA PER DOMANDA
-        distanze_per_domanda = []
-        size = len(RispostaPartito.TIPO_RISPOSTA._choices)
-
-        for risposta in self.object.rispostapartito_set.all().select_related('domanda').order_by('domanda__ordine'):
-            # create {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
-            distanze = dict([(i,list()) for i in range(size)])
-            for altra_risposta in risposta.domanda.rispostapartito_set.exclude(partito=self.object).select_related('partito','partito__coalizione'):
-                # calculate distance between this answer and the otger
-                distanza = risposta.distanza(altra_risposta)
-                # append answer's party in right position
-                distanze[distanza].append(altra_risposta.partito)
-                # append results to global list of distances
-            distanze_per_domanda.append((risposta,distanze))
-
-        # CALCOLO PER IL PARTITO LE DISTANZE PUNTALI DEGLI ALTRI PARTITI
-        distanze_partiti = {}
-        for altro_partito in Partito.objects.exclude(id=self.object.id).all():
-            distanze_partiti[altro_partito] = self.object.distanza(altro_partito)
-
-        # execute JenksBreaks calculus
-        buckets = quantile.getJenksBreaks(distanze_partiti.values(),size)
-        # creates a dict of distances: {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
-        colonne_distanze = dict([(i,list()) for i in range(size)])
-
-        def bucket_position(x):
-            # this anonymous function helps to calculate correct bucket
-            # for a distance, based on JenksBreaks
-            for pos, v in enumerate(buckets):
-                if x <= v: return pos
-
-        # collect all distances grouped by quantile buckets
-        for p in distanze_partiti:
-            posizione = bucket_position(distanze_partiti[p])
-            # fix position if coordinates is empty (=0.0)
-            if posizione > 0: posizione -= 1
-            colonne_distanze[posizione].append((p,distanze_partiti[p]))
-
-
-        context['risposte_partito_con_distanze'] = distanze_per_domanda
-        context['distanze_partiti'] = colonne_distanze
-
+        context['nome_partito'] = self.object.denominazione
         context['partito'] = self.object.sigla
-        context['liste_elettorali'] = liste = Partito.objects.all().select_related('coalizione')
+        context['domande'] = Domanda.objects.all()
+        context['partiti'] = partiti = Partito.objects.all().select_related('coalizione')
+        context['risposte_partito'] = RispostaPartito.objects.filter(partito__sigla=self.object.sigla). \
+            order_by('domanda'). \
+            values('domanda', 'risposta_int', 'risposta_txt')
+        context['risposte_partiti'] = RispostaPartito.objects.all().exclude(partito__sigla=self.object.sigla).\
+            order_by('partito', 'domanda'). \
+            values('partito__party_key', 'partito__sigla','domanda', 'risposta_int', 'risposta_txt')
+
         coordinate = []
-        for l in liste:
-            coord = [l.sigla, l.coord_x, l.coord_y]
+        for p in partiti:
+            coord = [p.sigla, p.coord_x, p.coord_y]
             coordinate.append(coord)
         context['coordinate'] = json.dumps(coordinate)
 
@@ -306,9 +272,7 @@ class RisultatoUtenteView(TemplateView):
         context = super(RisultatoUtenteView,self).get_context_data(**kwargs)
 
         context['domande'] = Domanda.objects.all()
-        context['partiti'] = Partito.objects.all()
-
-
+        context['partiti'] = Partito.objects.all().select_related('coalizione')
         context['risposte_partiti'] = RispostaPartito.objects.all().order_by('partito', 'domanda').\
             values('partito__party_key', 'partito__sigla','domanda', 'risposta_int')
 

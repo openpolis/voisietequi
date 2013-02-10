@@ -18,6 +18,7 @@ var label_charge = -100;
 //lunghezza massima in px dei link fra punti e label
 var link_len =25;
 //dimensioni del grafico sulla pagina html
+
 var graph_width = 480,
     graph_height = 320;
 
@@ -93,7 +94,7 @@ function draw_graph(coordinate, highlight, marker){
 
         //se non e' definito un highlight o
         // non e' definito il maker mette un marker normale per i punti
-        if(coordinate[i][0].toUpperCase()!==highlight.toUpperCase() || !marker){
+        if(!highlight || highlight && coordinate[i][0].toUpperCase()!==highlight.toUpperCase() || !marker){
 
             // trova il colore associato al partito analizzato
             for (var sigla in partiti) {

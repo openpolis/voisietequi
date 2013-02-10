@@ -33,26 +33,33 @@ var label_risposte = {
 
 /*
  * places parties' symbols in the generic table
+ * coordinate: array of coordinates [['party', 'x', 'y'], ...]
+ * partiti: {'party': {'colore': '', 'denominazione': '', ...}
+ * highlighted_party: string
  */
-posiziona_distanze_generiche = function(coordinate, partiti){
+posiziona_distanze_generiche = function(coordinate, partiti, highlighted_party){
 
+    // default partito values
+    if(typeof(highlighted_party)==='undefined') highlighted_party = 'user';
+
+    var highlighted_pos = {};
     // extract user's position
     for (var i in coordinate) {
-        if (coordinate[i][0] == 'user') {
-            var pos_utente = {'x': coordinate[i][1], 'y': coordinate[i][2]};
+        if (coordinate[i][0] == highlighted_party) {
+            highlighted_pos = {'x': coordinate[i][1], 'y': coordinate[i][2]};
         }
     }
 
-    // compute distnaces of user from other parties
+    // compute distances of party/user from other parties
     // build both distances (dict) and distance_values (array)
     var distances = {};
     var distance_values = [];
     for (var i in coordinate){
-        if ( coordinate[i][0] == 'user' ) continue;
+        if ( coordinate[i][0] == highlighted_party ) continue;
         var pos_partito = {'x': coordinate[i][1], 'y': coordinate[i][2]};
         var distance = Math.sqrt(
-            ( pos_utente['x'] - pos_partito['x'] ) * ( pos_utente['x'] - pos_partito['x'] ) +
-                ( pos_utente['y'] - pos_partito['y'] ) * ( pos_utente['y'] - pos_partito['y'] ))
+            ( highlighted_pos['x'] - pos_partito['x'] ) * ( highlighted_pos['x'] - pos_partito['x'] ) +
+                ( highlighted_pos['y'] - pos_partito['y'] ) * ( highlighted_pos['y'] - pos_partito['y'] ))
         distance_values.push(distance);
         distances[coordinate[i][0]] = distance;
     }
@@ -77,6 +84,24 @@ posiziona_distanze_generiche = function(coordinate, partiti){
     }
 };
 
+
+/*
+ * places party's answers, with colored labels, in the first column of the thematic tables
+ * risposte_partito {'party': risposta_int}
+ */
+posiziona_label_risposte_partito = function(risposte_partito, risposte, label_risposte){
+    for (var r in risposte_partito) {
+        var risposta_partito = risposte_partito[r];
+        var col_selector = '#collapse'+r+' table tr.symbols td.grigio-tab';
+        $(col_selector).append(
+            '<label class="label label-' + label_risposte[risposta_partito] + '">' +
+                risposte[risposta_partito] +
+                '</label>'
+        );
+
+    }
+};
+
 /*
  * places user's answers, with colored labels, in the first column of the thematic tables
  */
@@ -96,12 +121,12 @@ posiziona_label_risposte_utente = function(risposte_utente, risposte, label_risp
 /*
  * places parties' symbols in thematic tables
  */
-posiziona_loghi = function(risposte_partiti, risposte_utente, dist, partiti, risposte){
+posiziona_loghi = function(risposte_partiti, risposte_evidenziate, dist, partiti, risposte){
     for (var p in risposte_partiti) {
         var risposte_partito = risposte_partiti[p];
         for (var r in risposte_partito) {
             var risposta_partito = risposte_partito[r];
-            var risposta_utente = risposte_utente[r];
+            var risposta_utente = risposte_evidenziate[r];
             var colonna = dist[String(risposta_utente)][risposta_partito] + 1;
             var col_selector = '#collapse'+r+' table tr.symbols td.verde0'+colonna+'-tab';
             var partito = partiti[p];
@@ -118,9 +143,20 @@ posiziona_loghi = function(risposte_partiti, risposte_utente, dist, partiti, ris
     }
 };
 
+
 /*
- * Genera il grafico per l'utente, a partire dalle variabili globali: coordinate
+ * Aggiunge i commenti e li rende visibili (se non nulli)
+ * risposte_partito {'party': 'textual response'}
  */
-genera_grafico = function(coordinate){
-    draw_graph(coordinate,"user", true);
-};
+posiziona_commenti = function(risposte_partito){
+    for (var r in risposte_partito) {
+        var risposta_partito = risposte_partito[r];
+        if (risposta_partito !== 'None'){
+            console.log(risposta_partito);
+            var div_selector = '#collapse'+r+' .commento-lista';
+            $(div_selector + ' .approfondimento').text(risposta_partito);
+            $(div_selector).show();
+        }
+    }
+}
+
