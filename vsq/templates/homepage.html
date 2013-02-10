@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load labels %}
 
+{% block title %}Homepage{% endblock %}
+
 {% block header_scripts %}
     <script type="text/javascript">
         var coordinate = {{ coordinate|safe }};
