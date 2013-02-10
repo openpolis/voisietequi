@@ -9,7 +9,7 @@
         var partiti = {
             {% for l in partiti %}
                 '{{ l.sigla }}': {
-                    'colore': "{{ l.coalizione.colore }}",
+                    'colore': "{{ l.coalizione.colore }}"
                 }{% if not forloop.last %},{%  endif %}
             {% endfor %}
         }

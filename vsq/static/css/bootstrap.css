@@ -6359,6 +6359,7 @@ a.badge:hover {
 .grafico {
   padding-bottom: 10px;
   text-align: center;
+  overflow: hidden;
 }
 
 .box-liste p {
