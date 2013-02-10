@@ -83,7 +83,7 @@ function Questionario(url, election_code, callback, id_questionario, id_userdata
                 minlength: 3
             },
             email: {
-                required: true,
+                required: '#id_wants_newsletter:checked',
                 email: true
             }
         },
