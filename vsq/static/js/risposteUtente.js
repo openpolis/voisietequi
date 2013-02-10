@@ -19,10 +19,12 @@ var label_charge = -100;
 //lunghezza massima in px dei link fra punti e label
 var link_len =25;
 //dimensioni del grafico sulla pagina html
+var graph_width = 512,
+    graph_height = 300;
 
-var graph_width = 480,
-    graph_height = 320;
-
+// posizionamento del grafico nella cornice
+var top_pos = "26px",
+    left_pos = "129px";
 
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
 
@@ -111,7 +113,8 @@ function draw_graph(coordinate, highlight, marker){
         .data([val_array])
         .append("svg:svg")
         .attr("width", graph_width )
-        .attr("height", graph_height );
+        .attr("height", graph_height )
+        .attr("style", "position: absolute; top: " + top_pos + "; left: " + left_pos + ";");
 
 
     // Initialize the label-forces
