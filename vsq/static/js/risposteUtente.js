@@ -51,6 +51,10 @@ var circles_transparency=0.5;
 var circles_colors=["f3f9f7","e9f3f0","e0ede8","d6e8e0","cee3d9","c5ddd4","bed8cd","b5d4c8","afcfc2"]
 var connection_lines;
 
+//resize graph, avatar and avatar pos based on browser viewport
+function resizeGraph(){}
+
+
 function draw_graph(coordinate, highlight, marker){
 
     var label_array = new Array();
@@ -204,6 +208,12 @@ function draw_graph(coordinate, highlight, marker){
                 .attr("width", user_marker_w)
                 .attr("height", user_marker_h);
 
+            //aggiunge la label con il nome
+            vis.append("text")
+                .attr("class","nickname")
+                .attr("x",user_marker_x)
+                .attr("y",user_marker_y)
+                .text(utente.nickname);
 
         }
     }
