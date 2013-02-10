@@ -205,7 +205,7 @@ class HomepageView(TemplateView):
 
 class PartyPositionsView(ListView):
     model = Domanda
-    template_name = 'vsq/domanda_partiti_list.html'
+    template_name = 'vsq/partito_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(PartyPositionsView,self).get_context_data(**kwargs)

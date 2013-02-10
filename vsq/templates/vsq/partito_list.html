@@ -16,6 +16,48 @@
     </script>
 {% endblock %}
 
+
+{% block scripts %}
+    <script type="text/javascript">
+        {% block generate_dynamic_content %}
+            $(document).ready(function() {
+                draw_graph(coordinate);
+            });
+        {% endblock %}
+    </script>
+
+    <script src="{{ STATIC_URL }}js/risposteUtente.js?"></script>
+    <script src="{{ STATIC_URL }}js/utils.js"></script>
+    <script src="{{ STATIC_URL }}js/underscore.min.js"></script>
+    <script src="{{ STATIC_URL }}js/d3.min.js"></script>
+    {#script for the final graph #}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/force_labels.js"></script>
+
+    {#stili per label e marker del grafico#}
+    <style>
+
+
+        .labelbox {
+            color:green;
+            opacity:0.8
+        }
+
+        .labeltext {
+            color:black;
+            font-weight:bold;
+            text-anchor:middle;
+            font-family: Arial, sans-serif;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+        .link {
+            stroke:gray;
+            stroke-width:0.35
+        }
+    </style>
+
+{% endblock %}
+
 {% block content %}
   <div class="sfondo-verde">
     <div class="container">
@@ -26,7 +68,11 @@
   <div class="sfondo-grigio">
     <div class="container">
       <div class="row-fluid">
-        <div class="span8"><div class="grafico"><img src="{{ STATIC_URL }}img/grafico_liste.png" alt="Voi Siete Qui - Openpolis" /></div></div>
+        <div class="span8">
+            <div class="grafico" id="grafico" style="position: relative">
+                <img src="{{ STATIC_URL }}img/grafico/bg_liste.png" alt="Voi Siete Qui - Openpolis" />
+            </div>
+        </div>
         <div class="span4">
           <div class="box-listeele">
             <br />

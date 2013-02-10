@@ -18,7 +18,7 @@
             {% for risposta in risposte_partito %}'{{ risposta.domanda }}': {{ risposta.risposta_int }}{% if not forloop.last %},{% endif %}{% endfor %}
         }
         var risposte_testuali_partito = {
-            {% for risposta in risposte_partito %}'{{ risposta.domanda }}': "{{ risposta.risposta_txt|escapejs|default_if_none:'' }}"{% if not forloop.last %},{% endif %}{% endfor %}
+            {% for risposta in risposte_partito %}'{{ risposta.domanda }}': "{{ risposta.risposta_txt|default_if_none:''|escapejs|linebreaksbr }}"{% if not forloop.last %},{% endif %}{% endfor %}
         }
         var partito = '{{ partito }}'
         var partiti = {
@@ -40,7 +40,7 @@
     <script type="text/javascript">
         {% block generate_dynamic_content %}
             $(document).ready(function() {
-                // genera_grafico(coordinate, partito);
+                draw_graph(coordinate, partito);
                 posiziona_distanze_generiche(coordinate, partiti, partito);
                 posiziona_label_risposte_partito(risposte_partito, risposte, label_risposte);
                 posiziona_loghi(risposte_altri_partiti, risposte_partito, dist, partiti, risposte);
@@ -49,6 +49,7 @@
         {% endblock %}
     </script>
 
+    <script src="{{ STATIC_URL }}js/risposteUtente.js?"></script>
     <script src="{{ STATIC_URL }}js/dynamicPageContent.js"></script>
     <script src="{{ STATIC_URL }}js/utils.js"></script>
     {#    <script src="http://d3js.org/d3.v2.js"></script>#}
@@ -82,6 +83,7 @@
 
 {% endblock %}
 
+
 {% block content %}
 <div class="sfondo-verde">
   <div class="container">
@@ -92,7 +94,9 @@
 <div class="sfondo-grigio">
   <div class="container">
     <div class="row-fluid">
-      <div class="span8"><div class="grafico"><img src="{{ STATIC_URL }}img/grafico_lista.png" alt="Voi Siete Qui - Openpolis" /></div></div>
+      <div class="span8"><div class="grafico" id="grafico" style="position:relative">
+          <img src="{{ STATIC_URL }}img/grafico/bg_liste.png" alt="Voi Siete Qui - Openpolis" />
+      </div></div>
       <div class="span4"><div class="box-listeele">
         <div class="row-fluid">
           <div class="span4">
