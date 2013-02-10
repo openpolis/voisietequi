@@ -152,7 +152,7 @@ posiziona_commenti = function(risposte_partito){
     for (var r in risposte_partito) {
         var risposta_partito = risposte_partito[r];
         if (risposta_partito !== 'None'){
-            console.log(risposta_partito);
+            window.console && console.log(risposta_partito);
             var div_selector = '#collapse'+r+' .commento-lista';
             $(div_selector + ' .approfondimento').text(risposta_partito);
             $(div_selector).show();
