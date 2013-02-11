@@ -19,12 +19,15 @@ class PartitoAdminWithRisposte(admin.ModelAdmin):
     prepopulated_fields = { 'slug': ['denominazione'] }
 
 class UtenteAdminWithRisposte(admin.ModelAdmin):
+    list_display = ('nickname', 'email')
     inlines = [RispostaUtenteInline, ]
 
 class EarlyBirdAdmin(admin.ModelAdmin):
     model=EarlyBird
 
 class CoalizioneAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'ordine')
+    ordering = ('ordine',)
     model= Coalizione
     prepopulated_fields = { 'slug': ['nome'] }
 

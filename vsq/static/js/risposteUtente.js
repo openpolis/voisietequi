@@ -21,15 +21,15 @@ var label_charge = -100;
 var link_len =25;
 //dimensioni del contenitore del grafico sulla pagina html
 var graph_container_width = 512,
-    graph_container_height = 292;
+    graph_container_height = 290;
 
 //dimensione del quadrato in cui verranno posizionati i punti
-var graph_size=292;
+var graph_size=graph_container_height;
 var graph_offset_x;
 var fattore_scala_offset = 0.6;
 
 // posizionamento del grafico nella cornice
-var top_pos = "28px",
+var top_pos = "29px",
     left_pos = "129px";
 
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
@@ -77,17 +77,19 @@ function draw_graph(coordinate, highlight, marker){
     //calcola la lunghezza massima della label in px
     max_label_len=longest_label*label_font_size;
 
-
+    //offset x fra il contenitore del grafico e il grafico stesso
+//    graph_offset_x =fattore_scala_offset* (graph_container_width-graph_size)/2;
+    graph_offset_x=(graph_container_width-graph_size)/2;
     //calcola xy max e min per i cerchi di sfondo
-    max_outputx_square = graph_size-(outer_dotsize+link_len+(max_label_len/2));
-    min_outputx_square = (outer_dotsize+link_len+(max_label_len/2));
+    max_outputx_square = graph_size-(outer_dotsize+link_len+(max_label_len/2))+graph_offset_x;
+    min_outputx_square = (outer_dotsize+link_len+(max_label_len/2))+graph_offset_x;
     max_outputy_square = graph_size-(outer_dotsize+link_len+label_font_size);
     min_outputy_square = (outer_dotsize+link_len+label_font_size);
-    graph_offset_x =fattore_scala_offset* (graph_container_width-graph_size)/2;
+
 
     //funzione di scala fra input e output per i cerchi di sfondo
-    var x_square = d3.scale.linear().domain([ minvalx, maxvalx]).range([min_outputx_square, max_outputx_square]),
-        y_square = d3.scale.linear().domain([ minvaly, maxvaly]).range([max_outputy_square, min_outputy_square]);
+    var x_square = d3.scale.linear().domain([ minvalx, maxvalx]).range([max_outputx_square, min_outputx_square]),
+        y_square = d3.scale.linear().domain([ minvaly, maxvaly]).range([min_outputy_square, max_outputy_square]);
 
 
     for (var i=0; i < coordinate.length; i++) {
@@ -139,7 +141,6 @@ function draw_graph(coordinate, highlight, marker){
         .on("tick",redrawLabels);
 
 
-
     if(highlight && highlight_index!=null){
 
         //aggiunge i cerchi concentrici
@@ -162,74 +163,23 @@ function draw_graph(coordinate, highlight, marker){
         }
 
         vis.
-        selectAll(".anchor").
-        data(highlight_marker).
-        enter().
-        append("circle").
-        attr("r",function(d){
+            selectAll(".anchor").
+            data(highlight_marker).
+            enter().
+            append("circle").
+            attr("r",function(d){
                 return d.size;
             }).
-        attr("cx",function(d) { return x_square(d.x)}).
-        attr("cy",function(d) { return y_square(d.y)}).
-        attr("fill", function(d){
+            attr("cx",function(d) { return x_square(d.x)}).
+            attr("cy",function(d) { return y_square(d.y)}).
+            attr("fill", function(d){
 
-            return "rgba("+hexToRgb(d.color).r+","+hexToRgb(d.color).g+","+hexToRgb(d.color).b+","+circles_transparency+")";
-        })
-
-
-        //aggiunge le linee di connessione fra i punti
-        for(var k=0; k<val_array.length;k++){
-            connection_lines[k]={
-                x1:highlight_x,
-                y1:highlight_y,
-                x2:val_array[k].x,
-                y2:val_array[k].y
-            };
-        }
-
-
-        //disegna le linee di connessione fra il punto di highlight e gli altri punti
-        vis.selectAll().
-            data(connection_lines).
-            enter().
-            append("line").
-            attr("x1",function(d) { return x_square(d.x1);}).
-            attr("y1",function(d) { return y_square(d.y1);}).
-            attr("x2",function(d) { return x_square(d.x2);}).
-            attr("y2",function(d) { return y_square(d.y2);}).
-            attr("class","connection-line");
-
-
-        if(marker){
-            //TODO: determina il verso del marker a seconda della posizione
-            // rispetto ai bordi del grafico
-
-
-            //aggiunge il marker sul punto di interesse
-            //calcolando il punto secondo i delta x e y che spostano l'immagine
-            //per far coincidere il punteruolo con il punto highlight
-            var user_marker_x, user_marker_y;
-            user_marker_x = x_square(highlight_x)-user_marker_delta_x;
-            user_marker_y = y_square(highlight_x)-user_marker_delta_y;
-
-            vis.append("svg:image")
-                .attr("xlink:href", "/static/img/grafico/user_marker.png")
-                .attr("x",user_marker_x)
-                .attr("y",user_marker_y)
-                .attr("width", user_marker_w)
-                .attr("height", user_marker_h);
-
-            //aggiunge la label con il nome
-            vis.append("text")
-                .attr("class","nickname")
-                .attr("x",user_marker_x)
-                .attr("y",user_marker_y)
-                .text(utente.nickname);
-
-        }
+                return "rgba("+hexToRgb(d.color).r+","+hexToRgb(d.color).g+","+hexToRgb(d.color).b+","+circles_transparency+")";
+            })
     }
 
-    var anchors = vis
+
+        var anchors = vis
         .selectAll(".anchor")
         .data(val_array,function(d,i) { return i});
 
@@ -284,7 +234,64 @@ function draw_graph(coordinate, highlight, marker){
 
     labelBox = vis.selectAll(".labels").selectAll(".labelbox")
     links = vis.selectAll(".link")
-    labelBox.selectAll("text").text(function(d) { return d.label;;})
+    labelBox.selectAll("text").text(function(d) { return d.label;;});
+
+
+    if(highlight && highlight_index!=null){
+
+
+
+        //aggiunge le linee di connessione fra i punti
+        for(var k=0; k<val_array.length;k++){
+            connection_lines[k]={
+                x1:highlight_x,
+                y1:highlight_y,
+                x2:val_array[k].x,
+                y2:val_array[k].y
+            };
+        }
+
+
+        //disegna le linee di connessione fra il punto di highlight e gli altri punti
+        vis.selectAll().
+            data(connection_lines).
+            enter().
+            append("line").
+            attr("x1",function(d) { return x_square(d.x1);}).
+            attr("y1",function(d) { return y_square(d.y1);}).
+            attr("x2",function(d) { return x_square(d.x2);}).
+            attr("y2",function(d) { return y_square(d.y2);}).
+            attr("class","connection-line");
+
+
+        if(marker){
+            //TODO: determina il verso del marker a seconda della posizione
+            // rispetto ai bordi del grafico
+
+
+            //aggiunge il marker sul punto di interesse
+            //calcolando il punto secondo i delta x e y che spostano l'immagine
+            //per far coincidere il punteruolo con il punto highlight
+            var user_marker_x, user_marker_y;
+            user_marker_x = x_square(highlight_x)-user_marker_delta_x;
+            user_marker_y = y_square(highlight_x)-user_marker_delta_y;
+
+            vis.append("svg:image")
+                .attr("xlink:href", "/static/img/grafico/user_marker.png")
+                .attr("x",user_marker_x)
+                .attr("y",user_marker_y)
+                .attr("width", user_marker_w)
+                .attr("height", user_marker_h);
+
+            //aggiunge la label con il nome
+            vis.append("text")
+                .attr("class","nickname")
+                .attr("x",user_marker_x)
+                .attr("y",user_marker_y)
+                .text(utente.nickname);
+
+        }
+    }
 
 }
 
