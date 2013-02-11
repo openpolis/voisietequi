@@ -83,64 +83,70 @@
 
 {% block content %}{% endblock %}
 
-
 {% block footer %}
-    <div class="footer">
-        <div class="container">
-            <div class="row-fluid">
-                <div class="span4"><img class="img-small" src="{{ STATIC_URL }}img/voisietequi-logo-small.png" alt="Voi Siete Qui - Openpolis" />
-                    <p>È un test politico-elettorale che aiuta a capire quali partiti rappresentano di più le proprie posizioni politiche in base ai programmi elettorali e alle dichiarazioni pubbliche dei leader prima delle elezioni.</p>
-                    <p>È un progetto no-profit dell’<a href="http://www.openpolis.it/"><strong>Associazione Openpolis</strong></a>, ideato e realizzato con il contributo di <a href="http://www.depp.it/"><strong>DEPP</strong></a>.</p>
-                    <p><a href="http://www.openpolis.it/progetti/voi-siete-qui/">Storia del progetto Voi siete qui</a></p></div>
-                <div class="span4">
-                    <h4>FAQ</h4>
-                    <ul>
-                        <li><a href="/faq/#1">Che significato ha il grafico delle distanze?</a></li>
-                        <li><a href="/faq/#2">Come sono stati selezionati i temi?</a></li>
-                        <li><a href="/faq/#3">Come avete determinato le posizioni dei candidati?</a></li>
-                        <li><a href="/faq"><strong>Tutte le FAQ</strong></a></li>
-                    </ul>
-                    <h4>Restiamo in contatto</h4>
-                    <p><a href="/" id="contacts"><strong>Scrivici</strong></a> per segnalazioni, suggerimenti, lamentele ma anche incoraggiamenti.</p>
-                    <script language="javascript">(function(x,y,d,i){var el=d.getElementById(i); el.setAttribute('href', 'mai' + 'lto:' + x + '@' + y); el.value = x + '@' + y; })("associazione","openpolis.it",document, 'contacts');</script>
-                </div>
-                <div class="span4">
-                    <div class="box-footer">
-                        <h4><img src="{{ STATIC_URL }}img/footer/sostieni_openpolis.png" alt="Sostieni OpenPolis"></h4>
-                        <p>
-                            Colleghiamo i dati per fare trasparenza, <br>
-                            li distribuiamo per innescare partecipazione. <br>
-                            Costruiamo strumenti liberi e gratuti <br>
-                            per “aprire la politica”.
-                        </p>
-                        <hr>
-                        <a href="http://www.openpolis.it/sostienici/collabora/"><img src="{{ STATIC_URL }}img/footer/icona_associati.png" alt="Associati"></a>
-                        <a href="http://www.openpolis.it/sostienici/"><img src="{{ STATIC_URL }}img/footer/icona_sostieni.png" alt="Sostieni"></a>
-                        <a href="http://www.openpolis.it/sostienici/dona/"><img src="{{ STATIC_URL }}img/footer/icona_dona.png" alt="Dona"></a>
-                        <hr>
-                        <div class="media">
-                            <a class="pull-left" href="#">
-                                <img src="{{ STATIC_URL }}img/footer/icona_iban.png" alt="Coordinate">
-                            </a>
-                            <p class="media-body">
-                                IBAN  IT47 C050  1803 2000 0000 0131 034 <br>
-                                CODICE FISCALE  97532050586
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="sub-footer" class="row-fluid">
-                <ul>
-                    <li><a href="http://www.openpolis.it"><img src="{{ STATIC_URL }}img/footer/openpolis.png" alt="Associazione OpenPolis" title="Vai all'Associazione OpenPolis"></a></li>
-                    <li><a href="http://parlamento.openpolis.it"><img src="{{ STATIC_URL }}img/footer/openparlamento.png" alt="Open Parlamento" title="Open Parlamento"></a></li>
-                    <li><a href="http://politici.openpolis.it"><img src="{{ STATIC_URL }}img/footer/openpolitici.png" alt="Open politici" title="Open politici"></a></li>
-                    <li><a href="http://indice.openpolis.it/"><img src="{{ STATIC_URL }}img/footer/indiceproduttivita.png" alt="L'Indice di Produttività Parlamentare" title="L'Indice di Produttività Parlamentare"></a></li>
-                    <li><a href="http://www.openmunicipio.it/"><img src="{{ STATIC_URL }}img/footer/openmunicipio.png" alt="Open municipio" title="Open municipio" /></a></li>
-                </ul>
-            </div>
+
+<div class="footer">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span4"><img class="img-small" src="{{ STATIC_URL }}img/voisietequi-logo-small.png" alt="Voi Siete Qui - Openpolis" />
+        <p>È un test politico-elettorale che aiuta a capire quali partiti rappresentano di più le proprie posizioni politiche in base ai programmi elettorali e alle dichiarazioni pubbliche dei leader prima delle elezioni.</p>
+        <p>È un progetto no-profit dell’<a href="http://www.openpolis.it/"><strong>Associazione Openpolis</strong></a>, ideato e realizzato con il contributo di <a href="http://www.depp.it/"><strong>DEPP</strong></a>.</p>
+        <p><a href="http://www.openpolis.it/progetti/voi-siete-qui/">Storia del progetto Voi siete qui</a></p>
+        <a href="https://twitter.com/intent/tweet?button_hashtag=voisietequi" class="twitter-hashtag-button" data-lang="it" data-related="openpolis" data-url="{{ SITE_URL }}">Tweet #voisietequi</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+          <!-- AddThis Button BEGIN -->
+          <div class="addthis_toolbox addthis_default_style addthis_32x32_style" addthis:url="{{ CURRENT_URL }}">
+              <a class="addthis_button_facebook"></a>
+              <a class="addthis_button_twitter"></a>
+              <a class="addthis_button_google_plusone_share"></a>
+              <a class="addthis_button_email"></a>
+              <a class="addthis_button_compact"></a>
+              <a class="addthis_counter addthis_bubble_style"></a>
+          </div>
+          <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+
+      </div>
+      <div class="span4">
+        <h4>FAQ</h4>
+        <ul>
+          {% for faq in LATEST_FAQ %}
+          <li><a href="{% url faq-list %}#{{ faq.ordine }}">{{ faq.domanda }}</a></li>
+          {% endfor %}
+          <li><a href="{% url faq-list %}"><strong>Tutte le FAQ</strong></a></li>
+        </ul>
+        <h4>Restiamo in contatto</h4>
+        <p><a href="/" id="contacts"><strong>Scrivici</strong></a> per segnalazioni, suggerimenti, lamentele ma anche incoraggiamenti.</p>
+        <script language="javascript">(function(x,y,d,i){var el=d.getElementById(i); el.setAttribute('href', 'mai' + 'lto:' + x + '@' + y); el.value = x + '@' + y; })("associazione","openpolis.it",document, 'contacts');</script>
+      </div>
+      <div class="span4">
+        <div class="box-footer">
+          <h4><img src="{{ STATIC_URL }}img/footer/sostieni_openpolis.png" alt="Sostieni OpenPolis"></h4>
+          <p>
+            Colleghiamo i dati per fare trasparenza, <br>
+            li distribuiamo per innescare partecipazione. <br>
+            Costruiamo strumenti liberi e gratuti <br>
+            per “aprire la politica”.
+          </p>
+          <hr>
+          <a href="http://www.openpolis.it/sostienici/"><img src="{{ STATIC_URL }}img/footer/icona_associati.png" alt="Associati"></a>
+          <a href="http://www.openpolis.it/sostienici/dona/"><img src="{{ STATIC_URL }}img/footer/icona_sostieni.png" alt="Sostieni"></a>
+          <img src="{{ STATIC_URL }}img/footer/icona_dona.png" alt="Dona">
+          <hr>
+          <div class="media">
+            <a class="pull-left" href="#">
+              <img src="{{ STATIC_URL }}img/footer/icona_iban.png" alt="Coordinate">
+            </a>
+            <p class="media-body">
+              IBAN  IT47 C050  1803 2000 0000 0131 034 <br>
+              CODICE FISCALE  97532050586
+            </p>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+</div>
 {% endblock %}
 
 <!-- Le javascript
@@ -148,6 +154,8 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{{ STATIC_URL }}js/jquery.js"></script>
 <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5117c0d354e9aed6"></script>
 
 <!-- Google tracker -->
 <script type="text/javascript">

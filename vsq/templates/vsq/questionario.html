@@ -125,7 +125,7 @@
                   <input name="wants_newsletter" id="id_wants_newsletter" type="checkbox"> Voglio essere informato sulle prossime iniziative di Openpolis
               </label>
               <button class="btn btn-large btn-danger" type="submit">Vai ai risultati</button>
-                <span class="text-error hide">Errore durante il salvataggio delle risposte. Riprovare.</span>
+                <span class="text-error hide">C'è un problema nel salvare i tuoi dati, prova ad inserirli di nuovo.</span>
             </form>
           </div>
         </div>
@@ -145,6 +145,7 @@
   <script type="text/javascript" src="{{ STATIC_URL }}js/questionario.js"></script>
   <script type="text/javascript">
     var Q;
+    var SITE_URL = '{{ SITE_URL }}';
     $(document).ready(function(){
       Q = new Questionario('{{ COMPUTER_URL }}/computation/','{{ ELECTION_CODE }}', function(results, data_json) {
           log('results received', results, data_json);
@@ -158,6 +159,16 @@
           posiziona_distanze_generiche(results.results, partiti);
           posiziona_label_risposte_utente(data_json.user_answers, risposte, label_risposte);
           posiziona_loghi(risposte_partiti, data_json.user_answers, dist, partiti, risposte);
+
+          var permalink = SITE_URL + 'risultati/' + data_json.user_data['code'] +'/';
+          $('#permalink').value( permalink );
+          addthis.update('#share-page', {}, { url: permalink });
+          var embed_code_textarea = $('#embed_code');
+          embed_code_textarea.val(
+                  embed_code_textarea.val().replace(/src="([^"])+"/gi,'src="'+permalink+'"')
+          );
+
+          caricamento_social_share();
       });
     });
   </script>
