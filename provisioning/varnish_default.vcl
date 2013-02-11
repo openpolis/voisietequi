@@ -28,6 +28,16 @@ backend default {
 # check access control list
 sub vcl_recv {
 
+    if (req.restarts == 0) {
+        if (req.http.x-forwarded-for) {
+            set req.http.X-Forwarded-For =
+                req.http.X-Forwarded-For + ", " + client.ip;
+        } else {
+            set req.http.X-Forwarded-For = client.ip;
+        }
+    }
+
+
 #  if (!(client.ip ~ testers)) {
 #    error 403 "Accesso temporaneamente bloccato - server in manutenzione";
 #  }
@@ -93,10 +103,8 @@ set req.backend = default;
 
 # adding diagnostics on why there was a hit/miss
 sub vcl_fetch {
-    remove req.http.X-Forwarded-For;
-    set    req.http.X-Forwarded-For = req.http.rlnclientipaddr;
-        if (req.url ~ "^/w00tw00t") {
-                error 403 "Not permitted";
+    if (req.url ~ "^/w00tw00t") {
+        error 403 "Not permitted";
     }
 
     # Varnish determined the object was not cacheable

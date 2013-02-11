@@ -36,6 +36,12 @@
         </div>
       </div>
     </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <a href="#disqus_thread">Link</a>
+        </div>
+    </div>
   </div>
 </div>
 
@@ -56,25 +62,6 @@
   {% endif %}
 {% endfor %}
 
-{#<div class="contenuto">#}
-{#  <div class="container">#}
-{#    <div class="temalista grigio-tab">#}
-{#      <div class="row-fluid">#}
-{#        <div class="span1">#}
-{#          <p>{% immagine_partito risposta.partito size='small' %}</p>#}
-{#        </div>#}
-{#        <div class="span3">#}
-{#          <div><span class="label label-{% label_risposta risposta.risposta_int %}">{{ risposta.get_risposta_int_display }}</span></div>#}
-{#        </div>#}
-{#        <div class="span8 commento-centro">#}
-{#          <div>#}
-{#            {{ risposta.risposta_txt|safe }}#}
-{#          </div>#}
-{#        </div>#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
-{#</div>#}
 
 
 <div class="contenuto">
@@ -96,14 +83,11 @@
         </ul>
       </div>
     </div>
-    {% if DISQUS_FORUM %}
-    <div class="span12">
+
+    <div class="span11">
       <div id="disqus_thread"></div>
       <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = '{{ DISQUS_FORUM|default:'voisietequi' }}'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
+        var disqus_shortname = 'voisietequi2013';
         (function() {
           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
           dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
@@ -112,13 +96,28 @@
       </script>
       <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
       <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
     </div>
-    {% endif %}
+
   </div>
 </div>
 
 
 
 
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'voisietequi2013'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/disqus_it.js"></script>
 {% endblock %}
