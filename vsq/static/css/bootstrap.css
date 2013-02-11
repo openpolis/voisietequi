@@ -6356,6 +6356,10 @@ a.badge:hover {
   padding-bottom: 50%;
 }
 
+#grafico img {
+    min-height: 354px;
+    min-width: 557px;
+}
 .grafico {
   padding-bottom: 10px;
   text-align: center;
@@ -6831,7 +6835,7 @@ a.badge:hover {
 .img-circle-small { height: 46px; width:46px; }
 
 .barra-coalizione {
-    width:10%;
+    width:12.5%;
     height: 84px;
     padding: 18px 0;
     margin: 0;

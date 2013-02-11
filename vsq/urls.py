@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     url(r'^temi/(?P<slug>[-\w]+)/$', TopicDetailView.as_view(), name='topic-detail'),
     url(r'^temi/$', TopicListView.as_view(), name='topic-list'),
     url(r'^rispondi/$', QuestionarioUtenteView.as_view(), name='questionario-utente'),
-    url(r'^risultato/(?P<user_key>[\w]+)$', RisultatoUtenteView.as_view(), name='risultato-utente'),
+    url(r'^risultato/(?P<user_key>[\w]+)/$', RisultatoUtenteView.as_view(), name='risultato-utente'),
     url(r'^faq/$', FaqListView.as_view(), name='faq-list'),
     url(r'^test500/$', Test500View.as_view(), name='faq-list'),
 )

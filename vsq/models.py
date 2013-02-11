@@ -72,10 +72,10 @@ class Domanda(models.Model):
     def risposte(self): return self.rispostapartito_set.all()
 
     @property
-    def risposte_commentate(self): return self.rispostapartito_set.filter(risposta_txt__isnull=False)
+    def risposte_commentate(self): return self.rispostapartito_set.exclude(risposta_txt='')
 
     @property
-    def risposte_non_commentate(self): return self.rispostapartito_set.filter(risposta_txt__isnull=True)
+    def risposte_non_commentate(self): return self.rispostapartito_set.filter(risposta_txt='')
 
     def get_partiti_by_risposta(self, answer):
         # select_related to increase performances
@@ -121,7 +121,7 @@ class Utente(models.Model):
         verbose_name_plural = "Utenti"
 
     def __unicode__(self):
-        return self.email
+        return self.nickname
 
 
 class Coalizione(models.Model):
@@ -129,6 +129,7 @@ class Coalizione(models.Model):
     nome = models.CharField(max_length=50)
     slug = models.SlugField()
     colore = fields.RGBColorField()
+    ordine = models.IntegerField(blank=False, null=False, default=0)
 
     def __unicode__(self):
         return self.nome

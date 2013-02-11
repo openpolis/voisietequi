@@ -1,0 +1,12 @@
+{% extends 'vsq/risultato_utente.html' %}
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block distances %}{% endblock %}
+
+{% block generate_dynamic_content %}
+    $(document).ready(function() {
+        $('body').css('padding-top', '0');
+        draw_graph(coordinate,"user", true);
+    });
+{% endblock %}
