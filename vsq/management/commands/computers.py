@@ -214,7 +214,7 @@ class Command(BaseCommand):
             data = json.loads(data)
 
             for party, x, y in data:
-                p = Partito.objects.get(party_key=party)
+                p = Partito.objects.get(sigla=party)
                 p.coord_x = x
                 p.coord_y = y
                 p.save()
