@@ -138,9 +138,9 @@ class Command(BaseCommand):
         from vsq.models import Partito
         config = {}
         for partito in Partito.objects.all():
-            config[partito.party_key] = {}
+            config[partito.sigla] = {}
             for risposta in partito.rispostapartito_set.all().select_related('domanda'):
-                config[partito.party_key][risposta.domanda.pk] = risposta.risposta_int
+                config[partito.sigla][risposta.domanda.pk] = risposta.risposta_int
         return config
 
     def test_handle(self, computer_url, **options):
