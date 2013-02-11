@@ -187,7 +187,7 @@ def mockup_response(request):
 
     return HttpResponse(content,
         content_type='application/json',
-        )
+    )
 
 class HomepageView(TemplateView):
     template_name = 'homepage.html'
@@ -195,6 +195,12 @@ class HomepageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomepageView,self).get_context_data(**kwargs)
         context['conteggio_utenti'] = Utente.objects.count()
+
+        context['partiti_up'] = Partito.objects.\
+            filter(coalizione__in=(3, 6, 7, 4)).order_by('coalizione').select_related('coalizione')
+        context['partiti_dn'] = Partito.objects. \
+            filter(coalizione__in=(8, 2, 5, 1)).order_by('-coalizione').select_related('coalizione')
+
         context['partiti'] = liste = Partito.objects.all().order_by('coalizione').select_related('coalizione')
         coordinate = []
         for l in liste:

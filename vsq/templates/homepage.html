@@ -91,10 +91,20 @@
 
   <div class="row-fluid">
     <div class="span12">
-        {% for partito in partiti %}
+        {% for partito in partiti_up %}
         <div class="pull-left barra-coalizione barra-coalizione-{{ partito.coalizione.slug }}">
           {% immagine_partito partito size='big' %}
         </div>
+        {% endfor %}
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12">
+        {% for partito in partiti_dn %}
+            <div class="pull-left barra-coalizione barra-coalizione-{{ partito.coalizione.slug }}">
+                {% immagine_partito partito size='big' %}
+            </div>
         {% endfor %}
     </div>
   </div>
