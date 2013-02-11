@@ -12,21 +12,28 @@ var links;
 
 //range di ingresso
 var maxvalx, maxvaly,minvalx, minvaly;
+
 maxvalx= maxvaly=1;
 minvalx= minvaly=0;
 
 var label_charge = -100;
 //lunghezza massima in px dei link fra punti e label
 var link_len =25;
-//dimensioni del grafico sulla pagina html
-var graph_width = 512,
-    graph_height = 300;
+//dimensioni del contenitore del grafico sulla pagina html
+var graph_container_width = 512,
+    graph_container_height = 300;
+
+//dimensione del quadrato in cui verranno posizionati i punti
+var graph_size=300;
+var graph_offset_x;
+var fattore_scala_offset = 0.6;
 
 // posizionamento del grafico nella cornice
 var top_pos = "26px",
     left_pos = "129px";
 
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
+var max_outputx_square,min_outputx_square, max_outputy_square,min_outputy_square;
 
 //dimensioni del marker utente
 var user_marker_w, user_marker_h;
@@ -71,15 +78,26 @@ function draw_graph(coordinate, highlight, marker){
     max_label_len=longest_label*label_font_size;
 
     //calcola xy massime per la viewport
-    max_outputx = graph_width-(outer_dotsize+link_len+(max_label_len/2));
-    min_outputx = (outer_dotsize+link_len+(max_label_len/2));
-    max_outputy = graph_height-(outer_dotsize+link_len+label_font_size);
-    min_outputy = (outer_dotsize+link_len+label_font_size);
+    max_outputx_rect = graph_container_width-(outer_dotsize+link_len+(max_label_len/2));
+    min_outputx_rect = (outer_dotsize+link_len+(max_label_len/2));
+    max_outputy_rect = graph_container_height-(outer_dotsize+link_len+label_font_size);
+    min_outputy_rect = (outer_dotsize+link_len+label_font_size);
+
+    //funzione di scala fra input e output per la viewport
+    var x_rect = d3.scale.linear().domain([ minvalx, maxvalx]).range([min_outputx_rect, max_outputx_rect]),
+        y_rect = d3.scale.linear().domain([ minvaly, maxvaly]).range([max_outputy_rect, min_outputy_rect]);
 
 
-    //funzione di scala fra input e output
-    var x = d3.scale.linear().domain([ minvalx, maxvalx]).range([min_outputx, max_outputx]),
-        y = d3.scale.linear().domain([ minvaly, maxvaly]).range([max_outputy, min_outputy]);
+    //calcola xy max e min per i cerchi di sfondo
+    max_outputx_square = graph_size-(outer_dotsize+link_len+(max_label_len/2));
+    min_outputx_square = (outer_dotsize+link_len+(max_label_len/2));
+    max_outputy_square = graph_size-(outer_dotsize+link_len+label_font_size);
+    min_outputy_square = (outer_dotsize+link_len+label_font_size);
+    graph_offset_x =fattore_scala_offset* (graph_container_width-graph_size)/2;
+
+    //funzione di scala fra input e output per i cerchi di sfondo
+    var x_square = d3.scale.linear().domain([ minvalx, maxvalx]).range([min_outputx_square, max_outputx_square]),
+        y_square = d3.scale.linear().domain([ minvaly, maxvaly]).range([max_outputy_square, min_outputy_square]);
 
 
     for (var i=0; i < coordinate.length; i++) {
@@ -117,8 +135,8 @@ function draw_graph(coordinate, highlight, marker){
     vis = d3.select("#"+graph_div+"")
         .data([val_array])
         .append("svg:svg")
-        .attr("width", graph_width )
-        .attr("height", graph_height )
+        .attr("width", graph_container_width )
+        .attr("height", graph_container_height )
         .attr("style", "position: absolute; top: " + top_pos + "; left: " + left_pos + ";");
 
 
@@ -170,8 +188,8 @@ function draw_graph(coordinate, highlight, marker){
         attr("r",function(d){
                 return d.size;
             }).
-        attr("cx",function(d) { return x(d.x)}).
-        attr("cy",function(d) { return y(d.y)}).
+        attr("cx",function(d) { return x_rect(d.x)-graph_offset_x}).
+        attr("cy",function(d) { return y_rect(d.y)}).
         attr("fill", function(d){
 
             return "rgba("+hexToRgb(d.color).r+","+hexToRgb(d.color).g+","+hexToRgb(d.color).b+","+circles_transparency+")";
@@ -182,10 +200,10 @@ function draw_graph(coordinate, highlight, marker){
             data(connection_lines).
             enter().
             append("line").
-            attr("x1",function(d) { return x(d.x1);}).
-            attr("y1",function(d) { return y(d.y1);}).
-            attr("x2",function(d) { return x(d.x2);}).
-            attr("y2",function(d) { return y(d.y2);}).
+            attr("x1",function(d) { return x_square(d.x1);}).
+            attr("y1",function(d) { return y_square(d.y1);}).
+            attr("x2",function(d) { return x_square(d.x2);}).
+            attr("y2",function(d) { return y_square(d.y2);}).
             attr("class","connection-line");
 
 
@@ -198,8 +216,8 @@ function draw_graph(coordinate, highlight, marker){
             //calcolando il punto secondo i delta x e y che spostano l'immagine
             //per far coincidere il punteruolo con il punto highlight
             var user_marker_x, user_marker_y;
-            user_marker_x = x(highlight_x)-user_marker_delta_x;
-            user_marker_y = y(highlight_x)-user_marker_delta_y;
+            user_marker_x = x_square(highlight_x)-user_marker_delta_x;
+            user_marker_y = y_square(highlight_x)-user_marker_delta_y;
 
             vis.append("svg:image")
                 .attr("xlink:href", "/static/img/grafico/user_marker.png")
@@ -226,8 +244,8 @@ function draw_graph(coordinate, highlight, marker){
     anchors.enter().
         append("circle").
         attr("r",outer_dotsize).
-        attr("cx",function(d) { return x(d.x);}).
-        attr("cy",function(d) { return y(d.y);}).
+        attr("cx",function(d) { return x_square(d.x);}).
+        attr("cy",function(d) { return y_square(d.y);}).
         attr("fill", function(d){
             var new_color=ColorLuminance(d.color,0.6);
             return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+0.5+")";
@@ -236,8 +254,8 @@ function draw_graph(coordinate, highlight, marker){
     anchors.enter().
         append("circle").
         attr("r",middle_dotsize).
-        attr("cx",function(d) { return x(d.x);}).
-        attr("cy",function(d) { return y(d.y);}).
+        attr("cx",function(d) { return x_square(d.x);}).
+        attr("cy",function(d) { return y_square(d.y);}).
         attr("fill", function(d){
             var new_color=ColorLuminance(d.color,-0.6);
             return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+0.7+")";
@@ -247,16 +265,16 @@ function draw_graph(coordinate, highlight, marker){
     anchors.enter().
         append("circle").
         attr("r",inner_dotsize).
-        attr("cx",function(d) { return x(d.x);}).
-        attr("cy",function(d) { return y(d.y);}).
+        attr("cx",function(d) { return x_square(d.x);}).
+        attr("cy",function(d) { return y_square(d.y);}).
         attr("fill", function(d){return d.color;})
 
 
     anchors.transition()
         .delay(function(d,i) { return i*10;})
         .duration(10)
-        .attr("cx",function(d) { return x(d.x);})
-        .attr("cy",function(d) { return y(d.y);})
+        .attr("cx",function(d) { return x_square(d.x);})
+        .attr("cy",function(d) { return y_square(d.y);})
 
     // Now for the labels
     anchors.call(labelForce.update)  //  This is the only function call needed, the rest is just drawing the labels
