@@ -45,16 +45,16 @@
   </div>
 </div>
 
-{% for risposta in object.risposte_commentate %}
+{% for risposta in object.risposte %}
   {% if forloop.first %}
   <div class="contenuto"><div class="container"><div class="row-fluid"><div class="span12">
-  <table class="table table-bordered table-rows">
+  <table class="table table-bordered table-rows" >
   {% endif %}
 
   <tr>
     <td style="width: 60px;">{% immagine_partito risposta.partito size='small' %}</td>
-    <td style="padding-top:20px;"><span class="label label-{% label_risposta risposta.risposta_int %}">{{ risposta.get_risposta_int_display }}</span></td>
-    <td style="padding-top:20px;">{{ risposta.risposta_txt|safe }}</td>
+    <td style="vertical-align: middle;"><span class="label label-{% label_risposta risposta.risposta_int %}">{{ risposta.get_risposta_int_display }}</span></td>
+    <td style="vertical-align: middle;">{{ risposta.risposta_txt|default_if_none:'<span class="muted">Non sono presenti commenti su questo tema.</span>'|safe }}</td>
   </tr>
 
   {% if forloop.last %}
@@ -67,43 +67,27 @@
 <div class="contenuto">
   <div class="container">
     <div class="row-fluid">
-      <div class="span12">
-        <ul class="thumbnails">
-          {% for risposta in object.risposte_non_commentate %}
 
-            {#    <div class="span3">#}
-            {#      <div class="temalista grigio-tab">#}
-            <li class="thumbnail grigio-tab" style="width: 200px;text-align: center; margin: 10px;">
-              {% immagine_partito risposta.partito size='small' %}
-              <p><label class="label label-{% label_risposta risposta.risposta_int %}">{{ risposta.get_risposta_int_display }}</label></p>
-            </li>
-            {#    </div>#}
-
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-
-    <div class="span11">
-      <div id="disqus_thread"></div>
-      <script type="text/javascript">
-        var disqus_shortname = 'voisietequi2013';
-        (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          function disqus_config() {
-            this.callbacks.afterRender = [function() {
+        <div class="span11">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+            var disqus_shortname = 'voisietequi2013';
+            (function() {
               var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-              dsq.src = '{{ STATIC_URL }}js/disqus_it.js';
+              dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
               (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            }];
-          }
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    </div>
+              function disqus_config() {
+                this.callbacks.afterRender = [function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = '{{ STATIC_URL }}js/disqus_it.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                }];
+              }
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
 
   </div>
 </div>

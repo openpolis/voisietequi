@@ -13,7 +13,7 @@
               'email': '{{ utente.email }}',
               'user_key': '{{ utente.user_key }}'
           };
-          var coordinate = {{ coord_utente|safe }};
+          var coordinate = {{ coord_utente|default_if_none:'{}'|safe }};
           var risposte_utente = {
           {% for ru in risposte_utente %}{{ ru.domanda.pk }}: {{ ru.risposta_int }}{% if not forloop.last %},{%  endif %}{% endfor %}
           };
@@ -45,12 +45,33 @@
 
 {% block scripts %}
     <script type="text/javascript">
+        caricamento_social_share = function() {
+            var copy_button = $("#copy-button");
+            var clip = new ZeroClipboard( copy_button, {
+                moviePath: "{{ STATIC_URL }}js/ZeroClipboard.swf"
+            } );
+            clip.on( 'complete', function(client, args) {
+                alert("Copied text to clipboard: " + args.text );
+            } );
+            clip.on( 'mouseover', function(client) {
+                copy_button.addClass('btn-info');
+            } );
+
+            clip.on( 'mouseout', function(client) {
+                copy_button.removeClass('btn-info');
+            } );
+
+            $(".code-autoselect").on("mouseup", function () {
+                $(this).select();
+            })
+        }
         {% block generate_dynamic_content %}
             $(document).ready(function() {
                 draw_graph(coordinate,"user", true);
                 posiziona_distanze_generiche(coordinate, partiti);
                 posiziona_label_risposte_utente(risposte_utente, risposte, label_risposte);
                 posiziona_loghi(risposte_partiti, risposte_utente, dist, partiti, risposte);
+                caricamento_social_share();
             });
         {% endblock %}
     </script>
@@ -66,9 +87,11 @@
     <script src="{{ STATIC_URL }}js/graph.utils.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/force_labels.js"></script>
 
+    <script type="text/javascript" src="{{ STATIC_URL }}js/ZeroClipboard.min.js"></script>
     {#stili per label e marker del grafico#}
     <style>
 
+        #permalink { cursor: auto; }
 
         .labelbox {
             color:green;
@@ -121,38 +144,48 @@
     <div class="sfondo-grigio">
         <div class="container">
             <div class="row-fluid">
-                <div class="span8 offset2">
+                <div class="span8">
                     <div class="grafico" id="grafico" style="position: relative">
                        <img src="{{ STATIC_URL }}img/grafico/bg_user.jpg" alt="Voi Siete Qui - Openpolis" />
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="box-bianco">
+                        <form>
+                            <br>
+                            <h4>Condividi con i tuoi amici</h4>
+
+                            <!-- AddThis Button BEGIN -->
+                            <div id="share-page" class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                                <a class="addthis_button_facebook"></a>
+                                <a class="addthis_button_twitter"></a>
+                                <a class="addthis_button_google_plusone_share"></a>
+                                <a class="addthis_button_email"></a>
+                                <a class="addthis_button_compact"></a>
+                                <a class="addthis_counter addthis_bubble_style"></a>
+                            </div>
+                            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5117c0d354e9aed6"></script>
+
+                            <hr>
+                            <div class="controls">
+                                <h5>Copia il link e condividi.</h5>
+                                <div class="input-append">
+                                    <input id="permalink" class="code-autoselect" type="text" value="{{ CURRENT_URL }}" readonly="readonly">
+                                    <a id="copy-button" class="btn" data-clipboard-target="permalink"><i class="icon-magnet"></i></a>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div id="pubblica">
+                                <h5>Codice da incorporare sul tuo sito.</h5>
+                                <textarea name="embed_code" id="embed_code" class="span12 code-autoselect" style="height: 80px; font-size: 0.9em; line-height: 12px;"><iframe width="512" height="292" src="{{ CURRENT_URL }}?embed=1" frameborder="0"></iframe><br /><small><a href="{{ SITE_URL }}" style="color:#0000FF;text-align:left">Voi siete qui: per le politiche 2013</a></small></textarea>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="box-condividi">
-        <div class="container">
-            <!-- AddThis Button BEGIN -->
-            <div class="addthis_toolbox addthis_default_style ">
-                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-                <a class="addthis_button_tweet"></a>
-                <a class="addthis_counter addthis_pill_style"></a>
-            </div>
-            <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5117c0d354e9aed6"></script>
-
-            <button type="button" class="btn dropdown-toggle" data-toggle="collapse" data-target="#pubblica">
-                Pubblica sul tuo sito
-                <span class="caret"></span>
-            </button>
-            <div id="pubblica" class="collapse">
-                <div class="pubblica">
-                    <p>Il federalismo fiscale municipale prevede la possibilità di istituire un'imposta di soggiorno a carico dei turisti. L'imposta potrà essere applicata con gradualità, fino a un massimo di 5 euro per notte di soggiorno, in proporzione al costo dell'albergo. Il gettito è destinato a finanziare interventi in materia di turismo, manutenzione, fruizione e recupero dei beni culturali e ambientali locali e dei relativi servizi pubblici locali. Alcune città che hanno adottato la tassa di soggiorno sono: Roma, Capri e Anacapri, Bolzano, Firenze.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     {% block distances %}
         <!-- tabella distanze complessive utente-partito -->
@@ -179,27 +212,13 @@
                             <td class="nero-tab">+ lontano</td>
                         </tr>
                         <tr>
-                            <td class="grigio-tab">
-
-                            </td>
-                            <td class="verde01-tab">
-
-                            </td>
-                            <td class="verde02-tab">
-
-                            </td>
-                            <td class="verde03-tab">
-
-                            </td>
-                            <td class="verde04-tab">
-
-                            </td>
-                            <td class="verde05-tab">
-
-                            </td>
-                            <td class="verde06-tab">
-
-                            </td>
+                            <td class="grigio-tab"></td>
+                            <td class="verde01-tab"></td>
+                            <td class="verde02-tab"></td>
+                            <td class="verde03-tab"></td>
+                            <td class="verde04-tab"></td>
+                            <td class="verde05-tab"></td>
+                            <td class="verde06-tab"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -245,20 +264,13 @@
                                             <td class="nero-tab">+ lontano</td>
                                         </tr>
                                         <tr class="symbols">
-                                            <td class="grigio-tab">
-                                            </td>
-                                            <td class="verde01-tab">
-                                            </td>
-                                            <td class="verde02-tab">
-                                            </td>
-                                            <td class="verde03-tab">
-                                            </td>
-                                            <td class="verde04-tab">
-                                            </td>
-                                            <td class="verde05-tab">
-                                            </td>
-                                            <td class="verde06-tab">
-                                            </td>
+                                            <td class="grigio-tab"></td>
+                                            <td class="verde01-tab"></td>
+                                            <td class="verde02-tab"></td>
+                                            <td class="verde03-tab"></td>
+                                            <td class="verde04-tab"></td>
+                                            <td class="verde05-tab"></td>
+                                            <td class="verde06-tab"></td>
                                         </tr>
                                         </tbody>
                                     </table>
