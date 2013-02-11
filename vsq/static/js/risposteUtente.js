@@ -21,15 +21,15 @@ var label_charge = -100;
 var link_len =25;
 //dimensioni del contenitore del grafico sulla pagina html
 var graph_container_width = 512,
-    graph_container_height = 300;
+    graph_container_height = 292;
 
 //dimensione del quadrato in cui verranno posizionati i punti
-var graph_size=300;
+var graph_size=292;
 var graph_offset_x;
 var fattore_scala_offset = 0.6;
 
 // posizionamento del grafico nella cornice
-var top_pos = "26px",
+var top_pos = "28px",
     left_pos = "129px";
 
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
@@ -76,16 +76,6 @@ function draw_graph(coordinate, highlight, marker){
 
     //calcola la lunghezza massima della label in px
     max_label_len=longest_label*label_font_size;
-
-    //calcola xy massime per la viewport
-    max_outputx_rect = graph_container_width-(outer_dotsize+link_len+(max_label_len/2));
-    min_outputx_rect = (outer_dotsize+link_len+(max_label_len/2));
-    max_outputy_rect = graph_container_height-(outer_dotsize+link_len+label_font_size);
-    min_outputy_rect = (outer_dotsize+link_len+label_font_size);
-
-    //funzione di scala fra input e output per la viewport
-    var x_rect = d3.scale.linear().domain([ minvalx, maxvalx]).range([min_outputx_rect, max_outputx_rect]),
-        y_rect = d3.scale.linear().domain([ minvaly, maxvaly]).range([max_outputy_rect, min_outputy_rect]);
 
 
     //calcola xy max e min per i cerchi di sfondo
@@ -150,10 +140,10 @@ function draw_graph(coordinate, highlight, marker){
 
 
 
-    if(highlight && highlight_index){
+    if(highlight && highlight_index!=null){
 
         //aggiunge i cerchi concentrici
-        //e le linee di connessione fra i punti
+
         var highlight_marker=[];
         connection_lines=[];
         var highlight_x = parseFloat(coordinate[highlight_index][1]),
@@ -171,6 +161,23 @@ function draw_graph(coordinate, highlight, marker){
             };
         }
 
+        vis.
+        selectAll(".anchor").
+        data(highlight_marker).
+        enter().
+        append("circle").
+        attr("r",function(d){
+                return d.size;
+            }).
+        attr("cx",function(d) { return x_square(d.x)}).
+        attr("cy",function(d) { return y_square(d.y)}).
+        attr("fill", function(d){
+
+            return "rgba("+hexToRgb(d.color).r+","+hexToRgb(d.color).g+","+hexToRgb(d.color).b+","+circles_transparency+")";
+        })
+
+
+        //aggiunge le linee di connessione fra i punti
         for(var k=0; k<val_array.length;k++){
             connection_lines[k]={
                 x1:highlight_x,
@@ -180,20 +187,6 @@ function draw_graph(coordinate, highlight, marker){
             };
         }
 
-        vis.
-        selectAll(".anchor").
-        data(highlight_marker).
-        enter().
-        append("circle").
-        attr("r",function(d){
-                return d.size;
-            }).
-        attr("cx",function(d) { return x_rect(d.x)-graph_offset_x}).
-        attr("cy",function(d) { return y_rect(d.y)}).
-        attr("fill", function(d){
-
-            return "rgba("+hexToRgb(d.color).r+","+hexToRgb(d.color).g+","+hexToRgb(d.color).b+","+circles_transparency+")";
-        })
 
         //disegna le linee di connessione fra il punto di highlight e gli altri punti
         vis.selectAll().
