@@ -121,21 +121,9 @@
     <div class="sfondo-grigio">
         <div class="container">
             <div class="row-fluid">
-                <div class="span8">
+                <div class="span8 offset2">
                     <div class="grafico" id="grafico" style="position: relative">
                        <img src="{{ STATIC_URL }}img/grafico/bg_user.jpg" alt="Voi Siete Qui - Openpolis" />
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="box-bianco">
-                        <form>
-                            <br>
-                            <h4>Condividi con i tuoi amici</h4>
-                            <input type="text" class="input-block-level" placeholder="Il tuo nome o nickname">
-                            <textarea class="span12" rows="5" placeholder="Le email dei tuoi amici"></textarea>
-                            <p>Le email dei tuoi amici, una per riga (massimo 5 email)</p>
-                            <button class="btn btn-large btn-danger" type="submit">Invia</button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -144,8 +132,15 @@
 
     <div class="box-condividi">
         <div class="container">
-            <button type="button" class="btn btn-primary">Condividi su Facebook</button>
-            <button type="button" class="btn btn-info">Condividi su Twitter</button>
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style ">
+                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                <a class="addthis_button_tweet"></a>
+                <a class="addthis_counter addthis_pill_style"></a>
+            </div>
+            <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5117c0d354e9aed6"></script>
+
             <button type="button" class="btn dropdown-toggle" data-toggle="collapse" data-target="#pubblica">
                 Pubblica sul tuo sito
                 <span class="caret"></span>
