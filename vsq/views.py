@@ -271,6 +271,13 @@ class RisultatoUtenteView(TemplateView):
 
     template_name = 'vsq/risultato_utente.html'
 
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        is_embedded = request.GET.get('embed', False)
+        if is_embedded:
+            self.template_name = 'vsq/risultato_embedded.html'
+        return self.render_to_response(context)
+
     def get_context_data(self, **kwargs):
         context = super(RisultatoUtenteView,self).get_context_data(**kwargs)
 

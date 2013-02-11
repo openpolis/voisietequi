@@ -47,40 +47,43 @@
 </head>
 
 <body>
-<div class="navbar navbar-fixed-top">
-  <div class="testata">
-    <div class="container">
-      <img class="pull-left logo" src="{{ STATIC_URL }}img/voisietequi-logo.png" alt="Voi Siete Qui - Openpolis" />
-      <h1 class="pull-left"> Elezioni politiche 2013</h1>
-      <a href="http://www.openpolis.it/"><img class="strumento pull-right" src="{{ STATIC_URL }}img/strumento_openpolis.png" alt="OpenPolis" /></a>
+{% block header %}
+    <div class="navbar navbar-fixed-top">
+        <div class="testata">
+            <div class="container">
+                <img class="pull-left logo" src="{{ STATIC_URL }}img/voisietequi-logo.png" alt="Voi Siete Qui - Openpolis" />
+                <h1 class="pull-left"> Elezioni politiche 2013</h1>
+                <a href="http://www.openpolis.it/"><img class="strumento pull-right" src="{{ STATIC_URL }}img/strumento_openpolis.png" alt="OpenPolis" /></a>
+            </div>
+        </div>
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    Menu di navigazione
+                </a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li{% if 'homepage' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url homepage %}">Home</a></li>
+                        <li{% if '-utente' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url questionario-utente %}">Tu dove sei?</a></li>
+                        <li{% if 'party-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url party-positions %}">Le posizioni delle liste elettorali</a></li>
+                        <li{% if 'topic-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url topic-list %}">I 25 temi</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+                <div class="pull-right sharing">
+                    <ul class="nav">
+                        <li>
+                            <a href="#"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        Menu di navigazione
-      </a>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li{% if 'homepage' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url homepage %}">Home</a></li>
-          <li{% if '-utente' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url questionario-utente %}">Tu dove sei?</a></li>
-          <li{% if 'party-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url party-positions %}">Le posizioni delle liste elettorali</a></li>
-          <li{% if 'topic-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url topic-list %}">I 25 temi</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
-      <div class="pull-right sharing">
-        <ul class="nav">
-          <li>
-            <a href="#"></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+{% endblock %}
 
 {% block content %}{% endblock %}
 
+{% block footer %}
 <div class="footer">
   <div class="container">
     <div class="row-fluid">
@@ -129,17 +132,9 @@
         </div>
       </div>
     </div>
-    <div id="sub-footer" class="row-fluid">
-      <ul>
-        <li><a href="http://www.openpolis.it"><img src="{{ STATIC_URL }}img/footer/openpolis.png" alt="Associazione OpenPolis" title="Vai all'Associazione OpenPolis"></a></li>
-        <li><a href="http://parlamento.openpolis.it"><img src="{{ STATIC_URL }}img/footer/openparlamento.png" alt="Open Parlamento" title="Open Parlamento"></a></li>
-        <li><a href="http://politici.openpolis.it"><img src="{{ STATIC_URL }}img/footer/openpolitici.png" alt="Open politici" title="Open politici"></a></li>
-        <li><a href="http://indice.openpolis.it/"><img src="{{ STATIC_URL }}img/footer/indiceproduttivita.png" alt="L'Indice di Produttività Parlamentare" title="L'Indice di Produttività Parlamentare"></a></li>
-        <li><a href="http://www.openmunicipio.it/"><img src="{{ STATIC_URL }}img/footer/openmunicipio.png" alt="Open municipio" title="Open municipio" /></a></li>
-      </ul>
-    </div>
   </div>
 </div>
+{% endblock %}
 
 <!-- Le javascript
 ================================================== -->
