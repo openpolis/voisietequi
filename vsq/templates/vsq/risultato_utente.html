@@ -110,48 +110,56 @@
 
 
 {% block content %}
+
     <!-- H1 su sfondo verde -->
-    <div class="sfondo-verde">
-        <div class="container">
-            <div class="testata-interna"><h1>La posizione di <strong id="nome-utente">{{ utente.nickname }}</strong></h1></div>
+    {% block h1_sfondo_verde %}
+        <div class="sfondo-verde">
+            <div class="container">
+                <div class="testata-interna"><h1>La posizione di <strong id="nome-utente">{{ utente.nickname }}</strong></h1></div>
+            </div>
         </div>
-    </div>
+    {% endblock %}
 
     <!-- Grafico su sfondo grigio -->
-    <div class="sfondo-grigio">
-        <div class="container">
-            <div class="row-fluid">
-                <div class="span8 offset2">
-                    <div class="grafico" id="grafico" style="position: relative">
-                       <img src="{{ STATIC_URL }}img/grafico/bg_user.jpg" alt="Voi Siete Qui - Openpolis" />
+    {% block grafico %}
+        <div class="sfondo-grigio">
+            <div class="container">
+                <div class="row-fluid">
+                    <div class="span8 offset2">
+                        <div class="grafico" id="grafico" style="position: relative">
+                            <img src="{{ STATIC_URL }}img/grafico/bg_user.jpg" alt="Voi Siete Qui - Openpolis" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endblock %}
 
-    <div class="box-condividi">
-        <div class="container">
-            <!-- AddThis Button BEGIN -->
-            <div class="addthis_toolbox addthis_default_style ">
-                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-                <a class="addthis_button_tweet"></a>
-                <a class="addthis_counter addthis_pill_style"></a>
-            </div>
-            <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5117c0d354e9aed6"></script>
 
-            <button type="button" class="btn dropdown-toggle" data-toggle="collapse" data-target="#pubblica">
-                Pubblica sul tuo sito
-                <span class="caret"></span>
-            </button>
-            <div id="pubblica" class="collapse">
-                <div class="pubblica">
-                    <p>Il federalismo fiscale municipale prevede la possibilità di istituire un'imposta di soggiorno a carico dei turisti. L'imposta potrà essere applicata con gradualità, fino a un massimo di 5 euro per notte di soggiorno, in proporzione al costo dell'albergo. Il gettito è destinato a finanziare interventi in materia di turismo, manutenzione, fruizione e recupero dei beni culturali e ambientali locali e dei relativi servizi pubblici locali. Alcune città che hanno adottato la tassa di soggiorno sono: Roma, Capri e Anacapri, Bolzano, Firenze.</p>
+    {% block condividi %}
+        <div class="box-condividi">
+            <div class="container">
+                <!-- AddThis Button BEGIN -->
+                <div class="addthis_toolbox addthis_default_style ">
+                    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                    <a class="addthis_button_tweet"></a>
+                    <a class="addthis_counter addthis_pill_style"></a>
+                </div>
+                <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+                <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5117c0d354e9aed6"></script>
+
+                <button type="button" class="btn dropdown-toggle" data-toggle="collapse" data-target="#pubblica">
+                    Pubblica sul tuo sito
+                    <span class="caret"></span>
+                </button>
+                <div id="pubblica" class="collapse">
+                    <div class="pubblica">
+                        <p>Il federalismo fiscale municipale prevede la possibilità di istituire un'imposta di soggiorno a carico dei turisti. L'imposta potrà essere applicata con gradualità, fino a un massimo di 5 euro per notte di soggiorno, in proporzione al costo dell'albergo. Il gettito è destinato a finanziare interventi in materia di turismo, manutenzione, fruizione e recupero dei beni culturali e ambientali locali e dei relativi servizi pubblici locali. Alcune città che hanno adottato la tassa di soggiorno sono: Roma, Capri e Anacapri, Bolzano, Firenze.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endblock %}
 
 
     {% block distances %}

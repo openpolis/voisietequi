@@ -1,12 +1,161 @@
-{% extends 'vsq/risultato_utente.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Voi siete qui - Openpolis</title>
+    <meta name="description" content="Immagine SVG embedded del grafico">
+    <meta name="author" content="DEPP Srl">
 
-{% block header %}{% endblock %}
-{% block footer %}{% endblock %}
-{% block distances %}{% endblock %}
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/1.2.4/es5-shim.min.js"></script>
+    <![endif]-->
 
-{% block generate_dynamic_content %}
-    $(document).ready(function() {
-        $('body').css('padding-top', '0');
-        draw_graph(coordinate,"user", true);
-    });
-{% endblock %}
+    {% regroup risposte_partiti by partito__sigla as liste %}
+
+    <script type="text/javascript">
+
+        {% if utente %}
+            var utente = {
+                'nickname': '{{ utente.nickname}}',
+                'email': '{{ utente.email }}',
+                'user_key': '{{ utente.user_key }}'
+            };
+            var coordinate = {{ coord_utente|safe }};
+            var risposte_utente = {
+            {% for ru in risposte_utente %}{{ ru.domanda.pk }}: {{ ru.risposta_int }}{% if not forloop.last %},{%  endif %}{% endfor %}
+            };
+        {% endif %}
+
+        var risposte_partiti = {
+            {% for lista in liste %}
+                '{{ lista.grouper }}': {
+                    {% for item in lista.list %}'{{ item.domanda }}': {{ item.risposta_int }}{% if not forloop.last %},{%  endif %}{% endfor %}
+                }{% if not forloop.last %},{%  endif %}
+            {% endfor %}
+        };
+        var partiti = {
+            {% for p in partiti %}
+                '{{ p.sigla }}': {
+                    'name': "{{ p.denominazione }}",
+                    'url': "{{ p.get_absolute_url }}",
+                    'coalizione': "{{ p.coalizione.slug }}",
+                    'colore': "{{ p.coalizione.colore }}",
+                    'simbolo_url': "{{ p.simbolo.url }}"
+                }{% if not forloop.last %},{%  endif %}
+            {% endfor %}
+        }
+    </script>
+    <script src="{{ STATIC_URL }}js/jquery.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            line-height: 18px;
+            color: #333333;
+            background-color: #ffffff;
+            width: 560px; height: 356px;
+        }
+        a {
+            color: #e73b15;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #333;
+        }
+        #embed-caption {
+            text-align: center;
+            margin-right: 1em;
+            font-size:  12px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="grafico" id="grafico" style="position: relative">
+        <img src="{{ STATIC_URL }}img/grafico/bg_liste.png" alt="Voi Siete Qui - Openpolis" />
+    </div>
+    <div id="embed-caption">
+        <a href="{{ CURRENT_URL }}">Voi siete qui per le Politiche 2013</a>
+    </div>
+    <script type="text/javascript">
+        {% block generate_dynamic_content %}
+            $(document).ready(function() {
+                draw_graph(coordinate,"user", true);
+            });
+        {% endblock %}
+    </script>
+
+    <script src="{{ STATIC_URL }}js/risposteUtente.js?"></script>
+    <script src="{{ STATIC_URL }}js/utils.js"></script>
+    {#    <script src="http://d3js.org/d3.v2.js"></script>#}
+    <script src="{{ STATIC_URL }}js/underscore.min.js"></script>
+    <script src="{{ STATIC_URL }}js/d3.min.js"></script>
+    {#script for the final graph #}
+    <script src="{{ STATIC_URL }}js/graph.utils.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/force_labels.js"></script>
+
+
+    <!-- Google tracker -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-980632-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+    {#stili per label e marker del grafico#}
+    <style>
+
+
+        .labelbox {
+            color:green;
+            opacity:0.8
+        }
+
+        .labeltext {
+            color:black;
+            font-weight:bold;
+            text-anchor:middle;
+            font-family: Arial, sans-serif;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+        .link {
+            stroke:gray;
+            stroke-width:0.35
+        }
+        .connection-line {
+            stroke:gray;
+            stroke-width:0.5
+        }
+        .nickname {
+            background-color: black;
+            color:white;
+            font-weight:bold;
+            text-anchor:middle;
+            font-family: Arial, sans-serif;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+
+
+    </style>
+
+</body>
+
+
+
+
