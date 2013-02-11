@@ -121,7 +121,7 @@ class Utente(models.Model):
         verbose_name_plural = "Utenti"
 
     def __unicode__(self):
-        return self.email
+        return self.nickname
 
 
 class Coalizione(models.Model):
