@@ -87,14 +87,17 @@
       <div class="span4"><img class="img-small" src="{{ STATIC_URL }}img/voisietequi-logo-small.png" alt="Voi Siete Qui - Openpolis" />
         <p>È un test politico-elettorale che aiuta a capire quali partiti rappresentano di più le proprie posizioni politiche in base ai programmi elettorali e alle dichiarazioni pubbliche dei leader prima delle elezioni.</p>
         <p>È un progetto no-profit dell’<a href="http://www.openpolis.it/"><strong>Associazione Openpolis</strong></a>, ideato e realizzato con il contributo di <a href="http://www.depp.it/"><strong>DEPP</strong></a>.</p>
-        <p><a href="http://www.openpolis.it/progetti/voi-siete-qui/">Storia del progetto Voi siete qui</a></p></div>
+        <p><a href="http://www.openpolis.it/progetti/voi-siete-qui/">Storia del progetto Voi siete qui</a></p>
+        <a href="https://twitter.com/intent/tweet?button_hashtag=voisietequi" class="twitter-hashtag-button" data-lang="it" data-related="openpolis" data-url="http://www.voisietequi.it">Tweet #voisietequi</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      </div>
       <div class="span4">
         <h4>FAQ</h4>
         <ul>
-          <li><a href="/">Che significato ha il grafico delle distanze?</a></li>
-          <li><a href="/faq/#1">Come sono stati selezionati i temi?</a></li>
-          <li><a href="/">Come avete determinato le posizioni dei candidati?</a></li>
-          <li><a href="/faq"><strong>Tutte le FAQ</strong></a></li>
+          {% for faq in LATEST_FAQ %}
+          <li><a href="{% url faq-list %}#{{ faq.ordine }}">{{ faq.domanda }}</a></li>
+          {% endfor %}
+          <li><a href="{% url faq-list %}"><strong>Tutte le FAQ</strong></a></li>
         </ul>
         <h4>Restiamo in contatto</h4>
         <p><a href="/" id="contacts"><strong>Scrivici</strong></a> per segnalazioni, suggerimenti, lamentele ma anche incoraggiamenti.</p>
@@ -110,9 +113,9 @@
             per “aprire la politica”.
           </p>
           <hr>
-          <a href="http://www.openpolis.it/sostienici/collabora/"><img src="{{ STATIC_URL }}img/footer/icona_associati.png" alt="Associati"></a>
-          <a href="http://www.openpolis.it/sostienici/"><img src="{{ STATIC_URL }}img/footer/icona_sostieni.png" alt="Sostieni"></a>
-          <a href="http://www.openpolis.it/sostienici/dona/"><img src="{{ STATIC_URL }}img/footer/icona_dona.png" alt="Dona"></a>
+          <a href="http://www.openpolis.it/sostienici/"><img src="{{ STATIC_URL }}img/footer/icona_associati.png" alt="Associati"></a>
+          <a href="http://www.openpolis.it/sostienici/dona/"><img src="{{ STATIC_URL }}img/footer/icona_sostieni.png" alt="Sostieni"></a>
+          <img src="{{ STATIC_URL }}img/footer/icona_dona.png" alt="Dona">
           <hr>
           <div class="media">
             <a class="pull-left" href="#">

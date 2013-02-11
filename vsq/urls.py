@@ -29,7 +29,7 @@ urlpatterns = patterns('',
     url(r'^rispondi/$', QuestionarioUtenteView.as_view(), name='questionario-utente'),
     url(r'^risultato/(?P<user_key>[\w]+)$', RisultatoUtenteView.as_view(), name='risultato-utente'),
     url(r'^faq/$', FaqListView.as_view(), name='faq-list'),
-    url(r'^test500/$', Test500View.as_view(), name='faq-list'),
+    url(r'^test500/$', Test500View.as_view(), name='test-500'),
 )
 
 if settings.DEBUG or settings.LOCAL_DEVELOPEMENT:

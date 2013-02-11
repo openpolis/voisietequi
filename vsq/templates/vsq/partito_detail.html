@@ -103,8 +103,8 @@
             {% immagine_partito object size='big' %}
           </div>
           <div class="span8">
-            <h4>{{ object.denominazione }}</h4>
-            {% if object.sito %}<a href="{{ object.sito }}">{{ object.sito }}</a>{% endif %}
+            <h4>{{ object.denominazione }} <br>{{ object.sigla|upper }}</h4>
+            {% if object.sito %}<a href="{{ object.sito }}">{{ object.sito }}</a><br>{% endif %}
             {% if object.leader %}Leader: {{ object.leader }}<br>{% endif %}
             {% if object.twitter_user %}
               <a href="https://twitter.com/{{ object.twitter_user }}" class="twitter-follow-button" data-show-count="false" data-lang="it">Segui @{{ object.twitter_user }}</a>

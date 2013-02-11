@@ -1,5 +1,5 @@
 from django.core.urlresolvers import resolve, Resolver404
-from vsq.models import Coalizione
+from vsq.models import Coalizione, Faq
 from django.conf import settings
 
 
@@ -20,4 +20,5 @@ def main_settings(request):
         "DISQUS_FORUM": settings.DISQUS_FORUM if hasattr(settings, 'DISQUS_FORUM') else '',
         "COMPUTER_URL": settings.COMPUTER_URL,
         "ELECTION_CODE": settings.ELECTION_CODE,
+        "LATEST_FAQ": Faq.objects.order_by('ordine')[:3]
     }
