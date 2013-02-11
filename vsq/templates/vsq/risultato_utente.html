@@ -153,120 +153,125 @@
         </div>
     </div>
 
-    <!-- tabella distanze complessive utente-partito -->
-    <div class="container">
-        <div class="contenuto">
-            <h4>La distanza tra te e le liste elettorali dalla più vicina alla più lontana</h4>
-            <div class="tema0">
 
-                <table class="table table-condensed table7">
-                    <thead>
-                    <tr>
-                        <th class="bianco-tab">Tu</th>
-                        <th colspan="6" class="bianco-tab">La distanza dalle altre liste</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="grigio-tab">&nbsp;</td>
-                        <td class="nero-tab">+ vicino</td>
-                        <td class="nero-tab">&nbsp;</td>
-                        <td class="nero-tab">&nbsp;</td>
-                        <td class="nero-tab">&nbsp;</td>
-                        <td class="nero-tab">&nbsp;</td>
-                        <td class="nero-tab">+ lontano</td>
-                    </tr>
-                    <tr>
-                        <td class="grigio-tab">
+    {% block distances %}
+        <!-- tabella distanze complessive utente-partito -->
+        <div class="container">
+            <div class="contenuto">
+                <h4>La distanza tra te e le liste elettorali dalla più vicina alla più lontana</h4>
+                <div class="tema0">
 
-                        </td>
-                        <td class="verde01-tab">
+                    <table class="table table-condensed table7">
+                        <thead>
+                        <tr>
+                            <th class="bianco-tab">Tu</th>
+                            <th colspan="6" class="bianco-tab">La distanza dalle altre liste</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="grigio-tab">&nbsp;</td>
+                            <td class="nero-tab">+ vicino</td>
+                            <td class="nero-tab">&nbsp;</td>
+                            <td class="nero-tab">&nbsp;</td>
+                            <td class="nero-tab">&nbsp;</td>
+                            <td class="nero-tab">&nbsp;</td>
+                            <td class="nero-tab">+ lontano</td>
+                        </tr>
+                        <tr>
+                            <td class="grigio-tab">
 
-                        </td>
-                        <td class="verde02-tab">
+                            </td>
+                            <td class="verde01-tab">
 
-                        </td>
-                        <td class="verde03-tab">
+                            </td>
+                            <td class="verde02-tab">
 
-                        </td>
-                        <td class="verde04-tab">
+                            </td>
+                            <td class="verde03-tab">
 
-                        </td>
-                        <td class="verde05-tab">
+                            </td>
+                            <td class="verde04-tab">
 
-                        </td>
-                        <td class="verde06-tab">
+                            </td>
+                            <td class="verde05-tab">
 
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                            </td>
+                            <td class="verde06-tab">
 
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- tabelle distanze tematiche utente-partito -->
-    <div class="container">
-        <div class="contenuto">
-            <h4>Tema per tema le liste che ti sono vicine e quelle che ti sono lontane</h4>
-            <div class="accordion" id="accordion">
+        <!-- tabelle distanze tematiche utente-partito -->
+        <div class="container">
+            <div class="contenuto">
+                <h4>Tema per tema le liste che ti sono vicine e quelle che ti sono lontane</h4>
+                <div class="accordion" id="accordion">
 
-                {% for domanda in domande %}
-                    <div class="accordion-group tema">
-                        <div class="accordion-heading">
-                            <a class="accordion-toggle" data-toggle="collapse" {# data-parent="#accordion" #} href="#collapse{{ forloop.counter }}">
-                                <div class="row-fluid">
-                                    <div class="span1"><div class="tema-num"><strong>{{ domanda.ordine }}/</strong>{{ QUESTIONS_COUNT }}</div></div>
-                                    <div class="span11"><h1>{{ domanda.testo_html|safe }}</h1></div>
+                    {% for domanda in domande %}
+                        <div class="accordion-group tema">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" {# data-parent="#accordion" #} href="#collapse{{ forloop.counter }}">
+                                    <div class="row-fluid">
+                                        <div class="span1"><div class="tema-num"><strong>{{ domanda.ordine }}/</strong>{{ QUESTIONS_COUNT }}</div></div>
+                                        <div class="span11"><h1>{{ domanda.testo_html|safe }}</h1></div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="collapse{{ forloop.counter }}" class="accordion-body collapse">
+                                <div class="accordion-inner">
+
+                                    <table class="table table-condensed table7">
+                                        <thead>
+                                        <tr>
+                                            <th class="bianco-tab">La tua posizione</th>
+                                            <th colspan="6" class="bianco-tab">La distanza dalle altre liste</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="grigio-tab">&nbsp;</td>
+                                            <td class="nero-tab">+ vicino</td>
+                                            <td class="nero-tab">&nbsp;</td>
+                                            <td class="nero-tab">&nbsp;</td>
+                                            <td class="nero-tab">&nbsp;</td>
+                                            <td class="nero-tab">&nbsp;</td>
+                                            <td class="nero-tab">+ lontano</td>
+                                        </tr>
+                                        <tr class="symbols">
+                                            <td class="grigio-tab">
+                                            </td>
+                                            <td class="verde01-tab">
+                                            </td>
+                                            <td class="verde02-tab">
+                                            </td>
+                                            <td class="verde03-tab">
+                                            </td>
+                                            <td class="verde04-tab">
+                                            </td>
+                                            <td class="verde05-tab">
+                                            </td>
+                                            <td class="verde06-tab">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </a>
-                        </div>
-                        <div id="collapse{{ forloop.counter }}" class="accordion-body collapse">
-                            <div class="accordion-inner">
-
-                                <table class="table table-condensed table7">
-                                    <thead>
-                                    <tr>
-                                        <th class="bianco-tab">La tua posizione</th>
-                                        <th colspan="6" class="bianco-tab">La distanza dalle altre liste</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="grigio-tab">&nbsp;</td>
-                                        <td class="nero-tab">+ vicino</td>
-                                        <td class="nero-tab">&nbsp;</td>
-                                        <td class="nero-tab">&nbsp;</td>
-                                        <td class="nero-tab">&nbsp;</td>
-                                        <td class="nero-tab">&nbsp;</td>
-                                        <td class="nero-tab">+ lontano</td>
-                                    </tr>
-                                    <tr class="symbols">
-                                        <td class="grigio-tab">
-                                        </td>
-                                        <td class="verde01-tab">
-                                        </td>
-                                        <td class="verde02-tab">
-                                        </td>
-                                        <td class="verde03-tab">
-                                        </td>
-                                        <td class="verde04-tab">
-                                        </td>
-                                        <td class="verde05-tab">
-                                        </td>
-                                        <td class="verde06-tab">
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
 
+                </div>
             </div>
         </div>
-    </div>
+
+    {% endblock %}
 
 {% endblock %}
+
