@@ -158,7 +158,7 @@
           window.utente = {
               'nickname': data_json.user_data['name'],
               'email': data_json.user_data['email'],
-              'user_key': data_json.user_data['code']
+              'user_key': results['code']
           };
 
           draw_graph(results.results, "user", true);
@@ -166,7 +166,7 @@
           posiziona_label_risposte_utente(data_json.user_answers, risposte, label_risposte);
           posiziona_loghi(risposte_partiti, data_json.user_answers, dist, partiti, risposte);
 
-          var permalink = SITE_URL + 'risultati/' + data_json.user_data['code'] +'/';
+          var permalink = SITE_URL + '/risultato/' + results['code'] +'/';
           $('#permalink').value( permalink );
           addthis.update('#share-page', {}, { url: permalink });
           var embed_code_textarea = $('#embed_code');
