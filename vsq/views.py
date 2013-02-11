@@ -197,9 +197,9 @@ class HomepageView(TemplateView):
         context['conteggio_utenti'] = Utente.objects.count()
 
         context['partiti_up'] = Partito.objects.\
-            filter(coalizione__in=(3, 6, 7, 4)).order_by('coalizione').select_related('coalizione')
+            filter(coalizione__in=(3, 6, 7, 4)).order_by('coalizione__ordine').select_related('coalizione')
         context['partiti_dn'] = Partito.objects. \
-            filter(coalizione__in=(8, 2, 5, 1)).order_by('-coalizione').select_related('coalizione')
+            filter(coalizione__in=(8, 2, 5, 1)).order_by('coalizione__ordine').select_related('coalizione')
 
         context['partiti'] = liste = Partito.objects.all().order_by('coalizione').select_related('coalizione')
         coordinate = []

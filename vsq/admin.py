@@ -26,6 +26,8 @@ class EarlyBirdAdmin(admin.ModelAdmin):
     model=EarlyBird
 
 class CoalizioneAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'ordine')
+    ordering = ('ordine',)
     model= Coalizione
     prepopulated_fields = { 'slug': ['nome'] }
 

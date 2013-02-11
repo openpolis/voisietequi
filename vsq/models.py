@@ -129,6 +129,7 @@ class Coalizione(models.Model):
     nome = models.CharField(max_length=50)
     slug = models.SlugField()
     colore = fields.RGBColorField()
+    ordine = models.IntegerField(blank=False, null=False, default=0)
 
     def __unicode__(self):
         return self.nome
