@@ -155,6 +155,12 @@
           $('#utente-questionario').hide();
           $('#risultato-questionario').show();
 
+          window.utente = {
+              'nickname': data_json.user_data['name'],
+              'email': data_json.user_data['email'],
+              'user_key': data_json.user_data['code']
+          };
+
           draw_graph(results.results, "user", true);
           posiziona_distanze_generiche(results.results, partiti);
           posiziona_label_risposte_utente(data_json.user_answers, risposte, label_risposte);
