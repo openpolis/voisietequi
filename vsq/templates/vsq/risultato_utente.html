@@ -51,7 +51,7 @@
                 moviePath: "{{ STATIC_URL }}js/ZeroClipboard.swf"
             } );
             clip.on( 'complete', function(client, args) {
-                alert("Copied text to clipboard: " + args.text );
+                copy_button.addClass('btn-success');
             } );
             clip.on( 'mouseover', function(client) {
                 copy_button.addClass('btn-info');
@@ -178,7 +178,7 @@
 
                             <div id="pubblica">
                                 <h5>Codice da incorporare sul tuo sito.</h5>
-                                <textarea name="embed_code" id="embed_code" class="span12 code-autoselect" style="height: 80px; font-size: 0.9em; line-height: 12px;"><iframe width="512" height="292" src="{{ CURRENT_URL }}?embed=1" frameborder="0"></iframe><br /><small><a href="{{ SITE_URL }}" style="color:#0000FF;text-align:left">Voi siete qui: per le politiche 2013</a></small></textarea>
+                                <textarea name="embed_code" id="embed_code" class="span12 code-autoselect" style="height: 60px; font-size: 12px; font-family: Verdana, sans-serif; line-height: 12px;"><iframe width="512" height="292" src="{{ CURRENT_URL }}?embed=1" frameborder="0"></iframe></textarea>
                             </div>
                         </form>
                     </div>

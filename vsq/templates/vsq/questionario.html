@@ -163,6 +163,10 @@
           var permalink = SITE_URL + 'risultati/' + data_json.user_data['code'] +'/';
           $('#permalink').value( permalink );
           addthis.update('#share-page', {}, { url: permalink });
+          var embed_code_textarea = $('#embed_code');
+          embed_code_textarea.val(
+                  embed_code_textarea.val().replace(/src="([^"])+"/gi,'src="'+permalink+'"')
+          );
 
           caricamento_social_share();
       });
