@@ -167,11 +167,11 @@
           posiziona_loghi(risposte_partiti, data_json.user_answers, dist, partiti, risposte);
 
           var permalink = SITE_URL + '/risultato/' + results['code'] +'/';
-          $('#permalink').value( permalink );
+          $('#permalink').val( permalink );
           addthis.update('#share-page', {}, { url: permalink });
           var embed_code_textarea = $('#embed_code');
           embed_code_textarea.val(
-                  embed_code_textarea.val().replace(/src="([^"])+"/gi,'src="'+permalink+'"')
+                  embed_code_textarea.val().replace(/src="([^"])+"/gi,'src="'+permalink+'?embed=si"')
           );
 
           caricamento_social_share();
