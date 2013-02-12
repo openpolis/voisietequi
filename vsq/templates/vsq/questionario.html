@@ -150,8 +150,10 @@
     //quando la dimensione della finestra cambia, vengono ricalcolate le grandezze
     //del grafico
     $(window).on("resize", function() {
-        clearTimeout(500);
-        resize();
+        if(browser_check()){
+            clearTimeout(500);
+            resize();
+        }
 
     });
 
@@ -170,9 +172,10 @@
               'user_key': results['code']
           };
 
-
-          resize();
-          draw_graph(results.results, "user", false);
+          if(browser_check()){
+              resize();
+              draw_graph(results.results, "user", false);
+          }
           posiziona_distanze_generiche(results.results, partiti);
           posiziona_label_risposte_utente(data_json.user_answers, risposte, label_risposte);
           posiziona_loghi(risposte_partiti, data_json.user_answers, dist, partiti, risposte);

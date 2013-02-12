@@ -41,16 +41,21 @@
         {% block generate_dynamic_content %}
             //quando la dimensione della finestra cambia, vengono ricalcolate le grandezze
             //del grafico
+
             $(window).on("resize", function() {
-                clearTimeout(500);
-                resize();
+                if(browser_check()){
+                    clearTimeout(500);
+                    resize();
+                }
 
             });
 
-
             $(document).ready(function() {
-                resize();
-                draw_graph(coordinate, partito);
+                if(browser_check()){
+                    resize();
+                    draw_graph(coordinate, partito);
+
+                }
                 posiziona_distanze_generiche(coordinate, partiti, partito);
                 posiziona_label_risposte_partito(risposte_partito, risposte, label_risposte);
                 posiziona_loghi(risposte_altri_partiti, risposte_partito, dist, partiti, risposte);
@@ -125,6 +130,14 @@
       <div class="span6">
           <div class="grafico_background"  style="background-image: url('{{ STATIC_URL }}img/grafico/bg_liste.png');">
               <div class="grafico" id="grafico" style=""></div>
+              <div id="browser_issue">
+                  <p>
+                      Spiacenti, il browser che hai installato non supporta la visualizzazione del grafico di Voi siete qui.
+                  </p>
+                  <p>
+                      Ti consigliamo di scaricare una versione pi&ugrave; aggiornata del tuo browser.
+                  </p>
+              </div>
           </div>
       </div>
       <div class="span5 offset1"><div class="box-listeele">

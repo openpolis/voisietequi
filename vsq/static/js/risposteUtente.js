@@ -60,6 +60,21 @@ var circles_transparency=0.5;
 var circles_colors=["f3f9f7","e9f3f0","e0ede8","d6e8e0","cee3d9","c5ddd4","bed8cd","b5d4c8","afcfc2"]
 var connection_lines;
 
+
+//controlla che il browser supporti D3, viceversa mostra un div di errore
+function browser_check(){
+    var isIE8 = $.browser.msie && +$.browser.version <= 8;
+
+    if ( isIE8 ) {
+        $("#browser_issue").show();
+        return false;
+    }
+    else{
+        return true;
+    }
+
+}
+
 //resize graph, avatar and avatar pos based on browser viewport
 
 function resize(){

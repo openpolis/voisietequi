@@ -6356,6 +6356,18 @@ a.badge:hover {
   padding-bottom: 50%;
 }
 
+#browser_issue{
+    min-height: 200px;
+    margin-top: 20px;
+    display: none;
+    padding: 30px;
+}
+
+#browser_issue p{
+    text-align: left;
+    color:#6E6E6E;
+}
+
 .grafico{
     overflow: hidden;
 }

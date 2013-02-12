@@ -70,15 +70,18 @@
             //quando la dimensione della finestra cambia, vengono ricalcolate le grandezze
             //del grafico
             $(window).on("resize", function() {
-                clearTimeout(500);
-                resize();
-
+                if(browser_check()){
+                    clearTimeout(500);
+                    resize();
+                }
             });
 
             $(document).ready(function() {
+                if(browser_check()){
+                    resize();
+                    draw_graph(coordinate,"user", false);
 
-                resize();
-                draw_graph(coordinate,"user", false);
+                }
                 caricamento_social_share();
                 posiziona_distanze_generiche(coordinate, partiti);
                 posiziona_label_risposte_utente(risposte_utente, risposte, label_risposte);
@@ -163,6 +166,14 @@
                 <div class="span6">
                     <div class="grafico_background"  style="background-image: url('{{ STATIC_URL }}img/grafico/bg_user.png');">
                         <div class="grafico" id="grafico" style=""></div>
+                        <div id="browser_issue">
+                            <p>
+                                Spiacenti, il browser che hai installato non supporta la visualizzazione del grafico di Voi siete qui.
+                            </p>
+                            <p>
+                                Ti consigliamo di scaricare una versione pi&ugrave; aggiornata del tuo browser.
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="span4 offset2">
