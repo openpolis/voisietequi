@@ -326,8 +326,7 @@ def save_callback(body):
 
     u_check = Utente.objects.filter(user_key=data['code']).count()
     if u_check > 0:
-        print "Errore: utente esistente "
-        print "  Dati: {0}".format(data)
+        print "ERR Utente esistente: {0}".format(data)
     else:
         u = Utente(
             nickname= data['user_data']['name'],
