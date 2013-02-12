@@ -188,7 +188,7 @@
                             <div class="controls">
                                 <h5>Copia il link e condividi.</h5>
                                 <div class="input-append">
-                                    <input id="permalink" class="code-autoselect" type="text" value="{{ CURRENT_URL }}" readonly="readonly">
+                                    <input id="permalink" class="code-autoselect span8" type="text" value="{{ CURRENT_URL }}" readonly="readonly">
                                     <a id="copy-button" class="btn" data-clipboard-target="permalink"><i class="icon-magnet"></i></a>
                                 </div>
                             </div>
@@ -262,17 +262,17 @@
                             </div>
                             <div id="collapse{{ forloop.counter }}" class="accordion-body collapse">
                                 <div class="accordion-inner">
-
+                                    <div class="visible-phone"><strong>La tua posizione:</strong> <span class="posizione-responsive"></span></div>
                                     <table class="table table-condensed table7">
                                         <thead>
                                         <tr>
-                                            <th class="bianco-tab">La tua posizione</th>
+                                            <th class="bianco-tab hidden-phone">La tua posizione</th>
                                             <th colspan="6" class="bianco-tab">La distanza dalle altre liste</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td class="grigio-tab">&nbsp;</td>
+                                            <td class="grigio-tab hidden-phone">&nbsp;</td>
                                             <td class="nero-tab">+ vicino</td>
                                             <td class="nero-tab">&nbsp;</td>
                                             <td class="nero-tab">&nbsp;</td>
@@ -281,7 +281,7 @@
                                             <td class="nero-tab">+ lontano</td>
                                         </tr>
                                         <tr class="symbols">
-                                            <td class="grigio-tab"></td>
+                                            <td class="grigio-tab hidden-phone"></td>
                                             <td class="verde01-tab"></td>
                                             <td class="verde02-tab"></td>
                                             <td class="verde03-tab"></td>

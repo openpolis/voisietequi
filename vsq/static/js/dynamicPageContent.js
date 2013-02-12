@@ -108,8 +108,7 @@ posiziona_label_risposte_partito = function(risposte_partito, risposte, label_ri
 posiziona_label_risposte_utente = function(risposte_utente, risposte, label_risposte){
     for (var r in risposte_utente) {
         var risposta_utente = risposte_utente[r];
-        var col_selector = '#collapse'+r+' table tr.symbols td.grigio-tab';
-        $(col_selector).append(
+        $('#collapse'+r).find('table tr.symbols td.grigio-tab, span.posizione-responsive').append(
             '<label class="label label-' + label_risposte[risposta_utente] + '">' +
                 risposte[risposta_utente] +
                 '</label>'
