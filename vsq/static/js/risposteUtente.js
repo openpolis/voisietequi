@@ -138,8 +138,17 @@ function draw_graph(coordinate, highlight, marker){
                 x: parseFloat(coordinate[i][1]),
                 y: parseFloat(coordinate[i][2]),
                 size: inner_dotsize,
+                fontsize: label_font_size,
                 color:color
             };
+
+            if(coordinate[i][0]=="user"){
+                val_array[i].label=utente.nickname;
+                val_array[i].size= inner_dotsize*2;
+                val_array[i].fontsize= label_font_size+2;
+
+            }
+
 
             color="";
         }
@@ -208,7 +217,7 @@ function draw_graph(coordinate, highlight, marker){
     //disegna il marker partito fatto da 3 cerchi concentrici
     anchors.enter().
         append("circle").
-        attr("r",outer_dotsize).
+        attr("r",function(d) { return d.size+4;}).
         attr("cx",function(d) { return x_square(d.x);}).
         attr("cy",function(d) { return y_square(d.y);}).
         attr("fill", function(d){
@@ -218,7 +227,7 @@ function draw_graph(coordinate, highlight, marker){
 
     anchors.enter().
         append("circle").
-        attr("r",middle_dotsize).
+        attr("r",function(d) { return d.size+2;}).
         attr("cx",function(d) { return x_square(d.x);}).
         attr("cy",function(d) { return y_square(d.y);}).
         attr("fill", function(d){
@@ -229,7 +238,7 @@ function draw_graph(coordinate, highlight, marker){
 
     anchors.enter().
         append("circle").
-        attr("r",inner_dotsize).
+        attr("r",function(d) { return d.size;}).
         attr("cx",function(d) { return x_square(d.x);}).
         attr("cy",function(d) { return y_square(d.y);}).
         attr("fill", function(d){return d.color;})
@@ -250,7 +259,9 @@ function draw_graph(coordinate, highlight, marker){
     var newLabels = labels.enter().append("g").attr("class","labels")
 
     var newLabelBox = newLabels.append("g").attr("class","labelbox")
-    newLabelBox.append("text").attr("class","labeltext").attr("y",6)
+    newLabelBox.append("text")
+        .attr("class","labeltext")
+        .attr("y",6)
 
     newLabels.append("line").attr("class","link")
 
