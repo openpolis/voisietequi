@@ -20,7 +20,7 @@ class PartitoAdminWithRisposte(admin.ModelAdmin):
     prepopulated_fields = { 'slug': ['denominazione'] }
 
 class UtenteAdminWithRisposte(admin.ModelAdmin):
-    list_display = ('nickname', 'email')
+    list_display = ('nickname', 'email', 'created_at')
     inlines = [RispostaUtenteInline, ]
 
 class EarlyBirdAdmin(admin.ModelAdmin):
