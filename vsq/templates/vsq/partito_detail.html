@@ -162,29 +162,19 @@
         <tbody>
         <tr>
           <td class="grigio-tab">&nbsp;</td>
-          <td class="nero-tab">+ vicino</td>
-          <td class="nero-tab">&nbsp;</td>
-          <td class="nero-tab">&nbsp;</td>
-          <td class="nero-tab">&nbsp;</td>
-          <td class="nero-tab">&nbsp;</td>
-          <td class="nero-tab">+ lontano</td>
+            <td colspan="6" class="nero-tab">
+                <span class="pull-left">+ vicino</span>
+                <span class="pull-right">+ lontano</span>
+            </td>
         </tr>
         <tr>
-          <td class="grigio-tab">
-            {% immagine_partito object size='normal' %}
-          </td>
-          <td class="verde01-tab">
-          </td>
-          <td class="verde02-tab">
-          </td>
-          <td class="verde03-tab">
-          </td>
-          <td class="verde04-tab">
-          </td>
-          <td class="verde05-tab">
-          </td>
-          <td class="verde06-tab">
-          </td>
+          <td class="grigio-tab">{% immagine_partito object size='normal' %}</td>
+          <td class="verde01-tab"></td>
+          <td class="verde02-tab"></td>
+          <td class="verde03-tab"></td>
+          <td class="verde04-tab"></td>
+          <td class="verde05-tab"></td>
+          <td class="verde06-tab"></td>
         </tr>
         </tbody>
       </table>
@@ -210,39 +200,30 @@
         </div>
         <div id="collapse{{ forloop.counter }}" class="accordion-body collapse">
           <div class="accordion-inner">
-
+            <div class="visible-phone"><strong>Posizione lista:</strong> <span class="posizione-responsive"></span></div>
             <table class="table table-condensed table7">
               <thead>
               <tr>
-                <th class="bianco-tab">Posizione lista</th>
+                <th class="bianco-tab hidden-phone">Posizione lista</th>
                 <th colspan="6" class="bianco-tab">La distanza dalle altre liste</th>
               </tr>
               </thead>
               <tbody>
               <tr>
-                <td class="grigio-tab">&nbsp;</td>
-                <td class="nero-tab">+ vicino</td>
-                <td class="nero-tab">&nbsp;</td>
-                <td class="nero-tab">&nbsp;</td>
-                <td class="nero-tab">&nbsp;</td>
-                <td class="nero-tab">&nbsp;</td>
-                <td class="nero-tab">+ lontano</td>
+                <td class="grigio-tab hidden-phone">&nbsp;</td>
+                <td colspan="6" class="nero-tab">
+                  <span class="pull-left">+ vicino</span>
+                  <span class="pull-right">+ lontano</span>
+                </td>
               </tr>
               <tr class="symbols">
-                <td class="grigio-tab">
-                </td>
-                <td class="verde01-tab">
-                </td>
-                <td class="verde02-tab">
-                </td>
-                <td class="verde03-tab">
-                </td>
-                <td class="verde04-tab">
-                </td>
-                <td class="verde05-tab">
-                </td>
-                <td class="verde06-tab">
-                </td>
+                <td class="grigio-tab hidden-phone"></td>
+                <td class="verde01-tab"></td>
+                <td class="verde02-tab"></td>
+                <td class="verde03-tab"></td>
+                <td class="verde04-tab"></td>
+                <td class="verde05-tab"></td>
+                <td class="verde06-tab"></td>
               </tr>
               </tbody>
             </table>

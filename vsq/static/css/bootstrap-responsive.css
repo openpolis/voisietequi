@@ -1099,3 +1099,7 @@
     .thumbnail.grigio-tab { float:left; }
     .barra-coalizione { width:20%; }
 }
+
+.pagination-small ul > li > span {
+    padding: 2px 8px;
+}
