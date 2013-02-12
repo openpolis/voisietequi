@@ -20,7 +20,17 @@
 {% block scripts %}
     <script type="text/javascript">
         {% block generate_dynamic_content %}
+
+            //quando la dimensione della finestra cambia, vengono ricalcolate le grandezze
+            //del grafico
+            $(window).on("resize", function() {
+                clearTimeout(500);
+                resize();
+
+            });
+
             $(document).ready(function() {
+                resize();
                 draw_graph(coordinate);
             });
         {% endblock %}
