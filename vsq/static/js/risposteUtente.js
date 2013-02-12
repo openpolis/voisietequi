@@ -303,12 +303,27 @@ function draw_graph(coordinate, highlight, marker){
                 .attr("width", user_marker_w)
                 .attr("height", user_marker_h);
 
+            //aggiunge lo sfondo x la label
+            vis.append("rect")
+                .attr("x",(user_marker_x-(utente.nickname.length*label_font_size)/2)+10)
+                .attr("y",(user_marker_y-label_font_size+2)-10)
+                .attr("width",((utente.nickname.length*label_font_size)-50))
+                .attr("height",label_font_size*1.5)
+                .attr("fill", function(d){
+                    var new_color="000000";
+                    return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+0.5+")";
+
+                })
+
+
             //aggiunge la label con il nome
             vis.append("text")
                 .attr("class","nickname")
-                .attr("x",user_marker_x)
-                .attr("y",user_marker_y)
+                .attr("x",user_marker_x-15)
+                .attr("y",user_marker_y-7)
+                .attr("fill","#fff")
                 .text(utente.nickname);
+
 
         }
     }
