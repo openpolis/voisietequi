@@ -6356,13 +6356,17 @@ a.badge:hover {
   padding-bottom: 50%;
 }
 
-#grafico img {
-
+.grafico{
+    overflow: hidden;
 }
-.grafico {
-  padding-bottom: 10px;
-  text-align: center;
-  overflow: hidden;
+
+.grafico_background{
+    padding-bottom: 10px;
+    text-align: center;
+    overflow: hidden;
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .box-liste p {
