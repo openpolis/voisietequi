@@ -85,6 +85,7 @@
     <script type="text/javascript">
         {% block generate_dynamic_content %}
             $(document).ready(function() {
+                resize();
                 draw_graph(coordinate,"user", true);
             });
         {% endblock %}
