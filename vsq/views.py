@@ -287,12 +287,17 @@ class RisultatoUtenteView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(RisultatoUtenteView,self).get_context_data(**kwargs)
 
+        try:
+            context['utente'] = utente = Utente.objects.get(user_key=kwargs['user_key'])
+        except Utente.DoesNotExist:
+            self.template_name = 'vsq/risultato_waiting.html'
+            return context
+
         context['domande'] = Domanda.objects.all()
         context['partiti'] = Partito.objects.all().select_related('coalizione')
         context['risposte_partiti'] = RispostaPartito.objects.all().order_by('partito', 'domanda').\
             values('partito__party_key', 'partito__sigla','domanda', 'risposta_int')
 
-        context['utente'] = utente = Utente.objects.get(user_key=kwargs['user_key'])
         context['risposte_utente'] = utente.rispostautente_set.all()
         context['coord_utente'] = utente.coord
 

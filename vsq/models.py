@@ -69,7 +69,7 @@ class Domanda(models.Model):
         return self._get_by_ordine( self.ordine - 1 )
 
     @property
-    def risposte(self): return self.rispostapartito_set.all()
+    def risposte(self): return self.rispostapartito_set.all().order_by('partito__coalizione__ordine')
 
     @property
     def risposte_commentate(self): return self.rispostapartito_set.exclude(risposta_txt='')
@@ -157,6 +157,7 @@ class Partito(models.Model):
     simbolo:            Official symbol of the party
     coord_x:            coordinate x
     coord_y:            coordinate y
+    nonorig:            Party has not responded; positions were derived from public declarations
     """
 
     coalizione = models.ForeignKey(Coalizione)
@@ -175,6 +176,7 @@ class Partito(models.Model):
     twitter_user = models.CharField(blank=True, null=True, max_length=255)
     facebook_url = models.CharField(blank=True, null=True, max_length=255)
     leader = models.CharField(blank=True, null=True, max_length=255)
+    nonorig = models.BooleanField(default=False, verbose_name="Non originale")
 
     class Meta:
         verbose_name_plural = "Partiti"

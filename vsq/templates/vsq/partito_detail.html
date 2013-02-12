@@ -117,7 +117,12 @@
               <br>
             {% endif %}
             {% if object.facebook_url %}<a href="{{ object.facebook_url }}">Pagina facebook</a>{% endif %}
-
+            <br>
+            {% if object.nonorig %}
+                Non ha risposto a voisietequi. Il posizionamento della lista è stato elaborato da openpolis.
+            {% else %}
+                Ha risposto direttamente a voisietequi
+            {% endif %}
           </div>
         </div>
       </div>

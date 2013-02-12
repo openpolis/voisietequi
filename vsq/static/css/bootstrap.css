@@ -6829,9 +6829,9 @@ a.badge:hover {
     background-color: #fff;
 }
 
-.img-circle-big { height: 74px; width:74px; }
-.img-circle-normal { height: 54px; width:54px; }
-.img-circle-small { height: 46px; width:46px; }
+.img-circle-big { height: auto; /*74px;*/ width:74px; }
+.img-circle-normal { height: auto; /* 54px;*/ width:54px; }
+.img-circle-small { height: auto; /*46px; */ width:46px; }
 
 .barra-coalizione {
     width:12.5%;
@@ -6870,3 +6870,4 @@ a.badge:hover {
 .pagination ul > li.hide {display: none;}
 .domanda { min-height: 255px; }
 
+#twittthis { margin-top: 10px; }

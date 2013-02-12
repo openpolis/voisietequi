@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Attesa{% endblock %}
+{% block meta %}{{ block.super }}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+
+    <div class="sfondo-verde">
+        <div class="container">
+            <div class="testata-interna">
+                <div class="row-fluid">
+                    <div class="span12"><h1>Questionario in caricamento...</h1></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contenuto">
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span6 offset3">
+                    <p class="well">
+                        A breve saranno visualizzati i risultati del test. <a href=".">Aggiorna la pagina</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

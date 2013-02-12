@@ -36,79 +36,71 @@
         </div>
       </div>
     </div>
-
-    <div class="row-fluid">
-        <div class="span12">
-            <a href="#disqus_thread">Link</a>
-        </div>
-    </div>
   </div>
 </div>
-
-{% for risposta in object.risposte %}
-  {% if forloop.first %}
-  <div class="contenuto"><div class="container"><div class="row-fluid"><div class="span12">
-  <table class="table table-bordered table-rows" >
-  {% endif %}
-
-  <tr>
-    <td style="width: 60px;">{% immagine_partito risposta.partito size='small' %}</td>
-    <td style="vertical-align: middle;"><span class="label label-{% label_risposta risposta.risposta_int %}">{{ risposta.get_risposta_int_display }}</span></td>
-    <td style="vertical-align: middle;">{{ risposta.risposta_txt|default_if_none:'<span class="muted">Non sono presenti commenti su questo tema.</span>'|safe }}</td>
-  </tr>
-
-  {% if forloop.last %}
-  </table></div></div></div></div>
-  {% endif %}
-{% endfor %}
-
 
 
 <div class="contenuto">
-  <div class="container">
-    <div class="row-fluid">
-
-        <div class="span11">
-          <div id="disqus_thread"></div>
-          <script type="text/javascript">
-            var disqus_shortname = 'voisietequi2013';
-            (function() {
-              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-              dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-              function disqus_config() {
-                this.callbacks.afterRender = [function() {
-                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                  dsq.src = '{{ STATIC_URL }}js/disqus_it.js';
-                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                }];
-              }
-            })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    <div class="container">
+        <div class="row-fluid">
+            <!-- parties positions table -->
+            <div class="span6">
+                <table class="table table-bordered table-rows" >
+                    {% for risposta in object.risposte %}
+                        <tr>
+                            <td style="width: 60px;">{% immagine_partito risposta.partito size='small' %}</td>
+                            <td style="vertical-align: middle; text-align: left">
+                                <span class="label label-{% label_risposta risposta.risposta_int %}">
+                                    {{ risposta.get_risposta_int_display }}
+                                </span>
+                            </td>
+                            <td style="vertical-align: middle; border-left: 0">
+                                {% if risposta.risposta_txt %}
+                                    <a href="javascript:return false;" class="dropdown-toggle"
+                                       data-toggle="collapse" data-target="#commento-risposta-{{ risposta.pk }}">
+                                        Leggi il commento della lista
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% if risposta.risposta_txt %}
+                            <tr>
+                                <td style="border-top:0"></td>
+                                <td style="border-top:0" colspan="2">
+                                    <div id="commento-risposta-{{ risposta.pk }}" class="collapse">
+                                        {{ risposta.risposta_txt|default_if_none:'' }}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+            <!-- ongoing discussion column -->
+            <div class="span6">
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    var disqus_shortname = 'voisietequi2013';
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                        function disqus_config() {
+                            this.callbacks.afterRender = [function() {
+                                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                                dsq.src = '{{ STATIC_URL }}js/disqus_it.js';
+                                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                            }];
+                        }
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
         </div>
-
-  </div>
+    </div>
 </div>
 
-
-
-
 {% endblock %}
 
-{% block scripts %}
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'voisietequi2013'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function () {
-            var s = document.createElement('script'); s.async = true;
-            s.type = 'text/javascript';
-            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-        }());
-    </script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/disqus_it.js"></script>
-{% endblock %}
+{% block scripts %}{% endblock %}

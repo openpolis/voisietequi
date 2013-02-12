@@ -15,6 +15,7 @@ class RispostaUtenteInline(admin.StackedInline):
     extra = 1
 
 class PartitoAdminWithRisposte(admin.ModelAdmin):
+    list_display = ('denominazione', 'coalizione', 'nonorig')
     inlines = [RispostaPartitoInline, ]
     prepopulated_fields = { 'slug': ['denominazione'] }
 

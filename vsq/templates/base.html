@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="utf-8">
   <title>{% block title %}{% endblock %} - Voi siete qui - Openpolis</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="Voi siete qui: Elezioni politiche 2013">
+  <meta name="author" content="Openpolis">
+  <meta property="og:title" content="Voi siete qui: Elezioni politiche 2013" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="{{ STATIC_URL }}img/voisietequi-logo-social.png" />
+  <meta property="og:url" content="{{ SITE_URL }}" />
+  {% block meta %}{% endblock %}
 
   <!-- Le styles -->
   <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
@@ -36,6 +41,18 @@
   <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
 
+    <script type="text/javascript">
+        var ga_code = "UA-980632-1";
+        var site_url = '{{ SITE_URL }}';
+        var addthis_config = {
+            ui_cobrand: 'Voisietequi.it',
+            ui_language: 'it',
+            data_ga_tracker: ga_code,
+            ui_hover_delay: 200,
+            data_track_clickback: false
+        };
+    </script>
+
   <!-- Fav and touch icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}ico/apple-touch-icon-144-precomposed.png">
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}ico/apple-touch-icon-114-precomposed.png">
@@ -51,7 +68,7 @@
     <div class="navbar navbar-fixed-top">
         <div class="testata">
             <div class="container">
-                <img class="pull-left logo" src="{{ STATIC_URL }}img/voisietequi-logo.png" alt="Voi Siete Qui - Openpolis" />
+                <a href="{%  url homepage %}"><img class="pull-left logo" src="{{ STATIC_URL }}img/voisietequi-logo.png" alt="Voi Siete Qui - Openpolis" /></a>
                 <h1 class="pull-left"> Elezioni politiche 2013</h1>
                 <a href="http://www.openpolis.it/"><img class="strumento pull-right" src="{{ STATIC_URL }}img/strumento_openpolis.png" alt="OpenPolis" /></a>
             </div>
@@ -66,13 +83,13 @@
                         <li{% if 'homepage' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url homepage %}">Home</a></li>
                         <li{% if '-utente' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url questionario-utente %}">Tu dove sei?</a></li>
                         <li{% if 'party-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url party-positions %}">Le posizioni delle liste elettorali</a></li>
-                        <li{% if 'topic-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url topic-list %}">I 25 temi</a></li>
+                        <li{% if 'topic-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url topic-list %}">Commenta i 25 temi</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
                 <div class="pull-right sharing">
                     <ul class="nav">
-                        <li>
-                            <a href="#"></a>
+                        <li id="twittthis">
+                            <a href="https://twitter.com/intent/tweet?button_hashtag=voisietequi" class="twitter-hashtag-button" data-lang="it" data-related="openpolis" data-url="{{ SITE_URL }}">Tweet #voisietequi</a>
                         </li>
                     </ul>
                 </div>
@@ -92,11 +109,13 @@
         <p>È un test politico-elettorale che aiuta a capire quali partiti rappresentano di più le proprie posizioni politiche in base ai programmi elettorali e alle dichiarazioni pubbliche dei leader prima delle elezioni.</p>
         <p>È un progetto no-profit dell’<a href="http://www.openpolis.it/"><strong>Associazione Openpolis</strong></a>, ideato e realizzato con il contributo di <a href="http://www.depp.it/"><strong>DEPP</strong></a>.</p>
         <p><a href="http://www.openpolis.it/progetti/voi-siete-qui/">Storia del progetto Voi siete qui</a></p>
-        <a href="https://twitter.com/intent/tweet?button_hashtag=voisietequi" class="twitter-hashtag-button" data-lang="it" data-related="openpolis" data-url="{{ SITE_URL }}">Tweet #voisietequi</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
           <!-- AddThis Button BEGIN -->
-          <div class="addthis_toolbox addthis_default_style addthis_32x32_style" addthis:url="{{ CURRENT_URL }}">
+          <div class="addthis_toolbox addthis_default_style addthis_32x32_style" id="bottom-share"
+               addthis:url="{{ SITE_URL }}"
+               addthis:title="Voi siete qui: Elezioni politiche 2013"
+               addthis:ui_hover_direction="1">
               <a class="addthis_button_facebook"></a>
               <a class="addthis_button_twitter"></a>
               <a class="addthis_button_google_plusone_share"></a>
@@ -104,7 +123,6 @@
               <a class="addthis_button_compact"></a>
               <a class="addthis_counter addthis_bubble_style"></a>
           </div>
-          <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
 
       </div>
       <div class="span4">
@@ -154,14 +172,13 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{{ STATIC_URL }}js/jquery.js"></script>
 <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5117c0d354e9aed6"></script>
 
 <!-- Google tracker -->
 <script type="text/javascript">
 
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-980632-1']);
+    _gaq.push(['_setAccount', ga_code]);
     _gaq.push(['_trackPageview']);
 
     (function() {
