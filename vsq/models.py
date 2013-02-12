@@ -112,7 +112,7 @@ class Utente(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(max_length=128, blank=True, null=True)
     agent = models.TextField(blank=True, null=True)
-    ip = models.IPAddressField(blank=True, null=True)
+    ip = models.CharField(max_length=255, blank=True, null=True)
     coord = models.TextField(blank=True, null=True)
     has_sent_emails = models.BooleanField(default=False, blank=True)
     wants_newsletter = models.BooleanField(default=False, blank=True)
