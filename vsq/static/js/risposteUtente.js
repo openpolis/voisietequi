@@ -29,10 +29,11 @@ var graph_size=graph_container_height;
 var graph_offset_x;
 var fattore_scala_offset = 0.6;
 
-// posizionamento del grafico nella cornice
-var top_pos = "29px",
-    left_pos = "129px";
 
+//ratio del bordo del grafico relativo alla width del container
+var graph_margin_ratio_x = 19.85;
+var graph_margin_ratio_y = 24.78;
+var graph_margin_bottom = 28.5;
 var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
 var max_outputx_square,min_outputx_square, max_outputy_square,min_outputy_square;
 
@@ -65,12 +66,23 @@ function resize(){
 
     //gets graph size and set graph height
 
-        var chart = $("#"+graph_div+"");
-        graph_container_width = chart.width();
-        graph_container_height =  Math.floor( graph_container_width / graph_aspect_ratio);
-        chart.attr("height", graph_container_height);
-        //dimensione del quadrato in cui verranno posizionati i punti
-        graph_size=graph_container_height;
+    var chart = $("#"+graph_div+"");
+    graph_container_width = chart.width();
+    graph_container_height =  Math.floor( graph_container_width / graph_aspect_ratio);
+
+    var graph_style = "height:"+graph_container_height+"px; "
+    graph_style+="padding-top:"+Math.floor(graph_container_width/graph_margin_ratio_x)+"px; ";
+    graph_style+="padding-left:"+Math.floor(graph_container_width/graph_margin_ratio_y)+"px; ";
+    graph_style+="padding-bottom:"+Math.floor(graph_container_width/graph_margin_bottom)+"px; ";
+    chart.attr("style", graph_style);
+
+    //dimensione del quadrato in cui verranno posizionati i punti
+    graph_size=graph_container_height;
+
+    //offset x fra il contenitore del grafico e il grafico stesso
+    graph_offset_x=(graph_container_width-graph_size)/2;
+    graph_offset_y=30;
+
 
 }
 
@@ -91,8 +103,6 @@ function draw_graph(coordinate, highlight, marker){
     max_label_len=longest_label*label_font_size;
 
 
-    //offset x fra il contenitore del grafico e il grafico stesso
-    graph_offset_x=(graph_container_width-graph_size)/2;
     //calcola xy max e min per i cerchi di sfondo
     max_outputx_square = graph_size-(outer_dotsize+link_len+(max_label_len/2))+graph_offset_x;
     min_outputx_square = (outer_dotsize+link_len+(max_label_len/2))+graph_offset_x;
@@ -140,9 +150,9 @@ function draw_graph(coordinate, highlight, marker){
     vis = d3.select("#"+graph_div+"")
         .data([val_array])
         .append("svg:svg")
-        .attr("style", "position: absolute; top: " + top_pos + "; left: " + left_pos + ";")
+        //.attr("style", "position: absolute; top: " + top_pos + "; left: " + left_pos + ";")
         //following lines are for the responsiveness of the graph
-        .attr("viewBox", "0 0 " + graph_container_width + " " + graph_container_height )
+        .attr("viewBox", "0 0 " + graph_container_width + " " + (graph_container_height+graph_offset_y))
         .attr("preserveAspectRatio", "xMidYMid meet")
         .attr("id", "grafico_svg");
 

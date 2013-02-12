@@ -67,8 +67,6 @@
         }
         {% block generate_dynamic_content %}
 
-
-
             //quando la dimensione della finestra cambia, vengono ricalcolate le grandezze
             //del grafico
             $(window).on("resize", function() {
@@ -161,12 +159,12 @@
     <div class="sfondo-grigio">
         <div class="container">
             <div class="row-fluid">
-                <div class="span8">
-                    <div class="grafico" id="grafico" style="position: relative">
-                       <img src="{{ STATIC_URL }}img/grafico/bg_user.jpg" alt="Voi Siete Qui - Openpolis" />
+                <div class="span6">
+                    <div class="grafico_background"  style="background-image: url('{{ STATIC_URL }}img/grafico/bg_user.png');">
+                        <div class="grafico" id="grafico" style=""></div>
                     </div>
                 </div>
-                <div class="span4">
+                <div class="span4 offset2">
                     <div class="box-bianco">
                         <form>
                             <br>
