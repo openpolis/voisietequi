@@ -81,8 +81,6 @@ function resize(){
 
     //offset x fra il contenitore del grafico e il grafico stesso
     graph_offset_x=(graph_container_width-graph_size)/2;
-    graph_offset_y=30;
-
 
 }
 
@@ -152,7 +150,7 @@ function draw_graph(coordinate, highlight, marker){
         .append("svg:svg")
         //.attr("style", "position: absolute; top: " + top_pos + "; left: " + left_pos + ";")
         //following lines are for the responsiveness of the graph
-        .attr("viewBox", "0 0 " + graph_container_width + " " + (graph_container_height+graph_offset_y))
+        .attr("viewBox", "0 0 " + graph_container_width + " " + graph_container_height)
         .attr("preserveAspectRatio", "xMidYMid meet")
         .attr("id", "grafico_svg");
 
