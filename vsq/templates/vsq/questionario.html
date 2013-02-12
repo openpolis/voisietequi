@@ -4,7 +4,7 @@
 
 {% block content %}
   <!-- START questionario-domande -->
-  <div id="domande-questionario">
+  <div id="domande-questionario" style="min-height: 500px;">
     <div class="sfondo-verde">
       <div class="container">
         <div class="testata-interna">
@@ -94,7 +94,7 @@
   <!-- END questionario-domande -->
 
   <!-- START questionario-utente -->
-  <div id="utente-questionario" class="hide">
+  <div id="utente-questionario" class="hide" style="min-height: 500px;">
 
     <div class="sfondo-verde">
       <div class="container">
@@ -147,7 +147,7 @@
     var Q;
     var SITE_URL = '{{ SITE_URL }}';
     $(document).ready(function(){
-      Q = new Questionario('{{ COMPUTER_URL }}/computation/','{{ ELECTION_CODE }}', function(results, data_json) {
+      Q = new Questionario('{{ COMPUTER_URL }}computation/','{{ ELECTION_CODE }}', function(results, data_json) {
           log('results received', results, data_json);
 
           $('#nome-utente').text(data_json.user_data['name']);
@@ -166,9 +166,13 @@
           posiziona_label_risposte_utente(data_json.user_answers, risposte, label_risposte);
           posiziona_loghi(risposte_partiti, data_json.user_answers, dist, partiti, risposte);
 
-          var permalink = SITE_URL + '/risultato/' + results['code'] +'/';
+          var permalink = SITE_URL + 'risultato/' + results['code'] +'/';
           $('#permalink').val( permalink );
-          addthis.update('#share-page', {}, { url: permalink });
+          var el = $('#share-page');
+          $.each(['facebook','twitter','google_plusone_share','email','compact'],
+                  function(ix, social) { el.append('<a class="addthis_button_'+social+'" />');  });
+          // you are the first... no need counter: el.append('<a class="addthis_counter addthis_bubble_style" />');
+          addthis.toolbox('#share-page', addthis_config, { url: permalink });
           var embed_code_textarea = $('#embed_code');
           embed_code_textarea.val(
                   embed_code_textarea.val().replace(/src="([^"])+"/gi,'src="'+permalink+'?embed=si"')
@@ -181,3 +185,4 @@
 
 {% endblock %}
 {% block generate_dynamic_content %}{% endblock %}
+{% block share_block %}{% endblock %}

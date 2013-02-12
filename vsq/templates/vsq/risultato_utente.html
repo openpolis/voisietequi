@@ -67,11 +67,11 @@
         }
         {% block generate_dynamic_content %}
             $(document).ready(function() {
+                caricamento_social_share();
                 draw_graph(coordinate,"user", true);
                 posiziona_distanze_generiche(coordinate, partiti);
                 posiziona_label_risposte_utente(risposte_utente, risposte, label_risposte);
                 posiziona_loghi(risposte_partiti, risposte_utente, dist, partiti, risposte);
-                caricamento_social_share();
             });
         {% endblock %}
     </script>
@@ -158,12 +158,14 @@
 
                             <!-- AddThis Button BEGIN -->
                             <div id="share-page" class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                              {% block share_block %}
                                 <a class="addthis_button_facebook"></a>
                                 <a class="addthis_button_twitter"></a>
                                 <a class="addthis_button_google_plusone_share"></a>
                                 <a class="addthis_button_email"></a>
                                 <a class="addthis_button_compact"></a>
                                 <a class="addthis_counter addthis_bubble_style"></a>
+                              {% endblock share_block %}
                             </div>
 
                             <hr>
