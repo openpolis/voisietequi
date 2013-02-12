@@ -2,7 +2,6 @@
 import json
 
 import os
-from django.db import IntegrityError
 import pika
 import logging
 
@@ -325,16 +324,21 @@ def save_callback(body):
 
     data = pickle.loads(body)
 
-    u = Utente(
-        nickname= data['user_data']['name'],
-        ip= data['user_data']['ip_address'],
-        agent = data['user_data']['agent'],
-        email= data['user_data']['email'],
-        wants_newsletter='wants_newsletter' in data['user_data'] and data['user_data']['wants_newsletter'] == 'on',
-        user_key= data['code'],
-        coord = json.dumps(data['results']),
-    )
-    try:
+    u_check = Utente.objects.filter(user_key=data['code']).count()
+    if u_check > 0:
+        print "Errore: utente esistente "
+        print "  Dati: {0}".format(data)
+    else:
+        u = Utente(
+            nickname= data['user_data']['name'],
+            ip= data['user_data']['ip_address'],
+            agent = data['user_data']['agent'],
+            email= data['user_data']['email'],
+            wants_newsletter='wants_newsletter' in data['user_data'] and data['user_data']['wants_newsletter'] == 'on',
+            user_key= data['code'],
+            coord = json.dumps(data['results']),
+        )
+
         u.save()
         objs = RispostaUtente.objects.bulk_create([
             RispostaUtente(
@@ -346,10 +350,6 @@ def save_callback(body):
         ])
 
         print "User %s has answered to %d questions" % (u.nickname, len(objs))
-    except IntegrityError as e:
-        print "Errore {0} ".format(e)
-        print "  Dati: {0}".format(data)
-        pass
 
 
 
