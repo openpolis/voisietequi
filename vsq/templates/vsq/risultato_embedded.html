@@ -71,6 +71,14 @@
             margin-right: 1em;
             font-size:  12px;
         }
+        .grafico_background {
+            padding-bottom: 10px;
+            text-align: center;
+            overflow: hidden;
+            background-size: 100% 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
     </style>
 
 </head>
@@ -86,7 +94,7 @@
         {% block generate_dynamic_content %}
             $(document).ready(function() {
                 resize();
-                draw_graph(coordinate,"user", true);
+                draw_graph(coordinate,"user", false);
             });
         {% endblock %}
     </script>
