@@ -19,7 +19,18 @@
 {% block scripts %}
     <script type="text/javascript">
         {% block generate_dynamic_content %}
+
+            //quando la dimensione della finestra cambia, vengono ricalcolate le grandezze
+            //del grafico
+            $(window).on("resize", function() {
+                clearTimeout(500);
+                resize();
+
+            });
+
+
             $(document).ready(function() {
+                resize();
                 draw_graph(coordinate);
             });
         {% endblock %}
@@ -78,9 +89,9 @@
                   <a href="{% url questionario-utente %}" class="btn btn-danger btn-large">Scopri dove sei! &raquo;</a>
                 </div>
               </div>
-              <div class="span8">
-                  <div class="grafico" id="grafico" style="position: relative">
-                      <img src="{{ STATIC_URL }}img/grafico/bg_liste.png" alt="Voi Siete Qui - Openpolis" />
+              <div class="span6 offset1">
+                  <div class="grafico_background"  style="background-image: url('{{ STATIC_URL }}img/grafico/bg_liste.png');">
+                      <div class="grafico" id="grafico" style=""></div>
                   </div>
               </div>
             </div>
