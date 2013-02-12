@@ -146,6 +146,15 @@
   <script type="text/javascript">
     var Q;
     var SITE_URL = '{{ SITE_URL }}';
+
+    //quando la dimensione della finestra cambia, vengono ricalcolate le grandezze
+    //del grafico
+    $(window).on("resize", function() {
+        clearTimeout(500);
+        resize();
+
+    });
+
     $(document).ready(function(){
       Q = new Questionario('{{ COMPUTER_URL }}computation/','{{ ELECTION_CODE }}', function(results, data_json) {
           log('results received', results, data_json);
@@ -161,6 +170,8 @@
               'user_key': results['code']
           };
 
+
+          resize();
           draw_graph(results.results, "user", true);
           posiziona_distanze_generiche(results.results, partiti);
           posiziona_label_risposte_utente(data_json.user_answers, risposte, label_risposte);
