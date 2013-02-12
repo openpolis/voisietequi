@@ -9,7 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', EarlyBirdView.as_view(), name='earlybird'),
+    #url(r'^$', EarlyBirdView.as_view(), name='earlybird'),
     url(r'^registration_ok$',TemplateView.as_view(template_name='early_bird_success.html')),
     url(r'^mockup_answer$', mockup_response),
     url(r'^vsq/$', QuestionarioUtente.as_view(), name="questionario_utenti"),
@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^home/$', HomepageView.as_view(), name='homepage'),
+    url(r'^$', HomepageView.as_view(), name='homepage'),
     url(r'^liste/$', PartyPositionsView.as_view(), name='party-positions'),
     url(r'^lista/(?P<slug>[-\w]+)/$', PartitoDetailView.as_view(), name='party-detail'),
     url(r'^temi/(?P<slug>[-\w]+)/$', TopicDetailView.as_view(), name='topic-detail'),

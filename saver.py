@@ -324,27 +324,34 @@ def save_callback(body):
 
     data = pickle.loads(body)
 
-    u = Utente(
-        nickname= data['user_data']['name'],
-        ip= data['user_data']['ip_address'],
-        agent = data['user_data']['agent'],
-        email= data['user_data']['email'],
-        wants_newsletter='wants_newsletter' in data['user_data'] and data['user_data']['wants_newsletter'] == 'on',
-        user_key= data['code'],
-        coord = json.dumps(data['results']),
-    )
-    u.save()
-
-    objs = RispostaUtente.objects.bulk_create([
-        RispostaUtente(
-            domanda_id = domanda,
-            risposta_int = risposta,
-            utente = u
+    u_check = Utente.objects.filter(user_key=data['code']).count()
+    if u_check > 0:
+        print "ERR Utente esistente: {0}".format(data)
+    else:
+        u = Utente(
+            nickname= data['user_data']['name'],
+            ip= data['user_data']['ip_address'],
+            agent = data['user_data']['agent'],
+            email= data['user_data']['email'],
+            wants_newsletter='wants_newsletter' in data['user_data'] and data['user_data']['wants_newsletter'] == 'on',
+            user_key= data['code'],
+            coord = json.dumps(data['results']),
         )
-        for domanda, risposta in data['user_answers'].items()
-    ])
 
-    print "User %s has answered to %d questions" % (u.nickname, len(objs))
+        u.save()
+        objs = RispostaUtente.objects.bulk_create([
+            RispostaUtente(
+                domanda_id = domanda,
+                risposta_int = risposta,
+                utente = u
+            )
+            for domanda, risposta in data['user_answers'].items()
+        ])
+
+        print "User %s has answered to %d questions" % (u.nickname, len(objs))
+
+
+
 
 if __name__ == '__main__':
 
