@@ -73,6 +73,7 @@ function resize(){
     var graph_style = "height:"+graph_container_height+"px; "
     graph_style+="padding-top:"+Math.floor(graph_container_width/graph_margin_ratio_x)+"px; ";
     graph_style+="padding-left:"+Math.floor(graph_container_width/graph_margin_ratio_y)+"px; ";
+    graph_style+="padding-right:"+Math.floor(graph_container_width/graph_margin_ratio_y)+"px; ";
     graph_style+="padding-bottom:"+Math.floor(graph_container_width/graph_margin_bottom)+"px; ";
     chart.attr("style", graph_style);
 
