@@ -66,13 +66,29 @@
             })
         }
         {% block generate_dynamic_content %}
+
+
+
+            //quando la dimensione della finestra cambia, vengono ricalcolate le grandezze
+            //del grafico
+            $(window).on("resize", function() {
+                clearTimeout(500);
+                resize();
+
+            });
+
             $(document).ready(function() {
-                caricamento_social_share();
+
+                resize();
                 draw_graph(coordinate,"user", true);
+                caricamento_social_share();
                 posiziona_distanze_generiche(coordinate, partiti);
                 posiziona_label_risposte_utente(risposte_utente, risposte, label_risposte);
                 posiziona_loghi(risposte_partiti, risposte_utente, dist, partiti, risposte);
             });
+
+
+
         {% endblock %}
     </script>
 

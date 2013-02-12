@@ -22,6 +22,7 @@ var link_len =25;
 //dimensioni del contenitore del grafico sulla pagina html
 var graph_container_width = 512,
     graph_container_height = 290;
+var graph_aspect_ratio = graph_container_width/graph_container_height;
 
 //dimensione del quadrato in cui verranno posizionati i punti
 var graph_size=graph_container_height;
@@ -59,7 +60,19 @@ var circles_colors=["f3f9f7","e9f3f0","e0ede8","d6e8e0","cee3d9","c5ddd4","bed8c
 var connection_lines;
 
 //resize graph, avatar and avatar pos based on browser viewport
-function resizeGraph(){}
+
+function resize(){
+
+    //gets graph size and set graph height
+
+        var chart = $("#"+graph_div+"");
+        graph_container_width = chart.width();
+        graph_container_height =  Math.floor( graph_container_width / graph_aspect_ratio);
+        chart.attr("height", graph_container_height);
+        //dimensione del quadrato in cui verranno posizionati i punti
+        graph_size=graph_container_height;
+
+}
 
 
 function draw_graph(coordinate, highlight, marker){
@@ -77,8 +90,8 @@ function draw_graph(coordinate, highlight, marker){
     //calcola la lunghezza massima della label in px
     max_label_len=longest_label*label_font_size;
 
+
     //offset x fra il contenitore del grafico e il grafico stesso
-//    graph_offset_x =fattore_scala_offset* (graph_container_width-graph_size)/2;
     graph_offset_x=(graph_container_width-graph_size)/2;
     //calcola xy max e min per i cerchi di sfondo
     max_outputx_square = graph_size-(outer_dotsize+link_len+(max_label_len/2))+graph_offset_x;
@@ -127,9 +140,11 @@ function draw_graph(coordinate, highlight, marker){
     vis = d3.select("#"+graph_div+"")
         .data([val_array])
         .append("svg:svg")
-        .attr("width", graph_container_width )
-        .attr("height", graph_container_height )
-        .attr("style", "position: absolute; top: " + top_pos + "; left: " + left_pos + ";");
+        .attr("style", "position: absolute; top: " + top_pos + "; left: " + left_pos + ";")
+        //following lines are for the responsiveness of the graph
+        .attr("viewBox", "0 0 " + graph_container_width + " " + graph_container_height )
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .attr("id", "grafico_svg");
 
 
     // Initialize the label-forces
