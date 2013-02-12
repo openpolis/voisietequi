@@ -71,13 +71,21 @@
             margin-right: 1em;
             font-size:  12px;
         }
+        .grafico_background {
+            padding-bottom: 10px;
+            text-align: center;
+            overflow: hidden;
+            background-size: 100% 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
     </style>
 
 </head>
 
 <body>
-    <div class="grafico" id="grafico" style="position: relative">
-        <img src="{{ STATIC_URL }}img/grafico/bg_liste.png" alt="Voi Siete Qui - Openpolis" />
+    <div class="grafico_background"  style="background-image: url('{{ STATIC_URL }}img/grafico/bg_user.png');">
+        <div class="grafico" id="grafico" style=""></div>
     </div>
     <div id="embed-caption">
         <a href="{{ CURRENT_URL }}">Voi siete qui per le Politiche 2013</a>
@@ -85,6 +93,7 @@
     <script type="text/javascript">
         {% block generate_dynamic_content %}
             $(document).ready(function() {
+                resize();
                 draw_graph(coordinate,"user", true);
             });
         {% endblock %}

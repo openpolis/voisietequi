@@ -43,7 +43,7 @@ user_marker_h=user_marker_w=100;
 //delta x e y per posizionare il punteruolo del marker
 //esattamente sul punto highlight
 var user_marker_delta_x=30;
-var user_marker_delta_y=60;
+var user_marker_delta_y=80;
 
 //fattore_scala_cerchi permette di scalare i cerchi concentrici
 //sullo sfondo del grafico
