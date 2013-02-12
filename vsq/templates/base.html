@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="utf-8">
   <title>{% block title %}{% endblock %} - Voi siete qui - Openpolis</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="Voi siete qui: Elezioni politiche 2013">
+  <meta name="author" content="Openpolis">
+  <meta property="og:title" content="Voi siete qui: Elezioni politiche 2013" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="{{ STATIC_URL }}img/voisietequi-logo-social.png" />
+  <meta property="og:url" content="{{ SITE_URL }}" />
+  {% block meta %}{% endblock %}
 
   <!-- Le styles -->
   <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
@@ -35,6 +40,18 @@
   <!-- Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript">
+        var ga_code = "UA-980632-1";
+        var site_url = '{{ SITE_URL }}';
+        var addthis_config = {
+            ui_cobrand: 'Voisietequi.it',
+            ui_language: 'it',
+            data_ga_tracker: ga_code,
+            ui_hover_delay: 200,
+            data_track_clickback: false
+        };
+    </script>
 
   <!-- Fav and touch icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}ico/apple-touch-icon-144-precomposed.png">
@@ -95,7 +112,10 @@
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
           <!-- AddThis Button BEGIN -->
-          <div class="addthis_toolbox addthis_default_style addthis_32x32_style" addthis:url="{{ CURRENT_URL }}">
+          <div class="addthis_toolbox addthis_default_style addthis_32x32_style" id="bottom-share"
+               addthis:url="{{ SITE_URL }}"
+               addthis:title="Voi siete qui: Elezioni politiche 2013"
+               addthis:ui_hover_direction="1">
               <a class="addthis_button_facebook"></a>
               <a class="addthis_button_twitter"></a>
               <a class="addthis_button_google_plusone_share"></a>
@@ -103,7 +123,6 @@
               <a class="addthis_button_compact"></a>
               <a class="addthis_counter addthis_bubble_style"></a>
           </div>
-          <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
 
       </div>
       <div class="span4">
@@ -153,14 +172,13 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{{ STATIC_URL }}js/jquery.js"></script>
 <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5117c0d354e9aed6"></script>
 
 <!-- Google tracker -->
 <script type="text/javascript">
 
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-980632-1']);
+    _gaq.push(['_setAccount', ga_code]);
     _gaq.push(['_trackPageview']);
 
     (function() {

@@ -88,7 +88,7 @@ function draw_graph(coordinate, highlight, marker){
 
 
     //funzione di scala fra input e output per i cerchi di sfondo
-    var x_square = d3.scale.linear().domain([ minvalx, maxvalx]).range([max_outputx_square, min_outputx_square]),
+    var x_square = d3.scale.linear().domain([ minvalx, maxvalx]).range([min_outputx_square, max_outputx_square]),
         y_square = d3.scale.linear().domain([ minvaly, maxvaly]).range([min_outputy_square, max_outputy_square]);
 
 

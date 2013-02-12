@@ -21,9 +21,10 @@ def main_settings(request):
         "COALIZIONI": Coalizione.objects.all(),
         "QUESTIONS_COUNT": 25,
         "DISQUS_FORUM": settings.DISQUS_FORUM if hasattr(settings, 'DISQUS_FORUM') else '',
-        "COMPUTER_URL": settings.COMPUTER_URL,
+        "COMPUTER_URL": settings.COMPUTER_URL if settings.COMPUTER_URL[-1] == '/'
+                        else settings.COMPUTER_URL + '/',
         "ELECTION_CODE": settings.ELECTION_CODE,
         "LATEST_FAQ": Faq.objects.order_by('ordine')[:3],
-        "SITE_URL": site_url,
+        "SITE_URL": site_url if site_url[-1] == '/' else site_url + '/',
         "CURRENT_URL": site_url + request.path_info
     }
