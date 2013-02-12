@@ -92,8 +92,8 @@ posiziona_distanze_generiche = function(coordinate, partiti, highlighted_party){
 posiziona_label_risposte_partito = function(risposte_partito, risposte, label_risposte){
     for (var r in risposte_partito) {
         var risposta_partito = risposte_partito[r];
-        var col_selector = '#collapse'+r+' table tr.symbols td.grigio-tab';
-        $(col_selector).append(
+        //var col_selector = '#collapse'+r+' table tr.symbols td.grigio-tab';
+        $('#collapse'+r).find('table tr.symbols td.grigio-tab, span.posizione-responsive').append(
             '<label class="label label-' + label_risposte[risposta_partito] + '">' +
                 risposte[risposta_partito] +
                 '</label>'
