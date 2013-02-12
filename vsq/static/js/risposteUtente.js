@@ -196,7 +196,6 @@ function draw_graph(coordinate, highlight, marker){
             attr("cx",function(d) { return x_square(d.x)}).
             attr("cy",function(d) { return y_square(d.y)}).
             attr("fill", function(d){
-
                 return "rgba("+hexToRgb(d.color).r+","+hexToRgb(d.color).g+","+hexToRgb(d.color).b+","+circles_transparency+")";
             })
     }
@@ -261,8 +260,6 @@ function draw_graph(coordinate, highlight, marker){
 
 
     if(highlight && highlight_index!=null){
-
-
 
         //aggiunge le linee di connessione fra i punti
         for(var k=0; k<val_array.length;k++){
