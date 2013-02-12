@@ -2,6 +2,7 @@
 import json
 
 import os
+from django.db import IntegrityError
 import pika
 import logging
 
@@ -333,18 +334,25 @@ def save_callback(body):
         user_key= data['code'],
         coord = json.dumps(data['results']),
     )
-    u.save()
+    try:
+        u.save()
+        objs = RispostaUtente.objects.bulk_create([
+            RispostaUtente(
+                domanda_id = domanda,
+                risposta_int = risposta,
+                utente = u
+            )
+            for domanda, risposta in data['user_answers'].items()
+        ])
 
-    objs = RispostaUtente.objects.bulk_create([
-        RispostaUtente(
-            domanda_id = domanda,
-            risposta_int = risposta,
-            utente = u
-        )
-        for domanda, risposta in data['user_answers'].items()
-    ])
+        print "User %s has answered to %d questions" % (u.nickname, len(objs))
+    except IntegrityError as e:
+        print "Errore {0} ".format(e)
+        print "  Dati: {0}".format(data)
+        pass
 
-    print "User %s has answered to %d questions" % (u.nickname, len(objs))
+
+
 
 if __name__ == '__main__':
 
