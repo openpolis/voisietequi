@@ -63,15 +63,17 @@ var connection_lines;
 
 //controlla che il browser supporti D3, viceversa mostra un div di errore
 function browser_check(){
-    var isIE8 = $.browser.msie && +$.browser.version <= 8;
-
-    if ( isIE8 ) {
-        $("#browser_issue").show();
-        return false;
-    }
-    else{
-        return true;
-    }
+//    var isIE8 = $.browser.msie && +$.browser.version <= 8;
+//
+//    if ( isIE8==true ) {
+//        $("#browser_issue").show();
+//        return false;
+//    }
+//    else{
+//        return true;
+//    }
+    
+return true;
 
 }
 
