@@ -5,7 +5,9 @@ from vsq.views import *
 
 admin.autodiscover()
 
-
+from django.http import HttpResponse
+def counter_view(request):
+    return HttpResponse(str(Utente.objects.count()))
 
 urlpatterns = patterns('',
     # Examples:
@@ -29,6 +31,7 @@ urlpatterns = patterns('',
     url(r'^rispondi/$', QuestionarioUtenteView.as_view(), name='questionario-utente'),
     url(r'^risultato/(?P<user_key>[\w]+)/$', RisultatoUtenteView.as_view(), name='risultato-utente'),
     url(r'^faq/$', FaqListView.as_view(), name='faq-list'),
+    url(r'^counter/$', counter_view, name='counter'),
     url(r'^test500/$', Test500View.as_view(), name='test-500'),
 )
 
