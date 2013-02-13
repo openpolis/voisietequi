@@ -4,6 +4,7 @@ import json
 import os
 import pika
 import logging
+import unicodedata
 
 try:
     import cPickle as pickle
@@ -348,7 +349,7 @@ def save_callback(body):
             for domanda, risposta in data['user_answers'].items()
         ])
 
-        print "User %s has answered to %d questions" % (u.nickname, len(objs))
+        print "User %s has answered to %d questions" % (data['code'], len(objs))
 
 
 
