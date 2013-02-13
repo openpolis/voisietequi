@@ -6,10 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Voi siete qui: Elezioni politiche 2013">
   <meta name="author" content="Openpolis">
-{#  <meta property="og:title" content="Voi siete qui: Elezioni politiche 2013" />#}
-{#  <meta property="og:type" content="website" />#}
-{#  <meta property="og:image" content="{{ SITE_URL }}static/img/voisietequi-logo-social.png" />#}
-{#  <meta property="og:url" content="{{ CURRENT_URL }}" />#}
+  <meta property="og:type" content="website" />
+  {% if CURRENT_PAGE == 'risultato-utente' %}
+  <meta property="og:title" content="Voi siete qui: la mia posizione" />
+  <meta property="og:image" content="{{ SITE_URL }}static/img/voisietequi-logo-social-results.png" />
+  <meta property="og:description" content="Io sono qui e tu dove sei? Scopri il partito che ti è più vicino con il test di Openpolis.">
+  {% else %}
+  <meta property="og:title" content="Voi siete qui: Elezioni politiche 2013" />
+  <meta property="og:image" content="{{ SITE_URL }}static/img/voisietequi-logo-social.png" />
+  <meta property="og:description" content="Perso nella campagna elettorale? Orientati qui!">
+  {% if CURRENT_PAGE != 'questionario-utente' %}
+  <meta property="og:url" content="{{ SITE_URL }}">
+  {% endif %}
+  {% endif %}
+
   {% block meta %}{% endblock %}
   <link rel="image_src" href="{{ SITE_URL }}static/img/voisietequi-logo-social.png" />
 
