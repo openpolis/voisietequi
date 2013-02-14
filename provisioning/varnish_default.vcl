@@ -124,11 +124,26 @@ sub vcl_fetch {
     # Varnish determined the object was cacheable
     } else {
         set beresp.http.X-Cacheable = "YES";
+
+        /* Remove Expires from backend, it's not long enough */
+        unset beresp.http.expires;
+
+        /* Set the clients TTL on this object */
+        set beresp.http.cache-control = "max-age=600";
+
+        /* Set how long Varnish will keep it */
+        set beresp.ttl = 1h;
+
+        /* marker for vcl_deliver to reset Age: */
+        set beresp.http.magicmarker = "1";
     }
 
-    if (req.url ~ "^/home/") {
-      set beresp.ttl = 1s;
+    # set home page ttl to 1sec
+    if (req.url ~ "^/$") {
+        set beresp.http.cache-control = "max-age=1";
+        set beresp.ttl = 1s;
     }
+
 
     return(deliver);
 }
