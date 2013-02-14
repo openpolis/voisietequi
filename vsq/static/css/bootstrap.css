@@ -6438,11 +6438,11 @@ a.badge:hover {
 }
 
 .box-num-domande {
-  width: 140px;
-  height: 110px;
+  width: 90px;
+  height: 76px;
   margin: 0 0 10px 10px;
   font-family: "Droid Serif", serif;
-  padding: 30px 0 0 0;
+  padding: 12px 0 0 0;
   text-align: center;
   background-color: #fafafa;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -6456,8 +6456,8 @@ a.badge:hover {
 }
 
 .box-num-domande strong {
- 	font-size: 72px;
- 	line-height: 60px;	
+ 	font-size: 48px;
+ 	line-height: 40px;
  	color: #000;
 }
 

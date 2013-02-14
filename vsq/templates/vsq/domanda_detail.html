@@ -13,7 +13,7 @@
 <div class="contenuto">
   <div class="container">
     <div class="row-fluid">
-      <div class="span3">
+      <div class="span1">
         <div class="box-num-domande pull-right">
           Tema<br /><strong>{{ object.ordine }}/</strong>25<br />&nbsp;
         </div>
@@ -34,6 +34,9 @@
             {% endwith %}
           </ul>
         </div>
+      </div>
+      <div class="span2">
+          <div id="chart_div" style="width:320px; height:320px; margin: 36px 0 0 -30px"></div>
       </div>
     </div>
   </div>
@@ -102,5 +105,37 @@
 </div>
 
 {% endblock %}
+{% block header_scripts %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/humanize.min.js"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Posizione', 'Numero utenti'],
+                ['Molto favorevole', {{ mfv }}],
+                ['Favorevole', {{ fav }}],
+                ['Tendenzialmente favorevole',  {{ tfv }}],
+                ['Tendenzialmente contrario', {{ tcn }}],
+                ['Contrario',    {{ con }}],
+                ['Molto contrario',    {{ mcn }}]
+            ]);
 
+            var options = {
+                title: 'La posizione degli utenti sul tema',
+                titleTextStyle: { color: '#666'},
+                is3D: true,
+                legend: {position: 'none'},
+                colors: [
+                  '#006100', '#008300', '#6A9A00',
+                  '#CA7500', '#D11D00', '#9A0000'
+                ]
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+{% endblock %}
 {% block scripts %}{% endblock %}
