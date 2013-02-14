@@ -51,7 +51,7 @@
                 </button>
                 <div id="approfondisci-{{ domanda.pk }}" class="collapse">
                   <div class="approfondimento">
-                    <p>{{ domanda.approfondimento_html|safe }}</p>
+                    {{ domanda.approfondimento_html|safe }}
                   </div>
                 </div>
                 {% endif %}
@@ -158,6 +158,10 @@
     });
 
     $(document).ready(function(){
+      if ($('.domanda').length != {{ domande|length }}) {
+          alert('Il questionario potrebbe non essere stato caricato correttamente. Ricaricare la pagina e in caso di un nuovo errore contattaci!')
+          return;
+      }
       Q = new Questionario('{{ COMPUTER_URL }}computation/','{{ ELECTION_CODE }}', function(results, data_json) {
           log('results received', results, data_json);
 
