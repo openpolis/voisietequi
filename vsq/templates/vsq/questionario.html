@@ -38,7 +38,7 @@
           <div class="row-fluid">
             <div class="span3">
               <div class="box-num-domande pull-right">
-                Sei alla domanda<br><strong>{{ domanda.ordine }}/</strong>{{ domande|length }}<br>&nbsp;
+                Domanda<br><strong>{{ domanda.ordine }}/</strong>{{ domande|length }}<br>&nbsp;
               </div>
             </div>
             <div class="span9">
@@ -158,10 +158,10 @@
     });
 
     $(document).ready(function(){
-      if ($('.domanda').length != {{ domande|length }}) {
-          alert('Il questionario potrebbe non essere stato caricato correttamente. Ricaricare la pagina e in caso di un nuovo errore contattaci!')
-          return;
-      }
+      //if ($('.domanda').length != {{ domande|length }}) {
+      //    alert('Il questionario potrebbe non essere stato caricato correttamente. Ricaricare la pagina e in caso di un nuovo errore contattaci!')
+      //    return;
+      //}
       Q = new Questionario('{{ COMPUTER_URL }}computation/','{{ ELECTION_CODE }}', function(results, data_json) {
           log('results received', results, data_json);
 
