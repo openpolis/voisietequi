@@ -38,13 +38,10 @@ var max_outputx,min_outputx, max_outputy,min_outputy,max_label_len=0;
 var max_outputx_square,min_outputx_square, max_outputy_square,min_outputy_square;
 
 //dimensioni del marker utente
-var user_marker_w, user_marker_h;
-user_marker_h=user_marker_w=100;
-//delta x e y per posizionare il punteruolo del marker
-//esattamente sul punto highlight
-var user_marker_delta_x=30;
-var user_marker_delta_y=80;
-
+var user_marker_size=20;
+var user_marker_stroke=10;
+var user_marker_color="#8430a6";
+var user_marker_transparency=1;
 //fattore_scala_cerchi permette di scalare i cerchi concentrici
 //sullo sfondo del grafico
 var fattore_scala_cerchi=0.29;
@@ -63,15 +60,17 @@ var connection_lines;
 
 //controlla che il browser supporti D3, viceversa mostra un div di errore
 function browser_check(){
-    var isIE8 = $.browser.msie && +$.browser.version <= 8;
+//    var isIE8 = $.browser.msie && +$.browser.version <= 8;
+//
+//    if ( isIE8==true ) {
+//        $("#browser_issue").show();
+//        return false;
+//    }
+//    else{
+//        return true;
+//    }
 
-    if ( isIE8 ) {
-        $("#browser_issue").show();
-        return false;
-    }
-    else{
-        return true;
-    }
+return true;
 
 }
 
@@ -135,19 +134,17 @@ function draw_graph(coordinate, highlight, marker){
         if(highlight && coordinate[i][0].toUpperCase()===highlight.toUpperCase())
             highlight_index=i;
 
-        //se non e' definito un highlight o
-        // non e' definito il maker mette un marker normale per i punti
-        if(!highlight || highlight && coordinate[i][0].toUpperCase()!==highlight.toUpperCase() || !marker){
+        // trova il colore associato al partito analizzato
+        for (var sigla in partiti) {
 
-            // trova il colore associato al partito analizzato
-            for (var sigla in partiti) {
+            if(coordinate[i][0] == sigla)
+                var color = partiti[sigla].colore;
+        }
+        //if party was not found, set a default color
+        if(color=="")
+            color=default_party_color;
 
-                if(coordinate[i][0] == sigla)
-                    var color = partiti[sigla].colore;
-            }
-            //if party was not found, set a default color
-            if(color=="")
-                color=default_party_color;
+        if(coordinate[i][0]!="user"){
 
             val_array[i] = {
                 label: coordinate[i][0],
@@ -157,23 +154,25 @@ function draw_graph(coordinate, highlight, marker){
                 fontsize: label_font_size,
                 color:color
             };
-
-            if(coordinate[i][0]=="user"){
-                val_array[i].label=utente.nickname;
-                val_array[i].size= inner_dotsize*2;
-                val_array[i].fontsize= label_font_size+2;
-
-            }
-
-
-            color="";
         }
+        else{
+            //adds a user marker point, small dot marker of transparent color
+            val_array[i] = {
+                //label: utente.nickname,
+                label: "mariorossi",
+                x: parseFloat(coordinate[i][1]),
+                y: parseFloat(coordinate[i][2]),
+                size: 0.001,
+                color:null
+            };
+        }
+
+        color="";
     }
 
     vis = d3.select("#"+graph_div+"")
         .data([val_array])
         .append("svg:svg")
-        //.attr("style", "position: absolute; top: " + top_pos + "; left: " + left_pos + ";")
         //following lines are for the responsiveness of the graph
         .attr("viewBox", "0 0 " + graph_container_width + " " + graph_container_height)
         .attr("preserveAspectRatio", "xMidYMid meet")
@@ -223,70 +222,6 @@ function draw_graph(coordinate, highlight, marker){
             attr("fill", function(d){
                 return "rgba("+hexToRgb(d.color).r+","+hexToRgb(d.color).g+","+hexToRgb(d.color).b+","+circles_transparency+")";
             })
-    }
-
-
-        var anchors = vis
-        .selectAll(".anchor")
-        .data(val_array,function(d,i) { return i});
-
-    //disegna il marker partito fatto da 3 cerchi concentrici
-    anchors.enter().
-        append("circle").
-        attr("r",function(d) { return d.size+4;}).
-        attr("cx",function(d) { return x_square(d.x);}).
-        attr("cy",function(d) { return y_square(d.y);}).
-        attr("fill", function(d){
-            var new_color=ColorLuminance(d.color,0.6);
-            return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+0.5+")";
-        })
-
-    anchors.enter().
-        append("circle").
-        attr("r",function(d) { return d.size+2;}).
-        attr("cx",function(d) { return x_square(d.x);}).
-        attr("cy",function(d) { return y_square(d.y);}).
-        attr("fill", function(d){
-            var new_color=ColorLuminance(d.color,-0.6);
-            return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+0.7+")";
-
-        })
-
-    anchors.enter().
-        append("circle").
-        attr("r",function(d) { return d.size;}).
-        attr("cx",function(d) { return x_square(d.x);}).
-        attr("cy",function(d) { return y_square(d.y);}).
-        attr("fill", function(d){return d.color;})
-
-
-    anchors.transition()
-        .delay(function(d,i) { return i*10;})
-        .duration(10)
-        .attr("cx",function(d) { return x_square(d.x);})
-        .attr("cy",function(d) { return y_square(d.y);})
-
-    // Now for the labels
-    anchors.call(labelForce.update)  //  This is the only function call needed, the rest is just drawing the labels
-
-    var labels = vis.selectAll(".labels").data(val_array,function(d,i) { return i})
-
-    // Draw the labelbox, caption and the link
-    var newLabels = labels.enter().append("g").attr("class","labels")
-
-    var newLabelBox = newLabels.append("g").attr("class","labelbox")
-    newLabelBox.append("text")
-        .attr("class","labeltext")
-        .attr("y",6)
-
-    newLabels.append("line").attr("class","link")
-
-    labelBox = vis.selectAll(".labels").selectAll(".labelbox")
-    links = vis.selectAll(".link")
-    labelBox.selectAll("text").text(function(d) { return d.label;;});
-
-
-    if(highlight && highlight_index!=null){
 
         //aggiunge le linee di connessione fra i punti
         for(var k=0; k<val_array.length;k++){
@@ -310,50 +245,117 @@ function draw_graph(coordinate, highlight, marker){
             attr("y2",function(d) { return y_square(d.y2);}).
             attr("class","connection-line");
 
-
-        if(marker){
-            //TODO: determina il verso del marker a seconda della posizione
-            // rispetto ai bordi del grafico
-
-
-            //aggiunge il marker sul punto di interesse
-            //calcolando il punto secondo i delta x e y che spostano l'immagine
-            //per far coincidere il punteruolo con il punto highlight
-            var user_marker_x, user_marker_y;
-            user_marker_x = x_square(highlight_x)-user_marker_delta_x;
-            user_marker_y = y_square(highlight_x)-user_marker_delta_y;
-
-            vis.append("svg:image")
-                .attr("xlink:href", "/static/img/grafico/user_marker.png")
-                .attr("x",user_marker_x)
-                .attr("y",user_marker_y)
-                .attr("width", user_marker_w)
-                .attr("height", user_marker_h);
-
-            //aggiunge lo sfondo x la label
-            vis.append("rect")
-                .attr("x",(user_marker_x-(utente.nickname.length*label_font_size)/2)+10)
-                .attr("y",(user_marker_y-label_font_size+2)-10)
-                .attr("width",((utente.nickname.length*label_font_size)-50))
-                .attr("height",label_font_size*1.5)
-                .attr("fill", function(d){
-                    var new_color="000000";
-                    return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+0.5+")";
-
-                })
-
-
-            //aggiunge la label con il nome
-            vis.append("text")
-                .attr("class","nickname")
-                .attr("x",user_marker_x-15)
-                .attr("y",user_marker_y-7)
-                .attr("fill","#fff")
-                .text(utente.nickname);
-
-
-        }
     }
+
+
+        var anchors = vis
+        .selectAll(".anchor")
+        .data(val_array,function(d,i) { return i});
+
+    //disegna il marker partito fatto da 3 cerchi concentrici
+    anchors.enter().
+        append("circle").
+        attr("r",function(d) { return d.size+4;}).
+        attr("cx",function(d) { return x_square(d.x);}).
+        attr("cy",function(d) { return y_square(d.y);}).
+        attr("fill", function(d){
+            if(d.color!=null){
+                var new_color=ColorLuminance(d.color,0.6);
+                return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+0.5+")";
+            }
+
+        })
+
+    anchors.enter().
+        append("circle").
+        attr("r",function(d) { return d.size+2;}).
+        attr("cx",function(d) { return x_square(d.x);}).
+        attr("cy",function(d) { return y_square(d.y);}).
+        attr("fill", function(d){
+            if(d.color!=null){
+                var new_color=ColorLuminance(d.color,-0.6);
+                return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+0.7+")";
+            }
+        })
+
+    anchors.enter().
+        append("circle").
+        attr("r",function(d) { return d.size;}).
+        attr("cx",function(d) { return x_square(d.x);}).
+        attr("cy",function(d) { return y_square(d.y);}).
+        attr("fill", function(d){
+            if(d.color!=null){
+                return d.color;
+            }
+        })
+
+
+
+
+    if(highlight && highlight_index!=null && marker){
+
+        //aggiunge il marker sul punto di interesse
+
+        var user_marker_x, user_marker_y;
+        var padding = Math.floor(user_marker_size / 2);
+        user_marker_x = x_square(highlight_x);
+        user_marker_y = y_square(highlight_y);
+
+
+        //disegna la croce
+        vis.append("line")
+            .attr("x1",user_marker_x+padding)
+            .attr("y1",user_marker_y+padding)
+            .attr("x2",user_marker_x-padding)
+            .attr("y2",user_marker_y-padding)
+            .style("stroke-miterlimit","10")
+            .style("stroke", function(d){
+                var new_color=user_marker_color;
+                return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+user_marker_transparency+")";
+            })
+            .style("stroke-width",user_marker_stroke+"px");
+
+        vis.append("line")
+            .attr("x1",user_marker_x-padding)
+            .attr("y1",user_marker_y+padding)
+            .attr("x2",user_marker_x+padding)
+            .attr("y2",user_marker_y-padding)
+            .style("stroke-miterlimit","10")
+            .style("stroke", function(d){
+                var new_color=user_marker_color;
+                return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+user_marker_transparency+")";
+            })
+            .style("stroke-width",user_marker_stroke+"px");
+
+    }
+
+    anchors.transition()
+        .delay(function(d,i) { return i*10;})
+        .duration(10)
+        .attr("cx",function(d) { return x_square(d.x);})
+        .attr("cy",function(d) { return y_square(d.y);})
+
+    // Now for the labels
+    anchors.call(labelForce.update)  //  This is the only function call needed, the rest is just drawing the labels
+
+    var labels = vis.selectAll(".labels").data(val_array,function(d,i) { return i})
+
+    // Draw the labelbox, caption and the link
+    var newLabels = labels.enter().append("g").attr("class","labels")
+
+    var newLabelBox = newLabels.append("g").attr("class","labelbox")
+    newLabels.append("line").attr("class","link")
+    newLabelBox.append("text")
+        .attr("class","labeltext")
+        .attr("y",6)
+        .text(function(d) { return d.label;;});
+
+
+    labelBox = vis.selectAll(".labels").selectAll(".labelbox")
+    links = vis.selectAll(".link")
+
+
+
 
 }
 

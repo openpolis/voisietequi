@@ -79,7 +79,7 @@
             $(document).ready(function() {
                 if(browser_check()){
                     resize();
-                    draw_graph(coordinate,"user", false);
+                    draw_graph(coordinate,"user", true);
 
                 }
                 caricamento_social_share();
@@ -94,10 +94,8 @@
     </script>
 
     <script src="{{ STATIC_URL }}js/dynamicPageContent.js"></script>
-
     <script src="{{ STATIC_URL }}js/risposteUtente.js?"></script>
     <script src="{{ STATIC_URL }}js/utils.js"></script>
-{#    <script src="http://d3js.org/d3.v2.js"></script>#}
     <script src="{{ STATIC_URL }}js/underscore.min.js"></script>
     <script src="{{ STATIC_URL }}js/d3.min.js"></script>
     {#script for the final graph #}
@@ -105,46 +103,6 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/force_labels.js"></script>
 
     <script type="text/javascript" src="{{ STATIC_URL }}js/ZeroClipboard.min.js"></script>
-    {#stili per label e marker del grafico#}
-    <style>
-
-        #permalink { cursor: auto; }
-
-        .labelbox {
-            color:green;
-            opacity:0.8
-        }
-
-        .labeltext {
-            color:black;
-            font-weight:bold;
-            text-anchor:middle;
-            font-family: Arial, sans-serif;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
-        .link {
-            stroke:gray;
-            stroke-width:0.35
-        }
-        .connection-line {
-            stroke:gray;
-            stroke-width:0.5
-        }
-
-
-        .nickname {
-            color:white;
-            font-weight:bold;
-            text-anchor:middle;
-            font-family: Arial, sans-serif;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
-
-
-
-    </style>
 
 {% endblock %}
 
@@ -240,7 +198,7 @@
                         </tr>
                         <tr>
                             <td class="grigio-tab">
-                                <img src="{{ STATIC_URL }}img/grafico/user_marker.png" width="50" height="50"/>
+                                <img src="{{ STATIC_URL }}img/grafico/cross.png" width="60" height="60"/>
                             </td>
                             <td class="verde01-tab"></td>
                             <td class="verde02-tab"></td>
