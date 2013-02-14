@@ -67,14 +67,6 @@
         }
         {% block generate_dynamic_content %}
 
-            //quando la dimensione della finestra cambia, vengono ricalcolate le grandezze
-            //del grafico
-            $(window).on("resize", function() {
-                if(browser_check()){
-                    clearTimeout(500);
-                    resize();
-                }
-            });
 
             $(document).ready(function() {
                 if(browser_check()){

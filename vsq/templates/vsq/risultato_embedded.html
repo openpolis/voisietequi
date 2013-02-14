@@ -13,6 +13,7 @@
     <![endif]-->
 
     {% regroup risposte_partiti by partito__sigla as liste %}
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
 
     <script type="text/javascript">
 
@@ -95,7 +96,7 @@
             $(document).ready(function() {
                 if(browser_check()){
                     resize();
-                    draw_graph(coordinate,"user", false);
+                    draw_graph(coordinate,"user", true);
                 }
             });
         {% endblock %}

@@ -16,9 +16,9 @@ var maxvalx, maxvaly,minvalx, minvaly;
 maxvalx= maxvaly=1;
 minvalx= minvaly=0;
 
-var label_charge = -100;
+var label_charge = -120;
 //lunghezza massima in px dei link fra punti e label
-var link_len =25;
+var link_len =30;
 //dimensioni del contenitore del grafico sulla pagina html
 var graph_container_width = 512,
     graph_container_height = 290;
@@ -42,6 +42,8 @@ var user_marker_size=20;
 var user_marker_stroke=10;
 var user_marker_color="#8430a6";
 var user_marker_transparency=1;
+var user_label_font_size="14px";
+
 //fattore_scala_cerchi permette di scalare i cerchi concentrici
 //sullo sfondo del grafico
 var fattore_scala_cerchi=0.29;
@@ -96,6 +98,14 @@ function resize(){
 
     //offset x fra il contenitore del grafico e il grafico stesso
     graph_offset_x=(graph_container_width-graph_size)/2;
+
+    if (graph_container_width < 300) {
+        label_charge = -40;
+        link_len =10;
+        label_font_size = 10;
+        user_label_font_size = 12;
+
+    }
 
 }
 
@@ -158,11 +168,11 @@ function draw_graph(coordinate, highlight, marker){
         else{
             //adds a user marker point, small dot marker of transparent color
             val_array[i] = {
-                //label: utente.nickname,
-                label: "mariorossi",
+                label: utente.nickname,
                 x: parseFloat(coordinate[i][1]),
                 y: parseFloat(coordinate[i][2]),
                 size: 0.001,
+                fontsize: user_label_font_size,
                 color:null
             };
         }
@@ -348,6 +358,7 @@ function draw_graph(coordinate, highlight, marker){
     newLabelBox.append("text")
         .attr("class","labeltext")
         .attr("y",6)
+        .style("font-size",function(d) { return d.fontsize;})
         .text(function(d) { return d.label;;});
 
 
