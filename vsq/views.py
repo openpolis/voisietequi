@@ -254,6 +254,7 @@ class TopicDetailView(DetailView):
         context['tcn'] = tcn
         context['con'] = con
         context['mcn'] = mcn
+        context['tot'] = mfv + fav + tfv + tcn + con + mcn
 
         return context
 

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load labels %}
+{% load humanize %}
 
 {% block title %}{{ object.testo }} #{{ object.ordine }}{% endblock %}
 
@@ -18,7 +19,7 @@
           Tema<br /><strong>{{ object.ordine }}/</strong>25<br />&nbsp;
         </div>
       </div>
-      <div class="span9">
+      <div class="span8">
         <div class="domande">
           <h1>{{ object.testo_html|safe }}</h1>
           <div class="approfondimento">
@@ -35,9 +36,13 @@
           </ul>
         </div>
       </div>
-      <div class="span2">
-          <div id="chart_div" style="width:320px; height:320px; margin: 36px 0 0 -30px"></div>
-      </div>
+      <div class="span3">
+          <div id="chart_div" style="width:280px; height:240px; margin: 36px 0 0 -30px"></div>
+          <div class="chart-caption">
+              <strong>La posizione dei nostri {{ tot|intcomma }} utenti sul tema</strong><br/>
+              <a href="/faq#6">Le percentuali non sono statisticamente significative</a>
+          </div>
+       </div>
     </div>
   </div>
 </div>
@@ -123,8 +128,6 @@
             ]);
 
             var options = {
-                title: 'La posizione degli utenti sul tema',
-                titleTextStyle: { color: '#666'},
                 is3D: true,
                 legend: {position: 'none'},
                 colors: [

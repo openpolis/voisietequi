@@ -6484,6 +6484,14 @@ a.badge:hover {
   background-color: #fafafa;
 }
 
+.domande .approfondimento {
+    font-size: 12px;
+}
+
+.chart-caption {
+    font-size: 11px;
+    text-align: center;
+}
 
 .footer {
   padding: 35px 30px 30px 30px;
