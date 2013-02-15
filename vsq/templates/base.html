@@ -84,13 +84,27 @@
                         <li{% if 'homepage' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url homepage %}">Home</a></li>
                         <li{% if '-utente' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url questionario-utente %}">Tu dove sei?</a></li>
                         <li{% if 'party-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url party-positions %}">Le posizioni delle liste elettorali</a></li>
-                        <li{% if 'topic-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url topic-list %}">Commenta i 25 temi</a></li>
+                        <li{% if 'topic-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url topic-list %}">Le posizioni e i commenti degli utenti sui 25 temi</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
                 <div class="pull-right sharing">
                     <ul class="nav">
-                        <li id="twittthis">
-                            <a href="https://twitter.com/intent/tweet?button_hashtag=voisietequi" class="twitter-hashtag-button" data-lang="it" data-related="openpolis" data-url="{{ SITE_URL }}">Tweet #voisietequi</a>
+                        <li id="paypal">
+                            <form method="post" action="https://www.paypal.com/cgi-bin/webscr" class="form-inline">
+                                <input type="hidden" value="_xclick" name="cmd">
+                                <input type="hidden" value="v.alvino@openpolis.it" name="business">
+                                <input type="hidden" value="Donazione occasionale per l'associazione openpolis" name="item_name">
+                                <input type="hidden" value="openpolis" name="page_style">
+                                <input type="hidden" value="1" name="no_shipping">
+                                <input type="hidden" value="http://www.openpolis.it" name="return">
+                                <input type="hidden" value="1" name="no_note">
+                                <input type="hidden" value="EUR" name="currency_code">
+                                <input type="hidden" value="0" name="tax">
+                                <input type="hidden" value="IT" name="lc">
+                                <input type="hidden" value="PP-DonationsBF" name="bn">
+                                <input type="hidden" value="0" name="amount">
+                                <button type="submit" class="btn btn-primary" alt="PayPal - Il sistema di pagamento online più facile e sicuro! ">Dona!</button>
+                            </form>
                         </li>
                     </ul>
                 </div>

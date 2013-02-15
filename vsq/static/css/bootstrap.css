@@ -6895,7 +6895,8 @@ a.badge:hover {
 .domanda { min-height: 255px; }
 
 #twittthis { margin-top: 10px; }
-
+#paypal { margin: 0 }
+#paypal form { margin: 0 }
 
 /* Stili grafico d3 */
 #permalink { cursor: auto; }
