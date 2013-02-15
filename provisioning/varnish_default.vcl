@@ -37,6 +37,9 @@ sub vcl_recv {
         }
     }
 
+    if (req.http.host ~ "^(www.)?voisietequi.it$") {
+        error 301;
+    } 
 
 #  if (!(client.ip ~ testers)) {
 #    error 403 "Accesso temporaneamente bloccato - server in manutenzione";
@@ -100,6 +103,12 @@ sub vcl_recv {
   }
 set req.backend = default;
 }
+sub vcl_error {
+    if (obj.status == 301 && req.http.host ~ "^(www.)?voisietequi.it$")
+    {
+        set obj.http.Location = "http://politiche2013.voisietequi.it/";
+    }
+}
 
 # adding diagnostics on why there was a hit/miss
 sub vcl_fetch {
@@ -138,11 +147,18 @@ sub vcl_fetch {
         set beresp.http.magicmarker = "1";
     }
 
-    # set home page ttl to 1sec
+    # set home page ttl to 10sec
     if (req.url ~ "^/$") {
+        set beresp.http.cache-control = "max-age=10";
+        set beresp.ttl = 10s;
+    }
+
+    # set counter ttl to 1 sec
+    if (req.url ~ "^/counter/$") {
         set beresp.http.cache-control = "max-age=1";
         set beresp.ttl = 1s;
     }
+    
 
 
     return(deliver);
