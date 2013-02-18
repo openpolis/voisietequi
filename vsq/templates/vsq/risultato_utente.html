@@ -45,26 +45,44 @@
 
 {% block scripts %}
     <script type="text/javascript">
+        var clip;
         caricamento_social_share = function() {
-            var copy_button = $("#copy-button");
-            var clip = new ZeroClipboard( copy_button, {
+            clip = new ZeroClipboard( $('#copy-button'), {
                 moviePath: "{{ STATIC_URL }}js/ZeroClipboard.swf"
             } );
-            clip.on( 'complete', function(client, args) {
-                copy_button.addClass('btn-success');
+            clip.on( 'mouseover', function ( client, args ) {
+                $('#copy-button').addClass('btn-info');
+            });
+            clip.on( 'mouseout', function ( client, args) {
+                $('#copy-button').removeClass('btn-info');
             } );
-            clip.on( 'mouseover', function(client) {
-                copy_button.addClass('btn-info');
-            } );
-
-            clip.on( 'mouseout', function(client) {
-                copy_button.removeClass('btn-info');
-            } );
+            clip.on( 'complete', function ( client, args ) {
+                $('#copy-button').addClass('btn-success');
+            });
+            clip.reposition();
 
             $(".code-autoselect").on("mouseup", function () {
                 $(this).select();
+            });
+
+            $('#download-link').click(function(){
+                var spinner = $('<img />').attr('src','{{ STATIC_URL }}img/ajax-loader.gif').load(function(){
+                    if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+                        console.log('broken image!');
+                    } else {
+                        $('#download-link').after(spinner);
+                        console.log('start', spinner);
+                        setInterval( function() {
+                            console.log('stop', spinner);
+                            spinner.remove();
+                        },5500);
+                    }
+                });
+                
+
             })
-        }
+        };
+
         {% block generate_dynamic_content %}
 
 
@@ -115,7 +133,7 @@
             <div class="row-fluid">
                 <div class="span6">
                     <div class="grafico_background"  style="background-image: url('{{ STATIC_URL }}img/grafico/bg_user.png');">
-                        <div class="grafico" id="grafico" style=""></div>
+                        <div class="grafico" id="grafico" style="" data-user-hash="{{ utente.user_key }}"></div>
                         <div id="browser_issue">
                             <p>
                                 Spiacenti, il browser che hai installato non supporta la visualizzazione del grafico di Voi siete qui.
@@ -128,37 +146,39 @@
                 </div>
                 <div class="span4 offset2">
                     <div class="box-bianco">
-                        <form>
-                            <br>
-                            <h4>Condividi con i tuoi amici</h4>
+                        <br>
+                        <h4>Salva l'immagine con il tuo posizionamento</h4>
 
-                            <!-- AddThis Button BEGIN -->
-                            <div id="share-page" class="addthis_toolbox addthis_default_style addthis_32x32_style">
-                              {% block share_block %}
+                        <a role="button" id="download-link" class="btn" href="http://webshots.openpolis.it/vsq-screenshots/{{ utente.user_key }}.png"><i class="icon-download"></i> Scarica</a>
+
+                        <hr>
+                        <div class="controls">
+                            <h5>Copia il link e condividi.</h5>
+                            <div class="input-append" id="copy-button-container">
+                                <input id="permalink" class="code-autoselect span8" type="text" value="{{ CURRENT_URL }}" readonly="readonly">
+                                <button id="copy-button" class="btn" data-clipboard-target="permalink">Copia</button>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <h5>Condividi con i tuoi amici</h5>
+                        <!-- AddThis Button BEGIN -->
+                        <div id="share-page" class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                            {% block share_block %}
                                 <a class="addthis_button_facebook"></a>
                                 <a class="addthis_button_twitter"></a>
                                 <a class="addthis_button_google_plusone_share"></a>
                                 <a class="addthis_button_email"></a>
                                 <a class="addthis_button_compact"></a>
                                 <a class="addthis_counter addthis_bubble_style"></a>
-                              {% endblock share_block %}
-                            </div>
+                            {% endblock share_block %}
+                        </div>
 
-                            <hr>
-                            <div class="controls">
-                                <h5>Copia il link e condividi.</h5>
-                                <div class="input-append">
-                                    <input id="permalink" class="code-autoselect span8" type="text" value="{{ CURRENT_URL }}" readonly="readonly">
-                                    <a id="copy-button" class="btn" data-clipboard-target="permalink"><i class="icon-magnet"></i></a>
-                                </div>
-                            </div>
-                            <hr>
-
-                            <div id="pubblica">
-                                <h5>Codice da incorporare sul tuo sito.</h5>
-                                <textarea name="embed_code" id="embed_code" class="span12 code-autoselect" style="height: 60px; font-size: 12px; font-family: Verdana, sans-serif; line-height: 12px;"><iframe width="560" height="356" src="{{ CURRENT_URL }}?embed=1" frameborder="0"></iframe></textarea>
-                            </div>
-                        </form>
+                        <hr>
+                        <h5 data-toggle="collapse" data-target="#pubblica" style="text-decoration: underline; cursor: pointer;">Codice da incorporare sul tuo sito.</h5>
+                        <div id="pubblica" class="collapse">
+                            <textarea name="embed_code" id="embed_code" class="span12 code-autoselect" style="height: 60px; font-size: 12px; font-family: Verdana, sans-serif; line-height: 12px;"><iframe width="560" height="356" src="{{ CURRENT_URL }}?embed=1" frameborder="0"></iframe></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
