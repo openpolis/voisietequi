@@ -35,6 +35,7 @@ function Questionario(url, election_code, callback, id_questionario, id_userdata
     this.callback = callback;
     this.box = $(id_questionario || '#domande-questionario');
     this.userbox = $(id_userdata || '#utente-questionario');
+    this.tentativi = 0;
 
     // setup navigation
     this.navigatore = $(id_navigatore || '#navigatore');
@@ -236,8 +237,14 @@ Questionario.prototype.send = function(){
         }.bind(this))
     .fail(function(data, textStatus, jqXHR) {
             log('Error:', data, textStatus, jqXHR);
-            button.next('span').removeClass('hide');
-            button.removeAttr('disabled');
-    })
+            this.tentativi += 1;
+            if (this.tentativi < 3) {
+                button.next('.text-warning').removeClass('hide');
+                button.removeAttr('disabled');
+            }
+            else {
+                button.next('.text-warning').addClass('hide').next('.text-error').removeClass('hide');
+            }
+        }.bind(this))
 };
 Questionario.prototype.build_results = function(results){};
