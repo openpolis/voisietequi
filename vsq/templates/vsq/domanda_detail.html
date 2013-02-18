@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load labels %}
+{% load humanize %}
 
 {% block title %}{{ object.testo }} #{{ object.ordine }}{% endblock %}
 
@@ -13,12 +14,12 @@
 <div class="contenuto">
   <div class="container">
     <div class="row-fluid">
-      <div class="span3">
+      <div class="span1">
         <div class="box-num-domande pull-right">
           Tema<br /><strong>{{ object.ordine }}/</strong>25<br />&nbsp;
         </div>
       </div>
-      <div class="span9">
+      <div class="span8">
         <div class="domande">
           <h1>{{ object.testo_html|safe }}</h1>
           <div class="approfondimento">
@@ -35,6 +36,13 @@
           </ul>
         </div>
       </div>
+      <div class="span3">
+          <div id="chart_div" style="width:280px; height:240px; margin: 36px 0 0 -30px"></div>
+          <div class="chart-caption">
+              <strong>La posizione dei nostri {{ tot|intcomma }} utenti sul tema</strong><br/>
+              <a href="/faq#6">Le percentuali non sono statisticamente significative</a>
+          </div>
+       </div>
     </div>
   </div>
 </div>
@@ -102,5 +110,35 @@
 </div>
 
 {% endblock %}
+{% block header_scripts %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/humanize.min.js"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Posizione', 'Numero utenti'],
+                ['Molto favorevole', {{ mfv|intcomma }}],
+                ['Favorevole', {{ fav|intcomma }}],
+                ['Tendenzialmente favorevole',  {{ tfv|intcomma }}],
+                ['Tendenzialmente contrario', {{ tcn|intcomma }}],
+                ['Contrario',    {{ con|intcomma }}],
+                ['Molto contrario',    {{ mcn|intcomma }}]
+            ]);
 
+            var options = {
+                is3D: true,
+                legend: {position: 'none'},
+                colors: [
+                  '#006100', '#008300', '#6A9A00',
+                  '#CA7500', '#D11D00', '#9A0000'
+                ]
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+{% endblock %}
 {% block scripts %}{% endblock %}

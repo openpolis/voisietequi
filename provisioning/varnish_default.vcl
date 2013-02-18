@@ -37,6 +37,9 @@ sub vcl_recv {
         }
     }
 
+    if (req.http.host ~ "^(www.)?voisietequi.it$") {
+        error 301;
+    } 
 
 #  if (!(client.ip ~ testers)) {
 #    error 403 "Accesso temporaneamente bloccato - server in manutenzione";
@@ -100,6 +103,12 @@ sub vcl_recv {
   }
 set req.backend = default;
 }
+sub vcl_error {
+    if (obj.status == 301 && req.http.host ~ "^(www.)?voisietequi.it$")
+    {
+        set obj.http.Location = "http://politiche2013.voisietequi.it/";
+    }
+}
 
 # adding diagnostics on why there was a hit/miss
 sub vcl_fetch {
@@ -124,11 +133,33 @@ sub vcl_fetch {
     # Varnish determined the object was cacheable
     } else {
         set beresp.http.X-Cacheable = "YES";
+
+        /* Remove Expires from backend, it's not long enough */
+        unset beresp.http.expires;
+
+        /* Set the clients TTL on this object */
+        set beresp.http.cache-control = "max-age=600";
+
+        /* Set how long Varnish will keep it */
+        set beresp.ttl = 1h;
+
+        /* marker for vcl_deliver to reset Age: */
+        set beresp.http.magicmarker = "1";
     }
 
-    if (req.url ~ "^/home/") {
-      set beresp.ttl = 1s;
+    # set home page ttl to 10sec
+    if (req.url ~ "^/$") {
+        set beresp.http.cache-control = "max-age=10";
+        set beresp.ttl = 10s;
     }
+
+    # set counter ttl to 1 sec
+    if (req.url ~ "^/counter/$") {
+        set beresp.http.cache-control = "max-age=1";
+        set beresp.ttl = 1s;
+    }
+    
+
 
     return(deliver);
 }

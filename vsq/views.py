@@ -7,7 +7,7 @@ from django.template import Context
 from django.template.loader import get_template
 from django.utils.functional import curry
 from django.views.generic import TemplateView, DetailView, CreateView, ListView, View
-from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente, Faq
+from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente, Faq, RispostaUtente
 from django.shortcuts import redirect, render_to_response, get_object_or_404
 from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm
 from vsq.utils import quantile
@@ -226,6 +226,37 @@ class PartyPositionsView(ListView):
 
 class TopicDetailView(DetailView):
     model = Domanda
+
+    def get_context_data(self, **kwargs):
+        context = super(TopicDetailView,self).get_context_data(**kwargs)
+
+        numeri_risposte = list(RispostaUtente.objects.filter(domanda=self.object).values('risposta_int').\
+            annotate(nr=Count('risposta_int')))
+
+        mfv = fav = tfv = tcn = con = mcn = 0
+        for r in numeri_risposte:
+            if r['risposta_int'] == 3:
+                mfv = r['nr']
+            if r['risposta_int'] == 2:
+                fav = r['nr']
+            if r['risposta_int'] == 1:
+                tfv = r['nr']
+            if r['risposta_int'] == -1:
+                tcn = r['nr']
+            if r['risposta_int'] == -2:
+                con = r['nr']
+            if r['risposta_int'] == -3:
+                mcn = r['nr']
+
+        context['mfv'] = mfv
+        context['fav'] = fav
+        context['tfv'] = tfv
+        context['tcn'] = tcn
+        context['con'] = con
+        context['mcn'] = mcn
+        context['tot'] = mfv + fav + tfv + tcn + con + mcn
+
+        return context
 
 class TopicListView(ListView):
     model = Domanda

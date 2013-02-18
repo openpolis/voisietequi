@@ -6438,11 +6438,11 @@ a.badge:hover {
 }
 
 .box-num-domande {
-  width: 140px;
-  height: 110px;
+  width: 98px;
+  height: 84px;
   margin: 0 0 10px 10px;
   font-family: "Droid Serif", serif;
-  padding: 30px 0 0 0;
+  padding: 12px 0 0 0;
   text-align: center;
   background-color: #fafafa;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -6456,8 +6456,8 @@ a.badge:hover {
 }
 
 .box-num-domande strong {
- 	font-size: 72px;
- 	line-height: 60px;	
+ 	font-size: 48px;
+ 	line-height: 40px;
  	color: #000;
 }
 
@@ -6484,6 +6484,14 @@ a.badge:hover {
   background-color: #fafafa;
 }
 
+.domande .approfondimento {
+    font-size: 12px;
+}
+
+.chart-caption {
+    font-size: 11px;
+    text-align: center;
+}
 
 .footer {
   padding: 35px 30px 30px 30px;
@@ -6887,3 +6895,34 @@ a.badge:hover {
 .domanda { min-height: 255px; }
 
 #twittthis { margin-top: 10px; }
+#paypal { margin: 0 }
+#paypal form { margin: 0 }
+
+/* Stili grafico d3 */
+#permalink { cursor: auto; }
+
+.labeltext {
+    color:black;
+    font-weight:bold;
+    text-anchor:middle;
+    font-family: Arial, sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+.link {
+    stroke:gray;
+    stroke-width:0.35px;
+}
+.connection-line {
+    stroke:gray;
+    stroke-width:0.5px;
+}
+
+.nickname {
+    color:white;
+    font-weight:bold;
+    text-anchor:middle;
+    font-family: Arial, sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+}

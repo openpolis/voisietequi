@@ -38,7 +38,7 @@
           <div class="row-fluid">
             <div class="span3">
               <div class="box-num-domande pull-right">
-                Sei alla domanda<br><strong>{{ domanda.ordine }}/</strong>{{ domande|length }}<br>&nbsp;
+                Domanda<br><strong>{{ domanda.ordine }}/</strong>{{ domande|length }}<br>&nbsp;
               </div>
             </div>
             <div class="span9">
@@ -51,7 +51,7 @@
                 </button>
                 <div id="approfondisci-{{ domanda.pk }}" class="collapse">
                   <div class="approfondimento">
-                    <p>{{ domanda.approfondimento_html|safe }}</p>
+                    {{ domanda.approfondimento_html|safe }}
                   </div>
                 </div>
                 {% endif %}
@@ -158,6 +158,10 @@
     });
 
     $(document).ready(function(){
+      //if ($('.domanda').length != {{ domande|length }}) {
+      //    alert('Il questionario potrebbe non essere stato caricato correttamente. Ricaricare la pagina e in caso di un nuovo errore contattaci!')
+      //    return;
+      //}
       Q = new Questionario('{{ COMPUTER_URL }}computation/','{{ ELECTION_CODE }}', function(results, data_json) {
           log('results received', results, data_json);
 
@@ -174,7 +178,7 @@
 
           if(browser_check()){
               resize();
-              draw_graph(results.results, "user", false);
+              draw_graph(results.results, "user", true);
           }
           posiziona_distanze_generiche(results.results, partiti);
           posiziona_label_risposte_utente(data_json.user_answers, risposte, label_risposte);

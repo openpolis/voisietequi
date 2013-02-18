@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load labels %}
+{% load humanize %}
 
 {% block title %}Homepage{% endblock %}
 
@@ -20,15 +21,6 @@
     <script type="text/javascript">
         {% block generate_dynamic_content %}
 
-            //quando la dimensione della finestra cambia, vengono ricalcolate le grandezze
-            //del grafico
-            $(window).on("resize", function() {
-                if(browser_check()){
-                    clearTimeout(500);
-                    resize();
-                }
-            });
-
             $(document).ready(function() {
                 if(browser_check()){
                     resize();
@@ -45,46 +37,6 @@
     {#script for the final graph #}
     <script type="text/javascript" src="{{ STATIC_URL }}js/force_labels.js"></script>
 
-    {#stili per label e marker del grafico#}
-    <style>
-
-
-        #permalink { cursor: auto; }
-
-        .labelbox {
-            color:green;
-            opacity:0.8
-        }
-
-        .labeltext {
-            color:black;
-            font-weight:bold;
-            text-anchor:middle;
-            font-family: Arial, sans-serif;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
-        .link {
-            stroke:gray;
-            stroke-width:0.35
-        }
-        .connection-line {
-            stroke:gray;
-            stroke-width:0.5
-        }
-
-
-        .nickname {
-            color:white;
-            font-weight:bold;
-            text-anchor:middle;
-            font-family: Arial, sans-serif;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
-
-
-    </style>
 
 {% endblock %}
 
@@ -105,7 +57,7 @@
                   Le liste hanno risposto direttamente a tutti i temi, tranne <strong>Pd</strong>, <strong>Fli</strong> e
                     <strong>M5S</strong> il cui posizionamento è stato elaborato da Openpolis.</p>
                   <div class="box-verde">
-                  <p><strong>{{ conteggio_utenti }} cittadini</strong><br />conoscono già la loro posizione.</p>
+                  <p><strong>{{ conteggio_utenti|intcomma }} cittadini</strong><br />conoscono già la loro posizione.</p>
                   <a href="{% url questionario-utente %}" class="btn btn-danger btn-large">Scopri dove sei! &raquo;</a>
                 </div>
               </div>

@@ -13,6 +13,7 @@
     <![endif]-->
 
     {% regroup risposte_partiti by partito__sigla as liste %}
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
 
     <script type="text/javascript">
 
@@ -86,16 +87,7 @@
 <body>
     <div class="grafico_background"  style="background-image: url('{{ STATIC_URL }}img/grafico/bg_user.png');">
         <div class="grafico" id="grafico" style=""></div>
-        <div id="browser_issue">
-            <p>
-                Spiacenti, il browser che hai installato non supporta la visualizzazione del grafico di Voi siete qui.
-            </p>
-            <p>
-                Ti consigliamo di scaricare una versione pi&ugrave; aggiornata del tuo browser.
-            </p>
         </div>
-
-    </div>
     <div id="embed-caption">
         <a href="{{ SITE_URL }}" target="_blank">Voi siete qui per le Politiche 2013</a>
     </div>
@@ -104,7 +96,7 @@
             $(document).ready(function() {
                 if(browser_check()){
                     resize();
-                    draw_graph(coordinate,"user", false);
+                    draw_graph(coordinate,"user", true);
                 }
             });
         {% endblock %}
@@ -112,7 +104,6 @@
 
     <script src="{{ STATIC_URL }}js/risposteUtente.js?"></script>
     <script src="{{ STATIC_URL }}js/utils.js"></script>
-    {#    <script src="http://d3js.org/d3.v2.js"></script>#}
     <script src="{{ STATIC_URL }}js/underscore.min.js"></script>
     <script src="{{ STATIC_URL }}js/d3.min.js"></script>
     {#script for the final graph #}
@@ -135,44 +126,6 @@
 
     </script>
 
-    {#stili per label e marker del grafico#}
-    <style>
-
-
-        .labelbox {
-            color:green;
-            opacity:0.8
-        }
-
-        .labeltext {
-            color:black;
-            font-weight:bold;
-            text-anchor:middle;
-            font-family: Arial, sans-serif;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
-        .link {
-            stroke:gray;
-            stroke-width:0.35
-        }
-        .connection-line {
-            stroke:gray;
-            stroke-width:0.5
-        }
-        .nickname {
-            background-color: black;
-            color:white;
-            font-weight:bold;
-            text-anchor:middle;
-            font-family: Arial, sans-serif;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
-
-
-
-    </style>
 
 </body>
 
