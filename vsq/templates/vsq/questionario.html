@@ -188,7 +188,7 @@
           var permalink = SITE_URL + 'risultato/' + results['code'] +'/';
           $('#permalink').val( permalink );
           var download_link = $('#download-link');
-          download_link.attr('src', download_link.attr('src').replace('.png', results['code'] + '.png') );
+          download_link.attr('href', download_link.attr('href').replace('.png', results['code'] + '.png') );
           var el = $('#share-page');
           $.each(['facebook','twitter','google_plusone_share','email','compact'],
                   function(ix, social) { el.append('<a class="addthis_button_'+social+'" />');  });
