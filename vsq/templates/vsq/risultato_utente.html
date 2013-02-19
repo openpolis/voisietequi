@@ -45,7 +45,7 @@
 
 {% block scripts %}
     <script type="text/javascript">
-        var clip;
+        var clip, spinner = $('<img />').attr('src','{{ STATIC_URL }}img/ajax-loader.gif');
         caricamento_social_share = function() {
             clip = new ZeroClipboard( $('#copy-button'), {
                 moviePath: "{{ STATIC_URL }}js/ZeroClipboard.swf"
@@ -66,21 +66,12 @@
             });
 
             $('#download-link').click(function(){
-                var spinner = $('<img />').attr('src','{{ STATIC_URL }}img/ajax-loader.gif').load(function(){
-                    if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
-                        console.log('broken image!');
-                    } else {
-                        $('#download-link').after(spinner);
-                        console.log('start', spinner);
-                        setInterval( function() {
-                            console.log('stop', spinner);
-                            spinner.remove();
-                        },5500);
-                    }
-                });
-
-
-            })
+                $(this).after(spinner);
+                setInterval( function() {
+                    console.log('stop', spinner);
+                    spinner.remove();
+                },5500);
+            });
         };
 
         {% block generate_dynamic_content %}
