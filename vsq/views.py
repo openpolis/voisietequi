@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.mail import EmailMessage
 from django.core.serializers import serialize
 from django.db.models import Count
@@ -189,6 +190,7 @@ def mockup_response(request):
         content_type='application/json',
     )
 
+
 class HomepageView(TemplateView):
     template_name = 'homepage.html'
 
@@ -207,7 +209,31 @@ class HomepageView(TemplateView):
             coord = [l.sigla, l.coord_x, l.coord_y]
             coordinate.append(coord)
         context['coordinate'] = json.dumps(coordinate)
+
+        # create a list of pairs,
+        # where first element is a instance of Domanda
+        # and second is a list of aggregate count, answer by answer.
+        # (domanda1, [ ['Molto Contrario', 54321], ['Contrario', 54321], ...  ]),
+        # (domanda2, [ ['Molto Contrario', 12345], ['Contrario', 54321], ...  ]),
+        # ...
+        try:
+            with open(settings.RESULTS_DUMP) as f:
+                import csv
+                domande = Domanda.objects.all()
+                reader = csv.DictReader(f)
+                headers = list(reader.fieldnames)
+                context['conteggio_risposte'] = []
+                for row in reader:
+                    context['conteggio_risposte'].append((
+                        filter(lambda x: x.ordine == int(row['Ordine']), domande)[0],
+                        [(x, row[x]) for x in headers[2:]]
+                    ))
+        except IOError:
+            # if not exists, display images of parties
+            pass
+
         return context
+
 
 class PartyPositionsView(ListView):
     model = Domanda

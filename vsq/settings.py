@@ -17,6 +17,7 @@ DISQUS_FORUM = ''
 MQ_URL = 'amqp://guest:guest@localhost:5672/%2f'
 MQ_EXCHANGE = 'voisietequi'
 MQ_QUEUE = 'vsq.{election}'.format(election=ELECTION_CODE)
+RESULTS_DUMP = os.path.join(REPO_ROOT, 'results.csv')
 
 ADMINS = (
 #    ('Nome Cognome', 'nome@dominio.it),
