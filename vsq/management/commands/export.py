@@ -17,7 +17,8 @@ class DictUnicodeWriter(object):
         self.encoder = codecs.getincrementalencoder(encoding)()
 
     def writerow(self, D):
-        self.writer.writerow({k:v.encode("utf-8") for k,v in D.items()})
+        #self.writer.writerow({k:v.encode("utf-8") for k,v in D.items()})
+        self.writer.writerow(dict([(k, v.encode("utf-8")) for k, v in D.items()]))
         # Fetch UTF-8 output from the queue ...
         data = self.queue.getvalue()
         data = data.decode("utf-8")
@@ -43,7 +44,16 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         risposte = [-3, -2, -1, 1, 2, 3]
-        headers = ['Ordine', 'Domanda', 'M.Contrari', 'Contrari', 'T.Contrari', 'T.Favorevoli', 'Favorevoli', 'M.Favorevoli']
+        headers = [
+            'Ordine',
+            'Domanda',
+            'Molto Contrari',
+            'Contrari',
+            'Tendenzialmente Contrari',
+            'Tendenzialmente Favorevoli',
+            'Favorevoli',
+            'Molto Favorevoli'
+        ]
         results = []
 
         f = cStringIO.StringIO()
