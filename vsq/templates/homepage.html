@@ -5,6 +5,8 @@
 {% block title %}Homepage{% endblock %}
 
 {% block header_scripts %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/humanize.min.js"></script>
     <script type="text/javascript">
         var coordinate = {{ coordinate|safe }};
         var partiti = {
@@ -13,7 +15,17 @@
                     'colore': "{{ l.coalizione.colore }}"
                 }{% if not forloop.last %},{%  endif %}
             {% endfor %}
-        }
+        };
+        google.load("visualization", "1", {packages:["corechart"]});
+        var results_list = new Array(), chart_options = {
+            is3D: true,
+            legend: {position: 'none'},
+            colors: [
+                '#006100', '#008300', '#6A9A00',
+                '#CA7500', '#D11D00', '#9A0000'
+            ],
+            chartArea: {'width': '100%', 'height': '80%'}
+        };
     </script>
 {% endblock %}
 
@@ -36,6 +48,25 @@
     <script src="{{ STATIC_URL }}js/d3.min.js"></script>
     {#script for the final graph #}
     <script type="text/javascript" src="{{ STATIC_URL }}js/force_labels.js"></script>
+
+    <script type="text/javascript">
+
+        var charts = new Array();
+        var onSlidDrawChart = function() {
+            var id = $('#myCarousel').find('.item.active .piechart').attr('id');
+            if (!window.charts.hasOwnProperty(id)) {
+                var data = google.visualization.arrayToDataTable(results_list[id]);
+                charts[id] = new google.visualization.PieChart(document.getElementById(id));
+                charts[id].draw(data, window.chart_options);
+            }
+        };
+
+        $(document).ready(function(){
+            // initialize charts (lazy-loaded)
+            $('#myCarousel').bind('slid', onSlidDrawChart );
+            onSlidDrawChart();
+        })
+    </script>
 
 
 {% endblock %}
@@ -82,26 +113,93 @@
     </div>
   </div>
 
+    {% if conteggio_risposte %}
+      <div class="contenuto">
+        <div class="container tema">
+          <div class="span12">
+            <div id="myCarousel" class="carousel slide" data-interval="10000" data-pause="hover">
+              <!-- Carousel items -->
+              <div class="carousel-inner">
+	              {% for object, results in conteggio_risposte %}
+                <div class="item row-fluid{% if forloop.first %} active{% endif %}">
+                  <script type="text/javascript">
+                      results_list['chart_div_{{ object.ordine }}'] = ([
+                          ['Posizione', 'Numero utenti'],
+                          {% for pos, val in results %}
+                              ['{{ pos }}', {{ val|intcomma }}],
+                          {% endfor %}
+                      ]);
+                  </script>
+                  <div class="offset1 span2">
+                    <div class="box-num-domande pull-right">
+                      Tema<br /><strong>{{ object.ordine }}/</strong>{{ conteggio_risposte|length }}<br />&nbsp;
+                    </div>
+                  </div>
+                  <div class="span8">
+                    <div class="pull-right" style="position: relative;">
+                      <div id="chart_div_{{ object.ordine }}" class="piechart" style="width:280px; height:240px;"></div>
+                      <div class="chart-caption">
+                        <a href="/faq#6">Le percentuali non sono statisticamente significative</a>
+                      </div>
+                    </div>
+                    <div class="domande">
+                      <h1><a href="{{ object.get_absolute_url }}">{{ object.testo_html|safe }}</a></h1>
+                    </div>
+                  </div>
+                </div>
+	              {% endfor %}
+              </div>
+              <!-- Carousel nav -->
+              <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+              <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="span10 offset1">
+                    <div class="well">
+                        <form action="#" class="pull-right">
+                            <div class="input-append">
+                                <input class="span2" id="appendedInputButton" type="text">
+                                <button class="btn" type="button">Invia</button>
+                            </div>
+                        </form>
+                        <p class="lead">
+                            Stiamo lavorando ad un’analisi approfondita <br>
+                            dei risultati di Voisietequi.
+                            Se sei interessato lasciaci la
+                            tua email e te la invieremo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+
 
   <div class="row-fluid">
     <div class="span12">
-        {% for partito in partiti_up %}
+      {% for partito in partiti_up %}
+      <div class="pull-left barra-coalizione barra-coalizione-{{ partito.coalizione.slug }}">
+        {% immagine_partito partito size='big' %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12">
+      {% for partito in partiti_dn %}
         <div class="pull-left barra-coalizione barra-coalizione-{{ partito.coalizione.slug }}">
           {% immagine_partito partito size='big' %}
         </div>
-        {% endfor %}
+      {% endfor %}
     </div>
   </div>
-
-  <div class="row-fluid">
-    <div class="span12">
-        {% for partito in partiti_dn %}
-            <div class="pull-left barra-coalizione barra-coalizione-{{ partito.coalizione.slug }}">
-                {% immagine_partito partito size='big' %}
-            </div>
-        {% endfor %}
-    </div>
-  </div>
+  {% endif %}
 
 
 
