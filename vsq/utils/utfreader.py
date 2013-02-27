@@ -41,6 +41,11 @@ class UnicodeDictWriter(object):
         self.writer = csv.DictWriter(self.queue, fieldnames, dialect=dialect, **kwds)
         self.stream = f
         self.encoder = codecs.getincrementalencoder(encoding)()
+        self.fieldnames = fieldnames
+
+    def writeheader(self):
+        header = dict(zip(self.fieldnames, self.fieldnames))
+        self.writerow(header)
 
     def writerow(self, D):
         self.writer.writerow(dict([(k,v.encode("utf-8")) for k,v in D.items()]))

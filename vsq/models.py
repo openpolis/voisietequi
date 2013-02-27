@@ -123,6 +123,9 @@ class Utente(models.Model):
     def __unicode__(self):
         return self.nickname
 
+    def get_answers(self):
+        return RispostaUtente.objects.filter(utente=self).order_by('domanda__ordine')
+
 
 class Coalizione(models.Model):
 
