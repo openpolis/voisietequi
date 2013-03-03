@@ -48,7 +48,7 @@
     <script src="{{ STATIC_URL }}js/d3.min.js"></script>
     {#script for the final graph #}
     <script type="text/javascript" src="{{ STATIC_URL }}js/force_labels.js"></script>
-
+    <script type="text/javascript" src="{{ MAILBIN_URL }}static/js/jquery.mailbin.js"></script>
     <script type="text/javascript">
 
         var charts = new Array();
@@ -65,6 +65,8 @@
             // initialize charts (lazy-loaded)
             $('#myCarousel').bind('slid', onSlidDrawChart );
             onSlidDrawChart();
+
+            $('#subscription_form').mailbinForm();
         })
     </script>
 
@@ -116,42 +118,44 @@
     {% if conteggio_risposte %}
       <div class="contenuto">
         <div class="container tema">
-          <div class="span12">
-            <div id="myCarousel" class="carousel slide" data-interval="10000" data-pause="hover">
-              <!-- Carousel items -->
-              <div class="carousel-inner">
-	              {% for object, results in conteggio_risposte %}
-                <div class="item row-fluid{% if forloop.first %} active{% endif %}">
-                  <script type="text/javascript">
-                      results_list['chart_div_{{ object.ordine }}'] = ([
-                          ['Posizione', 'Numero utenti'],
-                          {% for pos, val in results %}
-                              ['{{ pos }}', {{ val|intcomma }}],
-                          {% endfor %}
-                      ]);
-                  </script>
-                  <div class="offset1 span2">
-                    <div class="box-num-domande pull-right">
-                      Tema<br /><strong>{{ object.ordine }}/</strong>{{ conteggio_risposte|length }}<br />&nbsp;
-                    </div>
-                  </div>
-                  <div class="span8">
-                    <div class="pull-right" style="position: relative;">
-                      <div id="chart_div_{{ object.ordine }}" class="piechart" style="width:280px; height:240px;"></div>
-                      <div class="chart-caption">
-                        <a href="/faq#6">Le percentuali non sono statisticamente significative</a>
+          <div class="row">
+            <div class="span12">
+              <div id="myCarousel" class="carousel slide" data-interval="10000" data-pause="hover" style="padding-left:50px; padding-right:50px;">
+                <!-- Carousel items -->
+                <div class="carousel-inner container">
+                  {% for object, results in conteggio_risposte %}
+                    <div class="item row-fluid{% if forloop.first %} active{% endif %}">
+                      <script type="text/javascript">
+                        results_list['chart_div_{{ object.ordine }}'] = ([
+                            ['Posizione', 'Numero utenti'],
+                            {% for pos, val in results %}
+                                ['{{ pos }}', {{ val|intcomma }}],
+                            {% endfor %}
+                        ]);
+                      </script>
+                      <div class="span2">
+                        <div class="box-num-domande pull-right">
+                            Tema<br /><strong>{{ object.ordine }}/</strong>{{ conteggio_risposte|length }}<br />&nbsp;
+                        </div>
+                      </div>
+                      <div class="span8">
+                        <div class="pull-right" style="position: relative;">
+                          <div id="chart_div_{{ object.ordine }}" class="piechart" style="width:280px; height:240px;"></div>
+                          <div class="chart-caption">
+                              <a href="/faq#6">Le percentuali non sono statisticamente significative</a>
+                          </div>
+                        </div>
+                        <div class="domande">
+                          <h1><a href="{{ object.get_absolute_url }}">{{ object.testo_html|safe }}</a></h1>
+                        </div>
                       </div>
                     </div>
-                    <div class="domande">
-                      <h1><a href="{{ object.get_absolute_url }}">{{ object.testo_html|safe }}</a></h1>
-                    </div>
-                  </div>
+                {% endfor %}
                 </div>
-	              {% endfor %}
+                <!-- Carousel nav -->
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
               </div>
-              <!-- Carousel nav -->
-              <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-              <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
             </div>
           </div>
         </div>
@@ -161,11 +165,15 @@
             <div class="row">
                 <div class="span10 offset1">
                     <div class="well">
-                        <form action="#" class="pull-right">
-                            <div class="input-append">
-                                <input class="span2" id="appendedInputButton" type="text">
-                                <button class="btn" type="button">Invia</button>
+                        <form action="{{ MAILBIN_URL }}subscribe/vsq/" id="subscription_form" method="post" class="pull-right">
+                            <div class="control-group">
+                                <div class="input-append">
+                                    <input class="span2" id="appendedInputButton" type="text" name="email">
+                                    <button class="btn" type="submit">Invia</button>
+                                </div>
                             </div>
+                            <div class="text-error"></div>
+                            <div class="text-success"></div>
                         </form>
                         <p class="lead">
                             Stiamo lavorando ad un’analisi approfondita <br>

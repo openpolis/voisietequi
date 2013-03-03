@@ -26,5 +26,6 @@ def main_settings(request):
         "ELECTION_CODE": settings.ELECTION_CODE,
         "LATEST_FAQ": Faq.objects.order_by('ordine')[:3],
         "SITE_URL": site_url if site_url[-1] == '/' else site_url + '/',
-        "CURRENT_URL": site_url + request.path_info
+        "CURRENT_URL": site_url + request.path_info,
+        "MAILBIN_URL": settings.MAILBIN_URL,
     }
