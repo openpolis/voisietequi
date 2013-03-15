@@ -18,7 +18,8 @@ MQ_URL = 'amqp://guest:guest@localhost:5672/%2f'
 MQ_EXCHANGE = 'voisietequi'
 MQ_QUEUE = 'vsq.{election}'.format(election=ELECTION_CODE)
 RESULTS_DUMP = os.path.join(REPO_ROOT, 'results.csv')
-MAILBIN_URL = 'http://mailbin.dominio.it'
+MAILBIN_URL = 'tcp://127.0.0.1:5558'
+MAILBIN_SERVICE = 'xxx.voisietequi.it'
 
 ADMINS = (
 #    ('Nome Cognome', 'nome@dominio.it),
@@ -36,6 +37,8 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+MESSAGES_STORAGE = 'django.contrib.messages.storage.session.CookieStorage'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

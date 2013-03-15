@@ -12,7 +12,8 @@ MQ_EXCHANGE = '{MQ_EXCHANGE}'
 MQ_QUEUE = 'vsq.{election}'.format(election=ELECTION_CODE)
 COMPUTER_URL='http://urlcomputer.dominio.it'
 DISQUS_FORUM = ''
-MAILBIN_URL = 'http://mailbin.dominio.it'
+MAILBIN_URL = 'tcp://127.0.0.1:5558'
+MAILBIN_SERVICE = 'service.dominio.it'
 
 SHOW_DEBUG_TOOLBAR = False
 

@@ -46,3 +46,11 @@ class EarlyBirdForm(forms.ModelForm):
     class Meta:
         model = EarlyBird
 
+
+class SubscriptionForm(forms.Form):
+
+    my_default_errors = {
+        'required': 'Campo richiesto',
+        'invalid': 'Attenzione: Indirizzo email non valido',
+    }
+    email = forms.EmailField(max_length=200, error_messages=my_default_errors)

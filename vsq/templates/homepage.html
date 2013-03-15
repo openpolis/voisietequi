@@ -48,7 +48,6 @@
     <script src="{{ STATIC_URL }}js/d3.min.js"></script>
     {#script for the final graph #}
     <script type="text/javascript" src="{{ STATIC_URL }}js/force_labels.js"></script>
-    <script type="text/javascript" src="{{ MAILBIN_URL }}static/js/jquery.mailbin.js"></script>
     <script type="text/javascript">
 
         var charts = new Array();
@@ -165,15 +164,27 @@
             <div class="row">
                 <div class="span10 offset1">
                     <div class="well">
-                        <form action="{{ MAILBIN_URL }}subscribe/vsq/" id="subscription_form" method="post" class="pull-right">
+                        <form action="{% url subscribe-url %}" id="subscription_form" style="margin-left:20px;"
+                              method="post" class="pull-right">
+                            {% csrf_token %}
                             <div class="control-group">
                                 <div class="input-append">
                                     <input class="span2" id="appendedInputButton" type="text" name="email">
                                     <button class="btn" type="submit">Invia</button>
                                 </div>
                             </div>
-                            <div class="text-error"></div>
-                            <div class="text-success"></div>
+                            {% if subscription_form.email.errors %}
+                            <div class="alert alert-error">
+                              {{ subscription_form.email.errors.0 }}
+                            </div>
+                            {% else %}
+                            {% if messages %}
+	                            {% for message in messages %}{% if 'email' in message.tags %}
+                              <div class="alert alert-success">{{ message }}</div>
+                              {% endif %}{% endfor %}
+                            {% endif %}
+                            {% endif %}
+
                         </form>
                         <p class="lead">
                             Stiamo lavorando ad un’analisi approfondita <br>

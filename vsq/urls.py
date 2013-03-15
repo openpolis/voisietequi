@@ -10,7 +10,7 @@ def counter_view(request):
     return HttpResponse(str(Utente.objects.count()))
 
 urlpatterns = patterns('',
-    # Examples:
+
     #url(r'^$', EarlyBirdView.as_view(), name='earlybird'),
     url(r'^registration_ok$',TemplateView.as_view(template_name='early_bird_success.html')),
     url(r'^mockup_answer$', mockup_response),
@@ -32,6 +32,7 @@ urlpatterns = patterns('',
     url(r'^risultato/(?P<user_key>[\w]+)/$', RisultatoUtenteView.as_view(), name='risultato-utente'),
     url(r'^faq/$', FaqListView.as_view(), name='faq-list'),
     url(r'^counter/$', counter_view, name='counter'),
+    url(r'^iscrizione/$', SubscriptionView.as_view(), name='subscribe-url'),
     url(r'^test500/$', Test500View.as_view(), name='test-500'),
 )
 
