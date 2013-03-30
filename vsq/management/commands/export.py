@@ -34,7 +34,8 @@ class DictUnicodeWriter(object):
             self.writerow(D)
 
     def writeheader(self):
-        self.writer.writeheader()
+        self.writer.writerow(dict((fn, fn) for fn in self.writer.fieldnames))
+        #self.writer.writeheader()
 
 
 class Command(BaseCommand):

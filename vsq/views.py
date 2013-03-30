@@ -1,3 +1,4 @@
+from django import http
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.core.serializers import serialize
@@ -10,7 +11,7 @@ from django.utils.functional import curry
 from django.views.generic import TemplateView, DetailView, CreateView, ListView, View
 from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente, Faq, RispostaUtente
 from django.shortcuts import redirect, render_to_response, get_object_or_404
-from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm
+from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm, SubscriptionForm
 from vsq.utils import quantile
 from datetime import datetime
 from settings_local import PROJECT_ROOT, MANAGERS
@@ -231,6 +232,57 @@ class HomepageView(TemplateView):
         except IOError:
             # if not exists, display images of parties
             pass
+
+        return context
+
+
+class SubscriptionView(HomepageView):
+
+    def post(self, request, *args, **kwargs):
+        # initialize form with POST data
+        self.form = SubscriptionForm(request.POST)
+
+        if self.form.is_valid():
+            # send to zmq
+            import zmq
+            context = zmq.Context()
+            print 'connecting to %s' % settings.MAILBIN_URL
+
+            # socket to sending messages to save
+            save_sender = context.socket(zmq.PUSH)
+            print 'initialize sender socket in PUSH mode'
+
+            try:
+                save_sender.connect(settings.MAILBIN_URL)
+            except Exception, e:
+                print "Error connecting: %s" % e
+            data = {
+                # 'first_name': '',
+                # 'last_name': '',
+                'email': self.form.cleaned_data['email'],
+                'ip_address': request.META.get('REMOTE_ADDR'),
+                'user_agent': request.META.get('HTTP_USER_AGENT'),
+                'service_uri': settings.MAILBIN_SERVICE
+            }
+            # send message to receiver
+            save_sender.send_json(data)
+
+            # set success message in user cookie
+            from django.contrib import messages
+            messages.add_message(request, messages.INFO, 'Iscrizione avvenuta con successo.', extra_tags='email')
+            return redirect('homepage')
+
+        return self.get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(SubscriptionView, self).get_context_data(**kwargs)
+
+        if not hasattr(self, 'form') and self.request.method == 'GET':
+            # initialize empty form
+            context['subscription_form'] = SubscriptionForm()
+        else:
+            # form already initialized by post() method
+            context['subscription_form'] = self.form
 
         return context
 
