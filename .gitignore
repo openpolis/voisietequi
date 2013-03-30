@@ -6,6 +6,7 @@
 public/media/*
 public/static/*
 *.db
+*.csv
 dump
 vsq/settings_local.py
 log/logfile
