@@ -1,6 +1,7 @@
 .idea
 .vagrant
 .hostname
+.DS_Store
 .system-updated
 /.env
 public/media/*
