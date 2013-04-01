@@ -8,6 +8,7 @@ django-model-utils==1.1.0
 docutils==0.10
 psycopg2
 pika
+pyzmq
 
 #argparse==1.2.1
 #beautifulsoup4==4.1.3
