@@ -1,0 +1,52 @@
+[
+    {
+        "pk": 1, 
+        "model": "vsq.coalizione", 
+        "fields": {
+            "ordine": 1, 
+            "colore": "#ff8d7c", 
+            "slug": "centro-sinistra", 
+            "nome": "Centro-Sinistra"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "vsq.coalizione", 
+        "fields": {
+            "ordine": 2, 
+            "colore": "#dbd6d4", 
+            "slug": "centro", 
+            "nome": "Centro"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "vsq.coalizione", 
+        "fields": {
+            "ordine": 3, 
+            "colore": "#7db2f2", 
+            "slug": "centro-destra", 
+            "nome": "Centro-Destra"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "vsq.coalizione", 
+        "fields": {
+            "ordine": 4, 
+            "colore": "#fff5bc", 
+            "slug": "m5s", 
+            "nome": "M5S"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "vsq.coalizione", 
+        "fields": {
+            "ordine": 5, 
+            "colore": "#a5e89b", 
+            "slug": "misto", 
+            "nome": "Misto"
+        }
+    }
+]

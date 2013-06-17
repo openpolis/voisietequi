@@ -1,0 +1,2972 @@
+[
+    {
+        "pk": 51, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 1, 
+            "risposta_txt": "Non MOLTO favorevole, perch\u00e9 lo Stato dovrebbe aiutare a POSSEDERE casa propria, piuttosto che affittarla", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 52, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 2, 
+            "risposta_txt": "Cos\u00ec come votiamo oggi, andiamo contro gli articoli 56 e 58 della Costituzione. Dunque, non c'\u00e8 scampo: o si ritorna alle preferenze, o si opera nell'illegalit\u00e0", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 53, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 3, 
+            "risposta_txt": "Si veda l'articoli 21 della Costituzione. Cambiare nome alla guerra chiamandola \"missione di pace\" non \u00e8 propriamente nello spirito della legge. Che ne direste se gli afghani mandassero le loro truppe da noi per ripristinare la Costrituzione che \u00e8 cancellata di fatto agli articoli 2, 11, 21, 32, 56 e 58? A posizioni inverse, \u00e8 quello che stiamo facendo noi.", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 54, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 4, 
+            "risposta_txt": "Non ci dovrebbe, comunque, essere bisogno di lavoro straordinario. Almeno, non ordinariamente, il che esclude la straordinariet\u00e0.", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 55, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 5, 
+            "risposta_txt": "Chi inquina, paghi.", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 56, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 6, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 57, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 7, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 58, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 8, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 59, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 9, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 60, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 10, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 61, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 11, 
+            "risposta_txt": "La TV di stato dovrebbe essere una TV di servizio. Tutto il resto dovrebbe essere di pertinenza di eventuali TV private. Perch\u00e9 dovremmo pagare con il canone star miliardarie?", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 62, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 12, 
+            "risposta_txt": "La riforma, che \u00e8 necessaria, non dovrebbe per\u00f2 penalizzare chi vive di opere dell'ingegno.", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 63, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 13, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 64, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 14, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 65, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 15, 
+            "risposta_txt": "Ma occorre essere molto accorti. Troppo spesso i finanziamenti finiscono a centri che, di fatto, non ricercano nulla e il denaro serve solo per mantenere strutture elefantiache che sono veri e propri centri, anche piccoli, di potere. Dunque, s\u00ec ai finanziamenti perch\u00e9 senza ricerca si diventa colonie di chi possiede una cultura pi\u00f9 avanzata, ma con grande discernimento sul dove finisce il denaro.", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 66, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 16, 
+            "risposta_txt": "Lo stato deve fornire un livello d'istruzione capace di sfornare ragazzi che possano essere la classe dirigente del futuro. Se non lo fa, si sviscerino le ragioni generali e particolari e chi non \u00e8 idoneo ad insegnare se ne vada. In queste condizioni, chi vuole frequentare una scuola privata, paghi. Se esistono condizioni dimostrate in cui la scuola pubblica \u00e8 scadente e si \u00e8 costretti a frequentare una scuola privata, lo si dimostri e, nel caso, chi non ha operato perch\u00e9 la scuola pubblica sia idonea, paghi.", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 67, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 17, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 68, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 18, 
+            "risposta_txt": "Ognuno deve avere il diritto di disporre di se stesso.", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 69, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 19, 
+            "risposta_txt": "Aria ed acqua sono beni essenziali che devono appartenere a tutti.", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 70, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 20, 
+            "risposta_txt": "Per\u00f2, commettere reati sotto l'influenza di una droga sia considerato un'aggravante.", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 71, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 21, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 72, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 22, 
+            "risposta_txt": "Oggi \u00e8 comunque tardi. L'uranio 235 \u00e8 solo lo 0,3% dell'uranio esistente in natura ed \u00e8 destinato ad esaurirsi in breve, come tutte le fonti non rinnovabili. Il gioco non varrebbe la candela, anche trascurando tutti gl'inconvenienti per ambiente e salute.", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 73, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 23, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 74, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 24, 
+            "risposta_txt": "Le province raprpesentano uno spreco ingiustificabile.", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 75, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 14, 
+            "nonorig": true, 
+            "domanda": 25, 
+            "risposta_txt": "Non dovrebbe nemmeno essere oggetto di discussione. Un delinquente che legifera su se stesso? Comunque, dovrebbero essere gli elettori a punire i partiti che presentano spregiudicatamenti i pregiudicati.", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 76, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 1, 
+            "risposta_txt": "Nel nostro programma proponiamo un \u00e2\u0080\u009cbonus locazioni\u00e2\u0080\u009d sotto forma di detrazione fiscale degli oneri pagati per l'affitto, per aiutare le giovani coppie e i meno abbienti. Inolte proponiamo la tassazione separata ad aliquota unica dei redditi da affitto, per far emergere il sommerso.", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 77, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 2, 
+            "risposta_txt": "Per ottenere questo obiettivo non \u00c3\u00a8 per forza necessario reintrodurre il voto di preferenza. ", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 78, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 3, 
+            "risposta_txt": "La missione in Afghanistan \u00c3\u00a8 cruciale nell'ambito della lotta al terrosrismo fondamentalista di matrice islamica. Ovviamente un invio di nuove truppe deve essere concordato in modo approfondito con gli alleati e necessario per portare a termine la missione \"Enduring freedom\". ", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 79, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 4, 
+            "risposta_txt": "e anche i premi legati alla produttivit\u00c3\u00a0. Sono due tra le prime misure che il governo Berlusconi intedne adottare per combattere il carovita. ", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 80, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 5, 
+            "risposta_txt": "Non servono nuove tasse. Serve applicare le norme che ci sono in materia di tutela ambientale, semplificarle laddove necessario, essere rigorosi nei controlli e tempstivi nelle sanzioni.", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 81, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 6, 
+            "risposta_txt": "Preferiamo completare la riforma degli ammortizzatori sociali secondo quanto previsto dalla legge Biagi: il raddoppio temporale dell'indennit\u00c3\u00a0 di disoccupazione, la possibilit\u00c3\u00a0 di ulteriori integrazioni al reddito a cura delle parti sociali, il loro collegamento con la formazione ed i servizi di orientamento. \nInoltre intendiamo completare la \u00e2\u0080\u009cBorsa lavoro\u00e2\u0080\u009d per facilitare l\u00e2\u0080\u0099incontro tra domanda e offerta di lavoro e le parti ancora inattuate della Legge Biagi medesima, per realizzare una maggiore inclusione nel mercato del lavoro di giovani, donne, anziani e disabili.", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 82, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 7, 
+            "risposta_txt": "Anzich\u00c3\u00a8 riconoscere un diritto parziale, che favorirebbe la nascita di partiti etnici locali (cosa che non favorirebbe certo l'integrazione) \u00c3\u00a8 pi\u00c3\u00b9 opportuno attendere che, nei dieci anni previsti dalle legge, l'immigrato regolare maturi il diritto a diventare a tutti gli effetti cittadino italiano, con diritto all'elettorato attivo e passivo e pienezza dei diritti (e dei doveri) connessi alla cittadinanza.", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 83, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 8, 
+            "risposta_txt": "La legge Frattini regola in modo compiuto il conflitto d'interessi. I titolari di cariche di governo non possono: esercitare compiti di gestione in societ\u00c3\u00a0 aventi fini di lucro o in attivit\u00c3\u00a0 di rilievo imprenditoriale; esercitare attivit\u00c3\u00a0 professionali in materie connesse con la carica di governo; ricoprire cariche o uffici pubblici diversi dal mandato parlamentare; cariche o uffici in enti di diritto pubblico; esercitare qualunque tipo di impiego o lavoro pubblico o privato, anche autonomo. \nOltre alle sanzioni per le imprese, \u00c3\u00a8 prevista la \"Sanzione politica\", la pi\u00c3\u00b9 efficace. Antitrust e Garante delle comunicazioni devono riferire al Parlamento, con una relazione semestrale sulla loro attivit\u00c3\u00a0 di controllo e di vigilanza. Il Parlamento pu\u00c3\u00b2 a sua volta esprimere una \"censura politica\" al componente del governo che viola la legge sul conflitto d'interessi. Il danno d'immagine (e la relativa perdita di consenso) che ne deriva \u00c3\u00a8 la migliore sanzione applicabile a chi fa politica.", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 84, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 9, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 85, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 10, 
+            "risposta_txt": "Il nostro programma prevede l'introduzione di un credito d\u00e2\u0080\u0099imposta per le imprese che assumono giovani e che trasformano contratti temporanei\nin contratti a tempo indeterminato. Questa \u00c3\u00a8 la prima di una serie di misure per limitare il fenomeno della precariet\u00c3\u00a0 e trasformare i lavori a tempo in rapporti stabili di lavoro.\n", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 86, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 11, 
+            "risposta_txt": "Oggi satellite e digitale terrestre hanno gi\u00c3\u00a0 superato il duopolio. Il nostro programma al riguardo prevede il completamento del processo di liberalizzazione del settore delle telecomunicazioni e la diffusione della larga banda su tutto il territorio nazionale; e regole europee nel settore dei media: pluralismo e concorrenza, valorizzazione delle produzioni europee, completamento del passaggio alla tecnologia digitale.", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 87, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 12, 
+            "risposta_txt": "Ovviamente bisogna conciliare il diritto alla giusta retribuzione di chi produce cultura con la necessit\u00c3\u00a0 di condivisione della stessa e il moltiplicarsi dei mezzi di fruizione.", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 88, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 13, 
+            "risposta_txt": "Le norme del codice civile gi\u00c3\u00a0 tutelano a sufficienza anche questo tipo di legami. In una societ\u00c3\u00a0 afflitta dall'invecchiamento della popolazione e dalla denatalit\u00c3\u00a0 noi riteniamo pi\u00c3\u00b9 utile sostenere la famiglia, per favorire nuove nascite attraverso una serie di misure fiscali (abolizione ICI, quoziente familiare...), premiali (bonus beb\u00c3\u00a8), un politica per la casa adeguata, ecc. ", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 89, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 14, 
+            "risposta_txt": "Questa misura penalizzerebbe solamente i piccoli risparmiatori italiani. ", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 90, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 15, 
+            "risposta_txt": "A onor del vero bisogna dire che in Italia c'\u00c3\u00a8 molta ricerca diffusa di prodotto fatta dalle imprese, che \"non si vede\" nelle rilevazioni statistiche.", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 91, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 16, 
+            "risposta_txt": "Come dice la legge 62 del 2000, \u00c3\u00a8 pubblico il servizio scolastico, che pu\u00c3\u00b2 essere erogato sia dalle istituzioni statali che da quelle private riconosciute. Ogni famiglia deve dunque poter scegliere a quale scuola mandare i propri figli, a prescindere dal proprio reddito. Oggi solo le famigile benestanti possono scegliere liberamente. Vogliamo superare questo stato di cose. Al tempo stesso vogliamo rilanciare la scuola statale, che resta il centro del nostro sistema formativo.", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 92, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 17, 
+            "risposta_txt": "Se ci sono degli accordi in essere, essi vanno rispettati. Pacta servanda sunt. ", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 93, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 18, 
+            "risposta_txt": "Le norme e i codici deontologici vigenti vietano gi\u00c3\u00a0 l'accanimento terapeutico. Vanno invece potenziate la medicina del dolore e le cure palliative, per dare la maggior qualit\u00c3\u00a0 possibile alla vita delle persone che soffrono per gravi malattie. Vanno altres\u00c3\u00ac sostenute le associazioni e le famiglie impegnate nella cura dei malati pi\u00c3\u00b9 gravi. ", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 94, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 19, 
+            "risposta_txt": "Noi siamo per la liberalizzazione dei servizi privati e pubblici, per migliorare il rapporto qualit\u00c3\u00a0/prezzo a favore dei consumatori\na partire dal carico delle bollette.", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 95, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 20, 
+            "risposta_txt": "La legge Fini-Giovanardi non punisce penalmente il consumatore di droghe leggere. Le sanzioni amministrative (es. ritiro della patente) tendono a impedire che chi usa droghe sia pericoloso per s\u00c3\u00a8 e per gli altri e ad affermare il principio che drogarsi \u00c3\u00a8 male.", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 96, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 21, 
+            "risposta_txt": "Non toccheremo la riforma approvata a dicembre dal governo Prodi. Per\u00c3\u00b2 nel medio termine l'aumento dell'aspettativa di vita e la necessit\u00c3\u00a0 di tenere in equilibrio i conti pubblici impongono un graduale innalzamento dell'et\u00c3\u00a0 pensionabile.", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 97, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 22, 
+            "risposta_txt": "Oggi il nucleare di nuova generazione \u00c3\u00a8 molto pi\u00c3\u00b9 sicuro, economico e meno inquinante delle tradizionali fonti di energia.", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 98, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 23, 
+            "risposta_txt": "Il bene comune esige di superare la politica dei veti. Deve essere fatto ogni sforzo possibile per trovare un accordo con le comunit\u00c3\u00a0 locali ma ci sono opere grandi e \"piccole\" che vanno realizzate per il bene di tutta la comunit\u00c3\u00a0 nazionale.", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 99, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 24, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 100, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 3, 
+            "nonorig": true, 
+            "domanda": 25, 
+            "risposta_txt": "La legge gi\u00c3\u00a0 prevede l'ineleggibilit\u00c3\u00a0 per tutta una serie di reati gravi o connessi alla pubblica amministrazione.", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 101, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 1, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 102, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 2, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 103, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 3, 
+            "risposta_txt": "", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 104, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 4, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 105, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 5, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 106, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 6, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 107, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 7, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 108, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 8, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 109, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 9, 
+            "risposta_txt": "", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 110, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 10, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 111, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 11, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 112, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 12, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 113, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 13, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 114, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 14, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 115, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 15, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 116, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 16, 
+            "risposta_txt": "", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 117, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 17, 
+            "risposta_txt": "", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 118, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 18, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 119, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 19, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 120, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 20, 
+            "risposta_txt": "", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 121, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 21, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 122, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 22, 
+            "risposta_txt": "", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 123, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 23, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 124, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 24, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 125, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 8, 
+            "nonorig": true, 
+            "domanda": 25, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 126, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 1, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 127, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 2, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 128, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 3, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 129, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 4, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 130, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 5, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 131, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 6, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 132, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 7, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 133, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 8, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 134, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 9, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 135, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 10, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 136, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 11, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 137, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 12, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 138, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 13, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 139, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 14, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 140, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 15, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 141, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 16, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 142, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 17, 
+            "risposta_txt": "", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 143, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 18, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 144, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 19, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 145, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 20, 
+            "risposta_txt": "", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 146, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 21, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 147, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 22, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 148, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 23, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 149, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 24, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 150, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 7, 
+            "nonorig": true, 
+            "domanda": 25, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 151, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 1, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 152, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 2, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 153, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 3, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 154, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 4, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 155, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 5, 
+            "risposta_txt": "siamo contrari ad una ulteriore tassazione. meglio sarebbe incentivare una produzione eco compatibile.", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 156, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 6, 
+            "risposta_txt": "riteniamo pi\u00c3\u00b9 opportuno applicare gli ammortizzatori sociali.", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 157, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 7, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 158, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 8, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 159, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 9, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 160, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 10, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 161, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 11, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 162, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 12, 
+            "risposta_txt": "vogliamo evitare forme di pirateria e proteggere la propriet\u00c3\u00a0 intelletuale", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 163, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 13, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 164, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 14, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 165, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 15, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 166, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 16, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 167, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 17, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 168, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 18, 
+            "risposta_txt": "", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 169, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 19, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 170, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 20, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 171, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 21, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 172, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 22, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 173, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 23, 
+            "risposta_txt": "favorevoli alle grandi opere necessarie al territorio coordinandosi con gli enti locali", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 174, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 24, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 175, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 2, 
+            "nonorig": true, 
+            "domanda": 25, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 176, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 1, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 177, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 2, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 178, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 3, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 179, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 4, 
+            "risposta_txt": "Si tratta di una misura che aumenta troppo l'orario di lavoro e quindi anche i rischi per la sicurezza. bisogna, invece, diminuire le tasse dei lavoratori dipendenti e dei pensionati.", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 180, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 5, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 181, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 6, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 182, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 7, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 183, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 8, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 184, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 9, 
+            "risposta_txt": "", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 185, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 10, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 186, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 11, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 187, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 12, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 188, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 13, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 189, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 14, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 190, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 15, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 191, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 16, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 192, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 17, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 193, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 18, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 194, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 19, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 195, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 20, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 196, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 21, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 197, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 22, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 198, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 23, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 199, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 24, 
+            "risposta_txt": "", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 200, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 4, 
+            "nonorig": true, 
+            "domanda": 25, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 201, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 1, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 202, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 2, 
+            "risposta_txt": "e tornare al proporzionale puro, senza quote di sbarramento", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 203, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 3, 
+            "risposta_txt": "per il ritiro di tutte le truppe italiane all'estero", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 204, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 4, 
+            "risposta_txt": "perche questo aumenta sfruttamento e incidenti sul lavoro. Detassare invece una quota di salario pari ad almeno 1300 euro al mese (salario minimo garantito)", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 205, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 5, 
+            "risposta_txt": "ma soprattutto elaborare un pianio generale di sviluppo ecologicamente sostenibile", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 206, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 6, 
+            "risposta_txt": "creare un salario minimo garantito (1300 euro netti al mese), un indennit\u00c3\u00a0 di disoccupazione (almeno 80% del salario minimo)", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 207, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 7, 
+            "risposta_txt": "e anche alle politiche", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 208, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 8, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 209, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 9, 
+            "risposta_txt": "per la terziariet\u00c3\u00a0 del giudice e l'indipendenza dei pubblici ministeri dal potere esecutivo", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 210, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 10, 
+            "risposta_txt": " trasformare tutti i contratti precari in contratti a tempo indeterminato", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 211, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 11, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 212, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 12, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 213, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 13, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 214, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 14, 
+            "risposta_txt": "in realt\u00c3\u00a0 calcolare la rendita finanziaria al livello delle altre entrate, con l'esenzione di una quota relativa al piccolo risparmio (ad es. 100.000 euro)", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 215, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 15, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 216, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 16, 
+            "risposta_txt": "per l'esproprio delle scuole private, per una sola scuola pubblica e laica, sotto controllo dei rappresentanti dei lavoratori del settore degli studenti, e (per le elementari e medie) dei familiari ", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 217, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 17, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 218, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 18, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 219, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 19, 
+            "risposta_txt": "ripubblicizzare sotto controllo di lavoratori e utenti i servizi privatizzati negli ultimi decenni", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 220, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 20, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 221, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 21, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 222, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 22, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 223, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 23, 
+            "risposta_txt": "per lo sviluppo di un piano energetico ecologiicamente sostenibile", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 224, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 24, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 225, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 9, 
+            "nonorig": true, 
+            "domanda": 25, 
+            "risposta_txt": "\u00c3\u00a8 necessario escludere tassativamente i reati di natura politica", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 226, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 1, 
+            "risposta_txt": "In realt\u00c3\u00a0 va introdotta una nuova forma di equo canone", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 227, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 2, 
+            "risposta_txt": "Vogliamo il proporzionale senza sbarramenti", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 228, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 3, 
+            "risposta_txt": "Ritiro delle truppe da tutti i territori di guerra", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 229, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 4, 
+            "risposta_txt": "Significa indurre a lavorare di pi\u00c3\u00b9 con conseguenze evidenti soprattutto in materia di sicurezza sul lavoro", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 230, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 5, 
+            "risposta_txt": "Il ricavato va investito in energia rinnovabile e riciclaggio rifiuti", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 231, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 6, 
+            "risposta_txt": "Tendenzialmente, perch\u00c3\u00a9 quello che non va bene sono i contratti flessibili. Chiediamo un reddito sociale per disoccupati e precari in assenza da lavoro", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 232, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 7, 
+            "risposta_txt": "I migranti hanno diritto a pari diritti", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 233, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 8, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 234, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 9, 
+            "risposta_txt": "Siamo per la distinzione delle carriere", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 235, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 10, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 236, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 11, 
+            "risposta_txt": "Va garantito l'informazione indipendente con controlli rigorosi ma con l'incentivo a creare strutture autogestite", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 237, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 12, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 238, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 13, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 239, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 14, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 240, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 15, 
+            "risposta_txt": "Rimane il problema di \"quale\" ricerca viene finanziata, per cosa e come.", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 241, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 16, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 242, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 17, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 243, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 18, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 244, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 19, 
+            "risposta_txt": "Vanno ripubblicizzati tutti i servizi pubblici (acqua, energia, trasporti)", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 245, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 20, 
+            "risposta_txt": "Occorre liberalizzare le droghe leggere e depenalizzare il consumo di quelle pesanti", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 246, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 21, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 247, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 22, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 248, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 23, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 249, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 24, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 250, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 11, 
+            "nonorig": true, 
+            "domanda": 25, 
+            "risposta_txt": "Va fatta una chiara distinzione delle condanne. Nessun dubbio per reati contro la pubblica amministrazione. Resta il principio garantista che chi ha scontato la pena riacquista i diritti civili", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 251, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 1, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 252, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 2, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 253, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 3, 
+            "risposta_txt": "", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 254, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 4, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 255, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 5, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 256, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 6, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 257, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 7, 
+            "risposta_txt": "", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 259, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 9, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 260, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 10, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 261, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 11, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 262, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 12, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 263, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 13, 
+            "risposta_txt": "", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 264, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 14, 
+            "risposta_txt": "", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 265, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 15, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 266, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 16, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 267, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 17, 
+            "risposta_txt": "", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 269, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 19, 
+            "risposta_txt": "", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 270, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 20, 
+            "risposta_txt": "", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 272, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 22, 
+            "risposta_txt": "", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 276, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 1, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 277, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 2, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 278, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 3, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 279, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 4, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 280, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 5, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 281, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 6, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 282, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 7, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 283, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 8, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 284, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 9, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 285, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 10, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 286, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 11, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 287, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 12, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 288, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 13, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 289, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 14, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 290, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 15, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 291, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 16, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 292, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 17, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 293, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 18, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 294, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 19, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 295, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 20, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 296, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 21, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 297, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 22, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 298, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 23, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 299, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 24, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 300, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 1, 
+            "nonorig": true, 
+            "domanda": 25, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 301, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 25, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 302, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 24, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 303, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 23, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 304, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 22, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 305, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 21, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 306, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 20, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 307, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 19, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 308, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 18, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 309, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 17, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 310, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 16, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 311, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 15, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 312, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 14, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 313, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 13, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -3
+        }
+    }, 
+    {
+        "pk": 314, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 12, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 315, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 11, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -2
+        }
+    }, 
+    {
+        "pk": 316, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 10, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 317, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 9, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 318, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 8, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 319, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 7, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 3
+        }
+    }, 
+    {
+        "pk": 320, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 6, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 321, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 5, 
+            "risposta_txt": "NULL", 
+            "risposta_int": -1
+        }
+    }, 
+    {
+        "pk": 322, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 4, 
+            "risposta_txt": "", 
+            "risposta_int": 2
+        }
+    }, 
+    {
+        "pk": 323, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 3, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 324, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 2, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 325, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 5, 
+            "nonorig": true, 
+            "domanda": 1, 
+            "risposta_txt": "", 
+            "risposta_int": 1
+        }
+    }, 
+    {
+        "pk": 326, 
+        "model": "vsq.rispostapartito", 
+        "fields": {
+            "partito": 6, 
+            "nonorig": true, 
+            "domanda": 8, 
+            "risposta_txt": "NULL", 
+            "risposta_int": 2
+        }
+    }
+]

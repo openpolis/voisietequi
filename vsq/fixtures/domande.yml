@@ -1,0 +1,377 @@
+[
+    {
+        "pk": 1, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/330454", 
+            "accompagno": "scegli la tua posizione.", 
+            "testo_html": "<p>Favorire gli inquilini di case in affitto aumentando la quota di detrazione del canone dalla dichiarazione dei redditi</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 1, 
+            "slug": "favorire-gli-inquilini-di-case-in-affitto-aumentando-la-quot", 
+            "testo": "Favorire gli inquilini di case in affitto aumentando la quota di detrazione del canone dalla dichiarazione dei redditi"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329372", 
+            "accompagno": "", 
+            "testo_html": "<p>Riformare la legge elettorale per consentire agli elettori di esprimere la preferenza per i candidati</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 2, 
+            "slug": "riformare-la-legge-elettorale-per-consentire-agli-elettori-d", 
+            "testo": "Riformare la legge elettorale per consentire agli elettori di esprimere la preferenza per i candidati"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329320", 
+            "accompagno": "", 
+            "testo_html": "<p>Aumentare le truppe italiane in Afghanistan, come richiesto dagli Stati Uniti</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 3, 
+            "slug": "aumentare-le-truppe-italiane-in-afghanistan-come-richiesto", 
+            "testo": "Aumentare le truppe italiane in Afghanistan, come richiesto dagli Stati Uniti"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non \u00e8 presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329299", 
+            "accompagno": "", 
+            "testo_html": "<p>Detassare le ore di lavoro straordinario</p>", 
+            "approfondimento_html": "<p>Non \u00e8 presente nessun approfondimento per questo tema</p>", 
+            "ordine": 4, 
+            "slug": "detassare-le-ore-di-lavoro-straordinario", 
+            "testo": "Detassare le ore di lavoro straordinario"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329250", 
+            "accompagno": "", 
+            "testo_html": "<p>Penalizzare attraverso le tasse le produzioni che generano inquinanti e scarti non riciclabili</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 5, 
+            "slug": "penalizzare-attraverso-le-tasse-le-produzioni-che-generano-i", 
+            "testo": "Penalizzare attraverso le tasse le produzioni che generano inquinanti e scarti non riciclabili"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non \u00e8 presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329274", 
+            "accompagno": "", 
+            "testo_html": "<p>Garantire un reddito minimo per i periodi di inattivit\u00e0 ai lavoratori con contratti flessibili</p>", 
+            "approfondimento_html": "<p>Non \u00e8 presente nessun approfondimento per questo tema</p>", 
+            "ordine": 6, 
+            "slug": "garantire-un-reddito-minimo-per-i-periodi-di-inattivita-ai-l", 
+            "testo": "Garantire un reddito minimo per i periodi di inattivit\u00e0 ai lavoratori con contratti flessibili"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "La proposta si basa sul presupposto che gli immigrati regolari sono persone che vivono, lavorano, pagano le tasse nel nostro paese e accedono ai servizi pubblici, in particolare quelli erogati dagli enti locali. <br/>Secondo i sostenitori di questo provvedimento sarebbe quindi giusto che gli immigrati che possiedono il permesso di soggiorno da un certo periodo di tempo (4-5 anni) partecipino alle scelte politiche del livello di governo che incide direttamente sulla loro vita, ovvero quello amministrativo.<br/>Chi si oppone ritiene che il diritto di voto debba essere limitato esclusivamente ai cittadini italiani allo scopo di salvaguardare l'identit&agrave; culturale e politica della comunit&agrave; nazionale come di quelle locali.", 
+            "link": "http://www.openpolis.it/tema/330456", 
+            "accompagno": "prenditi tempo per rispondere, nessuno ti corre dietro", 
+            "testo_html": "<p>Riconoscere il diritto di voto per gli stranieri nelle elezioni amministrative</p>", 
+            "approfondimento_html": "<p>La proposta si basa sul presupposto che gli immigrati regolari sono persone che vivono, lavorano, pagano le tasse nel nostro paese e accedono ai servizi pubblici, in particolare quelli erogati dagli enti locali. <br/>Secondo i sostenitori di questo provvedimento sarebbe quindi giusto che gli immigrati che possiedono il permesso di soggiorno da un certo periodo di tempo (4-5 anni) partecipino alle scelte politiche del livello di governo che incide direttamente sulla loro vita, ovvero quello amministrativo.<br/>Chi si oppone ritiene che il diritto di voto debba essere limitato esclusivamente ai cittadini italiani allo scopo di salvaguardare l'identit&agrave; culturale e politica della comunit&agrave; nazionale come di quelle locali.</p>", 
+            "ordine": 7, 
+            "slug": "riconoscere-il-diritto-di-voto-per-gli-stranieri-nelle-elezi", 
+            "testo": "Riconoscere il diritto di voto per gli stranieri nelle elezioni amministrative"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "I sostenitori di un simile provvedimento ritengono che sarebbe finalizzato a evitare che il titolare di cariche pubbliche rilevanti per il Governo del paese non sia anche titolare (in modo diretto o indiretto) di aziende che hanno una posizione strategica in settori chiave dell'economia. Chi ha un ruolo di Governo prende decisioni che influiscono sugli andamenti dell'economia e del mercato. Se il titolare di funzioni di Governo \u00e8 anche proprietario di aziende strategiche pu\u00f2 prendere decisioni in grado di favorirle alterando le regole del mercato e della libera concorrenza. Con una legge siffatta il proprietario di aziende strategiche potrebbe assumere funzioni di governo solo se rinunciasse al controllo sostanziale su di esse attraverso meccanismi ad hoc (ad esempio il blind trust previsto nella legislazione degli USA).<br/>Chi \u00e8 contrario a una simile regolazione del conflitto di interessi la giudica una misura illiberale ed eccessiva che negherebbe ai cittadini imprenditori il diritto di accedere a cariche politiche.", 
+            "link": "http://www.openpolis.it/tema/329334", 
+            "accompagno": "", 
+            "testo_html": "<p>Rendere incompatibili incarichi di governo con la propriet\u00e0 o la gestione di aziende che hanno una posizione dominante nell'economia nazionale (conflitto di interessi)</p>", 
+            "approfondimento_html": "<p>I sostenitori di un simile provvedimento ritengono che sarebbe finalizzato a evitare che il titolare di cariche pubbliche rilevanti per il Governo del paese non sia anche titolare (in modo diretto o indiretto) di aziende che hanno una posizione strategica in settori chiave dell'economia. Chi ha un ruolo di Governo prende decisioni che influiscono sugli andamenti dell'economia e del mercato. Se il titolare di funzioni di Governo \u00e8 anche proprietario di aziende strategiche pu\u00f2 prendere decisioni in grado di favorirle alterando le regole del mercato e della libera concorrenza. Con una legge siffatta il proprietario di aziende strategiche potrebbe assumere funzioni di governo solo se rinunciasse al controllo sostanziale su di esse attraverso meccanismi ad hoc (ad esempio il blind trust previsto nella legislazione degli USA).<br/>Chi \u00e8 contrario a una simile regolazione del conflitto di interessi la giudica una misura illiberale ed eccessiva che negherebbe ai cittadini imprenditori il diritto di accedere a cariche politiche.</p>", 
+            "ordine": 8, 
+            "slug": "rendere-incompatibili-incarichi-di-governo-con-la-proprieta", 
+            "testo": "Rendere incompatibili incarichi di governo con la propriet\u00e0 o la gestione di aziende che hanno una posizione dominante nell'economia nazionale (conflitto di interessi)"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "La separazione delle carriere renderebbe il pubblico ministero (organo che promuove la pubblica accusa) e il giudice (organo che giudica) due figure con percorsi professionali, funzioni, competenze e specializzazioni sostanzialmente distinte.<br/>I sostenitori affermano che la separazione sarebbe una maggiore garanzia della imparzialit\u00e0 del giudizio e della parit\u00e0 tra accusa e difesa davanti al giudice.<br/>Gli oppositori affermano che la separazione comprometterebbe l'indipendenza dei pubblici ministeri che potrebbero essere sottoposti alla direzione del Governo (Min. della Giustizia) e dunque essere condizionati dal potere esecutivo nell'esercizio dell'azione penale.", 
+            "link": "", 
+            "accompagno": "", 
+            "testo_html": "<p>Separare le carriere dei magistrati (giudici dai pubblici ministeri)</p>", 
+            "approfondimento_html": "<p>La separazione delle carriere renderebbe il pubblico ministero (organo che promuove la pubblica accusa) e il giudice (organo che giudica) due figure con percorsi professionali, funzioni, competenze e specializzazioni sostanzialmente distinte.<br/>I sostenitori affermano che la separazione sarebbe una maggiore garanzia della imparzialit\u00e0 del giudizio e della parit\u00e0 tra accusa e difesa davanti al giudice.<br/>Gli oppositori affermano che la separazione comprometterebbe l'indipendenza dei pubblici ministeri che potrebbero essere sottoposti alla direzione del Governo (Min. della Giustizia) e dunque essere condizionati dal potere esecutivo nell'esercizio dell'azione penale.</p>", 
+            "ordine": 9, 
+            "slug": "separare-le-carriere-dei-magistrati-giudici-dai-pubblici-mi", 
+            "testo": "Separare le carriere dei magistrati (giudici dai pubblici ministeri)"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329358", 
+            "accompagno": "", 
+            "testo_html": "<p>Incentivare il lavoro a tempo indeterminato</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 10, 
+            "slug": "incentivare-il-lavoro-a-tempo-indeterminato", 
+            "testo": "Incentivare il lavoro a tempo indeterminato"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329265", 
+            "accompagno": "", 
+            "testo_html": "<p>Riformare il settore della televisione per superare il duopolio RAI-Mediaset e favorire il pluralismo della informazione</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 11, 
+            "slug": "riformare-il-settore-della-televisione-per-superare-il-duopo", 
+            "testo": "Riformare il settore della televisione per superare il duopolio RAI-Mediaset e favorire il pluralismo della informazione"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329369", 
+            "accompagno": "", 
+            "testo_html": "<p>Riformare il diritto d'autore per favorire la condivisione della cultura e delle conoscenze</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 12, 
+            "slug": "riformare-il-diritto-dautore-per-favorire-la-condivisione-d", 
+            "testo": "Riformare il diritto d'autore per favorire la condivisione della cultura e delle conoscenze"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Le coppie unite in matrimonio (civile o religioso) sono riconosciute dallo Stato, cio\u00e8 hanno diritti e doveri che valgono anche nei confronti di soggetti esterni alla coppia. Ci\u00f3 non \u00e8 previsto per le unioni cosiddette \"di fatto\", ovvero per due persone che non sono sposate ma convivono per motivi sentimentali e affettivi (more uxorio). Una legge riconoscerebbe alle unioni civili una serie di diritti, come: i diritti di assistenza, i diritti di successione ereditaria, diritti patrimoniali, etc. <br/>Coloro che sono contrari ritengono che un tale riconoscimento comprometterebbe la famiglia tradizionale basata sul matrimonio.", 
+            "link": "http://www.openpolis.it/tema/329255", 
+            "accompagno": "sei arrivato a met\u00e0 percorso", 
+            "testo_html": "<p>Regolamentare per legge i diritti delle coppie di conviventi dello stesso sesso o di sesso diverso (unioni civili)</p>", 
+            "approfondimento_html": "<p>Le coppie unite in matrimonio (civile o religioso) sono riconosciute dallo Stato, cio\u00e8 hanno diritti e doveri che valgono anche nei confronti di soggetti esterni alla coppia. Ci\u00f3 non \u00e8 previsto per le unioni cosiddette \"di fatto\", ovvero per due persone che non sono sposate ma convivono per motivi sentimentali e affettivi (more uxorio). Una legge riconoscerebbe alle unioni civili una serie di diritti, come: i diritti di assistenza, i diritti di successione ereditaria, diritti patrimoniali, etc. <br/>Coloro che sono contrari ritengono che un tale riconoscimento comprometterebbe la famiglia tradizionale basata sul matrimonio.</p>", 
+            "ordine": 13, 
+            "slug": "regolamentare-per-legge-i-diritti-delle-coppie-di-conviventi", 
+            "testo": "Regolamentare per legge i diritti delle coppie di conviventi dello stesso sesso o di sesso diverso (unioni civili)"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "I conti correnti bancari sono tassati al 27%. Le rendite finanziarie, ovvero i guadagni di borsa, sono tassate al 12,5%. In questi anni, a seguito della finanziarizzazione dell'economia, sono aumentate le produzioni di reddito derivanti da rendite finanziarie e non da produzioni reali (cio\u00e8: faccio soldi facendo girare soldi e non producendo beni che vendo sul mercato). <br/>Secondo le forze politiche favorevoli alla misura, aumentare le tasse sulle rendite finanziarie vuol dire riequilibrare la tassazione tra semplici c/c (i conti corrente che hanno oramai tutti i cittadini) e investimenti finanziari (i guadagni derivanti da titoli azionari, fondi, etc...). Tale misura, inoltre, sarebbe finalizzata a tassare le produzioni di ricchezza derivate da speculazioni finanziarie, visto che chi la propone tenderebbe a escluderne l'applicazione sui cosiddetti piccoli risparmiatori. <br/>Chi non condivide tale misura sostiene che l'aumento della tassazione delle rendite finanziarie determinerebbe la \"fuga\" dei capitali all'estero e una riduzione della ricchezza pro capite con effetti negativi sui consumi interni e sull'economia in generale.", 
+            "link": "http://www.openpolis.it/tema/329242", 
+            "accompagno": "", 
+            "testo_html": "<p>Aumentare la tassazione delle rendite finanziarie in linea con la media europea (dal 12,5 al 20%) </p>", 
+            "approfondimento_html": "<p>I conti correnti bancari sono tassati al 27%. Le rendite finanziarie, ovvero i guadagni di borsa, sono tassate al 12,5%. In questi anni, a seguito della finanziarizzazione dell'economia, sono aumentate le produzioni di reddito derivanti da rendite finanziarie e non da produzioni reali (cio\u00e8: faccio soldi facendo girare soldi e non producendo beni che vendo sul mercato). <br/>Secondo le forze politiche favorevoli alla misura, aumentare le tasse sulle rendite finanziarie vuol dire riequilibrare la tassazione tra semplici c/c (i conti corrente che hanno oramai tutti i cittadini) e investimenti finanziari (i guadagni derivanti da titoli azionari, fondi, etc...). Tale misura, inoltre, sarebbe finalizzata a tassare le produzioni di ricchezza derivate da speculazioni finanziarie, visto che chi la propone tenderebbe a escluderne l'applicazione sui cosiddetti piccoli risparmiatori. <br/>Chi non condivide tale misura sostiene che l'aumento della tassazione delle rendite finanziarie determinerebbe la \"fuga\" dei capitali all'estero e una riduzione della ricchezza pro capite con effetti negativi sui consumi interni e sull'economia in generale.</p>", 
+            "ordine": 14, 
+            "slug": "aumentare-la-tassazione-delle-rendite-finanziarie-in-linea-c", 
+            "testo": "Aumentare la tassazione delle rendite finanziarie in linea con la media europea (dal 12,5 al 20%) "
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329323", 
+            "accompagno": "", 
+            "testo_html": "<p>Aumentare il finanziamento della ricerca e portarlo verso la media europea (dall'attuale 1,1% del PIL verso il 2,2%)</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 15, 
+            "slug": "aumentare-il-finanziamento-della-ricerca-e-portarlo-verso-la", 
+            "testo": "Aumentare il finanziamento della ricerca e portarlo verso la media europea (dall'attuale 1,1% del PIL verso il 2,2%)"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "L'art. 33 della costituzione stabilisce che \"Enti e privati hanno il diritto di istituire scuole ed istituti di educazione, senza oneri per lo Stato\". Il successivo art. 34 aggiunge tra l'altro che \"I capaci e meritevoli, anche se privi di mezzi, hanno diritto di raggiungere i gradi pi\u00f9 alti degli studi\". &Egrave; sulla portata e sulla interpretazione di questi due articoli che si sviluppa da decenni il dibattito e lo scontro sul finanziamento da parte dello Stato alle scuole private. Dato poi che una parte assai rilevante degli istituti e delle scuole private sono cattolici, il dibattito spesso si traduce nel confronto tra \"laici\" da una parte e \"cattolici\" dall'altra. <br/>I sostenitori della \"scuola pubblica\" sono convinti che la Costituzione vieti qualsiasi forma di finanziamento alla scuola privata, sia in forma diretta che indiretta. Quindi sarebbero anticostituzionali anche i \"sostegni\" alle famiglie con figli nelle scuole private, distribuiti in forma di sgravi fiscali o contributi economici, etc. Compito dello Stato sarebbe quello di garantire la libert\u00e0 di insegnamento ai privati mentre i fondi pubblici dovrebbero essere destinati unicamente al miglioramento la scuola statale e ad aiutare anche i meno fortunati ad accedere ai livelli pi\u00f9 alti di istruzione. <br/>Sul fronte opposto si afferma invece che lo Stato ha l'obbligo di garantire il diritto di scelta dei cittadini tra scuola pubblica e privata. Pertanto lo Stato deve rendere effettiva questa libert\u00e0 di scelta sostenendo le famiglie che non possono permettersi di pagare le rette delle scuole private, spesso onerose. Perch\u00e9, in sostanza si argomenta, solo i ricchi dovrebbero poter avere accesso alle scuole private, di solito migliori di quelle statali?", 
+            "link": "http://www.openpolis.it/tema/329642", 
+            "accompagno": "", 
+            "testo_html": "<p>Sostenere con denaro pubblico le famiglie che scelgono la scuola privata</p>", 
+            "approfondimento_html": "<p>L'art. 33 della costituzione stabilisce che \"Enti e privati hanno il diritto di istituire scuole ed istituti di educazione, senza oneri per lo Stato\". Il successivo art. 34 aggiunge tra l'altro che \"I capaci e meritevoli, anche se privi di mezzi, hanno diritto di raggiungere i gradi pi\u00f9 alti degli studi\". &Egrave; sulla portata e sulla interpretazione di questi due articoli che si sviluppa da decenni il dibattito e lo scontro sul finanziamento da parte dello Stato alle scuole private. Dato poi che una parte assai rilevante degli istituti e delle scuole private sono cattolici, il dibattito spesso si traduce nel confronto tra \"laici\" da una parte e \"cattolici\" dall'altra. <br/>I sostenitori della \"scuola pubblica\" sono convinti che la Costituzione vieti qualsiasi forma di finanziamento alla scuola privata, sia in forma diretta che indiretta. Quindi sarebbero anticostituzionali anche i \"sostegni\" alle famiglie con figli nelle scuole private, distribuiti in forma di sgravi fiscali o contributi economici, etc. Compito dello Stato sarebbe quello di garantire la libert\u00e0 di insegnamento ai privati mentre i fondi pubblici dovrebbero essere destinati unicamente al miglioramento la scuola statale e ad aiutare anche i meno fortunati ad accedere ai livelli pi\u00f9 alti di istruzione. <br/>Sul fronte opposto si afferma invece che lo Stato ha l'obbligo di garantire il diritto di scelta dei cittadini tra scuola pubblica e privata. Pertanto lo Stato deve rendere effettiva questa libert\u00e0 di scelta sostenendo le famiglie che non possono permettersi di pagare le rette delle scuole private, spesso onerose. Perch\u00e9, in sostanza si argomenta, solo i ricchi dovrebbero poter avere accesso alle scuole private, di solito migliori di quelle statali?</p>", 
+            "ordine": 16, 
+            "slug": "sostenere-con-denaro-pubblico-le-famiglie-che-scelgono-la-sc", 
+            "testo": "Sostenere con denaro pubblico le famiglie che scelgono la scuola privata"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329230", 
+            "accompagno": "", 
+            "testo_html": "<p>Consentire la costruzione di nuove basi militari USA nel nostro territorio, come la base di Vicenza (Dal Molin)</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 17, 
+            "slug": "consentire-la-costruzione-di-nuove-basi-militari-usa-nel-nos", 
+            "testo": "Consentire la costruzione di nuove basi militari USA nel nostro territorio, come la base di Vicenza (Dal Molin)"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329306", 
+            "accompagno": "", 
+            "testo_html": "<p>Introdurre una legge sul testamento biologico (o testamento di vita)</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 18, 
+            "slug": "introdurre-una-legge-sul-testamento-biologico-o-testamento", 
+            "testo": "Introdurre una legge sul testamento biologico (o testamento di vita)"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329307", 
+            "accompagno": "", 
+            "testo_html": "<p>Affidare la gestione dei servizi idrici (l'acqua) delle citt\u00e0 ad aziende private, sia italiane che straniere</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 19, 
+            "slug": "affidare-la-gestione-dei-servizi-idrici-lacqua-delle-citt", 
+            "testo": "Affidare la gestione dei servizi idrici (l'acqua) delle citt\u00e0 ad aziende private, sia italiane che straniere"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Il consumo delle droghe, anche di quelle leggere, nel nostro paese \u00e8 proibito e punito con sanzioni amministrative. La cosiddetta legge Fini sulle droghe ha cancellato la distinzione tra droghe leggere e pesanti e ha aumentato e reso pi\u00f9 rigide le sanzioni amministrative per i consumatori.", 
+            "link": "http://www.openpolis.it/tema/329737", 
+            "accompagno": "", 
+            "testo_html": "<p>Punire il consumo di droghe, anche di quelle leggere, come previsto dalla legge in vigore (cosiddetta legge Fini-Giovanardi)</p>", 
+            "approfondimento_html": "<p>Il consumo delle droghe, anche di quelle leggere, nel nostro paese \u00e8 proibito e punito con sanzioni amministrative. La cosiddetta legge Fini sulle droghe ha cancellato la distinzione tra droghe leggere e pesanti e ha aumentato e reso pi\u00f9 rigide le sanzioni amministrative per i consumatori.</p>", 
+            "ordine": 20, 
+            "slug": "punire-il-consumo-di-droghe-anche-di-quelle-leggere-come-p", 
+            "testo": "Punire il consumo di droghe, anche di quelle leggere, come previsto dalla legge in vigore (cosiddetta legge Fini-Giovanardi)"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329556", 
+            "accompagno": "", 
+            "testo_html": "<p>Aumentare l'et\u00e0 pensionabile per raggiungere la media europea (circa 65 anni uomini e 63 donne)</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 21, 
+            "slug": "aumentare-leta-pensionabile-per-raggiungere-la-media-europe", 
+            "testo": "Aumentare l'et\u00e0 pensionabile per raggiungere la media europea (circa 65 anni uomini e 63 donne)"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329312", 
+            "accompagno": "", 
+            "testo_html": "<p>Investire sul nucleare per realizzare in Italia centrali per la produzione di energia elettrica </p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 22, 
+            "slug": "investire-sul-nucleare-per-realizzare-in-italia-centrali-per", 
+            "testo": "Investire sul nucleare per realizzare in Italia centrali per la produzione di energia elettrica "
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "I sostenitori ritengono che l'interesse nazionale non possa essere subordinato agli interessi particolari delle comunit\u00e0 locali che spesso, nascondendosi dietro falsi atteggiamenti ecologisti, manifestano in realt\u00e0 quella che gli studiosi chiamano sindrome di NIMBY (Not In My Back Yard - non nel mio cortile) ovvero un atteggiamento egoistico e contrario agli interessi generali della collettivit\u00e0. Pertanto dinanzi al dilagare di questo fenomeno occorre assumersi la responsabilit\u00e0 di attuare comunque quanto deciso a livello centrale. <br/>Al contrario, i sostenitori della concertazione e del dialogo ritengono che l'unica strada per realizzare l'interesse generale sia quella del coinvolgimento e della partecipazione delle popolazioni direttamente interessate, nel rispetto dei canoni di sostenibilit\u00e0 sociale e ambientale, senza di ch\u00e9 le grandi opere semplicemente non verrebbero realizzate.", 
+            "link": "http://www.openpolis.it/tema/329233", 
+            "accompagno": "", 
+            "testo_html": "<p>Realizzare le opere di interesse strategico per il paese (quali la TAV, i termovalorizzatori, i rigassificatori) malgrado l'eventuale opposizione delle amministrazioni e delle comunit\u00e0 locali </p>", 
+            "approfondimento_html": "<p>I sostenitori ritengono che l'interesse nazionale non possa essere subordinato agli interessi particolari delle comunit\u00e0 locali che spesso, nascondendosi dietro falsi atteggiamenti ecologisti, manifestano in realt\u00e0 quella che gli studiosi chiamano sindrome di NIMBY (Not In My Back Yard - non nel mio cortile) ovvero un atteggiamento egoistico e contrario agli interessi generali della collettivit\u00e0. Pertanto dinanzi al dilagare di questo fenomeno occorre assumersi la responsabilit\u00e0 di attuare comunque quanto deciso a livello centrale. <br/>Al contrario, i sostenitori della concertazione e del dialogo ritengono che l'unica strada per realizzare l'interesse generale sia quella del coinvolgimento e della partecipazione delle popolazioni direttamente interessate, nel rispetto dei canoni di sostenibilit\u00e0 sociale e ambientale, senza di ch\u00e9 le grandi opere semplicemente non verrebbero realizzate.</p>", 
+            "ordine": 23, 
+            "slug": "realizzare-le-opere-di-interesse-strategico-per-il-paese-qu", 
+            "testo": "Realizzare le opere di interesse strategico per il paese (quali la TAV, i termovalorizzatori, i rigassificatori) malgrado l'eventuale opposizione delle amministrazioni e delle comunit\u00e0 locali "
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329260", 
+            "accompagno": "", 
+            "testo_html": "<p>Abolire le province</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 24, 
+            "slug": "abolire-le-province", 
+            "testo": "Abolire le province"
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "vsq.domanda", 
+        "fields": {
+            "accompagno_html": null, 
+            "approfondimento": "Non &egrave; presente nessun approfondimento per questo tema", 
+            "link": "http://www.openpolis.it/tema/329370", 
+            "accompagno": "ci sei, questo \u00e8 l'ultimo tema", 
+            "testo_html": "<p>Rendere ineleggibile chi ha subito condanne penali relative a reati gravi o connessi alla pubblica amministrazione</p>", 
+            "approfondimento_html": "<p>Non &egrave; presente nessun approfondimento per questo tema</p>", 
+            "ordine": 25, 
+            "slug": "rendere-ineleggibile-chi-ha-subito-condanne-penali-relative", 
+            "testo": "Rendere ineleggibile chi ha subito condanne penali relative a reati gravi o connessi alla pubblica amministrazione"
+        }
+    }
+]
