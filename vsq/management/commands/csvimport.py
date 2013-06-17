@@ -119,9 +119,9 @@ class Command(BaseCommand):
 
             created = False
             self.logger.info("%s: Analizzando record: %s" % ( r['id'],r['denominazione']))
+            coalizione = Coalizione.objects.get(pk=r['coalizione_id'])
             partito, created = Partito.objects.get_or_create(
                 id = r['id'],
-
                 defaults={
                     'denominazione':  r['denominazione'],
                     'party_key': r['party_key'],
@@ -129,6 +129,7 @@ class Command(BaseCommand):
                     'responsabile_nome': r['responsabile_nome'],
                     'responsabile_email':r['responsabile_mail'],
                     'sito':r['site'],
+                    'coalizione': coalizione,
                     }
             )
 
@@ -166,7 +167,7 @@ class Command(BaseCommand):
                     'domanda':  domanda,
                     'partito': partito,
                     'risposta_int': r['risposta_int'],
-                    'risposta_txt': r['risposta_txt'],
+                    'risposta_txt': r['risposta_txt'].encode('utf8').decode('latin1'),
                     'nonorig':r['nonorig'],
                     }
             )
