@@ -1,30 +1,5 @@
-Architettura
-------------
-L'architettura del sistema, con le componenti, è illustrata in questo schema:
-
-.. image:: https://raw.github.com/openpolis/voisietequi/master/docs/images/architettura.png
-   :height: 200
-   :width: 600
-   :scale: 50
-   :alt: Architettura dei componenti
-
-Il modulo **vsq** è l'app server per tutte le parti dinamiche, tranne le risposte degli utenti.
-E' un'applicazione django, si appoggia su un DB postgres.
-
-Il modulo **computer** effettua il calcolo del grafico (tramite octave) a partire dalle risposte dell'utente.
-E' un'applicazione web.py, si appoggia su un DB sqlite locale, è configurabile dinamicamente,
-per fornire la posizione di un utente in base a un set di domande.
-
-Il modulo utilizza un sistema di messaggistica (**0mq**) per mettere in coda le richieste
-di scrittura delle risposte utente nel DB.
-
-I moduli vsq e computer sono applicazioni wsgi, servite da **uwsgi**.
-
-**Nginx** è utilizzato per servire i contenuti statici, fa da load balancer per le richieste indirizzate al modulo *computer*,
-indirizza le richieste dinamiche all'application server django, risponde su porta 8010.
-
-**Varnish**  è il web server (cache e reverse proxy), risponde su porta 80.
-
+Process and protocols
+=====================
 
 Descrizione dei processi
 ------------------------
@@ -38,17 +13,15 @@ per il resto si tratta di un'applicazione web abbastanza standard.
 
 
 Configurazione modulo computer
-==============================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Il modulo computer è pensato per essere indipendente, può essere utilizzato in differenti contesti.
 Una volta installato e lanciato, la configurazione avviene attraverso un messaggio in broadcast (PUB-SUB),
 lanciato dal server manualmente (django management task).
 
 L'immagine mostra il pattern.
 
-.. image:: https://raw.github.com/openpolis/voisietequi/master/docs/images/command.png
-   :height: 200
+.. image:: images/command.png
    :width: 600
-   :scale: 50
    :alt: Pattern di invio comando e ricezione risposta ai computers
 
 Il computer deve conoscere l'indirizzo del server che invia i comandi e il codice elezione. (es: tcp://localhost:5556)
@@ -133,7 +106,7 @@ Risposta
 
 
 Calcolo del grafico di un utente
-================================
+--------------------------------
 Il calcolo della posizione di un utente, date le sue risposte e le risposte ai partiti, è richiesto
 direttamente dal javascript al modulo **computer** attraverso una richiesta AJAX di tipo POST.
 
@@ -141,10 +114,8 @@ Il componente riceve le risposte dell'utente, con i suoi dati ed effettua il cal
 ottenendo le coordinate delle posizioni di utente e partiti. Poi, in modalità sincrona invia un messaggio
 a una coda, per la scrittura su DB e invia la response JSON al browser dell'utente.
 
-.. image:: https://raw.github.com/openpolis/voisietequi/master/docs/images/calcolo.png
-   :height: 200
+.. image:: images/calcolo.png
    :width: 600
-   :scale: 50
    :alt: Diagramma interazione calcolo posizione utente
 
 I dettagli della richiesta e della response::
@@ -174,5 +145,5 @@ I dettagli della richiesta e della response::
 
 
 Scrittura dei risultati nel DB
-==============================
+------------------------------
 TODO

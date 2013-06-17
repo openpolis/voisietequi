@@ -16,4 +16,5 @@ vsq/migrations/
 initial_data.json
 dati_iniziali.json
 sqlite.db.dump.*
-
+/docs/_build
+/docs/_static
