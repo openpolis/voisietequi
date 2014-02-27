@@ -417,7 +417,7 @@ class QuestionarioUtenteView(TemplateView):
             'results': results,
         })
 
-        return HttpResponse(json.dumps(data), mimetype='application/json')
+        return HttpResponse(data, mimetype='application/json', content_type='application/json')
 
 
 class RisultatoUtenteView(TemplateView):
