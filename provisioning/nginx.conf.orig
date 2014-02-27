@@ -1,11 +1,4 @@
 server {
-        listen 8010;
-        server_name www.voisietequi.it;
-        return 301 $scheme://politiche2013.voisietequi.it$request_uri;
-}
-
-
-server {
   listen      8010;
   server_name server.voisietequi.it server.staging.voisietequi.it;
   access_log  /var/log/nginx/vsq.access.log;

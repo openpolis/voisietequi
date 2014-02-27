@@ -412,10 +412,38 @@ class QuestionarioUtenteView(TemplateView):
             answers + [[user_answers[question] for question in questions]]
         )
 
+        user_code = hashlib.md5("{0}{1}".format(datetime.now(), random.randint(1000, 999999999))).hexdigest()
+
         data = json.dumps({
-            'code': hashlib.md5("{0}{1}".format(datetime.now(), random.randint(1000, 999999999))).hexdigest(),
+            'code': user_code,
             'results': results,
         })
+
+        u = Utente(
+            nickname=input_data.get('user_data').get('name'),
+            ip=request.META.get('REMOTE_ADDR'),
+            agent=request.META.get('HTTP_USER_AGENT'),
+            email=input_data.get('user_data').get('email'),
+            wants_newsletter=input_data.get('user_data').get('wants_newsletter', False),
+            user_key=user_code,
+            coord=json.dumps(results),
+        )
+        from django.db.utils import DatabaseError
+        try:
+            u.save()
+
+            objs = RispostaUtente.objects.bulk_create([
+                RispostaUtente(
+                    domanda_id = domanda,
+                    risposta_int = risposta,
+                    utente = u
+                )
+                for domanda, risposta in user_answers.items()
+            ])
+
+            print "User %s has answered to %d questions" % (user_code, len(objs))
+        except DatabaseError as e:
+            print "ERR: %s" % (e,)
 
         return HttpResponse(data, mimetype='application/json', content_type='application/json')
 
