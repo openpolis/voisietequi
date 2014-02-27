@@ -9,6 +9,8 @@ docutils==0.10
 psycopg2
 pika
 pyzmq
+numpy
+scipy
 
 #argparse==1.2.1
 #beautifulsoup4==4.1.3

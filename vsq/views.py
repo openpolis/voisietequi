@@ -1,3 +1,4 @@
+import hashlib
 from django import http
 from django.conf import settings
 from django.core.mail import EmailMessage
@@ -380,6 +381,43 @@ class QuestionarioUtenteView(TemplateView):
             values('partito__party_key', 'partito__sigla','domanda', 'risposta_int')
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        """
+        Questo metodo sostituisce la chiamata al componente computer.
+        """
+        from vsq.utils import mds
+        from vsq.models import Partito
+        config = {}
+        for partito in Partito.objects.prefetch_related('rispostapartito_set').all():
+            config[partito.sigla] = {}
+            for risposta in partito.rispostapartito_set.all().select_related('domanda'):
+                config[partito.sigla][risposta.domanda.pk] = risposta.risposta_int
+
+        answers = []
+        parties = config.keys()
+        questions = Domanda.objects.values_list('pk', flat=True)
+
+        for party in parties:
+            answers.append([config[party][question] for question in questions])
+
+        input_data = json.loads(request.raw_post_data)
+
+        user_answers = {}
+        for k, v in input_data.get('user_answers', {}).items():
+            user_answers[int(k)] = int(v)
+
+        results = mds.execute(
+            parties + ['user'],
+            answers + [[user_answers[question] for question in questions]]
+        )
+
+        data = json.dumps({
+            'code': hashlib.md5("{0}{1}".format(datetime.now(), random.randint(1000, 999999999))).hexdigest(),
+            'results': results,
+        })
+
+        return HttpResponse(json.dumps(data), mimetype='application/json')
 
 
 class RisultatoUtenteView(TemplateView):
