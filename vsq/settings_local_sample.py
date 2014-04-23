@@ -16,6 +16,10 @@ DISQUS_FORUM = ''
 MAILBIN_URL = 'tcp://127.0.0.1:5558'
 MAILBIN_SERVICE = 'service.dominio.it'
 
+# voci mostrate dentro la scheda del partito
+# PARTY_LEADER = 'Segretario'
+# PARTY_COALITION = 'Coalizione'
+
 SHOW_DEBUG_TOOLBAR = False
 
 MEDIA_ROOT = '/home/vsq13/public/media'
