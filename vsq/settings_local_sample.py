@@ -2,6 +2,7 @@ from vsq.settings import *
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+EARLYBIRD_ENABLE = False
 
 # rabbitmq settings
 # typically MQ_URL resembles:

@@ -24,8 +24,7 @@ class PrivateBetaMiddleware(object):
             # User is logged in, no need to check anything else.
             return
 
-        whitelisted_modules = ['django.contrib.auth.views', 'django.views.static']
-
+        whitelisted_modules = ['django.contrib.auth.views', 'django.views.static', 'django.contrib.admin.sites']
         if '%s' % view_func.__module__ in whitelisted_modules:
             return
         else:

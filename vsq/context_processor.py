@@ -16,6 +16,7 @@ def main_settings(request):
     return {
         "DEBUG": settings.DEBUG,
         "TEMPLATE_DEBUG": settings.TEMPLATE_DEBUG,
+        "EARLYBIRD_ENABLED": settings.EARLYBIRD_ENABLE,
         "CURRENT_PAGE": page,
         "MEDIA_URL": settings.MEDIA_URL,
         "COALIZIONI": Coalizione.objects.all(),
