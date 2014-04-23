@@ -209,6 +209,7 @@ class HomepageView(TemplateView):
         #     filter(coalizione__in=(8, 2, 5, 1)).order_by('coalizione__ordine').select_related('coalizione')
 
         context['partiti'] = liste = Partito.objects.all().order_by('coalizione__ordine').select_related('coalizione')
+        context['partiti_non_orig'] = [p for p in liste if p.nonorig]
         coordinate = []
         for l in liste:
             coord = [l.sigla, l.coord_x, l.coord_y]
