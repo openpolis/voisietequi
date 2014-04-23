@@ -117,6 +117,7 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'vsq.middlewares.PrivateBetaMiddleware',
 )
 
 ROOT_URLCONF = 'vsq.urls'
