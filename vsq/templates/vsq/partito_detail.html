@@ -98,7 +98,7 @@
           </div>
           <div class="span8">
             <h4>{{ object.denominazione }} <br>{{ object.sigla|upper }}</h4>
-            {% if object.sito %}<a href="{{ object.sito }}">{{ object.sito }}</a><br>{% endif %}
+            {% if object.sito %}<a href="{{ object.sito }}" target="_blank" title="Sito di {{ object.denominazione }}">{{ object.sito }}</a><br>{% endif %}
             {% if object.coalizione %}{{ PARTY_COALITION }}: {{ object.coalizione.nome }}<br>{% endif %}
             {% if object.leader %}{{ PARTY_LEADER }}: {{ object.leader }}<br>{% endif %}
             {% if object.twitter_user %}
