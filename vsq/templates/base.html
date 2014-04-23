@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <title>{% block title %}{% endblock %} - Voi siete qui - Openpolis</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Voi siete qui: Elezioni politiche 2013">
+  <meta name="description" content="Voi siete qui: {{ ELECTION_NAME }}">
   <meta name="author" content="Openpolis">
-{#  <meta property="og:title" content="Voi siete qui: Elezioni politiche 2013" />#}
+{#  <meta property="og:title" content="Voi siete qui: {{ ELECTION_NAME }}" />#}
 {#  <meta property="og:type" content="website" />#}
 {#  <meta property="og:image" content="{{ SITE_URL }}static/img/voisietequi-logo-social.png" />#}
 {#  <meta property="og:url" content="{{ CURRENT_URL }}" />#}
@@ -70,7 +70,7 @@
         <div class="testata">
             <div class="container">
                 <a href="{%  url homepage %}"><img class="pull-left logo" src="{{ STATIC_URL }}img/voisietequi-logo.png" alt="Voi Siete Qui - Openpolis" /></a>
-                <h1 class="pull-left"> Elezioni politiche 2013</h1>
+                <h1 class="pull-left"> {{ ELECTION_NAME }}</h1>
                 <a href="http://www.openpolis.it/"><img class="strumento pull-right" src="{{ STATIC_URL }}img/strumento_openpolis.png" alt="OpenPolis" /></a>
             </div>
         </div>
@@ -129,7 +129,7 @@
           <!-- AddThis Button BEGIN -->
           <div class="addthis_toolbox addthis_default_style addthis_32x32_style" id="bottom-share"
                addthis:url="{{ SITE_URL }}"
-               addthis:title="Voi siete qui: Elezioni politiche 2013"
+               addthis:title="Voi siete qui: {{ ELECTION_NAME }}"
                addthis:ui_hover_direction="1">
               <a class="addthis_button_facebook"></a>
               <a class="addthis_button_twitter"></a>
