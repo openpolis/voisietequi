@@ -35,7 +35,10 @@
               <section class="mainGrid">
               <div id="ri-grid" class="ri-grid ri-grid-size-2">
 					<ul>
-						<li><a href="#"><img src="{{ STATIC_URL }}img/loghi_liste/1.gif"/></a></li>
+                        {% for partito in partiti %}
+                        <li><a href="#"><img src="{{ partito.simbolo.url }}"/></a></li>
+                        {% empty %}
+                        <li><a href="#"><img src="{{ STATIC_URL }}img/loghi_liste/1.gif"/></a></li>
 						<li><a href="#"><img src="{{ STATIC_URL }}img/loghi_liste/2.gif"/></a></li>
 						<li><a href="#"><img src="{{ STATIC_URL }}img/loghi_liste/3.gif"/></a></li>
 						<li><a href="#"><img src="{{ STATIC_URL }}img/loghi_liste/4.gif"/></a></li>
@@ -89,6 +92,7 @@
 						<li><a href="#"><img src="{{ STATIC_URL }}img/loghi_liste/52.gif"/></a></li>
 						<li><a href="#"><img src="{{ STATIC_URL }}img/loghi_liste/53.gif"/></a></li>
 						<li><a href="#"><img src="{{ STATIC_URL }}img/loghi_liste/54.gif"/></a></li>
+                        {% endfor %}
 
 					</ul>
 				</div>
@@ -102,10 +106,10 @@
             <!-- Logo Starts-->
             <img class="logo" src="{{STATIC_URL}}img/voisietequi-logo.png" alt="Voi Siete Qui - Openpolis" />
             <!-- End Logo -->
-             <h1> Elezioni 2013</h1>
+             <h1>{{ ELECTION_NAME }}</h1>
             <a href="http://www.openpolis.it/"><img src="{{STATIC_URL}}img/openpolis-logo.png" alt="OpenPolis" class="oplogo-small" /></a>
             <!-- Sub Title -->
-             <p class="subH">Stiamo lavorando alla <strong>nuova versione del sito per le Elezioni 2013</strong>.
+             <p class="subH">Stiamo lavorando alla <strong>nuova versione del sito per le prossime {{ ELECTION_NAME }}</strong>.
              <br />Lascia la tua email, ti avvertiremo quando il nuovo sito andrà online, oppure rimani in contatto con noi seguendo la pagina
                  <a href="http://www.facebook.com/openpolis" target="_blank" class="links">Facebook</a> oppure il nostro account
                  <a href="http://www.twitter.com/openpolis" target="_blank" class="links">Twitter</a>.</p>

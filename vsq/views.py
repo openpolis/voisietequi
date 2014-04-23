@@ -149,6 +149,9 @@ class EarlyBirdView(CreateView):
     form_class = EarlyBirdForm
     model = EarlyBird
 
+    def get_context_data(self, **kwargs):
+        return super(EarlyBirdView, self).get_context_data(partiti=Partito.objects.filter(simbolo__isnull=False).all(), **kwargs)
+
 
 class DjangoJSONEncoder(JSONEncoder):
     def default(self, obj):

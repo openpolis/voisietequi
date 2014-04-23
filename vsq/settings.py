@@ -22,6 +22,7 @@ RESULTS_DUMP = os.path.join(REPO_ROOT, 'results.csv')
 MAILBIN_URL = 'tcp://127.0.0.1:5558'
 MAILBIN_SERVICE = 'xxx.voisietequi.it'
 
+ELECTION_NAME = 'Elezioni'
 PARTY_LEADER = 'Segretario'
 PARTY_COALITION = 'Coalizione'
 

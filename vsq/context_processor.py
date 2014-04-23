@@ -17,6 +17,7 @@ def main_settings(request):
         "DEBUG": settings.DEBUG,
         "TEMPLATE_DEBUG": settings.TEMPLATE_DEBUG,
         "EARLYBIRD_ENABLED": settings.EARLYBIRD_ENABLE,
+        "ELECTION_NAME": settings.ELECTION_NAME,
         "PARTY_LEADER": settings.PARTY_LEADER,
         "PARTY_COALITION": settings.PARTY_COALITION,
         "CURRENT_PAGE": page,

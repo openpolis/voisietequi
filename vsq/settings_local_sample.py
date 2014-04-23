@@ -16,6 +16,8 @@ DISQUS_FORUM = ''
 MAILBIN_URL = 'tcp://127.0.0.1:5558'
 MAILBIN_SERVICE = 'service.dominio.it'
 
+# nome mostrato sul sito
+ELECTION_NAME = 'Europee 2014'
 # voci mostrate dentro la scheda del partito
 # PARTY_LEADER = 'Segretario'
 # PARTY_COALITION = 'Coalizione'
