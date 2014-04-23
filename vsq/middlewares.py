@@ -17,10 +17,10 @@ class PrivateBetaMiddleware(object):
     """
 
     def __init__(self):
-        self.enable_beta = getattr(settings, 'EARLYBIRD_ENABLE', True)
+        self.enable_beta = settings.EARLYBIRD_ENABLE
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        if request.user.is_authenticated() and request.user.is_staff or not self.enable_beta:
+        if (request.user.is_authenticated() and request.user.is_staff) or not self.enable_beta:
             # User is logged in, no need to check anything else.
             return
 

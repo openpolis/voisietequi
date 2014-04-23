@@ -6,6 +6,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 SHOW_DEBUG_TOOLBAR = False
 LOCAL_DEVELOPEMENT = False
+EARLYBIRD_ENABLE = False
 
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
