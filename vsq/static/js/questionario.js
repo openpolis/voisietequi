@@ -65,7 +65,7 @@ function Questionario(url, election_code, callback, id_questionario, id_userdata
         submitHandler: this.send.bind(this),
         //debug: true,
         errorElement: 'span',
-        errorClass: 'help-inline',
+        errorClass: 'help-inline alert-danger',
         errorPlacement: function(error, element){
             error.insertAfter(element);
             error.parent().parent().addClass('error');
@@ -86,6 +86,9 @@ function Questionario(url, election_code, callback, id_questionario, id_userdata
             email: {
                 required: '#id_wants_newsletter:checked',
                 email: true
+            },
+            privacy_accept: {
+                required: '#id_email:filled'
             }
         },
         messages: {
@@ -97,6 +100,9 @@ function Questionario(url, election_code, callback, id_questionario, id_userdata
             email: {
                 required: "Scrivi la tua email",
                 email: "L'indirizzo email deve essere nel formato name@domain.com"
+            },
+            privacy_accept: {
+                required: "Per registrare la mail devi acconsentire al Trattamento dei Dati Personali."
             }
         }
     });
