@@ -45,27 +45,20 @@
 </head>
 
 <body>
-<div class="wrapper">
-    <!-- HEADER -->
-    <div class="container header">
-        <div class="row ">
-            <div  id="logo_header" >
-                <div class="span10" id="logo_top">
-                    <a href="/">
-                        <img src="{{ STATIC_URL }}/img/logo-header.png">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="row ">
-            <div class="span10" >
-                <img src="{{ STATIC_URL }}/img/top-spacer.png">
-            </div>
 
+<!-- HEADER -->
+<div class="navbar">
+    <div class="testata">
+        <div class="container">
+            <a href="{%  url homepage %}"><img class="pull-left logo" src="{{ STATIC_URL }}img/voisietequi-logo.png" alt="Voi Siete Qui - Openpolis" /></a>
+            <h1 class="pull-left"> {{ ELECTION_NAME }}</h1>
+            <a href="http://www.openpolis.it/"><img class="strumento pull-right" src="{{ STATIC_URL }}img/strumento_openpolis.png" alt="OpenPolis" /></a>
         </div>
     </div>
-    <!-- /HEADER-->
+</div>
+<!-- /HEADER-->
 
+<div class="wrapper" style="margin-top: 25px;">
 
     <div class="container content ">
         {% block content %}

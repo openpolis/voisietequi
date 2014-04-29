@@ -6051,12 +6051,12 @@ a.badge:hover {
 /*!
  * Aggiunti
  */
- 
+
 .testata {
   padding: 35px 30px 30px 30px;
   margin: 0;
   color: inherit;
-  border-bottom: 1px solid #e1e1e1; 
+  border-bottom: 1px solid #e1e1e1;
   background-image: url("../img/sfondo_fascia.png");
   background-position: center top;
   background-repeat: no-repeat;
@@ -6075,18 +6075,18 @@ a.badge:hover {
 }
 
 .logo {
-	margin-right: 15px;	
+	margin-right: 15px;
 }
 
 .strumento {
-	margin-top: 10px;	
+	margin-top: 10px;
 }
 
 .sfondo-verde {
   padding: 35px 30px 30px 30px;
   margin: 0;
   color: inherit;
-  border-bottom: 1px solid #fff; 
+  border-bottom: 1px solid #fff;
   background-image: url("../img/sfondo_verde.png");
   background-position: left top;
   background-repeat: repeat-x;
@@ -6114,7 +6114,7 @@ a.badge:hover {
   padding: 35px 30px 30px 30px;
   margin: 0;
   color: inherit;
-  border-bottom: 1px solid #e1e1e1; 
+  border-bottom: 1px solid #e1e1e1;
   background-image: url("../img/sfondo_grigio01.png");
   background-position: left top;
   background-color: #fafafa;
@@ -6206,7 +6206,7 @@ a.badge:hover {
   width: 33.33%;
 }
 
-.bianco-tab {  
+.bianco-tab {
   background-color: #fff;
 }
 
@@ -6310,7 +6310,7 @@ a.badge:hover {
     font-weight: normal;
  	font-size: 21px;
  	line-height: 28px;
-    border-left: 1px solid #e1e1e1; 
+    border-left: 1px solid #e1e1e1;
 }
 
 .tema-num {
@@ -6392,7 +6392,7 @@ a.badge:hover {
 .linea-vert {
   margin: 20px 0;
   padding: 0 0 0 10px;
-  border-left: 1px solid #e1e1e1; 
+  border-left: 1px solid #e1e1e1;
 }
 
 .linea-vert p {
@@ -6470,7 +6470,7 @@ a.badge:hover {
     font-family: "Droid Serif", serif;
     font-weight: normal;
  	font-size: 26px;
- 	line-height: 32px;	
+ 	line-height: 32px;
  	color: #000;
 }
 
@@ -6497,7 +6497,7 @@ a.badge:hover {
   padding: 35px 30px 30px 30px;
   margin: 0;
   color: inherit;
-  border-top: 1px solid #e1e1e1; 
+  border-top: 1px solid #e1e1e1;
   background-color: #f4f4f4;
 }
 
@@ -6513,7 +6513,7 @@ a.badge:hover {
 .img-small {
   margin-bottom: 15px;
 }
-	   
+
 .box-footer {
   margin: 0;
   padding: 15px;
@@ -6561,7 +6561,7 @@ a.badge:hover {
 /*!
  * Bottoni questionario
  */
- 
+
  .btn-ok {
   padding: 11px 19px;
   font-size: 102%;
@@ -6569,7 +6569,7 @@ a.badge:hover {
      -moz-border-radius: 6px;
           border-radius: 6px;
 }
- 
+
 .btn-mf {
   width: 100%;
   height: 80px;
