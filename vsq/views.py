@@ -50,7 +50,7 @@ class QuestionarioPartitiView(TemplateView):
             p.risposte_at = datetime.now()
 
             for d in questions:
-                c,t = form.get_answer(d.pk)
+                c,t = form.get_answer(d.ordine)
                 rp = RispostaPartito(partito=p,domanda=d, risposta_int=c, risposta_txt=t)
                 rp.save()
 

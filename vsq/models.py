@@ -88,7 +88,7 @@ class Domanda(models.Model):
         return ('topic-detail', (), {'slug': self.slug})
 
     def __unicode__(self):
-        return u"%s - %s" % (self.id, self.slug)
+        return u"%s - %s" % (self.ordine, self.slug)
 
 
 class Utente(models.Model):
