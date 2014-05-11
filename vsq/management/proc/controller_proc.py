@@ -10,7 +10,7 @@ def send_configuration(election_code, config):
     # setup socket and connections
     context = zmq.Context()
     pub_socket = context.socket(zmq.PUB)
-    pub_socket.bind("tcp://*:5556")
+    pub_socket.bind("tcp://*:5557")
 
     # wait for connections (handshake, ...)
     time.sleep(0.2)
