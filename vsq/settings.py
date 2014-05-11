@@ -14,10 +14,11 @@ REPO_ROOT = os.path.abspath(os.path.dirname(PROJECT_ROOT))
 SLUG_MAX_LENGTH = 60
 ELECTION_CODE='election'
 COMPUTER_URL='http://urlcomputer.dominio.it'
+COMPUTER_ADDR = 'tcp://urlcomputer.dominio.it:5557'
 DISQUS_FORUM = ''
-MQ_URL = 'amqp://guest:guest@localhost:5672/%2f'
-MQ_EXCHANGE = 'voisietequi'
-MQ_QUEUE = 'vsq.{election}'.format(election=ELECTION_CODE)
+# MQ_URL = 'amqp://guest:guest@localhost:5672/%2f'
+# MQ_EXCHANGE = 'voisietequi'
+# MQ_QUEUE = 'vsq.{election}'.format(election=ELECTION_CODE)
 RESULTS_DUMP = os.path.join(REPO_ROOT, 'results.csv')
 MAILBIN_URL = 'tcp://127.0.0.1:5558'
 MAILBIN_SERVICE = 'xxx.voisietequi.it'

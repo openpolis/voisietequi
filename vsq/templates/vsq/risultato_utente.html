@@ -33,7 +33,7 @@
               'url': "{{ p.get_absolute_url }}",
               'coalizione': "{{ p.coalizione.slug }}",
               'colore': "{{ p.coalizione.colore }}",
-              'simbolo_url': "{{ p.simbolo.url }}"
+              'simbolo_url': "{% if p.simbolo %}{{ p.simbolo.url }}{% endif %}"
             }{% if not forloop.last %},{%  endif %}
           {% endfor %}
       }

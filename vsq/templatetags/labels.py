@@ -44,7 +44,7 @@ def immagine_partito(partito, size=False, title=None):
         src="{image_url}" alt="{sigla}" {title}/></a>""".format(
         party_url=partito.get_absolute_url(),
         coalizione= partito.coalizione.slug,
-        image_url= partito.simbolo.url,
+        image_url= partito.simbolo.url if partito.simbolo else '',
         sigla= partito.sigla,
         size= ' img-circle-{0}'.format(size) if size else '',
         title= 'title="{0}"'.format(title) if title else ''

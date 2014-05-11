@@ -8,31 +8,16 @@ MQ_EXCHANGE='voisietequi'
 MQ_QUEUE='vsq.{election}'.format(election=ELECTION_CODE)
 
 """
-from django.contrib.humanize.templatetags.humanize import naturaltime
-
-import pika
 from optparse import make_option
-from datetime import datetime
 from django.conf import settings
 from django.core.management import BaseCommand, CommandError
+from vsq.management.proc import controller_proc
 from vsq.models import Partito
 
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
-
-ELECTION_CODE = settings.ELECTION_CODE
 
 # helper for settings
 def setting(name, default=None): return getattr(settings,name) if hasattr(settings, name) and getattr(settings,name) else default
 
-DEFAULT_URL = 'amqp://guest:guest@localhost:5672/%2f'
-DEFAULT_EXCHANGE = 'voisietequi'
-DEFAULT_QUEUE = 'vsq.{election}'.format(election=ELECTION_CODE)
-
-DISCOVER_QUEUE_NAME = '{queue}.discover'.format( queue=settings.MQ_QUEUE )
-CONFIGURE_QUEUE_NAME = '{queue}.configure'.format( queue=settings.MQ_QUEUE )
 
 class Command(BaseCommand):
 
@@ -42,23 +27,15 @@ class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option('-u','--url',
             dest='url',
-            default=settings.MQ_URL,
-            help='Broker url (es: {example})'.format(example=DEFAULT_URL)),
-        make_option('-e','--exchange',
-            dest='exchange',
-            default=settings.MQ_EXCHANGE,
-            help='Name of message queue exchange (es: {example})'.format(example=DEFAULT_EXCHANGE)),
-        make_option('-q','--queue',
-            dest='queue',
-            default=DEFAULT_QUEUE,
-            help='Name of message queue (es: {example})'.format(example=DEFAULT_QUEUE)),
-        )
+            default=settings.COMPUTER_ADDR,
+            help='Computer url (es: {example})'.format(example=settings.COMPUTER_ADDR)),
+    )
 
     def handle(self, *args, **options):
         action = args[0] if args else 'discover'
 
-        if action == 'discover':
-            self.discover_handle(**options)
+        if action == 'saver':
+            self.saver_handle(**options)
         elif action == 'configure':
             self.configure_handle(**options)
         elif action == 'partiti':
@@ -70,69 +47,24 @@ class Command(BaseCommand):
         else:
             raise CommandError('Invalid action. Only "discover", "configure", "partiti" or "test" are allowed')
 
-    def on_computer_discover(self, now):
-        def callback(ch, method, properties, body):
+    def saver_handle(self, **options):
 
-            #print " [x] Received %r:%r" % (method.routing_key, pickle.loads(body),)
-            data = pickle.loads(body)
-            lag = datetime.now() - now
-
-            last_update = naturaltime(data['last_update']) if data['last_update'] else 'NOT CONFIGURED'
-            print( ' [x] {host} configured {last_update} [{ts}ms]'.format(
-                host = data['host'],
-                last_update = last_update,
-                ts = (lag.microseconds / 1000) + (lag.seconds * 1000),
-            ))
-        return callback
-
-    def discover_handle(self, **options):
-
-        connection = pika.BlockingConnection(pika.URLParameters(options['url']))
-        channel = connection.channel()
-
-        channel.exchange_declare(exchange=options['exchange'], exchange_type='topic')
-
-        now = datetime.now()
-
-        # rpc
-        callback_queue = channel.queue_declare(exclusive=True).method.queue
-        #channel.queue_bind(exchange=options['MQ_EXCHANGE'], queue=callback_queue)
-        channel.basic_consume(self.on_computer_discover(now), no_ack=True, queue=callback_queue)
-        #end rpc
-
-        routing_key = DISCOVER_QUEUE_NAME
-        channel.basic_publish(
-            exchange=options['exchange'],
-            routing_key=routing_key,
-            body=pickle.dumps(now),
-            properties=pika.BasicProperties( reply_to = callback_queue ), #rpc
-        )
-        print(" [*] Discover message sent: {0}".format(now))
-
-        try:
-            channel.start_consuming()
-        except KeyboardInterrupt:
-            channel.stop_consuming()
-            connection.close()
+        controller = controller_proc.ControllerProcess(bind_addr='*:5557')
+        controller.start()
+        controller.join()
 
     def configure_handle(self, **options):
 
-        connection = pika.BlockingConnection( pika.URLParameters( options['url'] ) )
-        print ' [*] Connect to %s' % options['url']
-        channel = connection.channel()
-        channel.exchange_declare(options['exchange'], exchange_type='topic')
-        queue_name = CONFIGURE_QUEUE_NAME
-        channel.queue_declare(queue=queue_name)
-        channel.queue_bind(exchange=options['exchange'], queue=queue_name)
-        channel.basic_publish(
-            exchange=options['exchange'],
-            routing_key=queue_name,
-            body=pickle.dumps({
-                'election_code': ELECTION_CODE,
-                'configuration': self.extract_configuration(),
-            }))
-        print " [x] Start configuration: %r" % (ELECTION_CODE,)
-        connection.close()
+        controller = controller_proc.ControllerProcess(bind_addr='*:5557')
+        controller.start()
+
+        new_config = self.extract_configuration()
+
+        controller_proc.send_configuration(settings.ELECTION_CODE, new_config)
+
+        print " [x] Start configuration: %s %s" % (settings.ELECTION_CODE, new_config)
+
+        controller.join()
 
     def extract_configuration(self):
         from vsq.models import Partito
@@ -158,7 +90,7 @@ class Command(BaseCommand):
         if not computer_url.startswith('http'):
             computer_url = 'http://%s' % computer_url
         data = json.dumps({
-            'election_code': ELECTION_CODE,
+            'election_code': settings.ELECTION_CODE,
             'user_data': {'email': 'email@email.tld','name':'mariorossi%s' % randint(1,9999999)},
             'user_answers': risposte,
             'test': True
@@ -183,8 +115,6 @@ class Command(BaseCommand):
             print 'execution code:', data['code']
             for party, x, y in data['results']:
                 print "{0:^10}".format(party), x, y
-
-
 
     def partiti_handle(self, **options):
         """

@@ -36,7 +36,7 @@
               <div id="ri-grid" class="ri-grid ri-grid-size-2">
 					<ul>
                         {% for partito in partiti %}
-                        <li><a href="#"><img src="{{ partito.simbolo.url }}"/></a></li>
+                        <li><a href="#"><img src="{% if partito.simbolo %}{{ partito.simbolo.url }}{% endif %}"/></a></li>
                         {% empty %}
                         <li><a href="#"><img src="{{ STATIC_URL }}img/loghi_liste/1.gif"/></a></li>
 						<li><a href="#"><img src="{{ STATIC_URL }}img/loghi_liste/2.gif"/></a></li>
