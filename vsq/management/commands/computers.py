@@ -55,8 +55,8 @@ class Command(BaseCommand):
 
     def configure_handle(self, **options):
 
-        # controller = controller_proc.ControllerProcess(bind_addr='*:5557')
-        # controller.start()
+        controller = controller_proc.ControllerProcess(bind_addr='*:5557')
+        controller.start()
 
         new_config = self.extract_configuration()
 
@@ -64,7 +64,7 @@ class Command(BaseCommand):
 
         print " [x] Start configuration: %s %s" % (settings.ELECTION_CODE, new_config)
 
-        # controller.join()
+        controller.join()
 
     def extract_configuration(self):
         from vsq.models import Partito
