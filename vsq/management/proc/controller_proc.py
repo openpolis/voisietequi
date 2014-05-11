@@ -24,10 +24,10 @@ def send_configuration(election_code, config):
 
 class ControllerProcess(base.ZmqProcess):
 
-    def __init__(self, bind_addr):
+    def __init__(self, pull_addr):
         super(ControllerProcess, self).__init__()
 
-        self.bind_addr = bind_addr
+        self.pull_addr = pull_addr
 
     def setup(self):
         """Sets up PyZMQ and creates all streams."""
@@ -36,10 +36,10 @@ class ControllerProcess(base.ZmqProcess):
         super(ControllerProcess, self).setup()
 
         # Create the stream and add the message handler
-        self.pull_stream, _ = self.stream(zmq.PULL, self.bind_addr, bind=True)
+        self.pull_stream, _ = self.stream(zmq.PULL, self.pull_addr, bind=True)
         self.pull_stream.on_recv(PullStreamHandler())
 
-        print "Controller connected:", self.bind_addr
+        print "Controller connected:", self.pull_addr
 
     def run(self):
         """Sets up everything and starts the event loop."""
@@ -96,7 +96,7 @@ class PullStreamHandler(base.MessageHandler):
 
 if __name__ == '__main__':
 
-    controller = ControllerProcess(bind_addr='*:5557')
+    controller = ControllerProcess(pull_addr='*:5557')
     controller.start()
 
     send_configuration('test', {'foo': 'bar'})

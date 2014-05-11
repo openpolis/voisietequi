@@ -49,13 +49,13 @@ class Command(BaseCommand):
 
     def saver_handle(self, **options):
 
-        controller = controller_proc.ControllerProcess(bind_addr='*:5557')
+        controller = controller_proc.ControllerProcess(pull_addr='*:5557')
         controller.start()
         controller.join()
 
     def configure_handle(self, **options):
 
-        controller = controller_proc.ControllerProcess(bind_addr='*:5557')
+        controller = controller_proc.ControllerProcess(pull_addr='*:5557')
         controller.start()
 
         new_config = self.extract_configuration()
