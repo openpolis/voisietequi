@@ -226,14 +226,14 @@
                     {% for domanda in domande %}
                         <div class="accordion-group tema">
                             <div class="accordion-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" {# data-parent="#accordion" #} href="#collapse{{ forloop.counter }}">
+                                <a class="accordion-toggle" data-toggle="collapse" {# data-parent="#accordion" #} href="#collapse{{ domanda.pk }}">
                                     <div class="row-fluid">
                                         <div class="span1"><div class="tema-num"><strong>{{ domanda.ordine }}/</strong>{{ QUESTIONS_COUNT }}</div></div>
                                         <div class="span11"><h1>{{ domanda.testo_html|safe }}</h1></div>
                                     </div>
                                 </a>
                             </div>
-                            <div id="collapse{{ forloop.counter }}" class="accordion-body collapse">
+                            <div id="collapse{{ domanda.pk }}" class="accordion-body collapse">
                                 <div class="accordion-inner">
                                     <div class="visible-phone"><strong>La tua posizione:</strong> <span class="posizione-responsive"></span></div>
                                     <table class="table table-condensed table7">
