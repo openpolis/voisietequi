@@ -86,7 +86,7 @@
                 <h1><strong>Orientati qui!</strong></h1>
                 <p>Le distanze tra liste elettorali sono calcolate confrontando le
                     <strong>diverse posizioni su 25 temi</strong>.<br><br>
-                  Le liste hanno risposto direttamente a tutti i temi{% if partiti_non_orig %}, tranne
+                  {% if partiti_non_orig %}Le liste hanno risposto direttamente a tutti i temi, tranne
                         {% for p in partiti_non_orig %}<strong>{{ p.sigla }}</strong>
                             {% if forloop.last %}{% if not forloop.first %} e {% endif %}{% else %}, {% endif %}{% endfor %}
                         il cui posizionamento è stato elaborato da Openpolis{% endif %}.</p>
@@ -223,15 +223,13 @@
 {#  </div>#}
   {% endif %}
 
-
-
-  <div class="container">
-    <div class="row-fluid">
-      <div class="span3 linea-vert">Un progetto<p><a href="http://www.openpolis.it/"><img src="{{ STATIC_URL }}img/openpolis_logo.png" alt="Openpolis" /></a></p></div>
-      <div class="span3 linea-vert">Realizzato da<p><a href="http://www.depp.it/"><img src="{{ STATIC_URL }}img/depp_logo.png" alt="Depp" /></a></p></div>
-      <div class="span5 linea-vert">Supportato da<p><a href="http://www.mimesi.com/"><img src="{{ STATIC_URL }}img/mimesi_logo.png" alt="Mimesi" /></a><a href="http://www.top-ix.org/"><img src="{{ STATIC_URL }}img/topix_logo.png" alt="Top ix" /></a></p></div>
-    </div>
-  </div>
+{#  <div class="container">#}
+{#    <div class="row-fluid">#}
+{#      <div class="span3 linea-vert">Un progetto<p><a href="http://www.openpolis.it/"><img src="{{ STATIC_URL }}img/openpolis_logo.png" alt="Openpolis" /></a></p></div>#}
+{#      <div class="span3 linea-vert">Realizzato da<p><a href="http://www.depp.it/"><img src="{{ STATIC_URL }}img/depp_logo.png" alt="Depp" /></a></p></div>#}
+{#      <div class="span5 linea-vert">Supportato da<p><a href="http://www.mimesi.com/"><img src="{{ STATIC_URL }}img/mimesi_logo.png" alt="Mimesi" /></a><a href="http://www.top-ix.org/"><img src="{{ STATIC_URL }}img/topix_logo.png" alt="Top ix" /></a></p></div>#}
+{#    </div>#}
+{#  </div>#}
 {% endblock %}
 
 
