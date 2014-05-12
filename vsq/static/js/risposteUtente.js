@@ -314,34 +314,34 @@ function draw_graph(coordinate, highlight, marker){
         .attr("xlink:href", "/static/img/omino.png")
         .attr("width", 16)
         .attr("height", 21)
-        .attr("x",user_marker_x-10)
-        .attr("y",user_marker_y-8);
+        .attr("x",user_marker_x-8)
+        .attr("y",user_marker_y-21);
 
 
         //disegna la croce
-        vis.append("line")
-            .attr("x1",user_marker_x+padding)
-            .attr("y1",user_marker_y+padding)
-            .attr("x2",user_marker_x-padding)
-            .attr("y2",user_marker_y-padding)
-            .style("stroke-miterlimit","10")
-            .style("stroke", function(d){
-                var new_color=user_marker_color;
-                return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+user_marker_transparency+")";
-            })
-            .style("stroke-width",user_marker_stroke+"px");
-
-        vis.append("line")
-            .attr("x1",user_marker_x-padding)
-            .attr("y1",user_marker_y+padding)
-            .attr("x2",user_marker_x+padding)
-            .attr("y2",user_marker_y-padding)
-            .style("stroke-miterlimit","10")
-            .style("stroke", function(d){
-                var new_color=user_marker_color;
-                return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+user_marker_transparency+")";
-            })
-            .style("stroke-width",user_marker_stroke+"px");
+//        vis.append("line")
+//            .attr("x1",user_marker_x+padding)
+//            .attr("y1",user_marker_y+padding)
+//            .attr("x2",user_marker_x-padding)
+//            .attr("y2",user_marker_y-padding)
+//            .style("stroke-miterlimit","10")
+//            .style("stroke", function(d){
+//                var new_color=user_marker_color;
+//                return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+user_marker_transparency+")";
+//            })
+//            .style("stroke-width",user_marker_stroke+"px");
+//
+//        vis.append("line")
+//            .attr("x1",user_marker_x-padding)
+//            .attr("y1",user_marker_y+padding)
+//            .attr("x2",user_marker_x+padding)
+//            .attr("y2",user_marker_y-padding)
+//            .style("stroke-miterlimit","10")
+//            .style("stroke", function(d){
+//                var new_color=user_marker_color;
+//                return "rgba("+hexToRgb(new_color).r+","+hexToRgb(new_color).g+","+hexToRgb(new_color).b+","+user_marker_transparency+")";
+//            })
+//            .style("stroke-width",user_marker_stroke+"px");
 
     }
 
