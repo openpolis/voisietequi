@@ -310,14 +310,6 @@ function draw_graph(coordinate, highlight, marker){
         user_marker_x = x_square(highlight_x);
         user_marker_y = y_square(highlight_y);
 
-        vis.append("image")
-        .attr("xlink:href", "../img/omino.png")
-        .attr("width", 16)
-        .attr("height", 21)
-        .attr("x",user_marker_x+10)
-        .attr("y",user_marker_y+8);
-
-
         //disegna la croce
         vis.append("line")
             .attr("x1",user_marker_x+padding)
