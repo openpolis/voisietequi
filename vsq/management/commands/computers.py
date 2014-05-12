@@ -64,13 +64,18 @@ class Command(BaseCommand):
 
         print " [x] Start configuration: %s %s" % (settings.ELECTION_CODE, new_config)
 
-        controller.join()
+        try:
+            controller.join()
+        except KeyboardInterrupt:
+            controller.stop()
+            print "EXIT"
 
     def extract_configuration(self):
         from vsq.models import Partito
-        config = {}
+        import collections
+        config = collections.defaultdict(dict)
         for partito in Partito.objects.all():
-            config[partito.sigla] = {}
+            # config[partito.sigla] = {}
             for risposta in partito.rispostapartito_set.all().select_related('domanda'):
                 config[partito.sigla][risposta.domanda.pk] = risposta.risposta_int
         return config
