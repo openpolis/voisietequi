@@ -1,13 +1,12 @@
 Django==1.4.3
 Markdown==2.2.1
-PIL==1.1.7
+pillow
 South==0.7.6
 django-debug-toolbar==0.9.4
 django-extensions==1.0.2
 django-model-utils==1.1.0
 docutils==0.10
 psycopg2
-pika
 pyzmq
 
 #argparse==1.2.1
