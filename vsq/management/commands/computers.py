@@ -129,7 +129,7 @@ class Command(BaseCommand):
         import json
 
 
-        computer_url = "{0}/coordinate_partiti/{1}" .format(settings.COMPUTER_URL, settings.ELECTION_CODE)
+        computer_url = "http://{0}.voisietequi.it/coordinate_partiti/{0}" .format(settings.ELECTION_CODE)
         print "looking up {0}".format(computer_url)
 
         from urllib2 import Request, urlopen, URLError
