@@ -62,6 +62,15 @@
   <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.png">
 
   {% block header_scripts %}{% endblock %}
+  {% block addthis_script %}
+    <script>
+    var addthis_share = {
+       templates: {
+           twitter: 'Tu dove sei? {% templatetag openvariable %}url{% templatetag closevariable %} {{ HASHTAG }}',
+       }
+    };
+    </script>
+  {% endblock %}
 </head>
 
 <body>

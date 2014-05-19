@@ -3,10 +3,18 @@
 
 {% block title %}La tua posizione{% endblock %}
 
+{% block addthis_script %}
+<script type="text/javascript">
+    var addthis_share = {
+       templates: {
+           twitter: 'La mia posizione {% templatetag openvariable %}url{% templatetag closevariable %} {{ HASHTAG }}',
+       }
+    }
+</script>
+{% endblock %}
 {% block header_scripts %}
     {% regroup risposte_partiti by partito__sigla as liste %}
     <script type="text/javascript">
-
       {% if utente %}
           var utente = {
               'nickname': '{{ utente.nickname}}',

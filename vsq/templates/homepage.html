@@ -86,10 +86,7 @@
                 <h1><strong>Orientati qui!</strong></h1>
                 <p>Le distanze tra liste elettorali sono calcolate confrontando le
                     <strong>diverse posizioni su 25 temi</strong>.<br><br>
-                  {% if partiti_non_orig %}Le liste hanno risposto direttamente a tutti i temi, tranne
-                        {% for p in partiti_non_orig %}<strong>{{ p.sigla }}</strong>
-                            {% if forloop.last %}{% if not forloop.first %} e {% endif %}{% else %}, {% endif %}{% endfor %}
-                        il cui posizionamento è stato elaborato da Openpolis.{% endif %}</p>
+		</p>
                   <div class="box-verde">
                   <p><strong>{{ conteggio_utenti|intcomma }} cittadini</strong><br />conoscono già la loro posizione.</p>
                   <a href="{% url questionario-utente %}" class="btn btn-danger btn-large">Scopri dove sei! &raquo;</a>

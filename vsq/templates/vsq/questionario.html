@@ -2,6 +2,15 @@
 
 {% block title %}Tu dove sei?{% endblock %}
 
+{% block addthis_script %}
+<script>
+var addthis_share = {
+       templates: {
+           twitter: 'Tu dove sei? {% templatetag openvariable %}url{% templatetag closevariable %} #VsQ14 #europee',
+       }
+    };
+</script>
+{% endblock %}
 {% block content %}
   <!-- START questionario-domande -->
   <div id="domande-questionario" style="min-height: 500px;">
