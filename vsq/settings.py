@@ -213,7 +213,16 @@ LOGGING = {
     }
 }
 
-
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(REPO_ROOT, 'django-cache'),
+        'TIMEOUT': 60,
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000
+        }
+    }
+}
 
 #max and min values for points in the final graph
 MIN_GRAPH_X=0

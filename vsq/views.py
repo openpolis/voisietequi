@@ -20,6 +20,7 @@ from settings import MIN_GRAPH_X, MIN_GRAPH_Y, MAX_GRAPH_X, MAX_GRAPH_Y
 import random
 import json
 from json.encoder import JSONEncoder
+from django.core.cache import cache
 
 class QuestionarioUtente(TemplateView):
     template_name = "q_utenti.html"
@@ -223,23 +224,37 @@ class HomepageView(TemplateView):
         # (domanda1, [ ['Molto Contrario', 54321], ['Contrario', 54321], ...  ]),
         # (domanda2, [ ['Molto Contrario', 12345], ['Contrario', 54321], ...  ]),
         # ...
-        try:
-            with open(settings.RESULTS_DUMP) as f:
-                import csv
-                domande = Domanda.objects.all()
-                reader = csv.DictReader(f)
-                headers = list(reader.fieldnames)
-                context['conteggio_risposte'] = []
-                for row in reader:
-                    context['conteggio_risposte'].append((
-                        filter(lambda x: x.ordine == int(row['Ordine']), domande)[0],
-                        [(x, row[x]) for x in headers[2:]]
-                    ))
-        except IOError:
-            # if not exists, display images of parties
-            pass
+        conteggio_risposte = cache.get('conteggio_risposte')
+        if conteggio_risposte is None:
+            try:
+                with open(settings.RESULTS_DUMP) as f:
+                    import csv
+                    domande = Domanda.objects.all()
+                    reader = csv.DictReader(f)
+                    headers = list(reader.fieldnames)
+                    conteggio_risposte = []
+                    for row in reader:
+                        conteggio_risposte.append((
+                            filter(lambda x: x.ordine == int(row['Ordine']), domande)[0],
+                            [(x, row[x]) for x in headers[2:]]
+                        ))
+                cache.set('conteggio_risposte', conteggio_risposte)
+            except IOError:
+                # if not exists, display images of parties
+                cache.set('conteggio_risposte', False)
+                conteggio_risposte = []
 
-        context['op_blog_posts'] = feedparser.parse('http://blog.openpolis.it/categorie/%s/feed/' % settings.OP_BLOG_CATEGORY).entries[:3]
+        context['conteggio_risposte'] = conteggio_risposte
+
+        blog_posts = cache.get('blog_posts')
+        if blog_posts is None:
+            try:
+                blog_posts = feedparser.parse('http://blog.openpolis.it/categorie/%s/feed/' % settings.OP_BLOG_CATEGORY).entries[:3]
+                cache.set('blog_posts', blog_posts)
+            except:
+                blog_posts = []
+                cache.set('blog_posts', False)
+        context['op_blog_posts'] = blog_posts
 
         return context
 
