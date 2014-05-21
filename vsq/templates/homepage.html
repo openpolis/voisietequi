@@ -54,7 +54,7 @@
         var charts = new Array();
         var onSlidDrawChart = function() {
             var id = $('#myCarousel').find('.item.active .piechart').attr('id');
-            if (!window.charts.hasOwnProperty(id)) {
+            if (!window.charts.hasOwnProperty(id) && results_list.length > 0) {
                 var data = google.visualization.arrayToDataTable(results_list[id]);
                 charts[id] = new google.visualization.PieChart(document.getElementById(id));
                 charts[id].draw(data, window.chart_options);
@@ -66,7 +66,7 @@
             $('#myCarousel').bind('slid', onSlidDrawChart );
             onSlidDrawChart();
 
-            $('#subscription_form').mailbinForm();
+{#            $('#subscription_form').mailbinForm();#}
         })
     </script>
 
