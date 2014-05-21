@@ -9,6 +9,7 @@ from django.template import Context
 from django.template.loader import get_template
 from django.utils.functional import curry
 from django.views.generic import TemplateView, DetailView, CreateView, ListView, View
+import feedparser
 from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente, Faq, RispostaUtente, Coalizione
 from django.shortcuts import redirect, render_to_response, get_object_or_404
 from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm, SubscriptionForm
@@ -237,6 +238,8 @@ class HomepageView(TemplateView):
         except IOError:
             # if not exists, display images of parties
             pass
+
+        context['op_blog_posts'] = feedparser.parse('http://blog.openpolis.it/categorie/%s/feed/' % settings.OP_BLOG_CATEGORY).entries[:3]
 
         return context
 

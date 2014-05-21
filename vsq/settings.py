@@ -14,6 +14,7 @@ REPO_ROOT = os.path.abspath(os.path.dirname(PROJECT_ROOT))
 SLUG_MAX_LENGTH = 60
 ELECTION_CODE='election'
 HASHTAG='voisietequi'
+OP_BLOG_CATEGORY = 'piattaforme/voisietequi'
 COMPUTER_URL='http://urlcomputer.dominio.it'
 COMPUTER_ADDR = 'tcp://urlcomputer.dominio.it:5557'
 DISQUS_FORUM = ''

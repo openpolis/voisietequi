@@ -6927,3 +6927,20 @@ a.badge:hover {
     text-transform: uppercase;
     font-size: 12px;
 }
+
+#from-the-blog {
+    margin: 25px 0;
+}
+#from-the-blog a {
+  font-weight: bold;
+    text-decoration: none;
+}
+#from-the-blog a:active,
+#from-the-blog a:hover {
+  color: #2c3138;
+  text-decoration: none;
+}
+#from-the-blog h3 {
+    font-size: 18px;
+    line-height: 20px;
+}
