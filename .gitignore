@@ -7,6 +7,7 @@ public/media/*
 public/static/*
 *.db
 *.csv
+*.DS_Store
 dump
 vsq/settings_local.py
 log/logfile
