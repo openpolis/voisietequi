@@ -1,4 +1,5 @@
 Django==1.4.3
+django-environ
 Markdown==2.2.1
 pillow
 South==0.7.6
