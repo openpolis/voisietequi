@@ -1,26 +1,39 @@
 # Django settings for vsq project.
 import django.conf.global_settings as DEFAULT_SETTINGS
 import os
-
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
-SHOW_DEBUG_TOOLBAR = False
-LOCAL_DEVELOPEMENT = False
-EARLYBIRD_ENABLE = False
-
+import environ
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 REPO_ROOT = os.path.abspath(os.path.dirname(PROJECT_ROOT))
+CONFIG_DIR = os.path.abspath(os.path.join(PROJECT_ROOT, '../config'))
+
+env = environ.Env()
+env.read_env(os.path.join(CONFIG_DIR, '.env'))
+
+RESOURCES_DIR = env.str('RESOURCES_DIR', default=os.path.abspath(os.path.join(BASE_DIR, '../resources')))
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = env.str('SECRET_KEY', default='52n0*2bkg-wp^#u7#9vpoj2a+ww)a2q^lun)(cwv=5q=bnjlo5')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = env.bool('DEBUG', default=False)
+TEMPLATE_DEBUG = env.bool('TEMPLATE_DEBUG', default=False)
+SHOW_DEBUG_TOOLBAR = env.bool('SHOW_DEBUG_TOOLBAR', default=False)
+LOCAL_DEVELOPEMENT = env.bool('LOCAL_DEVELOPMENT', default=False)
+EARLYBIRD_ENABLE = env.bool('EARLYBIRD_ENABLE', default=False)
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', [])
+
+INTERNAL_IPS = ['127.0.0.1', ]
+
+
 SLUG_MAX_LENGTH = 60
-ELECTION_CODE='election'
+ELECTION_CODE=env.string('ELECTION_CODE', default='election')
 HASHTAG='voisietequi'
 OP_BLOG_CATEGORY = 'piattaforme/voisietequi'
 COMPUTER_URL='http://urlcomputer.dominio.it'
 COMPUTER_ADDR = 'tcp://urlcomputer.dominio.it:5557'
 DISQUS_FORUM = ''
-# MQ_URL = 'amqp://guest:guest@localhost:5672/%2f'
-# MQ_EXCHANGE = 'voisietequi'
-# MQ_QUEUE = 'vsq.{election}'.format(election=ELECTION_CODE)
+
 RESULTS_DUMP = os.path.join(REPO_ROOT, 'results.csv')
 MAILBIN_URL = 'tcp://127.0.0.1:5558'
 MAILBIN_SERVICE = 'xxx.voisietequi.it'
@@ -34,18 +47,9 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'sqlite.db',             # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
-
+            'default': env.db(default='sqlite:///%s/db/db.sqlite3' % RESOURCES_DIR)
+            }
 MESSAGES_STORAGE = 'django.contrib.messages.storage.session.CookieStorage'
 
 # Local time zone for this installation. Choices can be found here:
