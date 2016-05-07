@@ -5,9 +5,11 @@ from json.encoder import JSONEncoder
 import feedparser
 
 from django.conf import settings
+from django.contrib.sites.models import Site
 from django.core.cache import cache
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, mail_managers
 from django.core.serializers import serialize
+from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.db.models.query import QuerySet
 from django.http import Http404, HttpResponse
@@ -42,8 +44,8 @@ class QuestionarioPartitiView(TemplateView):
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         questions = Domanda.get_domande()
-        form= QuestionarioPartitiForm(self.request.POST , extra=questions)
         p = get_object_or_404(Partito, party_key=kwargs['party_key'])
+        form= QuestionarioPartitiForm(self.request.POST, party=p, extra=questions)
 
         if form.is_valid():
             #        controlla e salva le risposte
@@ -52,32 +54,41 @@ class QuestionarioPartitiView(TemplateView):
 
             for d in questions:
                 c,t = form.get_answer(d.ordine)
-                rp = RispostaPartito(partito=p,domanda=d, risposta_int=c, risposta_txt=t)
-                rp.save()
+                if c == '':
+                    continue
+                rp, created = RispostaPartito.objects.get_or_create(
+                    partito=p,
+                    domanda=d,
+                    defaults=dict(
+                        risposta_int=c,
+                        risposta_txt=t
+                    )
+                )
+                if not created:
+                    if rp.risposta_int != c:
+                        rp.risposta_int = c
+                    if rp.risposta_txt != t:
+                        rp.risposta_txt = t
+                    rp.save()
+                # rp = RispostaPartito(partito=p,domanda=d, risposta_int=c, risposta_txt=t)
+                # rp.save()
 
             p.save()
 
-#            manda una mail ai managers dell'applicazione con il link per controllare i risultati del questionario
+            if not p.has_replied_to_all_answers():
+                return redirect("questionario_partiti", party_key=p.party_key)
+
+            # manda una mail ai managers dell'applicazione con il link per controllare i risultati del questionario
             template = get_template("q_partiti_alert_mail.html")
-            context=Context(
-                {
+            text_c = template.render({
                     'nome_lista':p.denominazione,
-                    'url_link':settings.PROJECT_ROOT + "questionario/" + p.slug + "/completato",
-                }
-            )
-            text_c = template.render(context)
+                    'url_link': "http://{}{}".format(
+                        Site.objects.get_current(request).domain,
+                        reverse('questionario_partiti_fine', kwargs={'slug': p.slug})
+                    ),
+            })
             subj = "VoiSieteQui - La lista " + p.denominazione + " ha completato il questionario"
-            from_email = "noreply@voisietequi.it"
-            to_address=[]
-            for m in settings.MANAGERS:
-                to_address.append(m[1])
-            msg= EmailMessage(
-                subj,
-                text_c,
-                from_email,
-                to_address,
-            )
-            msg.send()
+            mail_managers(subj, text_c, fail_silently=True)
 
             return redirect("questionario_partiti_fine",slug=p.slug)
         else:
@@ -94,7 +105,7 @@ class QuestionarioPartitiView(TemplateView):
     def get(self, request, *args, **kwargs):
         party_key = kwargs['party_key']
         p = get_object_or_404(Partito, party_key=party_key)
-        if RispostaPartito.objects.filter(partito=p).count()>0 :
+        if p.has_replied_to_all_answers():
             return redirect("questionario_partiti_fine",slug=p.slug)
 
         context = self.get_context_data(**kwargs)
@@ -104,12 +115,13 @@ class QuestionarioPartitiView(TemplateView):
     def get_context_data(self, **kwargs ):
 
         context = super(QuestionarioPartitiView, self).get_context_data(**kwargs)
-        questions = Domanda.get_domande()
-        n_questions=Domanda.get_n_domande()
-        form= QuestionarioPartitiForm( extra=questions)
 
         party_key = kwargs['party_key']
         p = get_object_or_404(Partito, party_key=party_key)
+
+        questions = Domanda.get_domande()
+        n_questions=Domanda.get_n_domande()
+        form= QuestionarioPartitiForm(party=p, extra=questions)
 
         context['nome_lista']=p.denominazione
         context['n_questions']=n_questions

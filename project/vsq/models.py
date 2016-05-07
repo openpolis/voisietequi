@@ -196,6 +196,16 @@ class Partito(models.Model):
     def get_answers(self):
         return RispostaPartito.objects.filter(partito=self).order_by('domanda__ordine')
 
+    def get_answer_for(self, question):
+        try:
+            return self.rispostapartito_set.get(domanda=question)
+        except RispostaPartito.DoesNotExist:
+            return None
+
+    def has_replied_to_all_answers(self):
+        answers = Domanda.objects.values_list('pk', flat=True)
+        return self.rispostapartito_set.filter(domanda_id__in=answers).count() == len(answers)
+
     def save(self, *args, **kwargs):
         """override save method """
 
@@ -259,6 +269,7 @@ class RispostaPartito(models.Model):
 
     class Meta:
         verbose_name_plural = "Risposte partito"
+        # unique_together = ['domanda', 'partito']
 
 #    restituisce le stringhe delle varie risposte possibili, al solo fine della visualizzazione
     @classmethod

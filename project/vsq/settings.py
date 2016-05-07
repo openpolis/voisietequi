@@ -99,6 +99,12 @@ MANAGERS = ADMINS
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default=ADMIN_EMAIL)
+
+# See: https://docs.djangoproject.com/en/1.9/ref/settings/#email-backend
+EMAIL_CONFIG = env.email_url(
+    'EMAIL_URL', default='consolemail://')
+
+vars().update(EMAIL_CONFIG)
 ########## END MANAGER CONFIGURATION
 
 

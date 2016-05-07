@@ -11,7 +11,11 @@ class DomandaAdmin(admin.ModelAdmin):
 class RispostaPartitoInline(admin.StackedInline):
     model = RispostaPartito
 
+    def get_max_num(self, request, obj=None, **kwargs):
+        return Domanda.objects.count()
+
     extra = 1
+    ordering = ['domanda__ordine', ]
 
 class RispostaUtenteInline(admin.StackedInline):
     model = RispostaUtente
@@ -22,8 +26,15 @@ class PartitoAdminWithRisposte(admin.ModelAdmin):
     def questionario_link(self, obj):
         return format_html('<div style="text-align:center"><a href="{}" target="blank">apri</a></div>',
                            reverse('questionario_partiti', kwargs={'party_key': obj.party_key}))
+    questionario_link.short_description = "Questionario"
 
-    list_display = ('denominazione', 'coalizione', 'nonorig', 'questionario_link')
+    def questionario_completed(self, obj):
+        return obj.has_replied_to_all_answers()
+    questionario_completed.short_description = "Completato"
+    questionario_completed.boolean = True
+
+
+    list_display = ('denominazione', 'coalizione', 'nonorig', 'questionario_link', 'questionario_completed')
     inlines = [RispostaPartitoInline, ]
     prepopulated_fields = { 'slug': ['denominazione'] }
 
