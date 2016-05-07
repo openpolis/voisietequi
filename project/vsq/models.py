@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from markdown import markdown
 from model_utils import Choices
 
@@ -205,6 +206,19 @@ class Partito(models.Model):
     def has_replied_to_all_answers(self):
         answers = Domanda.objects.values_list('pk', flat=True)
         return self.rispostapartito_set.filter(domanda_id__in=answers).count() == len(answers)
+
+    def simbolo_url(self):
+        """
+        Returns the URL of the image associated with this Object.
+        If an image hasn't been uploaded yet, it returns a stock image
+
+        :returns: str -- the image url
+
+        """
+        if self.simbolo and hasattr(self.simbolo, 'url'):
+            return self.simbolo.url
+        else:
+            return static('img/no-logo.png')
 
     def save(self, *args, **kwargs):
         """override save method """

@@ -28,7 +28,7 @@
                     'url': "{{ p.get_absolute_url }}",
                     'coalizione': "{{ p.coalizione.slug }}",
                     'colore': "{{ p.coalizione.colore }}",
-                    'simbolo_url': "{{ p.simbolo.url }}"
+                    'simbolo_url': "{{ p.simbolo_url }}"
                 }{% if not forloop.last %},{%  endif %}
             {% endfor %}
         }
