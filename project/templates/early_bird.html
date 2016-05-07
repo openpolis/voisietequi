@@ -1,0 +1,160 @@
+{% load staticfiles %}<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Voi Siete Qui - Openpolis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+
+    <link href="{% static "css/earlybird/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "css/earlybird/bootstrap-responsive.css" %}" rel="stylesheet">
+
+	<!-- Icon -->
+	<link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon" />
+	  
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+
+    <script src="{% static "js/jquery.js" %}"></script>
+	<script src="{% static "js/bootstrap.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/modernizr.custom.26887.js" %}"></script>
+		<noscript>
+			<link rel="stylesheet" type="text/css" href="css/fallback.css" />
+		</noscript>
+        <!--[if lt IE 9]>
+			<link rel="stylesheet" type="text/css" href="css/fallback.css" />
+		<![endif]-->
+
+
+  </head>
+<body>
+		 <div class="container">
+              <section class="mainGrid">
+              <div id="ri-grid" class="ri-grid ri-grid-size-2">
+					<ul>
+                        {% for partito in partiti %}
+                        <li><a href="#"><img src="{% if partito.simbolo %}{{ partito.simbolo.url }}{% endif %}"/></a></li>
+                        {% endfor %}
+
+					</ul>
+				</div>
+				</section>
+                </div>
+ 
+   <!-- Main container starts -->
+    <div class="container">
+        <div class="maincontainer">
+            <div class="hero-unit">
+            <!-- Logo Starts-->
+            <img class="logo" src="{% static "img/voisietequi-logo.png" %}" alt="Voi Siete Qui - Openpolis" />
+            <!-- End Logo -->
+             <h1>{{ ELECTION_NAME }}</h1>
+            <a href="http://www.openpolis.it/"><img src="{% static "img/openpolis-logo.png" %}" alt="OpenPolis" class="oplogo-small" /></a>
+            <!-- Sub Title -->
+             <p class="subH">Stiamo lavorando alla <strong>nuova versione del sito per le prossime {{ ELECTION_NAME }}</strong>.
+             <br />Lascia la tua email, ti avvertiremo quando il nuovo sito andrà online, oppure rimani in contatto con noi seguendo la pagina
+                 <a href="http://www.facebook.com/openpolis" target="_blank" class="links">Facebook</a> oppure il nostro account
+                 <a href="http://www.twitter.com/openpolis" target="_blank" class="links">Twitter</a>.</p>
+            </div>
+           
+             <!--Subscribe starts-->
+             <div class="email-list">
+             {% block content %}
+                 <form id="subscribe" method="post" action="" name="subscribe">
+                     {% csrf_token %}
+
+                     {% if form.email.errors %}
+                         <div class="row">
+                             <div class="span4" style="color:red;font-weight: bold;">
+                                 {{ form.email.errors }}
+                             </div>
+                         </div>
+                     {% endif %}
+
+                     <div id="semail" style="float:left;">
+                         {{ form.email }}
+                     </div>
+                     <div>
+                         <input type="submit" id="ssubmit" name="subscribe" value="SUBSCRIBE" class="submitbt" style=""/>
+                     </div>
+                 </form>
+             {% endblock %}
+
+            </div>
+    	</div>
+    </div>
+       <div class="clearfix"></div>
+      <!--Footer starts-->        
+        <footer class="container">
+            <div id="sub-footer" class="row">
+                <ul>
+                    <li>
+                        <a href="http://www.openpolis.it">
+                            <img src="{% static "img/footers/openpolis.png" %}" alt="Associazione OpenPolis" title="Vai all'Associazione OpenPolis">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://parlamento.openpolis.it">
+                            <img src="{% static "img/footers/openparlamento.png" %}" alt="Open Parlamento" title="Open Parlamento">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://politici.openpolis.it">
+                            <img src="{% static "img/footers/openpolitici.png" %}" alt="Open politici" title="Open politici">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://indice.openpolis.it/">
+                            <img src="{% static "img/footers/indiceproduttivita.png" %}"
+                                 alt="L'Indice di Produttività Parlamentare" title="L'Indice di Produttività Parlamentare">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.openmunicipio.it/">
+                            <img src="{% static "img/footers/openmunicipio.png" %}" alt="Open municipio" title="Open municipio" />
+                        </a>
+                    </li>
+                </ul>            
+            </div>    
+        </footer>
+
+    
+   <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+<script type="text/javascript" src="{% static "js/jquery.transit.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery.gridrotator.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery.placeholder.js" %}"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(
+            $(function() {
+                $( '#ri-grid' ).gridrotator( {
+                    rows		: 1,
+                    columns		: 10,
+                    animType	: 'fadeInOut',
+                    animSpeed	: 700,
+                    interval	: 400,
+                    step		: 1,
+                    w320		: {
+                        rows	: 3,
+                        columns	: 4
+                    },
+                    w240		: {
+                        rows	: 3,
+                        columns	: 4
+                    }
+                } );
+            })
+    )
+</script>
+
+
+</body>
+</html>

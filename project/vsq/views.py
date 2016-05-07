@@ -11,16 +11,15 @@ from django.utils.functional import curry
 from django.views.generic import TemplateView, DetailView, CreateView, ListView, View
 import feedparser
 from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente, Faq, RispostaUtente, Coalizione
-from django.shortcuts import redirect, render_to_response, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm, SubscriptionForm
-from vsq.utils import quantile
 from datetime import datetime
-from settings_local import PROJECT_ROOT, MANAGERS
 from settings import MIN_GRAPH_X, MIN_GRAPH_Y, MAX_GRAPH_X, MAX_GRAPH_Y
 import random
 import json
 from json.encoder import JSONEncoder
 from django.core.cache import cache
+
 
 class QuestionarioUtente(TemplateView):
     template_name = "q_utenti.html"
@@ -63,14 +62,14 @@ class QuestionarioPartitiView(TemplateView):
             context=Context(
                 {
                     'nome_lista':p.denominazione,
-                    'url_link':PROJECT_ROOT + "questionario/" + p.slug + "/completato",
+                    'url_link':settings.PROJECT_ROOT + "questionario/" + p.slug + "/completato",
                 }
             )
             text_c = template.render(context)
             subj = "VoiSieteQui - La lista " + p.denominazione + " ha completato il questionario"
             from_email = "noreply@voisietequi.it"
             to_address=[]
-            for m in MANAGERS:
+            for m in settings.MANAGERS:
                 to_address.append(m[1])
             msg= EmailMessage(
                 subj,
