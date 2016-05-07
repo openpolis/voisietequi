@@ -207,6 +207,7 @@ class Partito(models.Model):
         answers = Domanda.objects.values_list('pk', flat=True)
         return self.rispostapartito_set.filter(domanda_id__in=answers).count() == len(answers)
 
+    @property
     def simbolo_url(self):
         """
         Returns the URL of the image associated with this Object.
