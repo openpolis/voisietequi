@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.core.urlresolvers import reverse
+from django.utils.html import format_html
+
 from vsq.models import Domanda, Utente, Partito, RispostaPartito, RispostaUtente, EarlyBird, Coalizione, Faq
 
 class DomandaAdmin(admin.ModelAdmin):
@@ -15,7 +18,12 @@ class RispostaUtenteInline(admin.StackedInline):
     extra = 1
 
 class PartitoAdminWithRisposte(admin.ModelAdmin):
-    list_display = ('denominazione', 'coalizione', 'nonorig')
+
+    def questionario_link(self, obj):
+        return format_html('<div style="text-align:center"><a href="{}" target="blank">apri</a></div>',
+                           reverse('questionario_partiti', kwargs={'party_key': obj.party_key}))
+
+    list_display = ('denominazione', 'coalizione', 'nonorig', 'questionario_link')
     inlines = [RispostaPartitoInline, ]
     prepopulated_fields = { 'slug': ['denominazione'] }
 
