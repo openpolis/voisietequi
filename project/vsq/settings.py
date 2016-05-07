@@ -60,8 +60,16 @@ COMPUTER_ADDR = env('COMPUTER_ADDR', default='tcp://urlcomputer.dominio.it:5557'
 MAILBIN_URL = env('MAILBIN_URL', default='tcp://127.0.0.1:5558')
 MAILBIN_SERVICE = env('MAILBIN_SERVICE', default='xxx.voisietequi.it')
 
-# Constraint. If you edit this option you have to make a migration
+# Constraints:
+
+# If you edit this option you have to make a migration
 SLUG_MAX_LENGTH = 60
+
+# Max and min values for points in the final graph
+MIN_GRAPH_X=0
+MIN_GRAPH_Y=0
+MAX_GRAPH_X=1
+MAX_GRAPH_Y=1
 
 # Unused settings... to remove
 # MQ_URL = 'amqp://guest:guest@localhost:5672/%2f'
@@ -69,13 +77,6 @@ SLUG_MAX_LENGTH = 60
 # MQ_QUEUE = 'vsq.{election}'.format(election=ELECTION_CODE)
 ########## END VOISIETEQUI CONFIGURATION
 
-
-
-#max and min values for points in the final graph
-MIN_GRAPH_X=0
-MIN_GRAPH_Y=0
-MAX_GRAPH_X=1
-MAX_GRAPH_Y=1
 
 
 ########## DEBUG CONFIGURATION

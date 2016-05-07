@@ -1,24 +1,24 @@
-from django import http
+from datetime import datetime
+import random
+import json
+from json.encoder import JSONEncoder
+import feedparser
+
 from django.conf import settings
+from django.core.cache import cache
 from django.core.mail import EmailMessage
 from django.core.serializers import serialize
 from django.db.models import Count
 from django.db.models.query import QuerySet
 from django.http import Http404, HttpResponse
+from django.shortcuts import redirect, get_object_or_404
 from django.template import Context
 from django.template.loader import get_template
 from django.utils.functional import curry
 from django.views.generic import TemplateView, DetailView, CreateView, ListView, View
-import feedparser
-from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente, Faq, RispostaUtente, Coalizione
-from django.shortcuts import redirect, get_object_or_404
+
+from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente, Faq, RispostaUtente
 from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm, SubscriptionForm
-from datetime import datetime
-from settings import MIN_GRAPH_X, MIN_GRAPH_Y, MAX_GRAPH_X, MAX_GRAPH_Y
-import random
-import json
-from json.encoder import JSONEncoder
-from django.core.cache import cache
 
 
 class QuestionarioUtente(TemplateView):
@@ -173,15 +173,15 @@ def mockup_response(request):
     for p in partiti_list:
         dict[str(p['pk'])]=[
                 p['sigla'],
-                random.uniform(MIN_GRAPH_X, MAX_GRAPH_X),
-                random.uniform(MIN_GRAPH_Y, MAX_GRAPH_Y)
+                random.uniform(settings.MIN_GRAPH_X, settings.MAX_GRAPH_X),
+                random.uniform(settings.MIN_GRAPH_Y, settings.MAX_GRAPH_Y)
             ]
 
 #    adds mockup results for the user
     dict['user']=[
         'user',
-        random.uniform(MIN_GRAPH_X, MAX_GRAPH_X),
-        random.uniform(MIN_GRAPH_Y, MAX_GRAPH_Y)
+        random.uniform(settings.MIN_GRAPH_X, settings.MAX_GRAPH_X),
+        random.uniform(settings.MIN_GRAPH_Y, settings.MAX_GRAPH_Y)
     ]
 
     response = {
