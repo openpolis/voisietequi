@@ -27,11 +27,11 @@
           </div>
           <ul class="pager">
             {% with q=object.prev_by_ordine %}
-            <li{% if not q %} class="disabled"{% endif %}><a href="{% if not q %}#{% else %}{% url topic-detail slug=q.slug %}{% endif %}" class="navigapage">Precedente</a></li>
+            <li{% if not q %} class="disabled"{% endif %}><a href="{% if not q %}#{% else %}{% url 'topic-detail' slug=q.slug %}{% endif %}" class="navigapage">Precedente</a></li>
             {% endwith %}
-            <li><a href="{% url topic-list %}" class="navigapage">Tutti i 25 temi</a></li>
+            <li><a href="{% url 'topic-list' %}" class="navigapage">Tutti i 25 temi</a></li>
             {% with q=object.next_by_ordine %}
-            <li{% if not q %} class="disabled"{% endif %}><a href="{% if not q %}#{% else %}{% url topic-detail slug=q.slug %}{% endif %}" class="navigapage">Successivo</a></li>
+            <li{% if not q %} class="disabled"{% endif %}><a href="{% if not q %}#{% else %}{% url 'topic-detail' slug=q.slug %}{% endif %}" class="navigapage">Successivo</a></li>
             {% endwith %}
           </ul>
         </div>

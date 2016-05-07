@@ -90,7 +90,7 @@
 		</p>
                   <div class="box-verde">
                   <p><strong>{{ conteggio_utenti|intcomma }} cittadini</strong><br />conoscono già la loro posizione.</p>
-                  <a href="{% url questionario-utente %}" class="btn btn-danger btn-large">Scopri dove sei! &raquo;</a>
+                  <a href="{% url 'questionario-utente' %}" class="btn btn-danger btn-large">Scopri dove sei! &raquo;</a>
                 </div>
               </div>
               <div class="span6 offset1">
@@ -165,7 +165,7 @@
             <div class="row">
                 <div class="span10 offset1">
                     <div class="well">
-                        <form action="{% url subscribe-url %}" id="subscription_form" style="margin-left:20px;"
+                        <form action="{% url 'subscribe-url' %}" id="subscription_form" style="margin-left:20px;"
                               method="post" class="pull-right">
                             {% csrf_token %}
                             <div class="control-group">

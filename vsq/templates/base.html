@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load staticfiles %}<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="utf-8">
@@ -14,7 +14,7 @@
   <link rel="image_src" href="{{ SITE_URL }}static/img/social.png" />
 
   <!-- Le styles -->
-  <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
   <style>
     body {
       padding-top: 152px; /* 152px to make the container go all the way to the bottom of the topbar */
@@ -55,11 +55,11 @@
     </script>
 
   <!-- Fav and touch icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}ico/apple-touch-icon-144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}ico/apple-touch-icon-114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}ico/apple-touch-icon-72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon-57-precomposed.png">
-  <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'ico/apple-touch-icon-144-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'ico/apple-touch-icon-114-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'ico/apple-touch-icon-72-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" href="{% static 'ico/apple-touch-icon-57-precomposed.png' %}">
+  <link rel="shortcut icon" href="{% static 'ico/favicon.png' %}">
 
   {% block header_scripts %}{% endblock %}
   {% block addthis_script %}
@@ -78,13 +78,13 @@
     <div class="navbar navbar-fixed-top">
         <div class="testata">
             <div class="container">
-                <a href="{%  url homepage %}"><img class="pull-left logo" src="{{ STATIC_URL }}img/voisietequi-logo.png" alt="Voi Siete Qui - Openpolis" /></a>
+                <a href="{% url 'homepage' %}"><img class="pull-left logo" src="{% static 'img/voisietequi-logo.png' %}" alt="Voi Siete Qui - Openpolis" /></a>
                 <h1 class="pull-left"> {{ ELECTION_NAME }}
                 {% if request.user.is_staff and EARLYBIRD_ENABLED %}
                 <small class="text-warning" style="font-style: italic; font-size:0.6em; border-bottom:1px dotted;" title="Il sito è attualmente chiuso. Puoi vedere questa pagina perchè sei autenticato come staff.">Early Bird</small>
                 {% endif %}
                 </h1>
-                <a href="http://www.openpolis.it/"><img class="strumento pull-right" src="{{ STATIC_URL }}img/strumento_openpolis.png" alt="OpenPolis" /></a>
+                <a href="http://www.openpolis.it/"><img class="strumento pull-right" src="{% static 'img/strumento_openpolis.png' %}" alt="OpenPolis" /></a>
             </div>
         </div>
         <div class="navbar-inner">
@@ -94,10 +94,10 @@
                 </a>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
-                        <li{% if 'homepage' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url homepage %}">Home</a></li>
-                        <li{% if '-utente' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url questionario-utente %}">Tu dove sei?</a></li>
-                        <li{% if 'party-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url party-positions %}">Le posizioni delle liste elettorali</a></li>
-                        <li{% if 'topic-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url topic-list %}">Le posizioni e i commenti degli utenti sui 25 temi</a></li>
+                        <li{% if 'homepage' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url 'homepage' %}">Home</a></li>
+                        <li{% if '-utente' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url 'questionario-utente' %}">Tu dove sei?</a></li>
+                        <li{% if 'party-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url 'party-positions' %}">Le posizioni delle liste elettorali</a></li>
+                        <li{% if 'topic-' in CURRENT_PAGE %} class="active"{% endif %}><a href="{% url 'topic-list' %}">Le posizioni e i commenti degli utenti sui 25 temi</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
                 <div class="pull-right sharing">
@@ -157,9 +157,9 @@
         <h4>FAQ</h4>
         <ul>
           {% for faq in LATEST_FAQ %}
-          <li><a href="{% url faq-list %}#{{ faq.ordine }}">{{ faq.domanda }}</a></li>
+          <li><a href="{% url 'faq-list' %}#{{ faq.ordine }}">{{ faq.domanda }}</a></li>
           {% endfor %}
-          <li><a href="{% url faq-list %}"><strong>Tutte le FAQ</strong></a></li>
+          <li><a href="{% url 'faq-list' %}"><strong>Tutte le FAQ</strong></a></li>
         </ul>
         <h4>Restiamo in contatto</h4>
         <p><a href="/" id="contacts"><strong>Scrivici</strong></a> per segnalazioni, suggerimenti, lamentele ma anche incoraggiamenti.</p>

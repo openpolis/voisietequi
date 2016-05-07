@@ -1,7 +1,8 @@
 # coding=utf-8
-from django.template.defaultfilters import slugify
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
+from django.template.defaultfilters import slugify
 from markdown import markdown
 from model_utils import Choices
 
@@ -83,9 +84,8 @@ class Domanda(models.Model):
             if risposta.risposta_int == answer:
                 yield risposta.partito
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('topic-detail', (), {'slug': self.slug})
+        return reverse('topic-detail', kwargs={'slug': self.slug})
 
     def __unicode__(self):
         return u"%s - %s" % (self.ordine, self.slug)
@@ -217,9 +217,8 @@ class Partito(models.Model):
     def get_partiti_list(cls):
         return Partito.objects.all().values('pk','sigla')
 
-    @models.permalink
     def get_absolute_url(self):
-        return 'party-detail', (), {'slug': self.slug}
+        return reverse('party-detail', kwargs={'slug': self.slug})
 
 
 class RispostaPartito(models.Model):
@@ -332,9 +331,8 @@ class Faq(models.Model):
 
         super(Faq, self).save(*args, **kwargs)
 
-    @models.permalink
     def get_absolute_url(self):
-        return 'faq-detail', (), {'slug': self.slug}
+        return reverse('faq-detail', kwargs={'slug': self.slug})
 
     def __unicode__(self):
         return u"%s - %s" % (self.ordine, self.slug)

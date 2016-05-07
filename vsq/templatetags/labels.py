@@ -1,4 +1,6 @@
 from django import template
+from django.utils.html import format_html
+
 from vsq.models import RispostaPartito
 
 register = template.Library()
@@ -39,9 +41,9 @@ def label_risposta_text(risposta_int):
 
 @register.simple_tag()
 def immagine_partito(partito, size=False, title=None):
-    return """<a href="{party_url}"><img
+    return format_html("""<a href="{party_url}"><img
         class="img-circle-coalition img-coalition-{coalizione} img-circle-loghi{size}"
-        src="{image_url}" alt="{sigla}" {title}/></a>""".format(
+        src="{image_url}" alt="{sigla}" {title}/></a>""",
         party_url=partito.get_absolute_url(),
         coalizione= partito.coalizione.slug,
         image_url= partito.simbolo.url if partito.simbolo else '',
@@ -57,4 +59,4 @@ def immagini_partiti_per_posizione(context, domanda, risposta, size=False):
         images.append(
             immagine_partito( partito, size)
         )
-    return "".join(images)
+    return format_html("".join(images))

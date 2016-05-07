@@ -66,7 +66,7 @@
             <br />
             <h4>Le liste elettorali</h4>
             {% for lista in liste_elettorali %}
-              <a href="{% url party-detail slug=lista.slug %}">
+              <a href="{% url 'party-detail' slug=lista.slug %}">
                 {% immagine_partito lista size='small' %}
               </a>
             {% endfor %}
