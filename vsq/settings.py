@@ -3,7 +3,6 @@ import django.conf.global_settings as DEFAULT_SETTINGS
 import os
 
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
 SHOW_DEBUG_TOOLBAR = False
 LOCAL_DEVELOPEMENT = False
 EARLYBIRD_ENABLE = False
@@ -109,12 +108,6 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'q8vo24h1waemo)sh@54#qkm93w7%upj=ip($s7q-dm0dh0m)3x'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -133,17 +126,39 @@ ROOT_URLCONF = 'vsq.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'vsq.wsgi.application'
 
-TEMPLATE_DIRS = (
+
+# Deprecated from 1.7, see TEMPLATES DIRS below
+_TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_ROOT, 'templates'),
     )
 
-TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+# Deprecated from 1.7, see TEMPLATES OPTIONS below
+_TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + [
     'vsq.context_processor.main_settings',
     'django.core.context_processors.request',
-    )
+]
+
+# List of callables that know how to import templates from various sources.
+_TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+)
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': _TEMPLATE_DIRS,
+        'OPTIONS': {
+            'context_processors': _TEMPLATE_CONTEXT_PROCESSORS,
+            'loaders': _TEMPLATE_LOADERS,
+            'debug': DEBUG
+        }
+    },
+]
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -156,7 +171,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django_extensions',
     'django.contrib.humanize',
-    'south',
     'vsq',
 )
 

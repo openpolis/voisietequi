@@ -45,6 +45,7 @@ class EarlyBirdForm(forms.ModelForm):
 
     class Meta:
         model = EarlyBird
+        fields = ['email', ]
 
 
 class SubscriptionForm(forms.Form):
