@@ -182,14 +182,26 @@ class Partito(models.Model):
     leader = models.CharField(blank=True, null=True, max_length=255)
     nonorig = models.BooleanField(default=False, verbose_name="Non originale")
 
+    @property
+    def gender(self):
+        last_char = self.denominazione.split()[0][-1]
+        if last_char in ('e', 'a'):
+            return 'f'
+        else:
+            return 'm'
+
     class Meta:
-        verbose_name_plural = "Partiti"
+        verbose_name = settings.PARTY_TERM
+        verbose_name_plural = settings.PARTY_TERM_PLURAL
 
     def __unicode__(self):
-        return u"{partito} ({coalizione})".format(
-            partito=self.denominazione,
-            coalizione=self.coalizione
-        )
+        if settings.SHOW_PARTY_COALITION:
+            return u"{partito} ({coalizione})".format(
+                partito=self.denominazione,
+                coalizione=self.coalizione
+            )
+        else:
+            return self.denominazione
 
     @property
     def coordinate(self): return self.coord_x, self.coord_y

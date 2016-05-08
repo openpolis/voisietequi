@@ -1,5 +1,8 @@
 from django import forms
+from django.conf import settings
+
 from vsq.models import RispostaPartito, EarlyBird
+from vsq.templatetags.labels import prepend
 
 
 class QuestionarioPartitiForm(forms.Form):
@@ -9,7 +12,7 @@ class QuestionarioPartitiForm(forms.Form):
         'invalid': 'Valore non valido'
     }
 
-    contact_name = forms.CharField(max_length=60, label="Responsabile per la lista", error_messages=my_default_errors)
+    contact_name = forms.CharField(max_length=60, label="Responsabile per %s" % prepend(u'La', u'Il', settings.PARTY_TERM), error_messages=my_default_errors)
 
     def __init__(self, *args, **kwargs):
         extra = kwargs.pop('extra')

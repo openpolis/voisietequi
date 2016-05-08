@@ -150,7 +150,7 @@ posiziona_loghi = function(risposte_partiti, risposte_evidenziate, dist, partiti
 posiziona_commenti = function(risposte_partito){
     for (var r in risposte_partito) {
         var risposta_partito = risposte_partito[r];
-        if (risposta_partito !== 'None'){
+        if (risposta_partito !== 'None' && risposta_partito.length > 0){
             window.console && console.log(risposta_partito);
             var div_selector = '#collapse'+r+' .commento-lista';
             $(div_selector + ' .approfondimento').text(risposta_partito);

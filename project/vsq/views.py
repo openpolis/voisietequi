@@ -21,6 +21,7 @@ from django.views.generic import TemplateView, DetailView, CreateView, ListView,
 
 from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente, Faq, RispostaUtente
 from vsq.forms import QuestionarioPartitiForm, EarlyBirdForm, SubscriptionForm
+from vsq.templatetags.labels import prepend
 
 
 class QuestionarioUtente(TemplateView):
@@ -87,7 +88,12 @@ class QuestionarioPartitiView(TemplateView):
                         reverse('questionario_partiti_fine', kwargs={'slug': p.slug})
                     ),
             })
-            subj = "VoiSieteQui - La lista " + p.denominazione + " ha completato il questionario"
+            subj = '[vsq]%s: - %s "%s" ha completato il questionario' % (
+                settings.ELECTION_NAME,
+                prepend(u'La', u'Il', settings.PARTY_TERM),
+                p.denominazione
+            )
+            # subj = "VoiSieteQui - La lista " + p.denominazione + " ha completato il questionario"
             mail_managers(subj, text_c, fail_silently=True)
 
             return redirect("questionario_partiti_fine",slug=p.slug)

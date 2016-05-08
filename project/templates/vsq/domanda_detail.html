@@ -7,7 +7,7 @@
 {% block content %}
 <div class="sfondo-verde">
   <div class="container">
-    <div class="testata-interna"><h1>I 25 temi</h1></div>
+    <div class="testata-interna"><h1>I {{ QUESTIONS_COUNT }} temi</h1></div>
   </div>
 </div>
 
@@ -16,7 +16,7 @@
     <div class="row-fluid">
       <div class="span1">
         <div class="box-num-domande pull-right">
-          Tema<br /><strong>{{ object.ordine }}/</strong>25<br />&nbsp;
+          Tema<br /><strong>{{ object.ordine }}/</strong>{{ QUESTIONS_COUNT }}<br />&nbsp;
         </div>
       </div>
       <div class="span8">
@@ -29,7 +29,7 @@
             {% with q=object.prev_by_ordine %}
             <li{% if not q %} class="disabled"{% endif %}><a href="{% if not q %}#{% else %}{% url 'topic-detail' slug=q.slug %}{% endif %}" class="navigapage">Precedente</a></li>
             {% endwith %}
-            <li><a href="{% url 'topic-list' %}" class="navigapage">Tutti i 25 temi</a></li>
+            <li><a href="{% url 'topic-list' %}" class="navigapage">Tutti i {{ QUESTIONS_COUNT }} temi</a></li>
             {% with q=object.next_by_ordine %}
             <li{% if not q %} class="disabled"{% endif %}><a href="{% if not q %}#{% else %}{% url 'topic-detail' slug=q.slug %}{% endif %}" class="navigapage">Successivo</a></li>
             {% endwith %}
@@ -66,7 +66,7 @@
                                 {% if risposta.risposta_txt %}
                                     <a class="dropdown-toggle" style="cursor: pointer;"
                                        data-toggle="collapse" data-target="#commento-risposta-{{ risposta.pk }}">
-                                        Leggi il commento della lista
+                                        Leggi il commento {{ PARTY_TERM|prepend_the|lower }}
                                     </a>
                                 {% endif %}
                             </td>

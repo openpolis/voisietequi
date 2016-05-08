@@ -47,6 +47,13 @@ ELECTION_NAME = env('ELECTION_NAME', default='Elezioni')
 PARTY_LEADER = env('PARTY_LEADER', default='Segretario')
 PARTY_COALITION = env('PARTY_COALITION', default='Coalizione')
 
+PARTY_TERM = env('PARTY_TERM', default='Partito')
+PARTY_TERM_PLURAL = env('PARTY_TERM_PLURAL', default='Partiti')
+PARTY_TERM_GENDER = env('PARTY_TERM_GENDER', default='male')
+
+OTHER_ELECTIONS = env.json('OTHER_ELECTIONS', default=[])
+SHOW_PARTY_COALITION = env.bool('SHOW_PARTY_COALITION', default=True)
+
 # External service configurations
 HASHTAG = env('HASHTAG', default='voisietequi')
 OP_BLOG_CATEGORY = env('OP_BLOG_CATEGORY', default='piattaforme/voisietequi')

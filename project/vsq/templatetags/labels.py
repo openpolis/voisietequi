@@ -1,5 +1,8 @@
 from django import template
+from django.conf import settings
+from django.template.defaultfilters import stringfilter
 from django.utils.html import format_html, escape
+from django.utils.safestring import mark_safe
 
 from vsq.models import RispostaPartito
 
@@ -60,3 +63,39 @@ def immagini_partiti_per_posizione(context, domanda, risposta, size=False):
             immagine_partito( partito, size)
         )
     return format_html("".join(images))
+
+
+DEFAULT_GENDER = settings.PARTY_TERM_GENDER.lower()
+
+
+def genderize(female, male, gender=DEFAULT_GENDER):
+    return format_html(female if gender.startswith('f') else male)
+
+
+@register.simple_tag(name='genderize')
+def genderize_filter(female, male, gender=DEFAULT_GENDER):
+    return genderize(female, male, gender)
+
+
+def prepend(female, male, item, gender=DEFAULT_GENDER):
+    return genderize(u'%s %s' % (female, item), u'%s %s' % (male, item), gender or DEFAULT_GENDER)
+
+@register.filter
+def prepend_the(item, gender=None):
+    return prepend(u'La', u'Il', item, gender)
+
+@register.filter
+def prepend_the_plural(item, gender=None):
+    return prepend(u'Le', u'I', item, gender)
+
+@register.filter
+def prepend_of(item, gender=None):
+    return prepend(u'Della', u'Del', item, gender)
+
+@register.filter
+def prepend_of_plural(item, gender=None):
+    return prepend(u'Delle', u'Dei', item, gender)
+
+@register.filter
+def lcfirst(text):
+    return mark_safe(u"{0}{1}".format(text[0].lower(), text[1:]))

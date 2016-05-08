@@ -5,7 +5,7 @@
 {% block content %}
   <div class="sfondo-verde">
     <div class="container">
-      <div class="testata-interna"><h1>I 25 temi</h1></div>
+      <div class="testata-interna"><h1>I {{ QUESTIONS_COUNT }} temi</h1></div>
     </div>
   </div>
 
@@ -15,7 +15,7 @@
       <div class="tema">
         {% for object in object_list %}
         <div class="row-fluid">
-          <div class="span1"><div class="tema-num"><strong>{{ object.ordine }}/</strong>25</div></div>
+          <div class="span1"><div class="tema-num"><strong>{{ object.ordine }}/</strong>{{ QUESTIONS_COUNT }}</div></div>
           <div class="span11">
             <h1><a href="{% url 'topic-detail' slug=object.slug %}">{{ object.testo_html|safe }}</a></h1>
           </div>

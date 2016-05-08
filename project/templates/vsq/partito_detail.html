@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load labels %}
 
-{% block title %} La posizione di {{ object.denominazione }}{% endblock %}
+{% block title %} La posizione {{ object.denominazione|prepend_of:object.gender|lower }}{% endblock %}
 
 {% block header_scripts %}
     <script type="text/javascript">
@@ -16,11 +16,11 @@
         };
         var risposte_partito = {
             {% for risposta in risposte_partito %}'{{ risposta.domanda }}': {{ risposta.risposta_int }}{% if not forloop.last %},{% endif %}{% endfor %}
-        }
+        };
         var risposte_testuali_partito = {
             {% for risposta in risposte_partito %}'{{ risposta.domanda }}': "{{ risposta.risposta_txt|default_if_none:''|escapejs|linebreaksbr }}"{% if not forloop.last %},{% endif %}{% endfor %}
-        }
-        var partito = '{{ partito }}'
+        };
+        var partito = '{{ partito }}';
         var partiti = {
             {% for p in partiti %}
                 '{{ p.sigla }}': {
@@ -31,7 +31,7 @@
                     'simbolo_url': "{{ p.simbolo_url }}"
                 }{% if not forloop.last %},{%  endif %}
             {% endfor %}
-        }
+        };
     </script>
 {% endblock %}
 
@@ -71,7 +71,7 @@
 {% block content %}
 <div class="sfondo-verde">
   <div class="container">
-    <div class="testata-interna"><h1>La posizione di <strong>{{ object.denominazione }}</strong></h1></div>
+    <div class="testata-interna"><h1>La posizione {{ "<strong>"|add:object.denominazione|prepend_of:object.gender|add:"</strong>"|lcfirst }}</h1></div>
   </div>
 </div>
 
@@ -99,7 +99,7 @@
           <div class="span8">
             <h4>{{ object.denominazione }} <br>{{ object.sigla|upper }}</h4>
             {% if object.sito %}<a href="{{ object.sito }}" target="_blank" title="Sito di {{ object.denominazione }}">{{ object.sito }}</a><br>{% endif %}
-            {% if object.coalizione %}{{ PARTY_COALITION }}: {{ object.coalizione.nome }}<br>{% endif %}
+            {% if object.coalizione and SHOW_PARTY_COALITION %}{{ PARTY_COALITION }}: {{ object.coalizione.nome }}<br>{% endif %}
             {% if object.leader %}{{ PARTY_LEADER }}: {{ object.leader }}<br>{% endif %}
             {% if object.twitter_user %}
               <a href="https://twitter.com/{{ object.twitter_user }}" class="twitter-follow-button" data-show-count="false" data-lang="it">Segui @{{ object.twitter_user }}</a>
@@ -107,14 +107,14 @@
               <br>
             {% endif %}
             {% if object.twitter_hashtag %}
-              <a href="https://twitter.com/intent/tweet?button_hashtag={{ object.twitter_hashtag }}" class="twitter-hashtag-button" data-lang="it" data-related="openpolis" data-url="{{ CURRENT_PAGE }}">La posizione di {{ object.denominazione }}</a>
+              <a href="https://twitter.com/intent/tweet?button_hashtag={{ object.twitter_hashtag }}" class="twitter-hashtag-button" data-lang="it" data-related="openpolis" data-url="{{ CURRENT_PAGE }}">La posizione {{ object.denominazione|prepend_of:object.gender|lower }}</a>
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
               <br>
             {% endif %}
             {% if object.facebook_url %}<a href="{{ object.facebook_url }}">Pagina facebook</a>{% endif %}
             <br>
             {% if object.nonorig %}
-                Non ha risposto a voisietequi. Il posizionamento della lista è stato elaborato da openpolis.
+                Non ha risposto a voisietequi. Il posizionamento {{ PARTY_TERM|prepend_the|lower }} è stato elaborato da openpolis.
             {% else %}
                 Ha risposto direttamente a voisietequi
             {% endif %}
@@ -122,7 +122,7 @@
         </div>
       </div>
         <ul class="pager">
-          <li><a href="{% url 'party-positions' %}" class="navigapage">Tutte le liste elettorali</a></li>
+          <li><a href="{% url 'party-positions' %}" class="navigapage">{% genderize 'Tutte' 'Tutti' %} {{ PARTY_TERM_PLURAL|prepend_the_plural|lower }}</a></li>
         </ul>
       </div>
     </div>
@@ -132,14 +132,15 @@
 
 <div class="container">
   <div class="contenuto">
-    <h4>La distanza tra il partito e le liste elettorali, dalla più vicina alla più lontana</h4>
+    <h4>La distanza tra {{ object.denominazione|prepend_the:object.gender|lcfirst }}
+        e {{ PARTY_TERM_PLURAL|prepend_the_plural|lower }}, {% genderize 'dalla più vicina alla più lontana' 'dal più vicino al più lontano' %}</h4>
     <div class="tema0">
 
       <table class="table table-condensed table7">
         <thead>
         <tr>
-          <th class="bianco-tab">Posizione lista</th>
-          <th colspan="6" class="bianco-tab">La distanza dalle altre liste</th>
+          <th class="bianco-tab">Posizione {{ PARTY_TERM|lower }}</th>
+          <th colspan="6" class="bianco-tab">La distanza {% genderize 'dalle altre' 'dagli altri' %} {{ PARTY_TERM_PLURAL|lower }}</th>
         </tr>
         </thead>
         <tbody>
@@ -168,7 +169,8 @@
 
 <div class="container">
   <div class="contenuto">
-    <h4>Tema per tema, le liste vicine e lontane a {{ nome_partito }}</h4>
+{#    <h4>Tema per tema, le liste vicine e lontane a {{ nome_partito }}</h4>#}
+    <h4>Tema per tema, {{ PARTY_TERM_PLURAL|prepend_of_plural|lower }} {% genderize 'vicine e lontane' 'vicini e lontani' %} a {{ nome_partito }}</h4>
     <div class="accordion" id="accordion">
 
       {% for domanda in domande %}
@@ -183,12 +185,12 @@
         </div>
         <div id="collapse{{ domanda.pk }}" class="accordion-body collapse">
           <div class="accordion-inner">
-            <div class="visible-phone"><strong>Posizione lista:</strong> <span class="posizione-responsive"></span></div>
+            <div class="visible-phone"><strong>Posizione {{ PARTY_TERM|lower }}:</strong> <span class="posizione-responsive"></span></div>
             <table class="table table-condensed table7">
               <thead>
               <tr>
-                <th class="bianco-tab hidden-phone">Posizione lista</th>
-                <th colspan="6" class="bianco-tab">La distanza dalle altre liste</th>
+                <th class="bianco-tab hidden-phone">Posizione {{ PARTY_TERM|lower }}</th>
+                <th colspan="6" class="bianco-tab">La distanza {% genderize 'dalle altre' 'dagli altri' %} {{ PARTY_TERM_PLURAL|lower }}</th>
               </tr>
               </thead>
               <tbody>
@@ -212,7 +214,7 @@
             </table>
 
             <div class="commento-lista" style="display:none">
-                <strong>Commento della lista</strong>
+                <strong>Commento {{ PARTY_TERM|prepend_of|lower }}</strong>
                 <div class="approfondimento">
                 </div>
             </div>

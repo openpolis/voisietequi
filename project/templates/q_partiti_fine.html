@@ -1,7 +1,9 @@
 {% extends "q_partiti_base.html" %}
 
+{% load labels %}
+
 {% block title %}
-    Risposte della lista {{ nome_lista }}
+    Risposte {{ PARTY_TERM|prepend_of|lower }} {{ nome_lista }}
 {% endblock %}
 
 {% block content %}
@@ -30,7 +32,7 @@
     <div class="row">
         <div class="span8">
             <p class="partiti_title">
-                Le posizioni della lista
+                Le posizioni {{ PARTY_TERM|prepend_of|lower }}
                         <span class="lista_name">
                             {{ nome_lista}}
                         </span>
@@ -44,7 +46,7 @@
                 {#                            stampa il resp.di lista#}
                 <div class="row">
                     <div class="span3 offset7">
-                        <strong>Responsabile di lista</strong>
+                        <strong>Responsabile per {{ PARTY_TERM|prepend_of|lower }}</strong>
                     </div>
                     <div class="span3 offset7">
                         {{ nome_responsabile }}
@@ -65,7 +67,7 @@
                                             Tema ( {{ a.domanda.ordine }} di {{ n_questions }})
                                         </td>
                                         <td class="span3 question_header">
-                                            Posizione della lista
+                                            Posizione {{ PARTY_TERM|prepend_of|lower }}
                                         </td>
 
                                     </tr>
