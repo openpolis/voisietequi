@@ -1,12 +1,45 @@
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 
 from vsq.models import Domanda, Utente, Partito, RispostaPartito, RispostaUtente, EarlyBird, Coalizione, Faq
 
 class DomandaAdmin(admin.ModelAdmin):
+    readonly_fields = ('testo_html_safe', 'approfondimento_html_safe', 'accompagno_html_safe')
+
+    def _surround_element(self, el):
+        return mark_safe(u'<div style="display:inline-block">%s</div>' % el)
+
+    def testo_html_safe(self, instance):
+        return self._surround_element(instance.testo_html or '-- vuoto --')
+    testo_html_safe.short_description = "Testo"
+
+    def approfondimento_html_safe(self, instance):
+        return self._surround_element(instance.approfondimento_html or '-- vuoto --')
+    approfondimento_html_safe.short_description = "Approfondimento"
+
+    def accompagno_html_safe(self, instance):
+        return self._surround_element(instance.accompagno_html or '-- vuoto --')
+    accompagno_html_safe.short_description = "Accompagno"
+
+    def partiti_count(self):
+        if not hasattr(self, '_partiti_count'):
+            self._partiti_count = Partito.objects.count()
+        return self._partiti_count
+
+    def risposte_partiti(self, instance):
+        risposte = instance.risposte.count()
+        partiti = self.partiti_count()
+        txt = "%d/%d" % (risposte, partiti)
+        if risposte == self.partiti_count():
+            return format_html('<span style="color:green">{}</span>', txt)
+        else:
+            return format_html('<span style="color:red">{}</span>', txt)
+
     prepopulated_fields = { 'slug': ['testo'] }
-    readonly_fields = ('testo_html', 'approfondimento_html', 'accompagno_html')
+    list_display = ['__unicode__', 'risposte_partiti', 'link']
+
 
 class RispostaPartitoInline(admin.StackedInline):
     model = RispostaPartito
