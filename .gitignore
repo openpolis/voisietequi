@@ -11,6 +11,7 @@ dump
 vsq/settings_local.py
 log/logfile
 *.py[c]
+*.DS_Store
 vsq/migrations/
 initial_data.json
 dati_iniziali.json
