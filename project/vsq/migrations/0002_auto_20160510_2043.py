@@ -3,6 +3,16 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+from django.utils.text import slugify
+
+
+def slugify_party_key(apps, schema_editor):
+    # We can't import the Partito model directly as it may be a newer
+    # version than this migration expects. We use the historical version.
+    Partito = apps.get_model("vsq", "Partito")
+    for party in Partito.objects.all():
+        party.party_key = slugify(party.party_key)
+        party.save()
 
 
 class Migration(migrations.Migration):
@@ -12,6 +22,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(slugify_party_key),
         migrations.AlterField(
             model_name='partito',
             name='party_key',
