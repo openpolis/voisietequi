@@ -166,7 +166,7 @@ class Partito(models.Model):
 
     coalizione = models.ForeignKey(Coalizione)
     denominazione = models.CharField(max_length=255, unique=True)
-    party_key = models.CharField(max_length=255, unique=True)
+    party_key = models.SlugField(max_length=255, unique=True)
     sigla = models.CharField(max_length=32, blank=False, null=False, unique=True)
     responsabile_nome = models.CharField(max_length=128, blank=True, null=True)
     responsabile_email = models.EmailField(max_length=128, blank=True, null=True)
