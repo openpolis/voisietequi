@@ -23,7 +23,7 @@ class Domanda(models.Model):
     ORDINE_DOMANDE = [(i,i) for i in range(1, 26, 1)]
 
     slug = models.SlugField(max_length=settings.SLUG_MAX_LENGTH, unique=True,
-                            help_text="Valore suggerito, generato dal testo. Deve essere unico.")
+                            help_text="Valore suggerito, generato dal testo. Deve essere unico. Sono ammessi i seguenti caratteri [-_a-zA-Z0-9]")
     testo = models.TextField()
     testo_html = models.TextField(editable=False)
     approfondimento = models.TextField(blank=True, null=True)
@@ -132,7 +132,7 @@ class Utente(models.Model):
 class Coalizione(models.Model):
 
     nome = models.CharField(max_length=50)
-    slug = models.SlugField()
+    slug = models.SlugField(help_text="Valore suggerito, generato dal nome. Deve essere unico. Sono ammessi i seguenti caratteri [-_a-zA-Z0-9]")
     colore = fields.RGBColorField()
     ordine = models.IntegerField(blank=False, null=False, default=0)
 
@@ -175,7 +175,8 @@ class Partito(models.Model):
     risposte_at = models.DateField(blank=True, null=True, verbose_name='Data risposta')
     sito = models.URLField(blank=True, null=True)
     simbolo = models.ImageField(blank=True, null=True, upload_to='simboli')
-    slug = models.SlugField(max_length=settings.SLUG_MAX_LENGTH, blank=True, null=True, unique=True)
+    slug = models.SlugField(max_length=settings.SLUG_MAX_LENGTH, blank=True, null=True, unique=True,
+                            help_text="Codice univoco utilizzato per generare la url del partito. Sono ammessi i seguenti caratteri [-_a-zA-Z0-9]")
     coord_x = models.FloatField(default=0.0, blank=True)
     coord_y = models.FloatField(default=0.0, blank=True)
     twitter_hashtag = models.CharField(blank=True, null=True, max_length=255)
@@ -355,24 +356,17 @@ class EarlyBird(models.Model):
 
 class Faq(models.Model):
 
-    domanda = models.TextField()
-    domanda_html = models.TextField(editable=False)
-    risposta = models.TextField()
-    risposta_html = models.TextField(editable=False)
+    domanda = RichTextField()
+    risposta = RichTextField()
     ordine = models.IntegerField(blank=False, null=False)
     slug = models.SlugField(max_length=settings.SLUG_MAX_LENGTH, unique=True,
-                            help_text="Valore suggerito, generato dal testo. Deve essere unico.")
+                            help_text="Valore suggerito, generato dal testo. Deve essere unico. Sono ammessi i seguenti caratteri [-_a-zA-Z0-9]")
 
     class Meta:
         verbose_name_plural = "Faq"
         ordering = ['ordine']
 
     def save(self, *args, **kwargs):
-        """override save method and transform markdown into html"""
-        if self.domanda:
-            self.domanda_html = markdown(self.domanda)
-        if self.risposta:
-            self.risposta_html = markdown(self.risposta)
         if self.domanda and not self.slug:
             self.slug = slugify(self.domanda[:settings.SLUG_MAX_LENGTH])
 

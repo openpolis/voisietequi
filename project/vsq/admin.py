@@ -116,7 +116,7 @@ class CoalizioneAdmin(admin.ModelAdmin):
 
 class FaqAdmin(admin.ModelAdmin):
     prepopulated_fields = { 'slug': ['domanda'] }
-    readonly_fields = ('domanda_html', 'risposta_html')
+    fields = (('ordine', 'slug'), 'domanda', 'risposta')
 
 
 admin.site.register(Domanda, DomandaAdmin)

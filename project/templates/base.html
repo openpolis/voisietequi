@@ -160,7 +160,7 @@
         <h4>FAQ</h4>
         <ul>
           {% for faq in LATEST_FAQ %}
-          <li><a href="{% url 'faq-list' %}#{{ faq.ordine }}">{{ faq.domanda }}</a></li>
+          <li><a href="{% url 'faq-list' %}#{{ faq.ordine }}">{{ faq.domanda|striptags|safe }}</a></li>
           {% endfor %}
           <li><a href="{% url 'faq-list' %}"><strong>Tutte le FAQ</strong></a></li>
         </ul>
