@@ -49,6 +49,13 @@ class RispostaPartitoInline(admin.StackedInline):
 
     extra = 1
     ordering = ['domanda__ordine', ]
+    readonly_fields = ('domanda', )
+
+    fieldsets = (
+        (None, {
+            'fields': ('domanda', ('risposta_int', 'risposta_txt', 'nonorig'))
+        }),
+    )
 
 class RispostaUtenteInline(admin.StackedInline):
     model = RispostaUtente

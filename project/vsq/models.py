@@ -6,7 +6,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from markdown import markdown
 from model_utils import Choices
-from tinymce import models as tinymce_models
+from ckeditor.fields import RichTextField
 
 from vsq import fields
 
@@ -90,7 +90,7 @@ class Domanda(models.Model):
         return reverse('topic-detail', kwargs={'slug': self.slug})
 
     def __unicode__(self):
-        return u"%s - %s" % (self.ordine, self.slug)
+        return u"%s] - %s" % (self.ordine, self.testo)
 
 
 class Utente(models.Model):
@@ -184,8 +184,8 @@ class Partito(models.Model):
     leader = models.CharField(blank=True, null=True, max_length=255)
     nonorig = models.BooleanField(default=False, verbose_name="Non originale")
 
-    description = tinymce_models.HTMLField(blank=True, verbose_name=settings.PARTY_DESCRIPTION_TERM)
-    linked_parties = tinymce_models.HTMLField(blank=True, verbose_name=settings.PARTY_LINKED_PARTIES_TERM)
+    description = RichTextField(blank=True, verbose_name=settings.PARTY_DESCRIPTION_TERM)
+    linked_parties = RichTextField(blank=True, verbose_name=settings.PARTY_LINKED_PARTIES_TERM)
     election_expenses = fields.CharField(blank=True, max_length=500, verbose_name="Spese elettorali")
     election_expenses_document = models.FileField(blank=True, upload_to='spese-elettorali', verbose_name="Documento delle spese elettorali")
     balance_sheet = fields.CharField(blank=True, max_length=500, verbose_name="Dichiarazione patrimoniale")

@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 from django.utils.text import slugify
-import tinymce.models
+import ckeditor.fields
 
 
 def slugify_party_key(apps, schema_editor):
@@ -27,7 +27,14 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='partito',
             name='party_key',
-            field=models.SlugField(max_length=255, unique=True),
+            field=models.SlugField(
+                help_text=b'Codice univoco utilizzato per generare la url del questionario. Sono ammessi i seguenti caratteri [-_a-zA-Z0-9]',
+                max_length=255, unique=True),
+        ),
+        migrations.AlterField(
+            model_name='partito',
+            name='risposte_at',
+            field=models.DateField(blank=True, null=True, verbose_name=b'Data risposta'),
         ),
 
         migrations.AddField(
@@ -44,7 +51,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='partito',
             name='description',
-            field=tinymce.models.HTMLField(blank=True, verbose_name=b'Biografia'),
+            field=ckeditor.fields.RichTextField(blank=True, verbose_name=b'Biografia'),
         ),
         migrations.AddField(
             model_name='partito',
@@ -60,6 +67,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='partito',
             name='linked_parties',
-            field=tinymce.models.HTMLField(blank=True, verbose_name=b'Liste collegate'),
+            field=ckeditor.fields.RichTextField(blank=True, verbose_name=b'Liste collegate'),
         ),
     ]

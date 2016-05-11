@@ -257,7 +257,7 @@ DJANGO_APPS = (
     # Django helper
     'django_extensions',
     'debug_toolbar',
-    'tinymce',
+    'ckeditor',
 )
 
 # Apps specific for this project go here.
