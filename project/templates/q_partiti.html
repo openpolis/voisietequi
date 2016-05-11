@@ -2,6 +2,13 @@
 
 {% load labels %}
 
+{% block css_header %}
+    {{ block.super }}
+    <style>
+    .question_body label {font-weight: bold;}
+    </style>
+{% endblock %}
+
 {% block title %}
     Questionario per {{ PARTY_TERM|prepend_the|lower }} {{ nome_lista }}
 {% endblock %}
@@ -13,7 +20,11 @@
                 <table class="partiti table">
                     <tr class="error">
                         <td>
+                            {% for error in form.non_field_errors %}
+                            <p><strong>{{ error|safe }}</strong></p>
+                            {% empty %}
                             Attenzione, alcuni campi richiesti non sono stati inseriti
+                            {% endfor %}
                         </td>
                     </tr>
                 </table>
@@ -26,7 +37,7 @@
             <p class="partiti_title">
                 Le posizioni {{ PARTY_TERM|prepend_of|lower }}
                         <span class="lista_name">
-                            {{ nome_lista}}
+                            <strong>{{ nome_lista}}</strong>
                         </span>
             </p>
         </div>

@@ -13,8 +13,11 @@
                 Gentile {{ nome_responsabile }},<BR/>
                 la ringraziamo per aver risposto alle domande del questionario e per aver contribuito a
                 questa nuova versione del sito
-                <strong>Voi siete qui</strong> per le {{ ELECTION_NAME }}.
+                <strong>Voi siete qui</strong> per le <strong>{{ ELECTION_NAME }}.</strong>
             </p>
+            {% if not answers|length_is:n_questions %}
+            <p><strong>Nelle domande di cui non ha fornito risposta, la redazione di openpolis provvederà al suo posizionamento"</strong></p>
+            {% endif %}
             <p>
                 Se ha necessità di mettersi in contatto con noi può scriverci a questo indirizzo
                 <a href="mailto:associazione@openpolis.it">associazione@openpolis.it</a> o chiamarci allo 06.83608392

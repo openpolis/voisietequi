@@ -66,18 +66,16 @@ class QuestionarioPartitiView(TemplateView):
                     )
                 )
                 if not created:
-                    if rp.risposta_int != c:
-                        rp.risposta_int = c
-                    if rp.risposta_txt != t:
-                        rp.risposta_txt = t
+                    rp.risposta_int = c
+                    rp.risposta_txt = t
                     rp.save()
                 # rp = RispostaPartito(partito=p,domanda=d, risposta_int=c, risposta_txt=t)
                 # rp.save()
 
             p.save()
 
-            if not p.has_replied_to_all_answers():
-                return redirect("questionario_partiti", party_key=p.party_key)
+            # if not p.has_replied_to_all_answers():
+            #     return redirect("questionario_partiti", party_key=p.party_key)
 
             # manda una mail ai managers dell'applicazione con il link per controllare i risultati del questionario
             template = get_template("q_partiti_alert_mail.html")
