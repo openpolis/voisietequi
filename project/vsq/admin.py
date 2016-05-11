@@ -66,10 +66,33 @@ class PartitoAdminWithRisposte(admin.ModelAdmin):
     questionario_completed.short_description = "Completato"
     questionario_completed.boolean = True
 
+    prepopulated_fields = {'slug': ('denominazione',),}
+    readonly_fields = ('risposte_at', 'coord_x', 'coord_y')
+    fieldsets = (
+        (None, {
+            'fields': (
+                'coalizione', 'denominazione', 'sigla', 'party_key', 'simbolo', 'leader',
+                'description', 'linked_parties', 'responsabile_email'
+            )
+        }),
+        ('Questionario', {
+            'description': "Questi campi vengono popolati dal questionario e dal generatore del grafico delle distanze",
+            'classes': ('collapse',),
+            'fields': ('responsabile_nome', 'risposte_at', 'nonorig', ('coord_x', 'coord_y'))
+        }),
+        ('Riferimenti web', {
+            'classes': ('collapse',),
+            'fields': ('slug', 'sito', 'twitter_user', 'facebook_url', 'twitter_hashtag')
+        }),
+        ('Informazioni finanziarie', {
+            'classes': ('collapse',),
+            'fields': (('election_expenses', 'election_expenses_document'), ('balance_sheet', 'balance_sheet_document')),
+        }),
+    )
+
 
     list_display = ('denominazione', 'coalizione', 'nonorig', 'questionario_link', 'questionario_completed')
     inlines = [RispostaPartitoInline, ]
-    prepopulated_fields = { 'slug': ['denominazione'] }
 
 class UtenteAdminWithRisposte(admin.ModelAdmin):
     list_display = ('nickname', 'email', 'created_at', 'ip')

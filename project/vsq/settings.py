@@ -51,6 +51,9 @@ PARTY_TERM = env('PARTY_TERM', default='Partito')
 PARTY_TERM_PLURAL = env('PARTY_TERM_PLURAL', default='Partiti')
 PARTY_TERM_GENDER = env('PARTY_TERM_GENDER', default='male')
 
+PARTY_DESCRIPTION_TERM = env('PARTY_DESCRIPTION_TERM', default='Descrizione')
+PARTY_LINKED_PARTIES_TERM = env('PARTY_LINKED_PARTIES_TERM', default='Partiti collegati')
+
 OTHER_ELECTIONS = env.json('OTHER_ELECTIONS', default=[])
 SHOW_PARTY_COALITION = env.bool('SHOW_PARTY_COALITION', default=True)
 
@@ -254,6 +257,7 @@ DJANGO_APPS = (
     # Django helper
     'django_extensions',
     'debug_toolbar',
+    'tinymce',
 )
 
 # Apps specific for this project go here.
@@ -352,3 +356,8 @@ CACHES = {
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 ########## END MESSAGES CONFIGURATION
 
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': "advanced",
+    'custom_undo_redo_levels': 10,
+}

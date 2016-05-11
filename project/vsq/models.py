@@ -6,6 +6,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from markdown import markdown
 from model_utils import Choices
+from tinymce import models as tinymce_models
 
 from vsq import fields
 
@@ -166,11 +167,12 @@ class Partito(models.Model):
 
     coalizione = models.ForeignKey(Coalizione)
     denominazione = models.CharField(max_length=255, unique=True)
-    party_key = models.SlugField(max_length=255, unique=True)
+    party_key = models.SlugField(max_length=255, unique=True,
+                                 help_text="Codice univoco utilizzato per generare la url del questionario. Sono ammessi i seguenti caratteri [-_a-zA-Z0-9]")
     sigla = models.CharField(max_length=32, blank=False, null=False, unique=True)
     responsabile_nome = models.CharField(max_length=128, blank=True, null=True)
     responsabile_email = models.EmailField(max_length=128, blank=True, null=True)
-    risposte_at = models.DateField(blank=True, null=True)
+    risposte_at = models.DateField(blank=True, null=True, verbose_name='Data risposta')
     sito = models.URLField(blank=True, null=True)
     simbolo = models.ImageField(blank=True, null=True, upload_to='simboli')
     slug = models.SlugField(max_length=settings.SLUG_MAX_LENGTH, blank=True, null=True, unique=True)
@@ -181,6 +183,13 @@ class Partito(models.Model):
     facebook_url = models.CharField(blank=True, null=True, max_length=255)
     leader = models.CharField(blank=True, null=True, max_length=255)
     nonorig = models.BooleanField(default=False, verbose_name="Non originale")
+
+    description = tinymce_models.HTMLField(blank=True, verbose_name=settings.PARTY_DESCRIPTION_TERM)
+    linked_parties = tinymce_models.HTMLField(blank=True, verbose_name=settings.PARTY_LINKED_PARTIES_TERM)
+    election_expenses = fields.CharField(blank=True, max_length=500, verbose_name="Spese elettorali")
+    election_expenses_document = models.FileField(blank=True, upload_to='spese-elettorali', verbose_name="Documento delle spese elettorali")
+    balance_sheet = fields.CharField(blank=True, max_length=500, verbose_name="Dichiarazione patrimoniale")
+    balance_sheet_document = models.FileField(blank=True, upload_to='dichiarazioni-patrimoniali', verbose_name="Documento della dichiarazione patrimoniale")
 
     @property
     def gender(self):
@@ -364,7 +373,7 @@ class Faq(models.Model):
             self.domanda_html = markdown(self.domanda)
         if self.risposta:
             self.risposta_html = markdown(self.risposta)
-        if self.domanda:
+        if self.domanda and not self.slug:
             self.slug = slugify(self.domanda[:settings.SLUG_MAX_LENGTH])
 
         super(Faq, self).save(*args, **kwargs)
