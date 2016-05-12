@@ -63,7 +63,7 @@ class RispostaUtenteInline(admin.StackedInline):
 class PartitoAdminWithRisposte(admin.ModelAdmin):
 
     def questionario_link(self, obj):
-        return format_html('<div style="text-align:center"><a href="{}" target="blank">apri</a></div>',
+        return format_html('<a href="{}" target="blank">apri</a>',
                            reverse('questionario_partiti', kwargs={'party_key': obj.party_key}))
     questionario_link.short_description = "Questionario"
 
@@ -73,7 +73,7 @@ class PartitoAdminWithRisposte(admin.ModelAdmin):
     questionario_completed.boolean = True
 
     prepopulated_fields = {'slug': ('denominazione',),}
-    readonly_fields = ('risposte_at', 'coord_x', 'coord_y')
+    readonly_fields = ('risposte_at', 'coord_x', 'coord_y', 'questionario_completed', 'questionario_link')
     fieldsets = (
         (None, {
             'fields': (
@@ -84,7 +84,7 @@ class PartitoAdminWithRisposte(admin.ModelAdmin):
         ('Questionario', {
             'description': "Questi campi vengono popolati dal questionario e dal generatore del grafico delle distanze",
             'classes': ('collapse',),
-            'fields': ('responsabile_nome', 'risposte_at', 'nonorig', ('coord_x', 'coord_y'))
+            'fields': ('responsabile_nome', ('questionario_link', 'questionario_completed', 'risposte_at'), ('is_module_open', 'nonorig'), ('coord_x', 'coord_y'))
         }),
         ('Riferimenti web', {
             'classes': ('collapse',),

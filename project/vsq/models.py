@@ -192,6 +192,8 @@ class Partito(models.Model):
     balance_sheet = fields.CharField(blank=True, max_length=500, verbose_name="Dichiarazione patrimoniale")
     balance_sheet_document = models.FileField(blank=True, upload_to='dichiarazioni-patrimoniali', verbose_name="Documento della dichiarazione patrimoniale")
 
+    is_module_open = models.BooleanField(default=True, verbose_name="Questionario aperto")
+
     @property
     def gender(self):
         last_char = self.denominazione.split()[0][-1]

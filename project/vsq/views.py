@@ -109,7 +109,7 @@ class QuestionarioPartitiView(TemplateView):
     def get(self, request, *args, **kwargs):
         party_key = kwargs['party_key']
         p = get_object_or_404(Partito, party_key=party_key)
-        if p.has_replied_to_all_answers():
+        if not p.is_module_open:
             return redirect("questionario_partiti_fine",slug=p.slug)
 
         context = self.get_context_data(**kwargs)
