@@ -36,7 +36,6 @@ urlpatterns = [
     url(r'^counter/$', counter_view, name='counter'),
     url(r'^iscrizione/$', views.SubscriptionView.as_view(), name='subscribe-url'),
     url(r'^test500/$', views.Test500View.as_view(), name='test-500'),
-    url(r'^tinymce/', include('tinymce.urls')),
 ]
 
 # Works only with DEBUG = True
