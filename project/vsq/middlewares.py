@@ -25,7 +25,9 @@ class PrivateBetaMiddleware(object):
             return
 
         whitelisted_modules = ['django.contrib.auth.views', 'django.views.static', 'django.contrib.admin.sites']
-        if '%s' % view_func.__module__ in whitelisted_modules or view_func.__name__.startswith('QuestionarioPartiti'):
+        if '%s' % view_func.__module__ in whitelisted_modules or \
+           view_func.__name__.startswith('QuestionarioPartiti') or \
+           'registration_ok' in request.path:
             return
         else:
             return EarlyBirdView.as_view()(request)

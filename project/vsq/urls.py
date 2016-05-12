@@ -13,7 +13,7 @@ def counter_view(request):
 urlpatterns = [
 
     #url(r'^$', EarlyBirdView.as_view(), name='earlybird'),
-    url(r'^registration_ok$',views.TemplateView.as_view(template_name='early_bird_success.html')),
+    url(r'^registration_ok$', views.TemplateView.as_view(template_name='early_bird_success.html')),
     url(r'^mockup_answer$', views.mockup_response),
     url(r'^vsq/$', views.QuestionarioUtente.as_view(), name="questionario_utenti"),
     url(r'^questionario/(?P<party_key>[-\w]+)/$', views.QuestionarioPartitiView.as_view(), name="questionario_partiti"),
