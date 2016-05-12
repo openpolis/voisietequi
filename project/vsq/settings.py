@@ -201,7 +201,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + [
                 'vsq.context_processor.main_settings',
-                'django.core.context_processors.request',
+                'django.template.context_processors.request',
             ],
             'loaders': (
                 'django.template.loaders.filesystem.Loader',
