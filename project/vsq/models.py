@@ -90,7 +90,7 @@ class Domanda(models.Model):
         return reverse('topic-detail', kwargs={'slug': self.slug})
 
     def __unicode__(self):
-        return u"%s] - %s" % (self.ordine, self.testo)
+        return u"%s] - %s" % (self.ordine, self.slug)
 
 
 class Utente(models.Model):
