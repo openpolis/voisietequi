@@ -49,7 +49,6 @@ class RispostaPartitoInline(admin.StackedInline):
 
     extra = 1
     ordering = ['domanda__ordine', ]
-    readonly_fields = ('domanda', )
 
     fieldsets = (
         (None, {
