@@ -63,11 +63,15 @@ class RispostaUtenteInline(admin.StackedInline):
 class PartitoAdminWithRisposte(admin.ModelAdmin):
 
     def questionario_link(self, obj):
+        if not obj.pk:
+            return ''
         return format_html('<a href="{}" target="blank">apri</a>',
                            reverse('questionario_partiti', kwargs={'party_key': obj.party_key}))
     questionario_link.short_description = "Questionario"
 
     def questionario_completed(self, obj):
+        if not obj.pk:
+            return False
         return obj.has_replied_to_all_answers()
     questionario_completed.short_description = "Completato"
     questionario_completed.boolean = True
