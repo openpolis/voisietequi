@@ -30,6 +30,20 @@
     </script>
 {% endblock %}
 
+{% block styles %}
+{{ block.super }}
+    <style>
+    .btn-group-justified .barra-coalizione {
+        display: table-cell; float: none; width: 1%;
+        padding: 14px 0;
+    }
+    .btn-group-justified .barra-coalizione a {
+        display: block; font-size: 13px;
+    }
+
+    </style>
+{% endblock %}
+
 {% block scripts %}
     <script type="text/javascript">
         {% block generate_dynamic_content %}
@@ -222,9 +236,9 @@
 
 
   <div class="row-fluid">
-    <div class="span12">
+    <div class="span12 btn-group btn-group-justified">
       {% for partito in partiti %}
-      <div class="pull-left barra-coalizione barra-coalizione-{{ partito.coalizione.slug }}">
+      <div class="barra-coalizione barra-coalizione-{{ partito.coalizione.slug }}">
         {% immagine_partito partito size='big' %}
       </div>
       {% endfor %}
