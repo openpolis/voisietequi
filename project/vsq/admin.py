@@ -96,7 +96,7 @@ class PartitoAdminWithRisposte(admin.ModelAdmin):
         }),
         ('Informazioni finanziarie', {
             'classes': ('collapse',),
-            'fields': (('election_expenses', 'election_expenses_document'), ('balance_sheet', 'balance_sheet_document')),
+            'fields': ('election_expenses', 'balance_sheet'),
         }),
     )
 

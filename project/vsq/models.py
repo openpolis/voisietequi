@@ -187,10 +187,8 @@ class Partito(models.Model):
 
     description = RichTextField(blank=True, verbose_name=settings.PARTY_DESCRIPTION_TERM)
     linked_parties = RichTextField(blank=True, verbose_name=settings.PARTY_LINKED_PARTIES_TERM)
-    election_expenses = fields.CharField(blank=True, max_length=500, verbose_name="Spese elettorali")
-    election_expenses_document = models.FileField(blank=True, upload_to='spese-elettorali', verbose_name="Documento delle spese elettorali")
-    balance_sheet = fields.CharField(blank=True, max_length=500, verbose_name="Dichiarazione patrimoniale")
-    balance_sheet_document = models.FileField(blank=True, upload_to='dichiarazioni-patrimoniali', verbose_name="Documento della dichiarazione patrimoniale")
+    election_expenses = models.URLField(blank=True, max_length=500, verbose_name="Spese elettorali")
+    balance_sheet = models.URLField(blank=True, max_length=500, verbose_name="Dichiarazione patrimoniale")
 
     is_module_open = models.BooleanField(default=True, verbose_name="Questionario aperto")
 
