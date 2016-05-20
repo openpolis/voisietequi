@@ -46,11 +46,11 @@ def label_risposta_text(risposta_int):
 def immagine_partito(partito, size=False, title=None):
     return format_html(u"""<a href="{party_url}"><img
         class="img-circle-coalition img-coalition-{coalizione} img-circle-loghi{size}"
-        src="{image_url}" alt="{sigla}" title="{title}" /></a>""",
+        src="{image_url}" alt="{sigla}" title="{title}" /><br><b>{sigla}</b></a>""",
         party_url=partito.get_absolute_url(),
         coalizione=partito.coalizione.slug,
         image_url=partito.simbolo_url,
-        sigla=partito.sigla,
+        sigla=partito.sigla.upper(),
         size=u' img-circle-{0}'.format(size) if size else '',
         title=escape(title if title else partito.denominazione)
     )
