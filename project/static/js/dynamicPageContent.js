@@ -78,7 +78,7 @@ posiziona_distanze_generiche = function(coordinate, partiti, highlighted_party){
                 ' img-circle-loghi img-circle-normal' + '" ' +
                 'src="' + partito['simbolo_url'] + '" ' +
                 'alt="' + partito['sigla'] + '"' +
-                'title="Distanza: ' + distances[p].toFixed(3)*1000 + '"/>' +
+                'title="Distanza: ' + distances[p].toFixed(3)*1000 + '"/><br><b>'+ partito['sigla'] +'</b>' +
                 '</a>'
         );
     }
@@ -135,7 +135,7 @@ posiziona_loghi = function(risposte_partiti, risposte_evidenziate, dist, partiti
                     ' img-circle-loghi img-circle-normal' + '" ' +
                     'src="' + partito['simbolo_url'] + '" ' +
                     'alt="' + partito['sigla'] + '"' +
-                    'title="Posizione: ' + risposte[risposta_partito] + '"/>' +
+                    'title="Posizione: ' + risposte[risposta_partito] + '"/><br><b>'+ partito['sigla'] +'</b>' +
                     '</a>'
             );
         }
