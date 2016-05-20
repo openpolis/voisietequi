@@ -97,7 +97,7 @@
             {% immagine_partito object size='big' %}
           </div>
           <div class="span8">
-            <h4>{{ object.denominazione }} <br>{{ object.sigla|upper }}</h4>
+            <h4>{{ object.denominazione }} {% if SHOW_PARTY_COALITION %}<br>{{ object.sigla|upper }}{% endif %}</h4>
             {% if object.sito %}<a href="{{ object.sito }}" target="_blank" title="Sito di {{ object.denominazione }}">{{ object.sito }}</a><br>{% endif %}
             {% if object.coalizione and SHOW_PARTY_COALITION %}{{ PARTY_COALITION }}: {{ object.coalizione.nome }}<br>{% endif %}
             {% if object.leader %}{{ PARTY_LEADER }}: {{ object.leader }}<br>{% endif %}
