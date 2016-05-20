@@ -41,7 +41,7 @@
 {% block content %}
   <div class="sfondo-verde">
     <div class="container">
-      <div class="testata-interna"><h1>La posizione {{ PARTY_TERM_PLURAL|prepend_of|lower }}</h1></div>
+      <div class="testata-interna"><h1>La posizione {{ PARTY_TERM_PLURAL|prepend_of_plural|lower }}</h1></div>
     </div>
   </div>
 
@@ -64,7 +64,7 @@
         <div class="span4">
           <div class="box-listeele">
             <br />
-            <h4>Le {{ PARTY_TERM_PLURAL|prepend_of|lower }}</h4>
+            <h4>{{ PARTY_TERM_PLURAL|prepend_the_plural }}</h4>
             {% for lista in liste_elettorali %}
               <a href="{% url 'party-detail' slug=lista.slug %}">
                 {% immagine_partito lista size='small' %}
@@ -79,7 +79,7 @@
 
   <div class="container">
     <div class="contenuto">
-      <h4>Tema per tema le posizioni {{ PARTY_TERM_PLURAL|prepend_of|lower }}</h4>
+      <h4>Tema per tema le posizioni {{ PARTY_TERM_PLURAL|prepend_of_plural|lower }}</h4>
       <div class="accordion" id="accordion">
 
         {% for object in object_list %}
@@ -99,7 +99,7 @@
               <table class="table table-condensed table6">
                 <thead>
                 <tr>
-                  <th colspan="6" class="bianco-tab">La posizione {{ PARTY_TERM_PLURAL|prepend_of|lower }}</th>
+                  <th colspan="6" class="bianco-tab">La posizione {{ PARTY_TERM_PLURAL|prepend_of_plural|lower }}</th>
                 </tr>
                 </thead>
                 <tbody>
