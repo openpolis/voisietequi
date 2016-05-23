@@ -1,12 +1,6 @@
 """
 This command execute exchange messages between this application
-and computers, through rabbitMq server.
-To configure this command can set:
-ELECTION_CODE='politiche2013'
-MQ_URL='amqp://guest:guest@localhost:5672/%2f'
-MQ_EXCHANGE='voisietequi'
-MQ_QUEUE='vsq.{election}'.format(election=ELECTION_CODE)
-
+and computers, through ZMQ 
 """
 from optparse import make_option
 from django.conf import settings
@@ -21,15 +15,10 @@ def setting(name, default=None): return getattr(settings,name) if hasattr(settin
 
 class Command(BaseCommand):
 
-    help = 'Configure remote computers. <action> can be "deliver", "configure" or "test <computation_url>"'
+    help = """Send command to remote computers, or listen to their communication. 
+    <action> can be 'saver', 'partiti', 'configure' or 'test <computation_url>'
+    """"
     args = '<action>'
-
-    option_list = BaseCommand.option_list + (
-        make_option('-u','--url',
-            dest='url',
-            default=settings.COMPUTER_ADDR,
-            help='Computer url (es: {example})'.format(example=settings.COMPUTER_ADDR)),
-    )
 
     def handle(self, *args, **options):
         action = args[0] if args else 'discover'
@@ -48,21 +37,25 @@ class Command(BaseCommand):
             raise CommandError('Invalid action. Only "discover", "configure", "partiti" or "test" are allowed')
 
     def saver_handle(self, **options):
+        """
+        Starts a saver daemon that listens on the specified pull address
+        and 
+        """
 
-        controller = controller_proc.ControllerProcess(pull_addr='*:5557')
+        controller = controller_proc.ControllerProcess(settings.PULL_ADDR)
         controller.start()
         controller.join()
 
     def configure_handle(self, **options):
 
-        controller = controller_proc.ControllerProcess(pull_addr='*:5557')
+        controller = controller_proc.ControllerProcess(settings.PULL_ADDR)
         controller.start()
 
         new_config = self.extract_configuration()
 
-        controller_proc.send_configuration(settings.ELECTION_CODE, new_config)
+        controller_proc.send_configuration(settings.PUB_ADDR, settings.ELECTION_CODE, new_config)
 
-        print " [x] Start configuration: %s %s" % (settings.ELECTION_CODE, new_config)
+        print " [x] Start configuration: %s %s (pub_addr: %s)" % (settings.ELECTION_CODE, new_config, settings.PUB_ADDR)
 
         try:
             controller.join()

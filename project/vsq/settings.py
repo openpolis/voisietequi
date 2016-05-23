@@ -64,7 +64,8 @@ DISQUS_FORUM = env('DISQUS_FORUM', default='')
 
 # Computer configuration
 COMPUTER_URL = env('COMPUTER_URL', default='http://urlcomputer.dominio.it')
-COMPUTER_ADDR = env('COMPUTER_ADDR', default='tcp://urlcomputer.dominio.it:5557')
+PUB_ADDR = env('PUB_ADDR', default='*:5556')
+PULL_ADDR = env('PULL_ADDR', default='*:5557')
 
 # Mailbin configuration
 MAILBIN_URL = env('MAILBIN_URL', default='tcp://127.0.0.1:5558')

@@ -6,16 +6,24 @@ from . import base
 __author__ = 'joke2k'
 
 
-def send_configuration(election_code, config):
-    # setup socket and connections
+def send_configuration(pub_addr, election_code, config):
+
+    # setup socket
     context = zmq.Context()
+    
+    # addr may be 'host:port' or ('host', 'port') or ('port')
+    if isinstance(addr, str):
+        addr = addr.split(':')
+    host, port = addr if len(addr) == 2 else (None, addr[0])
+    
+    # bind to specified address for PUB operations
     pub_socket = context.socket(zmq.PUB)
-    pub_socket.bind("tcp://*:5556")
+    pub_socket.bind('tcp://*:%s' % (pub_addr))
 
     # wait for connections (handshake, ...)
     time.sleep(0.2)
 
-    # create and send message
+    # create and send configuration message
     pub_socket.send_json(['configure', [election_code], config])
 
     # close socket
