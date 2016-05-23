@@ -12,13 +12,13 @@ def send_configuration(pub_addr, election_code, config):
     context = zmq.Context()
     
     # addr may be 'host:port' or ('host', 'port') or ('port')
-    if isinstance(addr, str):
-        addr = addr.split(':')
-    host, port = addr if len(addr) == 2 else (None, addr[0])
+    if isinstance(pub_addr, str):
+        pub_addr = pub_addr.split(':')
+    host, port = pub_addr if len(pub_addr) == 2 else ('*', pub_addr[0])
     
     # bind to specified address for PUB operations
     pub_socket = context.socket(zmq.PUB)
-    pub_socket.bind('tcp://*:%s' % (pub_addr))
+    pub_socket.bind('tcp://%s:%s' % (host, port))
 
     # wait for connections (handshake, ...)
     time.sleep(0.2)
