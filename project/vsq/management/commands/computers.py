@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
     help = """Send command to remote computers, or listen to their communication. 
     <action> can be 'saver', 'partiti', 'configure' or 'test <computation_url>'
-    """"
+    """
     args = '<action>'
 
     def handle(self, *args, **options):
