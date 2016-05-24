@@ -17,6 +17,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.template import Context
 from django.template.loader import get_template
 from django.utils.functional import curry
+from django.utils.html import strip_tags
 from django.views.generic import TemplateView, DetailView, CreateView, ListView, View
 
 from vsq.models import Partito, RispostaPartito, Domanda, EarlyBird, Utente, Faq, RispostaUtente
@@ -264,7 +265,10 @@ class HomepageView(TemplateView):
         blog_posts = cache.get('blog_posts')
         if blog_posts is None:
             try:
-                blog_posts = feedparser.parse('http://blog.openpolis.it/categorie/%s/feed/' % settings.OP_BLOG_CATEGORY).entries[:3]
+                blog_posts = []
+                for post in feedparser.parse('http://blog.openpolis.it/categorie/%s/feed/' % settings.OP_BLOG_CATEGORY).entries[:3]:
+                    body = strip_tags(post['content'][0].value.split('<span id="more-')[0])
+                    blog_posts.append((post, body))
                 cache.set('blog_posts', blog_posts)
             except:
                 blog_posts = []

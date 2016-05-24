@@ -216,15 +216,15 @@
         <section id="from-the-blog">
             <div class="container">
                 <div class="row">
-                    {% for blog_post in op_blog_posts %}
+                    {% for blog_post, blog_body in op_blog_posts %}
                     <article class="span4">
-                        <h3><a href="{{ blog_post.link }}">{{ blog_post.title }}</a></h3>
+                        <h3><a href="{{ blog_post.link }}" target="_blank">{{ blog_post.title }}</a></h3>
                         <p class="small"><time datetime="{{ blog_post.published_parsed|time_to_datetime|date:'Y-m-d' }}">{{ blog_post.published_parsed|time_to_datetime|date:'d F Y' }}</time></p>
                         <div class="text">
-                            {{ blog_post.content.0.value|truncatewords_html:40|safe }}
+                            {{ blog_body|safe }}
                         </div>
                         <footer>
-                            <p class="small tags">{% for tag in blog_post.tags %}{% if tag.term.0|lower == tag.term.0 %}<a href="http://blog.openpolis.it/argomenti/{{ tag.term|lower|slugify }}/">{{ tag.term }}</a>{% if not forloop.last %}, {% endif %}{% endif %}{% endfor %}</p>
+                            <p class="small tags">{% for tag in blog_post.tags %}{% if tag.term.0|lower == tag.term.0 %}<a href="http://blog.openpolis.it/argomenti/{{ tag.term|lower|slugify }}/" target="_blank">{{ tag.term }}</a>{% if not forloop.last %}, {% endif %}{% endif %}{% endfor %}</p>
                         </footer>
                     </article>
                     {% endfor %}
