@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load labels %}
 
-{% block title %} La posizione {{ object.denominazione|prepend_of:object.gender|lower }}{% endblock %}
+{% block title %} La posizione di {{ object.denominazione }}{% endblock %}
 
 {% block header_scripts %}
     <script type="text/javascript">
@@ -72,7 +72,7 @@
 {% block content %}
 <div class="sfondo-verde">
   <div class="container">
-    <div class="testata-interna"><h1>La posizione {{ "<strong>"|add:object.denominazione|prepend_of:object.gender|add:"</strong>"|lcfirst }}</h1></div>
+    <div class="testata-interna"><h1>La posizione {{ "di <strong>"|add:object.denominazione|add:"</strong>"|lcfirst }}</h1></div>
   </div>
 </div>
 
@@ -100,7 +100,7 @@
           <div class="span8">
             <h4>{{ object.denominazione }}</h4>
              {% if object.nonorig %}
-                <b>Non ha risposto a voisietequi. Il posizionamento {{ PARTY_TERM|prepend_the|lower }} è stato elaborato da openpolis.</b>
+                <b>Non ha risposto a voisietequi. Il posizionamento del {{ PARTY_TERM|lower }} è stato elaborato da openpolis.</b>
             {% else %}
                 <b>Ha risposto direttamente a voisietequi</b>
             {% endif %}
