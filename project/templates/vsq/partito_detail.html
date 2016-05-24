@@ -99,7 +99,13 @@
           </div>
           <div class="span8">
             <h4>{{ object.denominazione }}</h4>
-            {% if object.sito %}<a href="{{ object.sito }}" target="_blank" title="Sito di {{ object.denominazione }}">{{ object.sito }}</a><br>{% endif %}
+             {% if object.nonorig %}
+                <b>Non ha risposto a voisietequi. Il posizionamento {{ PARTY_TERM|prepend_the|lower }} è stato elaborato da openpolis.</b>
+            {% else %}
+                <b>Ha risposto direttamente a voisietequi</b>
+            {% endif %}
+            <br/><br/>
+           {% if object.sito %}<a href="{{ object.sito }}" target="_blank" title="Sito di {{ object.denominazione }}">{{ object.sito }}</a><br>{% endif %}
             {% if object.coalizione and SHOW_PARTY_COALITION %}{{ PARTY_COALITION }}: {{ object.coalizione.nome }}<br>{% endif %}
             {% if object.leader %}{{ PARTY_LEADER }}: {{ object.leader }}<br>{% endif %}
             Spese elettorali: {% if object.election_expenses %}<a href="{{ object.election_expenses }}">Scarica</a>{% else %}<i class="text-muted">Non pubblicate</i>{% endif %}<br>
@@ -122,11 +128,6 @@
             {% endif %}
             {% if object.facebook_url %}<a href="{{ object.facebook_url }}" target="_blank">Pagina facebook</a>{% endif %}
             <br>
-            {% if object.nonorig %}
-                <b>Non ha risposto a voisietequi. Il posizionamento {{ PARTY_TERM|prepend_the|lower }} è stato elaborato da openpolis.</b>
-            {% else %}
-                <b>Ha risposto direttamente a voisietequi</b>
-            {% endif %}
           </div>
         </div>
       </div>
