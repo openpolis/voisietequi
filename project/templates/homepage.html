@@ -33,12 +33,24 @@
 {% block styles %}
 {{ block.super }}
     <style>
-    .btn-group-justified .barra-coalizione {
-        display: table-cell; float: none; width: 1%;
-        padding: 14px 0;
+    #lista-partiti {
+        text-align: center;
+        font-size: 0;
     }
-    .btn-group-justified .barra-coalizione a {
+    .btn-group-justified {
+
+    }
+    .barra-coalizione .img-circle-big {
+        height: 60px;
+    }
+    #lista-partiti .barra-coalizione {
+        display: inline-block; float: none; width: 120px; height: 92px;
+        padding: 14px 0;
+
+    }
+    #lista-partiti .barra-coalizione a {
         display: block; font-size: 13px;
+        color: black;
     }
 
     </style>
@@ -236,7 +248,7 @@
 
 
   <div class="row-fluid">
-    <div class="span12 btn-group btn-group-justified">
+    <div class="span12" id="lista-partiti">
       {% for partito in partiti %}
       <div class="barra-coalizione barra-coalizione-{{ partito.coalizione.slug }}">
         {% immagine_partito partito size='big' %}
