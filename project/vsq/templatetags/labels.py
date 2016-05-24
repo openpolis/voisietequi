@@ -99,3 +99,10 @@ def prepend_of_plural(item, gender=None):
 @register.filter
 def lcfirst(text):
     return mark_safe(u"{0}{1}".format(text[0].lower(), text[1:]))
+
+@register.simple_tag(takes_context=True)
+def location(context):
+    # TODO: Funziona solo per stringhe tipo "Comunali CITTA' 2016". Da rifattorizzare!
+    election_name = context['ELECTION_NAME']
+    return election_name.split()[1]
+
