@@ -40,6 +40,7 @@
             {% for p in partiti %}
                 '{{ p.sigla }}': {
                     'name': "{{ p.denominazione }}",
+                    'sigla': "{{ p.sigla }}",
                     'url': "{{ p.get_absolute_url }}",
                     'coalizione': "{{ p.coalizione.slug }}",
                     'colore': "{{ p.coalizione.colore }}",
