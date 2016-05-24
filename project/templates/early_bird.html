@@ -1,4 +1,4 @@
-{% load staticfiles %}<!DOCTYPE html>
+{% load staticfiles labels %}<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta property="og:title" content="Prendi posizione per le {{ ELECTION_NAME }}"/>
+    <meta property="og:image" content="{{ SITE_URL }}static/img/social.png" />
+    <meta property="og:description" content="Perso nella campagna elettorale di {% location %}? Orientati su {{ SITE_URL }} #vsq2016 #{{ ELECTION_CODE }} #amministrative2016"/>
+    <meta property="og:site_name" content="VoiSieteQui.it - {{ ELECTION_NAME }}"/>
     <!-- Le styles -->
 
     <link href="{% static "css/earlybird/bootstrap.css" %}" rel="stylesheet">
