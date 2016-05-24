@@ -3,6 +3,15 @@
 
 {% block title %} La posizione di {{ object.denominazione }}{% endblock %}
 
+{% block styles %}
+{{ block.super }}
+    <style>
+    .table7 td a {
+        color: black;
+    }
+    </style>
+{% endblock %}
+
 {% block header_scripts %}
     <script type="text/javascript">
         {% regroup risposte_partiti by partito__sigla as liste %}

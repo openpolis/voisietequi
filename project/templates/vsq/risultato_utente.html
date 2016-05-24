@@ -12,6 +12,15 @@
 
 {% block title %}La tua posizione{% endblock %}
 
+{% block styles %}
+{{ block.super }}
+    <style>
+    .table7 td a {
+        color: black;
+    }
+    </style>
+{% endblock %}
+
 {% block addthis_script %}
 <script type="text/javascript">
     var addthis_share = {
