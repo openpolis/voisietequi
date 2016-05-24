@@ -8,7 +8,7 @@
   <meta name="author" content="Openpolis">
 {#  <meta property="og:title" content="Voi siete qui: {{ ELECTION_NAME }}" />#}
 {#  <meta property="og:type" content="website" />#}
-  <meta property="og:image" content="{{ SITE_URL }}static/img/social.jpg" />
+  <meta property="og:image" content="{% block og_image %}{{ SITE_URL }}static/img/social.jpg{% endblock %}" />
 {#  <meta property="og:url" content="{{ CURRENT_URL }}" />#}
   {% block meta %}{% endblock %}
   <link rel="image_src" href="{{ SITE_URL }}static/img/social.png" />

@@ -2,6 +2,14 @@
 
 {% load labels %}
 
+{% block og_image %}http://webshots.openpolis.it/vsq-screenshots/{{ ELECTION_CODE}}/{{ utente.user_key }}.png{% endblock %}
+{% block meta %}
+{{ block.super }}
+    <meta property="og:title" content="La mia posizione per le {{ ELECTION_NAME }}"/>
+    <meta property="og:description" content="Ecco la distanza fra me e i candidati a {% location %}. Tu dove sei? #vsq2016 #{{ ELECTION_CODE }} #amministrative2016"/>
+    <meta property="og:site_name" content="VoiSieteQui.it - {{ ELECTION_NAME }}"/>
+{% endblock %}
+
 {% block title %}La tua posizione{% endblock %}
 
 {% block addthis_script %}
