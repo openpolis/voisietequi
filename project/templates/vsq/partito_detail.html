@@ -104,6 +104,12 @@
             {% if object.leader %}{{ PARTY_LEADER }}: {{ object.leader }}<br>{% endif %}
             Spese elettorali: {% if object.election_expenses %}<a href="{{ object.election_expenses }}">Scarica</a>{% else %}<i class="text-muted">Non pubblicate</i>{% endif %}<br>
             Dichiarazione patrimoniale: {% if object.balance_sheet %}<a href="{{ object.balance_sheet }}">Scarica</a>{% else %}<i class="text-muted">Non pubblicata</i>{% endif %}<br>
+
+            {% if object.linked_parties %}
+            Liste collegate: {{ object.linked_parties|striptags }}<br>
+            {% endif %}
+
+
             {% if object.twitter_user %}
               <a href="https://twitter.com/{{ object.twitter_user }}" class="twitter-follow-button" data-show-count="false" data-lang="it">Segui @{{ object.twitter_user }}</a>
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -117,9 +123,9 @@
             {% if object.facebook_url %}<a href="{{ object.facebook_url }}" target="_blank">Pagina facebook</a>{% endif %}
             <br>
             {% if object.nonorig %}
-                Non ha risposto a voisietequi. Il posizionamento {{ PARTY_TERM|prepend_the|lower }} è stato elaborato da openpolis.
+                <b>Non ha risposto a voisietequi. Il posizionamento {{ PARTY_TERM|prepend_the|lower }} è stato elaborato da openpolis.</b>
             {% else %}
-                Ha risposto direttamente a voisietequi
+                <b>Ha risposto direttamente a voisietequi</b>
             {% endif %}
           </div>
         </div>
@@ -135,7 +141,7 @@
 
 <div class="container">
   <div class="contenuto">
-    <h4>La distanza tra {{ object.denominazione|prepend_the:object.gender|lcfirst }}
+    <h4>La distanza tra {{ object.denominazione}}
         e {{ PARTY_TERM_PLURAL|prepend_the_plural|lower }}, {% genderize 'dalla più vicina alla più lontana' 'dal più vicino al più lontano' %}</h4>
     <div class="tema0">
 
