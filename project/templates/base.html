@@ -31,6 +31,7 @@
     .barra-coalizione .img-circle-big { width: 60px; }
     .box-listeele a, .table6 a, .table7 a {display: inline-block; text-align: center; max-width: 110px; margin: 5px; }
     .table6 a { color: white; }
+    .txt-warning { color: #e73b15; font-weight: bold; }
 
   </style>
   <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
@@ -110,20 +111,8 @@
                 <div class="pull-right sharing">
                     <ul class="nav">
                         <li id="paypal">
-                            <form method="post" action="https://www.paypal.com/cgi-bin/webscr" class="form-inline">
-                                <input type="hidden" value="_xclick" name="cmd">
-                                <input type="hidden" value="v.alvino@openpolis.it" name="business">
-                                <input type="hidden" value="Donazione occasionale per l'associazione openpolis" name="item_name">
-                                <input type="hidden" value="openpolis" name="page_style">
-                                <input type="hidden" value="1" name="no_shipping">
-                                <input type="hidden" value="http://www.voisietequi.it" name="return">
-                                <input type="hidden" value="1" name="no_note">
-                                <input type="hidden" value="EUR" name="currency_code">
-                                <input type="hidden" value="0" name="tax">
-                                <input type="hidden" value="IT" name="lc">
-                                <input type="hidden" value="PP-DonationsBF" name="bn">
-                                <input type="hidden" value="0" name="amount">
-                                <button type="submit" class="btn btn-primary" alt="PayPal - Il sistema di pagamento online più facile e sicuro! ">Dona!</button>
+                            <form method="get" action="http://openpolis.it/5xmille/" class="form-inline">
+                                <button type="submit" class="btn btn-primary" alt="Dona il 5xmille a openpolis ">Dona il 5x1000 a openpolis</button>
                             </form>
                         </li>
                     </ul>
@@ -141,9 +130,17 @@
   <div class="container">
     <div class="row-fluid">
       <div class="span4"><img class="img-small" src="{{ STATIC_URL }}img/voisietequi-logo-small.png" alt="Voi Siete Qui - Openpolis" />
-        <p>È un test politico-elettorale che aiuta a capire quali {{ PARTY_TERM_PLURAL|lower }} rappresentano di più le proprie posizioni politiche in base ai programmi elettorali e alle dichiarazioni pubbliche dei leader prima delle elezioni.</p>
-        <p>È un progetto no-profit dell’<a href="http://www.openpolis.it/"><strong>Associazione Openpolis</strong></a>, ideato e realizzato con il contributo di <a href="http://www.depp.it/"><strong>DEPP</strong></a>.</p>
+        <p>Il test politico-elettorale che aiuta a capire prima delle elezioni quali {{ PARTY_TERM_PLURAL|lower }} rappresentano di più 
+           le proprie posizioni politiche in base a un questionario sui principali temi della campagna elettorale. </p>
+
+        <p>I cittadini rispondono alle stesse domande sottoposte ai politici e ottengono come risultato un grafico 
+           in cui sono evidenziate la propria posizione e le distanze rispetto tutti i {{ PARTY_TERM_PLURAL|lower }} 
+           così da poter verificare quelli vicini e quelli lontani.</p>
+
+        <p>È un progetto no-profit dell’<a href="http://www.openpolis.it/"><strong>Associazione Openpolis</strong></a>,</p>
+
         <p><a href="http://www.openpolis.it/progetti/voi-siete-qui/">Storia del progetto Voi siete qui</a></p>
+
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
           <!-- AddThis Button BEGIN -->
@@ -172,32 +169,29 @@
         <p><a href="/" id="contacts"><strong>Scrivici</strong></a> per segnalazioni, suggerimenti, lamentele ma anche incoraggiamenti.</p>
         <script language="javascript">(function(x,y,d,i){var el=d.getElementById(i); el.setAttribute('href', 'mai' + 'lto:' + x + '@' + y); el.value = x + '@' + y; })("associazione","openpolis.it",document, 'contacts');</script>
       </div>
+
       <div class="span4">
-        <div class="box-footer">
-          <h4><img src="{{ STATIC_URL }}img/footer/sostieni_openpolis.png" alt="Sostieni OpenPolis"></h4>
-          <p>
-            Colleghiamo i dati per fare trasparenza, <br>
-            li distribuiamo per innescare partecipazione. <br>
-            Costruiamo strumenti liberi e gratuti <br>
-            per “aprire la politica”.
-          </p>
-          <hr>
-          <a href="http://www.openpolis.it/sostienici/"><img src="{{ STATIC_URL }}img/footer/icona_associati.png" alt="Associati"></a>
-          <a href="http://www.openpolis.it/sostienici/dona/"><img src="{{ STATIC_URL }}img/footer/icona_sostieni.png" alt="Sostieni"></a>
-          <a href="http://www.openpolis.it/5xmille/"><img src="{{ STATIC_URL }}img/footer/icona_dona.png" alt="Dona"></a>
-          <hr>
-          <div class="media">
-            <a class="pull-left" href="#">
-              <img src="{{ STATIC_URL }}img/footer/icona_iban.png" alt="Coordinate">
-            </a>
-            <p class="media-body">
-              IBAN  IT47 C050  1803 2000 0000 0131 034 <br>
-              CODICE FISCALE  97532050586
-            </p>
-          </div>
-        </div>
+	<h4>SOSTIENI OPENPOLIS</h4>
+
+	<p>
+	    Colleghiamo i dati per fare trasparenza, <br>
+	    li distribuiamo per innescare partecipazione. <br>
+	    Costruiamo strumenti liberi e gratuti <br>
+	    per “aprire la politica”.
+	</p>
+
+	<a href="http://www.openpolis.it/sostienici/dona/"><img src="static/img/dona.png" alt="Dona"></a>
+	<a href="http://www.openpolis.it/5xmille/"><img src="static/img/5xmille.png" alt="Scegli"></a>
+
+	<br><br>
+	<p class="lead"><small>
+	    IBAN  <span class="txt-warning">IT47 C050  1803 2000 0000 0131 034</span><br>
+	    CODICE FISCALE <span class="txt-warning">97532050586</span></small>
+	</p>
+
       </div>
-    </div>
+
+     </div>
   </div>
 </div>
 {% endblock %}

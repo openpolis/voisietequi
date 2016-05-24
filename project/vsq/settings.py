@@ -50,6 +50,7 @@ PARTY_COALITION = env('PARTY_COALITION', default='Coalizione')
 PARTY_TERM = env('PARTY_TERM', default='Partito')
 PARTY_TERM_PLURAL = env('PARTY_TERM_PLURAL', default='Partiti')
 PARTY_TERM_GENDER = env('PARTY_TERM_GENDER', default='male')
+OF_PARTY_TERM_PLURAL = env('OF_PARTY_TERM_PLURAL', default='dei partiti')
 
 PARTY_DESCRIPTION_TERM = env('PARTY_DESCRIPTION_TERM', default='Descrizione')
 PARTY_LINKED_PARTIES_TERM = env('PARTY_LINKED_PARTIES_TERM', default='Partiti collegati')
