@@ -9,6 +9,36 @@
     .table7 td a {
         color: black;
     }
+    .accordion-heading {
+        display: block;
+    padding: 8px 15px;
+    }
+    .accordion-heading a {
+        color: black;
+        font-weight: bold;
+    }
+    .tema { margin-bottom: 10px;}
+    .tema h1 { color: #e73b15; }
+    .tema .accordion-heading > div:first-child { margin-bottom: 15px; }
+    .tema .media-body div:first-child { border-bottom: 1px solid #ccc;}
+    .tema .media-body div { color: #ccc; }
+    .tema .media-body div.selected { color: black; }
+    .tema .media { margin-top: 5px;}
+    .tema .toggler {
+        width: 0;
+        height: 0;
+        margin-right: 5px;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 6px solid #e73b15;
+        border-right: 6px solid transparent;
+        display: inline-block;
+    }
+    .tema .toggler.opened {
+        border-left: 6px solid transparent;
+        border-top: 6px solid #e73b15;
+        margin-top: 5px;
+    }
     </style>
 {% endblock %}
 
@@ -29,6 +59,9 @@
         var risposte_testuali_partito = {
             {% for risposta in risposte_partito %}'{{ risposta.domanda }}': "{{ risposta.risposta_txt|default_if_none:''|escapejs|linebreaksbr }}"{% if not forloop.last %},{% endif %}{% endfor %}
         };
+            var risposte_originali_partito = {
+            {% for risposta in risposte_partito %}'{{ risposta.domanda }}': {% if risposta.nonorig %}false{% else %}true{% endif %}{% if not forloop.last %},{% endif %}{% endfor %}
+        };
         var partito = '{{ partito }}';
         var partiti = {
             {% for p in partiti %}
@@ -42,6 +75,8 @@
                 }{% if not forloop.last %},{%  endif %}
             {% endfor %}
         };
+
+
     </script>
 {% endblock %}
 
@@ -59,9 +94,17 @@
 
                 }
                 posiziona_distanze_generiche(coordinate, partiti, partito);
-                posiziona_label_risposte_partito(risposte_partito, risposte, label_risposte);
+                posiziona_label_risposte_partito(risposte_partito, risposte, label_risposte, risposte_originali_partito);
                 posiziona_loghi(risposte_altri_partiti, risposte_partito, dist, partiti, risposte);
                 posiziona_commenti(risposte_testuali_partito);
+
+
+
+                $('#accordion').on('shown', '.accordion-body', function () {
+                    $(this).prev().find('.toggler').addClass('opened');
+                }).on('hidden', '.accordion-body', function () {
+                    $(this).prev().find('.toggler').removeClass('opened');
+                });
             });
         {% endblock %}
     </script>
@@ -121,7 +164,7 @@
             Dichiarazione patrimoniale: {% if object.balance_sheet %}<a href="{{ object.balance_sheet }}">Scarica</a>{% else %}<i class="text-muted">Non pubblicata</i>{% endif %}<br>
 
             {% if object.linked_parties %}
-            Liste collegate: {{ object.linked_parties|striptags }}<br>
+            Liste collegate: {{ object.linked_parties|safe }}<br>
             {% endif %}
 
 
@@ -193,35 +236,53 @@
     <div class="accordion" id="accordion">
 
       {% for domanda in domande %}
-      <div class="accordion-group tema">
+      <div class="accordion-group tema" id="tema-{{ domanda.pk }}">
         <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" {# data-parent="#accordion" #} href="#collapse{{ domanda.pk }}">
-            <div class="row-fluid">
-              <div class="span1"><div class="tema-num"><strong>{{ domanda.ordine }}/</strong>{{ QUESTIONS_COUNT }}</div></div>
-              <div class="span11"><h1>{{ domanda.testo_html|safe }}</h1></div>
-            </div>
-          </a>
+{#            <div class="accordion-toggle">#}
+                <div class="row-fluid">
+                    <div class="span1"><div class="tema-num"><strong>{{ domanda.ordine }}/</strong>{{ QUESTIONS_COUNT }}</div></div>
+                    <div class="span11"><h1>{{ domanda.testo_html|safe }}</h1></div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span5">
+                        <strong>Posizione {{ PARTY_TERM|lower }}</strong>
+                        <br>
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <span class="label"></span>
+                            </a>
+                            <div class="media-body">
+                                <div>Risposta ufficiale {{ PARTY_TERM|prepend_of|lower }}</div>
+                                <div>Posizione assegnata da openpolis</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span7">
+                        <strong>Commento {{ PARTY_TERM|prepend_of|lower }}</strong>
+                        <p class="party-comment"><i>Nessun commento</i></p>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <br>
+                        <a data-toggle="collapse" {# data-parent="#accordion" #} href="#collapse{{ domanda.pk }}">
+                            <i class="toggler"></i> La distanza {% genderize 'dalle altre' 'dagli altri' %} {{ PARTY_TERM_PLURAL|lower }}
+                        </a></div>
+                </div>
+{#            </div>#}
         </div>
         <div id="collapse{{ domanda.pk }}" class="accordion-body collapse">
           <div class="accordion-inner">
             <div class="visible-phone"><strong>Posizione {{ PARTY_TERM|lower }}:</strong> <span class="posizione-responsive"></span></div>
             <table class="table table-condensed table7">
-              <thead>
-              <tr>
-                <th class="bianco-tab hidden-phone">Posizione {{ PARTY_TERM|lower }}</th>
-                <th colspan="6" class="bianco-tab">La distanza {% genderize 'dalle altre' 'dagli altri' %} {{ PARTY_TERM_PLURAL|lower }}</th>
-              </tr>
-              </thead>
               <tbody>
               <tr>
-                <td class="grigio-tab hidden-phone">&nbsp;</td>
                 <td colspan="6" class="nero-tab">
                   <span class="pull-left">+ vicino</span>
                   <span class="pull-right">+ lontano</span>
                 </td>
               </tr>
               <tr class="symbols">
-                <td class="grigio-tab hidden-phone"></td>
                 <td class="verde01-tab"></td>
                 <td class="verde02-tab"></td>
                 <td class="verde03-tab"></td>

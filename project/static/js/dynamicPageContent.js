@@ -89,15 +89,24 @@ posiziona_distanze_generiche = function(coordinate, partiti, highlighted_party){
  * places party's answers, with colored labels, in the first column of the thematic tables
  * risposte_partito {'party': risposta_int}
  */
-posiziona_label_risposte_partito = function(risposte_partito, risposte, label_risposte){
+posiziona_label_risposte_partito = function(risposte_partito, risposte, label_risposte, risposte_originali_partito){
     for (var r in risposte_partito) {
         var risposta_partito = risposte_partito[r];
         //var col_selector = '#collapse'+r+' table tr.symbols td.grigio-tab';
-        $('#collapse'+r).find('table tr.symbols td.grigio-tab, span.posizione-responsive').append(
-            '<label class="label label-' + label_risposte[risposta_partito] + '">' +
-                risposte[risposta_partito] +
-                '</label>'
-        );
+        // $('#collapse'+r).find('table tr.symbols td.grigio-tab, span.posizione-responsive').append(
+        //     '<label class="label label-' + label_risposte[risposta_partito] + '">' +
+        //         risposte[risposta_partito] +
+        //         '</label>'
+        // );
+        $('#tema-'+r).find('.accordion-heading span.label').each(function () {
+            $(this).addClass('label-' + label_risposte[risposta_partito]);
+            $(this).text(risposte[risposta_partito]);
+        });
+        if (risposte_originali_partito[r]) {
+            $('#tema-'+r).find('.media-body > div:first-child').addClass('selected');
+        } else {
+            $('#tema-'+r).find('.media-body > div:last-child').addClass('selected');
+        }
 
     }
 };
@@ -152,10 +161,12 @@ posiziona_commenti = function(risposte_partito){
         var risposta_partito = risposte_partito[r];
         if (risposta_partito !== 'None' && risposta_partito.length > 0){
             window.console && console.log(risposta_partito);
-            var div_selector = '#collapse'+r+' .commento-lista';
-            $(div_selector + ' .approfondimento').text(risposta_partito);
-            $(div_selector).show();
+            // var div_selector = '#collapse'+r+' .commento-lista';
+            // $(div_selector + ' .approfondimento').text(risposta_partito);
+            // $(div_selector).show();
+
+            $('#tema-'+r).find('.party-comment').text(risposta_partito);
         }
     }
-}
+};
 

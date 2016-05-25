@@ -395,7 +395,7 @@ class PartitoDetailView(DetailView):
         context['partiti'] = partiti = Partito.objects.all().select_related('coalizione')
         context['risposte_partito'] = RispostaPartito.objects.filter(partito__sigla=self.object.sigla). \
             order_by('domanda'). \
-            values('domanda', 'risposta_int', 'risposta_txt')
+            values('domanda', 'risposta_int', 'risposta_txt', 'nonorig')
         context['risposte_partiti'] = RispostaPartito.objects.all().exclude(partito__sigla=self.object.sigla).\
             order_by('partito', 'domanda'). \
             values('partito__party_key', 'partito__sigla','domanda', 'risposta_int', 'risposta_txt')
