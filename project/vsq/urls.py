@@ -2,13 +2,18 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import HttpResponse
+
 from vsq import views
 
 admin.autodiscover()
 
-from django.http import HttpResponse
+
 def counter_view(request):
-    return HttpResponse(str(views.Utente.objects.count()))
+    resp = HttpResponse(str(views.Utente.objects.count()))
+    resp['Access-Control-Allow-Origin'] = 'http://amministrative2016.voisietequi.it'    
+    return resp
+
 
 urlpatterns = [
 
