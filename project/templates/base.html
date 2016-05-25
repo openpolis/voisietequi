@@ -6,13 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Voi siete qui: {{ ELECTION_NAME }}">
   <meta name="author" content="Openpolis">
+
+  <!-- og meta tags -->
   <meta property="og:title" content="{% block og_title %}Prendi posizione per le {{ ELECTION_NAME }}{% endblock %}" />
   <meta property="og:description" content="Perso nella campagna elettorale di {% location %}? Orientati su {{ SITE_URL }} #vsq2016 #{{ ELECTION_CODE }} #amministrative2016"/>
-
-{#  <meta property="og:type" content="website" />#}
+  <meta property="og:type" content="website" />
   <meta property="og:image" content="{% block og_image %}{{ SITE_URL }}static/img/social.png{% endblock %}" />
-{#  <meta property="og:url" content="{{ CURRENT_URL }}" />#}
+  <meta property="og:url" content="{{ CURRENT_URL }}" />
   {% block meta %}{% endblock %}
+
   <link rel="image_src" href="{{ SITE_URL }}static/img/social.png" />
 
   <!-- Le styles -->

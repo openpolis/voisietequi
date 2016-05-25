@@ -25,6 +25,7 @@ def main_settings(request):
         "PARTY_TERM_PLURAL": settings.PARTY_TERM_PLURAL,
         "PARTY_TERM_GENDER": settings.PARTY_TERM_GENDER,
         "OF_PARTY_TERM_PLURAL": settings.OF_PARTY_TERM_PLURAL,
+        "THE_PARTY_TERM_PLURAL": settings.THE_PARTY_TERM_PLURAL,
         "OTHER_ELECTIONS": settings.OTHER_ELECTIONS,
         "SHOW_PARTY_COALITION": settings.SHOW_PARTY_COALITION,
         "CURRENT_PAGE": page,
