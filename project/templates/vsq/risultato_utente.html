@@ -25,12 +25,12 @@
 <script type="text/javascript">
     var addthis_share = {
        templates: {
-{#           twitter: 'La mia posizione {% templatetag openvariable %}url{% templatetag closevariable %} {{ HASHTAG }}'#}
            twitter: 'Ecco la distanza fra me e i candidati a {% location %}. Tu dove sei? #vsq2016 #{{ ELECTION_CODE }} #amministrative2016 {% templatetag openvariable %}url{% templatetag closevariable %}'
        }
     }
 </script>
 {% endblock %}
+
 {% block header_scripts %}
     {% regroup risposte_partiti by partito__sigla as liste %}
     <script type="text/javascript">
