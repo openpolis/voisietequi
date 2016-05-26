@@ -29,12 +29,9 @@ Il modulo utilizza il sistema di messaggistica (**0mq**) sia per mettere in coda
 di scrittura delle risposte utente nel DB, sia ricevere messaggi di configurazione da remoto. 
 In particolare, sono usati:
 
-  - una versione modificata del pattern Pipeline (http://rfc.zeromq.org/spec:30)
-per l'invio dei risultati del calcolo al server che ha il compito di effettuare la scrittura sul DB;
-i computer inviano i risultati su un socket di tipo PUSH/PULL;
-  - il pattern Publish and Subscribe (http://rfc.zeromq.org/spec:29) per l'invio 
-da remoto dei messaggi di configurazione del computer; i computer sottoscrivono un canale PUB/SUB sul 
-quale ricevono i messaggi;
+- una versione modificata del pattern Pipeline (http://rfc.zeromq.org/spec:30) per l'invio dei risultati del calcolo al server che ha il compito di effettuare la scrittura sul DB; i computer inviano i risultati su un socket di tipo PUSH/PULL;
+
+- il pattern Publish and Subscribe (http://rfc.zeromq.org/spec:29) per l'invio  da remoto dei messaggi di configurazione del computer; i computer sottoscrivono un canale PUB/SUB sul quale ricevono i messaggi;
 
 
 
@@ -164,8 +161,8 @@ e immagazzinarle nel DB::
     python project/manage.py computers partiti
     
 
-Calcolo del grafico di un utente
-================================
+Calcolo del grafico di un utente e scrittura risultati su DB
+============================================================
 Il calcolo della posizione di un utente, date le sue risposte e le risposte ai partiti, è richiesto
 direttamente dal javascript al modulo **computer** attraverso una richiesta AJAX di tipo POST.
 
@@ -178,6 +175,10 @@ a una coda, per la scrittura su DB e invia la response JSON al browser dell'uten
    :width: 600
    :scale: 50
    :alt: Diagramma interazione calcolo posizione utente
+
+In questo modo, dalla generazione della pagina del questionario in poi, il server non viene mai più chiamato in causa, 
+se non attraverso la ricezione di un messaggio su una coda; questo scarica completamente il server
+dal calcolo numerico e organizza in una coda, senza pesare sulla CPU, la scrittura su disco (operazione costosa in termini di IO)
 
 I dettagli della richiesta e della response::
 
@@ -205,6 +206,3 @@ I dettagli della richiesta e della response::
     }
 
 
-Scrittura dei risultati nel DB
-==============================
-TODO
