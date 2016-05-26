@@ -26,7 +26,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2016-05-26 14:36:49 +0000</string>
+	<string>2016-05-26 14:51:09 +0000</string>
 	<key>Modifier</key>
 	<string>Guglielmo Celata</string>
 	<key>NotesVisible</key>
@@ -987,6 +987,24 @@
 			<array>
 				<dict>
 					<key>Bounds</key>
+					<string>{{186.1999944075942, 400.47555269300938}, {128, 17.25}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>ID</key>
+					<integer>102</integer>
+					<key>Text</key>
+					<dict>
+						<key>Text</key>
+						<string>{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
+
+\f0\fs20 \cf0 Console}</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>Bounds</key>
 					<string>{{336.44138718736997, 198.20038237953329}, {118, 35}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
@@ -1218,7 +1236,7 @@ uWSGI (801x)}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{368.77870951621526, 324.04426661292183}, {135, 35}}</string>
+					<string>{{404.51798533301621, 303.29212760149278}, {80, 47}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -1237,7 +1255,7 @@ uWSGI (801x)}</string>
 						<key>ID</key>
 						<integer>84</integer>
 						<key>Position</key>
-						<real>0.51502680778503418</real>
+						<real>0.66055298174224841</real>
 						<key>RotationType</key>
 						<integer>4</integer>
 					</dict>
@@ -1266,7 +1284,8 @@ uWSGI (801x)}</string>
 \pard\pardeftab720\qc\partightenfactor0
 
 \f0\fs20 \cf0 configure\
-ZMQ PUB/SUB (554x/556x)}</string>
+ZMQ PUB/SUB\
+(554x/556x)}</string>
 					</dict>
 					<key>Wrap</key>
 					<string>NO</string>
@@ -1290,7 +1309,9 @@ ZMQ PUB/SUB (554x/556x)}</string>
 					<integer>84</integer>
 					<key>Points</key>
 					<array>
-						<string>{316.519994109869, 481.88498820364475}</string>
+						<string>{250.1999944075942, 409.10055269300938}</string>
+						<string>{280, 384}</string>
+						<string>{399.519994109869, 377}</string>
 						<string>{535.39998921751976, 225.38777753338218}</string>
 					</array>
 					<key>Style</key>
@@ -1315,7 +1336,7 @@ ZMQ PUB/SUB (554x/556x)}</string>
 					<key>Tail</key>
 					<dict>
 						<key>ID</key>
-						<integer>9</integer>
+						<integer>102</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -1549,8 +1570,8 @@ node (3000)}</string>
 					<integer>76</integer>
 					<key>Points</key>
 					<array>
-						<string>{316.52016188290548, 437.87268187375707}</string>
-						<string>{316.52046206571356, 359.12499999934249}</string>
+						<string>{316.52001097087685, 452.57133074833234}</string>
+						<string>{316.52001097087685, 359.125}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -1902,8 +1923,8 @@ Assets}</string>
 					<integer>41</integer>
 					<key>Points</key>
 					<array>
-						<string>{332.09820634226446, 341.12754857356356}</string>
-						<string>{499.76400831154558, 245.63477561252864}</string>
+						<string>{332.11352859820562, 341.12773618261929}</string>
+						<string>{499.94641914658945, 245.6357434408452}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -1948,7 +1969,7 @@ Assets}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{233.519994109869, 436.00998820364475}, {166, 91.75}}</string>
+					<string>{{233.519994109869, 450.70865292772919}, {166, 91.75}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -2060,7 +2081,7 @@ Assets}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{109.43999755382538, 74.159998342394829}, {294.47999341785908, 317.51999370753765}}</string>
+					<string>{{109.43999755382538, 74.159998342394829}, {294.47999341785908, 361.43999192118645}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
