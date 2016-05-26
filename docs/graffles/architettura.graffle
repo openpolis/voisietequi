@@ -26,7 +26,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2016-05-26 15:55:35 +0000</string>
+	<string>2016-05-26 16:30:49 +0000</string>
 	<key>Modifier</key>
 	<string>Guglielmo Celata</string>
 	<key>NotesVisible</key>
@@ -5900,7 +5900,7 @@ Assets}</string>
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
-\f0\b\fs20 \cf0 RABBIT Q}</string>
+\f0\b\fs20 \cf0 VSQ}</string>
 								<key>VerticalPad</key>
 								<real>0.0</real>
 							</dict>
@@ -8357,7 +8357,7 @@ Assets}</string>
 	<key>WindowInfo</key>
 	<dict>
 		<key>CurrentSheet</key>
-		<integer>1</integer>
+		<integer>4</integer>
 		<key>Expanded_Canvases</key>
 		<array>
 			<string>Architettura Amministrative 2016</string>

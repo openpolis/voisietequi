@@ -84,58 +84,64 @@ apache risponde su porta 80 del dominio webshots.openpolis.it, effettuando un pr
 
 Descrizione dei processi
 ------------------------
-Ci sono tre processi che meritano una descrizione dettagliata:
+Ci sono alcuni processi che meritano una descrizione dettagliata:
 
-* lo startup e la configurazione dinamica di un modulo computer,
+* lo startup e la configurazione dinamica di un modulo computer
+* la generazione della mappa dei partiti
 * il calcolo del grafico di un utente
 * la scrittura dei risultati nel DB
 
-per il resto si tratta di un'applicazione web abbastanza standard.
+
+per il resto si tratta di un'applicazione web standard.
 
 
 Configurazione modulo computer
 ==============================
 Il modulo computer è pensato per essere indipendente, può essere utilizzato in differenti contesti.
 Una volta installato e lanciato, la configurazione avviene attraverso un messaggio in broadcast (PUB-SUB),
-lanciato dal server manualmente (django management task).
+lanciato da remoto.
+Il messaggio di configurazione deve contenere le risposte dei partiti ed è quindi generato da un 
+django management task sul server applicativo.
 
-L'immagine mostra il pattern.
-
-.. image:: https://raw.github.com/openpolis/voisietequi/master/docs/images/command.png
+.. image:: https://raw.github.com/openpolis/voisietequi/master/docs/images/configurazione.png
    :height: 200
    :width: 600
    :scale: 50
-   :alt: Pattern di invio comando e ricezione risposta ai computers
+   :alt: Invio comando di configurazione e ricezione risposta ai computers
 
-Il computer deve conoscere l'indirizzo del server che invia i comandi e il codice elezione. (es: tcp://localhost:5556)
+Il computer deve conoscere l'indirizzo del server che invia i comandi e il codice elezione.
 All'avvio, il computer si mette in ascolto (SUB) sul canale equivalente al codice elezione, specificato
 in configurazione (env).
 
-Attraverso un management task sul server, si può inviare in broadcast, ai computer, un
+I parametri di configurazione sono specificati direttamente nel file di configurazione uwsgi, 
+aggiunto in ``/etc/uwsgi/vassals/``::
+
+    ...
+    env = VSQ_ELECTION_CODE=roma2016
+    env = PUSH_ADDR=roma2016.voisietequi.it:5561
+    env = SUB_ADDR=roma2016.voisietequi.it:5541
+
+
+Attraverso un management task sul server, si invia (in broadcast), ai computer, un
 comando di configurazione (PUB), specificando, come topic del broadcast, il codice elezione.
 Nel corpo del comando è indicato l'indirizzo dove inviare la risposta al comando (status: ok) ed eventualmente l'indirizzo
-dove inviare i messaggi da salvare.
+dove inviare i messaggi da salvare::
+
+   python project/manage.py computers configure
+   
 La risposta viene inviata al server al termine della configurazione, attraverso il pattern PUSH-PULL.
 Il management task di configurazione termina quando non sono più presenti messaggi di risposta,
-o dopo un timeout adeguato.
+o dopo un timeout adeguato. (Premere CTRL+C per terminarlo immediatamente).
+
 
 Struttura del messaggio di configurazione
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. code::
 
     {
-        header: {
-            cmd: 'configure',
-            reply_address: 'tcp://SERVER_HOST:REPLY_PORT'
-        },
-        body {
-            risposte: {
-                PD: { 1: 1, 2: -1, 3: -1, ... },
-                PDL: { 1: -1, 2: -2, 3: 2, ... },
-                ...
-            },
-            saver_address: 'tcp://SERVER_HOST:SAVER_PORT'
-        }
+        PD: { 1: 1, 2: -1, 3: -1, ... },
+        PDL: { 1: -1, 2: -2, 3: 2, ... },
+        ...
     }
 
 
@@ -143,50 +149,20 @@ Struttura del messaggio di risposta alla configurazione
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. code::
 
-    {
-        computer_id: C_ID,
-        response: OK|ERR,
-        error_message: ""|"Messaggio di errore"
-    }
+    ["computer_configured",[],{"configured":true}]
+
+#TODO da migliorare, aggiungendo un identificativo del computer configurato
 
 
 
-Lettura configurazione dei moduli computer
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Seguendo un identico pattern, si può inviare a tutti i computer, per tutti i topic,
-una richiesta di mostrare i dettagli della configurazione.
+Generazione della mappa di un partito
+=====================================
 
-Richiesta in broadcast, no topic.
-.. code::
+E' necessario eseguire il comando ``partiti`` per calcolare le posizioni dei partiti (la richiesta viene fatta al computer),
+e immagazzinarle nel DB::
 
-    {
-        header: {
-            cmd: 'discover',
-            reply_address: 'tcp://SERVER_HOST:REPLY_PORT'
-        },
-        body {
-        }
-    }
-
-
-Risposta
-.. code::
-
-    {
-        computer_id: C_ID,
-        response:
-        {
-            election_code: 'POLITICHE_2013',
-            risposte: {
-                PD: { 1: 1, 2: -1, 3: -1, ... },
-                PDL: { 1: -1, 2: -2, 3: 2, ... },
-                ...
-            },
-            saver_address: 'tcp://SERVER_HOST:SAVER_PORT'
-        }
-    }
-
-
+    python project/manage.py computers partiti
+    
 
 Calcolo del grafico di un utente
 ================================
