@@ -31,8 +31,22 @@ In particolare, sono usati:
 
 - una versione modificata del pattern Pipeline (http://rfc.zeromq.org/spec:30) per l'invio dei risultati del calcolo al server che ha il compito di effettuare la scrittura sul DB; i computer inviano i risultati su un socket di tipo PUSH/PULL;
 
+.. image:: https://raw.github.com/openpolis/voisietequi/master/docs/images/saver.png
+   :height: 186
+   :width: 273
+   :scale: 100
+   :align: center
+   :alt: Pattern di invio comando e ricezione risposta ai computers
+
+
 - il pattern Publish and Subscribe (http://rfc.zeromq.org/spec:29) per l'invio  da remoto dei messaggi di configurazione del computer; i computer sottoscrivono un canale PUB/SUB sul quale ricevono i messaggi;
 
+.. image:: https://raw.github.com/openpolis/voisietequi/master/docs/images/command.png
+   :height: 186
+   :width: 273
+   :scale: 100
+   :align: center
+   :alt: Pattern di invio comando e ricezione risposta ai computers
 
 
 WEBSHOTS
