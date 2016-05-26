@@ -39,7 +39,7 @@ In particolare, sono usati:
    :alt: Pattern di invio comando e ricezione risposta ai computers
 
 
-- il pattern Publish and Subscribe (http://rfc.zeromq.org/spec:29) per l'invio  da remoto dei messaggi di configurazione del computer; i computer sottoscrivono un canale PUB/SUB sul quale ricevono i messaggi;
+- il pattern Publish and Subscribe (http://rfc.zeromq.org/spec:29) per l'invio  da remoto dei messaggi di configurazione del computer; i computer sottoscrivono un canale PUB/SUB sul quale ricevono i messaggi ed inviano il messaggio di configurazione sulla coda PUSH/PULL, che non deve essere impegnata con altri task (il saver);
 
 .. image:: https://raw.github.com/openpolis/voisietequi/master/docs/images/command.png
    :height: 186
